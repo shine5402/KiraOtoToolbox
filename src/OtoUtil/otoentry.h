@@ -114,7 +114,7 @@ private:
 };
 
 namespace OtoEntryFunctions {
-    //After Qt 5.14, can use Q_NAMESAPCE_EXPORT and Q_ENUM to register this enum with the meta-object system, it can provide additional feature. But as I use 5.13, I can not use these feature. May change in future.
+    //After Qt 5.14, can use Q_NAMESAPCE_EXPORT and Q_ENUM to register this enum with the meta-object system, it can provide additional feature. But as I use 5.13, I can not use the feature. May change in future.
     enum CharacterCase{
         Upper, Lower
     };
@@ -122,7 +122,7 @@ namespace OtoEntryFunctions {
     QTUTAULIBRARYS_EXPORT QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
     QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper);
     QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive);
-    QTUTAULIBRARYS_EXPORT QString getDigitSuffix(QString string, int* position = nullptr);
+    QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
 }
 
 

@@ -241,7 +241,7 @@ void OtoEntry::setFileName(const QString& value)
 QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs, CharacterCase pitchRangeCharacterCase)
 {
     auto pitchRange = getPitchStringRange(bottomPitch, topPitch, pitchRangeCharacterCase);
-    for (auto pitch : pitchRange)
+    for (const auto& pitch : pitchRange)
     {
         auto pitchPos = alias.lastIndexOf(pitch, -1 ,cs);
         if (pitchPos != -1)
@@ -303,7 +303,7 @@ QString OtoEntryFunctions::removeSuffix(QString string, const QString& suffix, Q
     return string;
 }
 
-QString OtoEntryFunctions::getDigitSuffix(QString string, int* position)
+QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position)
 {
     QString result{};
     for (int current = string.count() - 1; current >= 0; --current)

@@ -35,7 +35,7 @@ OtoEntryList OtoFileReader::getEntryList() const
 
 void OtoFileReader::setFileName(QString fileName)
 {
-    m_fileName = fileName;
+    m_fileName = std::move(fileName);
     refresh();
 }
 

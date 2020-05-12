@@ -20,10 +20,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    otolistmodel.cpp \
     removeduplicatedialog.cpp
 
 HEADERS += \
     mainwindow.h \
+    otolistmodel.h \
     removeduplicatedialog.h
 
 FORMS += \

@@ -17,5 +17,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    void onFileNameLineEditTextChanged();
 };
 #endif // MAINWINDOW_H

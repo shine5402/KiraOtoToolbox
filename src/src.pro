@@ -20,12 +20,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    otolistaliasshowchangemodel.cpp \
     otolistmodel.cpp \
     removeduplicatedialog.cpp \
     showotolistdialog.cpp
 
 HEADERS += \
     mainwindow.h \
+    otolistaliasshowchangemodel.h \
     otolistmodel.h \
     removeduplicatedialog.h \
     showotolistdialog.h

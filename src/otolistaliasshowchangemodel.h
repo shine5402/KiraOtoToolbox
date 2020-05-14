@@ -1,16 +1,15 @@
-#ifndef OTOLISTMODEL_H
-#define OTOLISTMODEL_H
+#ifndef OTOLISTALIASSHOWCHANGEMODEL_H
+#define OTOLISTALIASSHOWCHANGEMODEL_H
 
 #include <QAbstractTableModel>
-#include <otoentry.h>
+#include "otoentry.h"
 
-class OtoListModel : public QAbstractTableModel
+class OtoListAliasShowChangeModel : public QAbstractTableModel
 {
     Q_OBJECT
 
-    using OtoEntryList = QList<OtoEntry>;
 public:
-    explicit OtoListModel(OtoEntryList* const entryList, QObject *parent = nullptr);
+    explicit OtoListAliasShowChangeModel(OtoEntryList* const entryList, QStringList* const newAliasList, QObject *parent = nullptr);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -23,7 +22,9 @@ public:
 
 private:
     OtoEntryList* const entryList;
-    enum {FILENAME, ALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
+    QStringList* const newAliasList;
+    enum {FILENAME, ALIAS, NEWALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
+
 };
 
-#endif // OTOLISTMODEL_H
+#endif // OTOLISTALIASSHOWCHANGEMODEL_H

@@ -5,6 +5,9 @@
 #include "otofilereader.h"
 #include "showotolistdialog.h"
 #include <QInputDialog>
+#include "otolistaliasshowchangemodel.h"
+#include <algorithm>
+
 
 RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     QDialog(parent),
@@ -195,8 +198,44 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         /*
          * 要做的事：重整重复项数字顺序，添加原后缀。
          */
-        return;
+        QHash <int, QString> newAlias;
+        for (auto key : compareStringMap.uniqueKeys())
+        {
+            auto values = compareStringMap.values(key);
+            std::sort(values.begin(), values.end());
 
+            for (int i = 1; i < values.count(); ++i)
+            {
+                auto currentID = values.at(i);
+
+                //TODO:考虑整理后音名字母
+                newAlias.insert(currentID, compareStringList.at(currentID) +
+                                (i > 0 ? QString::number(i) : "") +
+                                removedPitchStringList.value(currentID, "") +
+                                removedSpecificSuffixMap.value(currentID, ""));
+            }
+        }
+        QStringList toBeReplacedNewAlias;
+        for (int i = 0; i < entryList.count(); ++i)
+        {
+            toBeReplacedNewAlias.append(newAlias.value(i, ""));
+        }
+        auto model = new OtoListAliasShowChangeModel(&entryList, &toBeReplacedNewAlias, this);
+        auto askDialog = new ShowOtoListDialog(model, this);
+        askDialog->setWindowTitle(tr("重复项整理结果"));
+        askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
+        askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+
+        auto shouldOrganize = askDialog->exec();
+        if (shouldOrganize == QDialog::Rejected)
+            return;
+
+        for (auto currentID : newAlias.keys())
+        {
+            auto currentEntry = entryListWorking.at(currentID);
+            currentEntry.setAlias(newAlias.value(currentID));
+            entryListWorking.replace(currentID, currentEntry);
+        }
     }
 
     //删除重复项

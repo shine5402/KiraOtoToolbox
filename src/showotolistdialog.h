@@ -16,7 +16,8 @@ class ShowOtoListDialog : public QDialog
 
     using OtoEntryList = QList<OtoEntry>;
 public:
-    explicit ShowOtoListDialog(OtoEntryList* entryList, QWidget *parent = nullptr);
+    ShowOtoListDialog(OtoEntryList* entryList, QWidget *parent = nullptr);
+    explicit ShowOtoListDialog(QAbstractItemModel* model, QWidget *parent = nullptr);
     ~ShowOtoListDialog();
 
     void setLabel(const QString& label);
@@ -25,7 +26,7 @@ public:
 private:
     Ui::ShowOtoListDialog *ui;
     OtoEntryList* entryList = nullptr;
-    OtoListModel model;
+    OtoListModel* model;
 };
 
 #endif // SHOWOTOLISTDIALOG_H

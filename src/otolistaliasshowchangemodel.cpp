@@ -1,17 +1,19 @@
-#include "otolistmodel.h"
+#include "otolistaliasshowchangemodel.h"
+#include <QFont>
 
-OtoListModel::OtoListModel(OtoEntryList* const entryList, QObject *parent)
-    : QAbstractTableModel(parent), entryList(entryList)
+OtoListAliasShowChangeModel::OtoListAliasShowChangeModel(OtoEntryList* const entryList, QStringList* const newAliasList, QObject *parent)
+    : QAbstractTableModel(parent), entryList(entryList), newAliasList(newAliasList)
 {
 }
 
-QVariant OtoListModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant OtoListAliasShowChangeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
         switch (section) {
             case FILENAME: return tr("文件名");
             case ALIAS: return tr("别名");
+            case NEWALIAS: return tr("新的别名");
             case LEFT: return tr("左");
             case CONSONANT: return tr("固定范围");
             case RIGHT: return tr("右");
@@ -26,7 +28,7 @@ QVariant OtoListModel::headerData(int section, Qt::Orientation orientation, int 
     return {};
 }
 
-int OtoListModel::rowCount(const QModelIndex &parent) const
+int OtoListAliasShowChangeModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -37,16 +39,16 @@ int OtoListModel::rowCount(const QModelIndex &parent) const
     return entryList->count();
 }
 
-int OtoListModel::columnCount(const QModelIndex &parent) const
+int OtoListAliasShowChangeModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
 
-    constexpr int parameterCount = 6;
+    constexpr int parameterCount = 7;
     return parameterCount;
 }
 
-QVariant OtoListModel::data(const QModelIndex &index, int role) const
+QVariant OtoListAliasShowChangeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -61,6 +63,7 @@ QVariant OtoListModel::data(const QModelIndex &index, int role) const
         {
             case FILENAME: return oto.fileName();
             case ALIAS: return oto.alias();
+            case NEWALIAS: return (!newAliasList->at(index.row()).isEmpty()) ? newAliasList->at(index.row()) : oto.alias();
             case LEFT: return oto.left();
             case CONSONANT: return oto.consonant();
             case RIGHT: return oto.right();
@@ -68,6 +71,22 @@ QVariant OtoListModel::data(const QModelIndex &index, int role) const
             case OVERLAP: return oto.overlap();
         }
     }
-
+    if (role == Qt::FontRole)
+    {
+        if (!newAliasList->at(index.row()).isEmpty()){
+            if (index.column() == ALIAS)
+            {
+                QFont font{};
+                font.setItalic(true);
+                return font;
+            }
+            if (index.column() == NEWALIAS)
+            {
+                QFont font{};
+                font.setBold(true);
+                return font;
+            }
+        }
+    }
     return QVariant();
 }

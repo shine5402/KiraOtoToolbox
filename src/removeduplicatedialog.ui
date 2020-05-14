@@ -378,6 +378,9 @@
            </item>
            <item>
             <widget class="QLabel" name="label_4">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>音名字母：</string>
              </property>
@@ -385,6 +388,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="caseComboBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <item>
               <property name="text">
                <string>大写</string>
@@ -429,6 +435,9 @@
           <property name="minimum">
            <number>0</number>
           </property>
+          <property name="value">
+           <number>1</number>
+          </property>
          </widget>
         </item>
        </layout>
@@ -449,7 +458,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="reorganizeCheckBox">
+          <widget class="QCheckBox" name="organizeCheckBox">
            <property name="text">
             <string>整理重复项</string>
            </property>
@@ -479,7 +488,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="OrganizeCaseComboBox">
+          <widget class="QComboBox" name="organizeCaseComboBox">
            <item>
             <property name="text">
              <string>大写</string>
@@ -671,7 +680,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>151</x>
-     <y>429</y>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -755,7 +764,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>500</y>
+     <y>498</y>
     </hint>
    </hints>
   </connection>

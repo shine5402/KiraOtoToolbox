@@ -181,21 +181,36 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
     }
 
+    QMultiHash<QString, int> compareStringMap;
+
+    for (int i = 0; i < compareStringList.count(); ++i)
+    {
+        compareStringMap.insertMulti(compareStringList.at(i), i);
+    }
+
+    //整理重复项
+
+    auto shouldOrgnaize = ui->organizeCheckBox->isChecked();
+    if (shouldOrgnaize){
+        /*
+         * 要做的事：重整重复项数字顺序，添加原后缀。
+         */
+        return;
+
+    }
+
+    //删除重复项
     auto maxAppearTime = ui->maxSpinBox->value();
     if (maxAppearTime != 0) {
-        QHash<QString, int> appearTimeMap;
         QList<int> toBeRemoved;
 
-        for (int i = 0; i < entryList.count(); ++i)
+        for (auto key : compareStringMap.uniqueKeys())
         {
-            auto appeardTime = appearTimeMap.value(compareStringList.at(i), 0) + 1;
-            if (appeardTime > maxAppearTime)
+            if (compareStringMap.count(key) > maxAppearTime)
             {
-                toBeRemoved.append(i);
+                toBeRemoved.append(compareStringMap.values(key).mid(maxAppearTime));
             }
-            appearTimeMap.insert(compareStringList.at(i), appeardTime);
         }
-
         //检查重复并确认待删除项
         OtoEntryList toBeRemovedEntryList;
         for (auto i : toBeRemoved)
@@ -238,7 +253,11 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         for (auto i : toBeRemovedEntryList){
             entryListWorking.removeOne(i);
         }
-    }        //TODO:整理重复项
+    }
+
+
+
+
     //写入文件
     QFile file(ui->saveToPathRadioButton->isChecked()? ui->fileNameEdit_save->text() : ui->fileNameEdit_open->text());
     if (file.open(QFile::WriteOnly | QFile::Text))

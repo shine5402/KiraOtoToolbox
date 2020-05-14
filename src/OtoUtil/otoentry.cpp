@@ -257,7 +257,6 @@ QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& botto
 }
 
 QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase cs){
-    //BUG: 没有考虑到#
     const QStringList PitchNameOrder = [&]() -> QStringList{
             switch (cs) {
             case Upper: return {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
@@ -334,4 +333,13 @@ QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position)
         }
     }
     return result;
+}
+
+int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec){
+    QStringList otoStringList;
+    for (auto i : entryList)
+    {
+        otoStringList.append(i.toString());
+    }
+    return file.write(textCodec->makeEncoder()->fromUnicode(otoStringList.join("\n")));
 }

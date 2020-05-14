@@ -3,6 +3,8 @@
 
 #include "../QtUTAULibrarys_global.h"
 #include <QObject>
+#include <QFile>
+#include <QTextCodec>
 
 /// OtoEntry 定义了一条原音设定条目。
 class QTUTAULIBRARYS_EXPORT OtoEntry : public QObject
@@ -124,7 +126,8 @@ namespace OtoEntryFunctions {
     QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
     QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive);
     QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
-    //TODO:保存OtoEntryList到文件
+    //TODO: test writeOtoListToFile
+    QTUTAULIBRARYS_EXPORT int writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
 }
 
 

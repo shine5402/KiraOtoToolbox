@@ -15,7 +15,6 @@ class QTUTAULIBRARYS_EXPORT OtoEntry : public QObject
     Q_PROPERTY(double right READ right WRITE setRight NOTIFY rightChanged);
     Q_PROPERTY(double preUtterance READ preUtterance WRITE setPreUtterance NOTIFY preUtteranceChanged);
     Q_PROPERTY(double overlap READ overlap WRITE setOverlap NOTIFY overlapChanged);
-    Q_PROPERTY(bool valid MEMBER m_valid);
 
 public:
     OtoEntry(QString m_fileName,
@@ -81,7 +80,7 @@ public:
 
     QString toString() const;
 
-    bool isValid() const{
+    Q_INVOKABLE bool isValid() const{
         return m_valid;
     }
 
@@ -113,6 +112,8 @@ private:
     void setValid(bool valid);
 };
 
+using OtoEntryList = QList<OtoEntry>;
+
 namespace OtoEntryFunctions {
     //After Qt 5.14, can use Q_NAMESAPCE_EXPORT and Q_ENUM to register this enum with the meta-object system, it can provide additional feature. But as I use 5.13, I can not use the feature. May change in future.
     enum CharacterCase{
@@ -120,9 +121,10 @@ namespace OtoEntryFunctions {
     };
 
     QTUTAULIBRARYS_EXPORT QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
-    QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper);
+    QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
     QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive);
     QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
+    //TODO:保存OtoEntryList到文件
 }
 
 

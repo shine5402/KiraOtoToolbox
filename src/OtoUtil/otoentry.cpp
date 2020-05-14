@@ -238,7 +238,7 @@ void OtoEntry::setFileName(const QString& value)
 
 
 
-QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs, CharacterCase pitchRangeCharacterCase)
+QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs, CharacterCase pitchRangeCharacterCase, QString* pitchRemoved)
 {
     auto pitchRange = getPitchStringRange(bottomPitch, topPitch, pitchRangeCharacterCase);
     for (const auto& pitch : pitchRange)
@@ -246,6 +246,10 @@ QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& botto
         auto pitchPos = alias.lastIndexOf(pitch, -1 ,cs);
         if (pitchPos != -1)
         {
+            if (pitchRemoved)
+            {
+                *pitchRemoved = pitch;
+            }
             return removeSuffix(alias, pitch, cs);
         }
     }
@@ -253,6 +257,7 @@ QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& botto
 }
 
 QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase cs){
+    //BUG: 没有考虑到#
     const QString PitchNameOrder = [&]() -> QString{
             switch (cs) {
             case Upper: return "CDEFGAB";

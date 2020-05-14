@@ -73,7 +73,7 @@ QVariant OtoListAliasShowChangeModel::data(const QModelIndex &index, int role) c
     }
     if (role == Qt::FontRole)
     {
-        if (!newAliasList->at(index.row()).isEmpty()){
+        if ((!newAliasList->at(index.row()).isEmpty()) && (newAliasList->at(index.row()) != entryList->at(index.row()).alias())){
             if (index.column() == ALIAS)
             {
                 QFont font{};

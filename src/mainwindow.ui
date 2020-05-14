@@ -80,6 +80,7 @@
      <string>帮助(&amp;H)</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Help"/>
@@ -92,6 +93,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>关于(&amp;A)</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>关于 Qt</string>
    </property>
   </action>
  </widget>

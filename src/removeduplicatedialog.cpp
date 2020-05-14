@@ -204,14 +204,12 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             auto values = compareStringMap.values(key);
             std::sort(values.begin(), values.end());
 
-            for (int i = 1; i < values.count(); ++i)
+            for (int i = 0; i < values.count(); ++i)
             {
                 auto currentID = values.at(i);
-
-                //TODO:考虑整理后音名字母
                 newAlias.insert(currentID, compareStringList.at(currentID) +
                                 (i > 0 ? QString::number(i) : "") +
-                                removedPitchStringList.value(currentID, "") +
+                                (ui->organizeCaseComboBox->currentIndex() == 0 ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }

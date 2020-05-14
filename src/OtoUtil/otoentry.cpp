@@ -258,19 +258,27 @@ QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& botto
 
 QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase cs){
     //BUG: 没有考虑到#
-    const QString PitchNameOrder = [&]() -> QString{
+    const QStringList PitchNameOrder = [&]() -> QStringList{
             switch (cs) {
-            case Upper: return "CDEFGAB";
-            case Lower: return "cdefgab";
+            case Upper: return {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+            case Lower: return {"c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"};
 }
-            return "CDEFGAB";
+            return {};
 }();
-
+    //const QString PitchUpSignOrder = "## ### ";
     if (bottomPitch.isEmpty() || topPitch.isEmpty())
         return {};
 
-    auto bottomPitchName = PitchNameOrder.indexOf(bottomPitch.at(0), 0, Qt::CaseInsensitive);
-    auto topPitchName = PitchNameOrder.indexOf(topPitch.at(0), 0, Qt::CaseInsensitive);
+    auto getPitchNameID = [&PitchNameOrder] (const QString& str) -> int{
+      for (int i = 0; i < PitchNameOrder.count(); ++i)
+      {
+          if (str.startsWith(PitchNameOrder.at(i), Qt::CaseInsensitive))
+              return i;
+      }
+      return -1;
+    };
+    auto bottomPitchName = getPitchNameID(bottomPitch);
+    auto topPitchName = getPitchNameID(topPitch);
 
     if (bottomPitchName == -1 || topPitchName == -1)
         return {};

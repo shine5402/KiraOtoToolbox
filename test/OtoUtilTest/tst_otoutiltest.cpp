@@ -389,6 +389,8 @@ void OtoUtilTest::pitchStringRangeTest()
 
     auto inter = getIntersection({result, expect});
 
+    qDebug() << inter;
+    qDebug() << expect;
     QCOMPARE(inter.count(), expect.count());
 
 }
@@ -403,13 +405,13 @@ void OtoUtilTest::pitchStringRangeTest_data()
     QTest::newRow("Same octave") << "C3" << "F3" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"C3", "C#3", "D3", "D#3", "E3", "F3"};
     QTest::newRow("Same octave (negative)") << "C-3" << "F-3" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"C-3", "C#-3", "D-3", "D#-3", "E-3", "F-3"};
     QTest::newRow("Same octave (double digit)") << "C13" << "F13" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"C13", "C#13", "D13", "D#13", "E13", "F13"};
-    QTest::newRow("Different octave") << "D3" << "D4" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"D3","D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "D#4", "D4"};
+    QTest::newRow("Different octave") << "D3" << "D4" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"D3","D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4"};
     QTest::newRow("Different octave (negative to zero)") << "D-1" << "D0" << static_cast<int>(OtoEntryFunctions::Upper) << QStringList{"D-1", "D#-1", "E-1","F-1","F#-1","G-1","G#-1","A-1","A#-1","B-1","C0","C#0","D0"};
 
     QTest::newRow("Same octave, lower character") << "c3" << "f3" << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"c3", "c#3", "d3", "d#3", "e3", "f3"};
     QTest::newRow("Same octave (negative), lower character") << "c-3" << "f-3"  << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"c-3", "c#-3", "d-3", "d#-3", "e-3", "f-3"};
     QTest::newRow("Same octave (double digit), lower character") << "c13" << "f13"  << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"c13", "c#13", "d13", "d#13", "e13", "f13"};
-    QTest::newRow("Different octave, lower character") << "d3" << "d4"  << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"d3","d#3", "e3", "f3", "f#3", "g3", "g#3", "a3", "a#3", "b3", "c4", "d#4", "d4"};
+    QTest::newRow("Different octave, lower character") << "d3" << "d4"  << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"d3","d#3", "e3", "f3", "f#3", "g3", "g#3", "a3", "a#3", "b3", "c4", "c#4", "d4"};
     QTest::newRow("Different octave (negative to zero), lower character") << "d-1" << "d0"  << static_cast<int>(OtoEntryFunctions::Lower) << QStringList{"d-1", "d#-1", "e-1","f-1","f#-1","g-1","g#-1","a-1","a#-1","b-1","c0","c#0","d0"};
 
 }
@@ -481,6 +483,8 @@ void OtoUtilTest::removePitchSuffixTest_data()
     QTest::newRow("case insensitive, lower, lower range input") << "aF3" << "c1" << "c6" << Qt::CaseInsensitive << static_cast<int>(OtoEntryFunctions::Lower) << "f3" << "a";
 
     QTest::newRow("range not match") << "aF3" << "A3" << "C4" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "" << "aF3";
+
+    QTest::newRow("with #") << "aF#3" << "F3" << "G3" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F#3" << "a";
 }
 
 void OtoUtilTest::getDigitalSuffixTest()

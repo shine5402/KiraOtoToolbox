@@ -19,6 +19,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-    void onFileNameLineEditTextChanged();
+
+    void on_duplicateRemoveButton_clicked();
 };
 #endif // MAINWINDOW_H

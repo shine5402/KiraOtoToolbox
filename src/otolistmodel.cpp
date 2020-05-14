@@ -11,6 +11,7 @@ QVariant OtoListModel::headerData(int section, Qt::Orientation orientation, int 
     {
         switch (section) {
             case FILENAME: return tr("文件名");
+            case ALIAS: return tr("别名");
             case LEFT: return tr("左");
             case CONSONANT: return tr("固定范围");
             case RIGHT: return tr("右");
@@ -50,7 +51,7 @@ QVariant OtoListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (entryList)
+    if (!entryList)
         return {};
 
     if (role == Qt::DisplayRole)
@@ -59,6 +60,7 @@ QVariant OtoListModel::data(const QModelIndex &index, int role) const
         switch (index.column())
         {
             case FILENAME: return oto.fileName();
+            case ALIAS: return oto.alias();
             case LEFT: return oto.left();
             case CONSONANT: return oto.consonant();
             case RIGHT: return oto.right();

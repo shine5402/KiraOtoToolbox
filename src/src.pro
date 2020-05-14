@@ -21,16 +21,19 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     otolistmodel.cpp \
-    removeduplicatedialog.cpp
+    removeduplicatedialog.cpp \
+    showotolistdialog.cpp
 
 HEADERS += \
     mainwindow.h \
     otolistmodel.h \
-    removeduplicatedialog.h
+    removeduplicatedialog.h \
+    showotolistdialog.h
 
 FORMS += \
     mainwindow.ui \
-    removeduplicatedialog.ui
+    removeduplicatedialog.ui \
+    showotolistdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

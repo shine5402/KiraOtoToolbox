@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>780</width>
-    <height>629</height>
+    <height>723</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>去除重复项</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
@@ -22,25 +22,47 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-     <item>
-      <widget class="QLineEdit" name="fileNameEdit"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="browseButton">
-       <property name="text">
-        <string>浏览</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="loadOtoWidget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+      <item>
+       <widget class="QLineEdit" name="fileNameEdit_open"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="browseButton_open">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>浏览</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loadButton">
+        <property name="text">
+         <string>加载</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="countLabel">
        <property name="text">
-        <string>还未指定oto.ini位置</string>
+        <string>还未加载原音设定</string>
        </property>
       </widget>
      </item>
@@ -58,7 +80,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="showOtoListButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -78,7 +100,7 @@
       <item>
        <widget class="QCheckBox" name="ignoreSpecificSuffixCheckBox">
         <property name="text">
-         <string>忽略别名中的特定后缀</string>
+         <string>比较时忽略别名中的特定后缀</string>
         </property>
        </widget>
       </item>
@@ -135,7 +157,7 @@
       <item>
        <widget class="QCheckBox" name="ignorePitchSuffixCheckBox">
         <property name="text">
-         <string>忽略别名中的音阶名</string>
+         <string>比较时忽略别名中的音阶名</string>
         </property>
        </widget>
       </item>
@@ -178,7 +200,17 @@
                </item>
                <item>
                 <property name="text">
+                 <string>C#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>D</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>D#</string>
                 </property>
                </item>
                <item>
@@ -193,12 +225,27 @@
                </item>
                <item>
                 <property name="text">
+                 <string>F#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>G</string>
                 </property>
                </item>
                <item>
                 <property name="text">
+                 <string>G#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>A#</string>
                 </property>
                </item>
                <item>
@@ -238,7 +285,17 @@
                </item>
                <item>
                 <property name="text">
+                 <string>C#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>D</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>D#</string>
                 </property>
                </item>
                <item>
@@ -253,12 +310,27 @@
                </item>
                <item>
                 <property name="text">
+                 <string>F#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>G</string>
                 </property>
                </item>
                <item>
                 <property name="text">
+                 <string>G#</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
                  <string>A</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>A#</string>
                 </property>
                </item>
                <item>
@@ -274,7 +346,7 @@
                 <number>-99</number>
                </property>
                <property name="value">
-                <number>1</number>
+                <number>7</number>
                </property>
               </widget>
              </item>
@@ -335,7 +407,7 @@
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>最大重复数量</string>
+           <string>最大重复数量（0为不限制）</string>
           </property>
          </widget>
         </item>
@@ -353,7 +425,176 @@
          </spacer>
         </item>
         <item>
-         <widget class="QSpinBox" name="maxSpinBox"/>
+         <widget class="QSpinBox" name="maxSpinBox">
+          <property name="minimum">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_3" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QCheckBox" name="reorganizeCheckBox">
+           <property name="text">
+            <string>整理重复项</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>整理后音名字母：</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="OrganizeCaseComboBox">
+           <item>
+            <property name="text">
+             <string>大写</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>小写</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="saveOptionWidget" native="true">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>保存到</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="saveToSrcRadioButton">
+          <property name="text">
+           <string>源文件</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">savePathButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="saveToPathRadioButton">
+          <property name="text">
+           <string>指定路径</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">savePathButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="fileNameEdit_save">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="browseButton_save">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>浏览</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="saveDeletedCheckBox">
+          <property name="text">
+           <string>保存被删除的项到</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="fileNameEdit_save_deleted">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="browseButton_save_deleted">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>浏览</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -381,8 +622,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>229</x>
-     <y>604</y>
+     <x>222</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -397,8 +638,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>297</x>
-     <y>610</y>
+     <x>222</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -413,12 +654,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>91</y>
+     <x>151</x>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel">
-     <x>129</x>
-     <y>108</y>
+     <x>151</x>
+     <y>252</y>
     </hint>
    </hints>
   </connection>
@@ -429,8 +670,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>452</y>
+     <x>151</x>
+     <y>429</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
@@ -438,5 +679,104 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>saveToPathRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>fileNameEdit_save</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>617</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>342</x>
+     <y>617</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveToPathRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>browseButton_save</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>617</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>705</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveDeletedCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>fileNameEdit_save_deleted</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>652</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>656</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveDeletedCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>browseButton_save_deleted</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>652</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>732</x>
+     <y>655</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>caseSensitiveCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_4</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>565</x>
+     <y>493</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>635</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>caseSensitiveCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>caseComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>576</x>
+     <y>486</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>740</x>
+     <y>489</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="savePathButtonGroup"/>
+ </buttongroups>
 </ui>

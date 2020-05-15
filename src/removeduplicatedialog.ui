@@ -459,6 +459,9 @@
          </property>
          <item>
           <widget class="QCheckBox" name="organizeCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;按照顺序重新整理重复项的重复编号，并统一音阶名的音名字母。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>整理重复项</string>
            </property>

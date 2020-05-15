@@ -1,6 +1,6 @@
 # Put binary library include information here. It depends on your machine's settings.
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../build-QtUTAULibrarys-Desktop_Qt_5_13_2_MinGW_32bit-Debug/src/release/ -lQtUTAULibrarys
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../build-QtUTAULibrarys-Desktop_Qt_5_13_2_MinGW_32bit-Release/src/release/ -lQtUTAULibrarys
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../build-QtUTAULibrarys-Desktop_Qt_5_13_2_MinGW_32bit-Debug/src/debug/ -lQtUTAULibrarysd
 
 INCLUDEPATH += $$PWD/../../QtUTAULibrarys/src/OtoUtil

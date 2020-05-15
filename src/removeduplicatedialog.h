@@ -14,6 +14,10 @@ class RemoveDuplicateDialog : public QDialog
 
     using OtoEntryList = QList<OtoEntry>;
 
+#ifdef SHINE5402OTOBOX_TEST
+    friend class RemoveDuplicateTest;
+#endif
+
 public:
     explicit RemoveDuplicateDialog(QWidget *parent = nullptr);
     ~RemoveDuplicateDialog();

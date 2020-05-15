@@ -1,6 +1,7 @@
 #include <QtTest>
 
-// add necessary includes here
+#include <otoentry.h>
+#include "../../src/removeduplicatedialog.h"
 
 class RemoveDuplicateTest : public QObject
 {

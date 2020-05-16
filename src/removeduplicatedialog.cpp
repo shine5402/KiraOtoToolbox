@@ -73,12 +73,22 @@ void RemoveDuplicateDialog::showOtoListDialog()
 
 void RemoveDuplicateDialog::addSuffix()
 {
+
     bool ok;
+#ifdef SHINE5402OTOBOX_TEST
+        auto suffix = QString("TestAdd");
+        ok = true;
+#endif
+        #ifndef SHINE5402OTOBOX_TEST
     auto suffix = QInputDialog::getText(this, tr("输入新后缀"), tr("输入要添加到后缀列表的新后缀"), QLineEdit::Normal, {}, &ok);
+    #endif
     if (ok)
     {
         if (suffix.isEmpty())
         {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
             QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。后缀列表不会做出更改。"));
             return;
         }
@@ -88,19 +98,29 @@ void RemoveDuplicateDialog::addSuffix()
 
 void RemoveDuplicateDialog::deleteSuffix()
 {
+
     auto selectedItems = ui->suffixListWidget->selectedItems();
     if (selectedItems.count() == 0)
     {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
         QMessageBox::warning(this, tr("没有选择"), tr("没有后缀项被选中，因而无法删除。"));
         return;
     }
     auto item = selectedItems.at(0);
+#ifndef SHINE5402OTOBOX_TEST
+
+
     auto shouldDelete = QMessageBox::question(this, tr("确认删除"), tr("真的要删除 %1 吗？").arg(item->text()));
     if (shouldDelete == QMessageBox::Yes)
     {
+#endif
         ui->suffixListWidget->removeItemWidget(item);
         delete item;
+#ifndef SHINE5402OTOBOX_TEST
     }
+#endif
 }
 
 void RemoveDuplicateDialog::modifySuffix()
@@ -108,16 +128,26 @@ void RemoveDuplicateDialog::modifySuffix()
     auto selectedItems = ui->suffixListWidget->selectedItems();
     if (selectedItems.count() == 0)
     {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
         QMessageBox::warning(this, tr("没有选择"), tr("没有后缀项被选中，因而无法修改。"));
         return;
     }
     auto item = selectedItems.at(0);
+#ifndef SHINE5402OTOBOX_TEST
     bool ok;
     auto modified = QInputDialog::getText(this, tr("输入新后缀"), tr("指定一个新后缀用来替换 %1").arg(item->text()), QLineEdit::Normal, item->text(), &ok);
     if (ok)
     {
+#endif
+#ifdef SHINE5402OTOBOX_TEST
+        auto modified = QString("TestModify");
+#endif
         item->setText(modified);
+            #ifndef SHINE5402OTOBOX_TEST
     }
+#endif
 }
 
 
@@ -214,7 +244,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             {
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
-                                (i > 0 ? QString::number(i) : "") +
+                                (i > 0 ? QString::number((ui->organizeStartFrom1CheckBox->isChecked() ? i : i + 1)) : "") +
                                 (ui->organizeCaseComboBox->currentIndex() == 0 ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
@@ -263,7 +293,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         OtoEntryList toBeRemovedEntryList;
         for (auto i : toBeRemoved)
         {
-            toBeRemovedEntryList.append(entryList.at(i));
+            toBeRemovedEntryList.append(entryListWorking.at(i));
         }
         auto askDialog = new ShowOtoListDialog(&toBeRemovedEntryList, this);
         askDialog->setWindowTitle(tr("要被删除的原音设定条目列表"));
@@ -277,8 +307,6 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         auto shouldDelete = askDialog->exec();
         if (shouldDelete == QDialog::Rejected)
             return;
-
-
 
         if (ui->saveDeletedCheckBox->isChecked())
         {

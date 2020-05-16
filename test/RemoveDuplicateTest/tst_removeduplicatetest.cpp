@@ -32,12 +32,14 @@ private slots:
     void loadFile_test();
     void removeDuplicate_test();
     void removeDuplicateWithSpecificSuffix_test();
+    void specificSuffixList_test();
     void removeDuplicateWithPitchSuffix_test();
     void removeDuplicateWithPitchSuffix_caseMatch_test();
     void removeDuplicateWithPitchSuffix_caseNotMatch_test();
+    void organizeDuplicate_test();
+    void organizeDuplicate_from1_test();
+    void organizeDuplicate_convertPitchCase();
     void cleanup();
-
-
 };
 
 static auto getIntersection = [] (QList<QList<QString> > lists) -> QList<QString> {
@@ -161,7 +163,8 @@ void RemoveDuplicateTest::removeDuplicate_test()
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
-
+    dialog->close();
+    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
@@ -186,6 +189,29 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
     const QStringList expectedAliasList = {"- さPower","a さPower","a RPower","さPower","a sPower","a 息RPower","u ・Power"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::specificSuffixList_test()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withSpecificSuffixData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
+    QVERIFY(dialog->ui->suffixListWidget->isEnabled());
+    QTest::mouseClick(dialog->ui->addSuffixButton, Qt::LeftButton);
+    QVERIFY(dialog->ui->suffixListWidget->item(0));
+    QCOMPARE(dialog->ui->suffixListWidget->item(0)->text(), "TestAdd");
+    dialog->ui->suffixListWidget->selectionModel()->select(dialog->ui->suffixListWidget->model()->index(0,0),QItemSelectionModel::Select);
+    QTest::mouseClick(dialog->ui->modifySuffixButton, Qt::LeftButton);
+    QCOMPARE(dialog->ui->suffixListWidget->item(0)->text(), "TestModify");
+    QTest::mouseClick(dialog->ui->deleteSuffixButton, Qt::LeftButton);
+    QCOMPARE(dialog->ui->suffixListWidget->count(), 0);
+    dialog->close();
+    dialog->deleteLater();
+
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
@@ -207,6 +233,8 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
@@ -229,6 +257,8 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
@@ -244,6 +274,87 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
     OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
     auto list = reader.getEntryList();
     QCOMPARE(list.count(), 15);
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::organizeDuplicate_test()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->organizeCheckBox->setChecked(true);
+    dialog->ui->maxSpinBox->setValue(0);
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+
+    OtoFileReader reader(testDir.filePath("needOrganizedData.ini"));
+    auto list = reader.getEntryList();
+
+    QStringList aliasList;
+    for (auto i : list)
+    {
+        aliasList.append(i.alias());
+    }
+    const QStringList expectedAliasList = {"- さ","- さ2","a さ"};
+    QCOMPARE(list.count(), expectedAliasList.count());
+    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::organizeDuplicate_from1_test()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->organizeCheckBox->setChecked(true);
+    dialog->ui->maxSpinBox->setValue(0);
+    dialog->ui->organizeStartFrom1CheckBox->setChecked(true);
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+
+    OtoFileReader reader(testDir.filePath("needOrganizedData.ini"));
+    auto list = reader.getEntryList();
+
+    QStringList aliasList;
+    for (auto i : list)
+    {
+        aliasList.append(i.alias());
+    }
+    const QStringList expectedAliasList = {"- さ","- さ1","a さ"};
+    QCOMPARE(list.count(), expectedAliasList.count());
+    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
+    QVERIFY(dialog->ui->widget->isEnabled());
+    dialog->ui->organizeCheckBox->setChecked(true);
+    dialog->ui->organizeCaseComboBox->setCurrentIndex(1);
+    dialog->ui->maxSpinBox->setValue(1);
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+
+    OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
+    auto list = reader.getEntryList();
+
+    QStringList aliasList;
+    for (auto i : list)
+    {
+        aliasList.append(i.alias());
+    }
+        const QStringList expectedAliasList = {"- さa#3","a さa#3","a Ra#3","さa#3","a sa#3","a 息Ra#3","u ・a#3"};
+    QCOMPARE(list.count(), expectedAliasList.count());
+    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::cleanup()

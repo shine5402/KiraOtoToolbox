@@ -484,6 +484,13 @@
           </spacer>
          </item>
          <item>
+          <widget class="QCheckBox" name="organizeStartFrom1CheckBox">
+           <property name="text">
+            <string>重复项从1开始编号，而不是从2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_7">
            <property name="text">
             <string>整理后音名字母：</string>

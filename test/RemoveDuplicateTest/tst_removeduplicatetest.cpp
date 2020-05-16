@@ -24,7 +24,7 @@ private:
     void deleteTestFiles();
     QDir testDir;
     void cleanCurrentTestFiles();
-    //void cleanAllTestFiles();
+    void cleanAllTestFiles();
     bool shouldCleanInEnd = true;
 
 private slots:
@@ -122,6 +122,11 @@ void RemoveDuplicateTest::cleanCurrentTestFiles()
     auto testDirName = testDir.dirName();
     Q_ASSERT(testDir.cdUp());
     Q_ASSERT(testDir.rmdir(testDirName));
+
+}
+
+void RemoveDuplicateTest::cleanAllTestFiles()
+{
 
 }
 

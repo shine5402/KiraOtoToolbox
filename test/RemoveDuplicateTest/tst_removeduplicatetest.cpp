@@ -31,6 +31,8 @@ private slots:
     void init();
     void loadFile_test();
     void removeDuplicate_test();
+    void removeDuplicate_saveToOtherFile_test();
+    void removeDuplicate_saveDeletedToOtherFile_test();
     void removeDuplicateWithSpecificSuffix_test();
     void specificSuffixList_test();
     void removeDuplicateWithPitchSuffix_test();
@@ -159,8 +161,57 @@ void RemoveDuplicateTest::removeDuplicate_test()
     {
         aliasList.append(i.alias());
     }
-    //normalData:{"- さ","- さ2","- さ3","a さ","a さ2","a R","a R2","さ","さ2","a s","a s2","a 息R","a 息R2","u ・","u ・2"}
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
+    QCOMPARE(list.count(), expectedAliasList.count());
+    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->saveToPathRadioButton->setChecked(true);
+    dialog->ui->fileNameEdit_save->setText(testDir.filePath("normalData2.ini"));
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+
+    OtoFileReader reader(testDir.filePath("normalData2.ini"));
+    auto list = reader.getEntryList();
+
+    QStringList aliasList;
+    for (auto i : list)
+    {
+        aliasList.append(i.alias());
+    }
+    const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
+    QCOMPARE(list.count(), expectedAliasList.count());
+    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    dialog->close();
+    dialog->deleteLater();
+}
+
+void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
+{
+    auto dialog = new RemoveDuplicateDialog();
+    dialog->open();
+    dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
+    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
+    dialog->ui->saveDeletedCheckBox->setChecked(true);
+    dialog->ui->fileNameEdit_save_deleted->setText(testDir.filePath("normalData2.ini"));
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+
+    OtoFileReader reader(testDir.filePath("normalData2.ini"));
+    auto list = reader.getEntryList();
+
+    QStringList aliasList;
+    for (auto i : list)
+    {
+        aliasList.append(i.alias());
+    }
+    const QStringList expectedAliasList = {"- さ2","- さ3","a さ2","a R2","さ2","a s2","a 息R2","u ・2"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     dialog->close();

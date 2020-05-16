@@ -23,7 +23,8 @@ private:
     void prepareTestFiles();
     void deleteTestFiles();
     QDir testDir;
-    void cleanTestFiles();
+    void cleanCurrentTestFiles();
+    //void cleanAllTestFiles();
     bool shouldCleanInEnd = true;
 
 private slots:
@@ -70,17 +71,22 @@ RemoveDuplicateTest::RemoveDuplicateTest()
 
 RemoveDuplicateTest::~RemoveDuplicateTest()
 {
-    if (shouldCleanInEnd)
-        cleanTestFiles();
+
 }
 
 void RemoveDuplicateTest::prepareTestFiles()
 {
     QDir dir{};
     dir.makeAbsolute();
-    //auto testDirName = QString("test") + QString::number(QRandomGenerator::global()->bounded(1000));
-    Q_ASSERT(dir.mkdir("test"));
-    Q_ASSERT(dir.cd("test"));
+    QString testDirName{};
+    do
+    {
+        testDirName = QString("test") + QString::number(QRandomGenerator::global()->bounded(1000));
+    }
+    while (QFileInfo::exists(dir.filePath(testDirName)));
+
+    Q_ASSERT(dir.mkdir(testDirName));
+    Q_ASSERT(dir.cd(testDirName));
     testDir = dir;
 
     const QStringList dataResList = {":/file2Test/normalData.ini", ":/file2Test/withPitchSuffixData.ini",
@@ -98,35 +104,30 @@ void RemoveDuplicateTest::prepareTestFiles()
     }
 }
 
-void RemoveDuplicateTest::cleanTestFiles()
+void RemoveDuplicateTest::cleanCurrentTestFiles()
 {
-    QDir dir{};
-    dir.makeAbsolute();
-    if (dir.exists("test"))
+    auto entrys = testDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+    for (auto entry : entrys)
     {
-        Q_ASSERT(dir.cd("test"));
-        auto entrys = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
-        for (auto entry : entrys)
+        QFile file(testDir.filePath(entry));
+        if (file.exists())
         {
-            QFile file(dir.filePath(entry));
-            if (file.exists())
-            {
-                qt_ntfs_permission_lookup++;
-                if (!file.permissions().testFlag(QFileDevice::WriteOther))
-                    file.setPermissions(file.permissions() | QFileDevice::WriteOther);
-                Q_ASSERT(file.remove());
-                qt_ntfs_permission_lookup--;
-            }
+            qt_ntfs_permission_lookup++;
+            if (!file.permissions().testFlag(QFileDevice::WriteOther))
+                file.setPermissions(file.permissions() | QFileDevice::WriteOther);
+            Q_ASSERT(file.remove());
+            qt_ntfs_permission_lookup--;
         }
-        Q_ASSERT(dir.cdUp());
-        Q_ASSERT(dir.rmdir("test"));
     }
+    auto testDirName = testDir.dirName();
+    Q_ASSERT(testDir.cdUp());
+    Q_ASSERT(testDir.rmdir(testDirName));
+
 }
 
 void RemoveDuplicateTest::initTestCase()
 {
-    //清理test临时文件夹
-    cleanTestFiles();
+
 }
 
 void RemoveDuplicateTest::init()
@@ -401,7 +402,7 @@ void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
     {
         aliasList.append(i.alias());
     }
-        const QStringList expectedAliasList = {"- さa#3","a さa#3","a Ra#3","さa#3","a sa#3","a 息Ra#3","u ・a#3"};
+    const QStringList expectedAliasList = {"- さa#3","a さa#3","a Ra#3","さa#3","a sa#3","a 息Ra#3","u ・a#3"};
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     dialog->close();
@@ -413,7 +414,7 @@ void RemoveDuplicateTest::cleanup()
     if (QTest::currentTestFailed())
         shouldCleanInEnd = false;
     else
-        cleanTestFiles();
+        cleanCurrentTestFiles();
 }
 
 QTEST_MAIN(RemoveDuplicateTest)

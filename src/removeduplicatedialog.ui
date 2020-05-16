@@ -666,8 +666,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>151</x>
-     <y>136</y>
+     <x>173</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
      <x>151</x>

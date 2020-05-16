@@ -7,6 +7,9 @@
 #include <QInputDialog>
 #include "otolistaliasshowchangemodel.h"
 #include <algorithm>
+#ifdef SHINE5402OTOBOX_TEST
+#include <QTimer>
+#endif
 
 
 RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
@@ -42,6 +45,9 @@ void RemoveDuplicateDialog::loadOtoFile()
     auto path = ui->fileNameEdit_open->text();
 
     if (!QFileInfo::exists(path)){
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
         QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));\
         return;
     }
@@ -224,6 +230,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
         askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
+#ifdef SHINE5402OTOBOX_TEST
+        QTimer::singleShot(0, askDialog, &ShowOtoListDialog::accept);
+#endif
         auto shouldOrganize = askDialog->exec();
         if (shouldOrganize == QDialog::Rejected)
             return;
@@ -245,7 +254,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         {
             if (compareStringMap.count(key) > maxAppearTime)
             {
-                toBeRemoved.append(compareStringMap.values(key).mid(maxAppearTime));
+                auto values = compareStringMap.values(key);
+                std::sort(values.begin(), values.end());
+                toBeRemoved.append(values.mid(maxAppearTime));
             }
         }
         //检查重复并确认待删除项
@@ -258,6 +269,10 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         askDialog->setWindowTitle(tr("要被删除的原音设定条目列表"));
         askDialog->setLabel(tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(toBeRemoved.count()));
         askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+
+#ifdef SHINE5402OTOBOX_TEST
+        QTimer::singleShot(0, askDialog, &ShowOtoListDialog::accept);
+#endif
 
         auto shouldDelete = askDialog->exec();
         if (shouldDelete == QDialog::Rejected)
@@ -273,6 +288,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
                 auto code = OtoEntryFunctions::writeOtoListToFile(file, toBeRemovedEntryList);
                 if (code == -1)
                 {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
                     auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->fileNameEdit_save_deleted->text()), QMessageBox::Ok | QMessageBox::Cancel);
                     if (shouldContinue == QMessageBox::Cancel)
                         return;
@@ -280,6 +298,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             }
             else
             {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
                 auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->fileNameEdit_save_deleted->text()), QMessageBox::Ok | QMessageBox::Cancel);
                 if (shouldContinue == QMessageBox::Cancel)
                     return;
@@ -302,15 +323,25 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         auto code = OtoEntryFunctions::writeOtoListToFile(file, entryListWorking);
         if (code == -1)
         {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
             QMessageBox::critical(this, tr("保存失败"), tr("无法保存文件。"));
         }
         else
         {
-            QMessageBox::information(this, tr("成功"), tr("文件已经保存好了。"));
+#ifndef SHINE5402OTOBOX_TEST
+        QMessageBox::information(this, tr("成功"), tr("文件已经保存好了。"));
+#endif
+
         }
     }
-    else
+    else{
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
         QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1。").arg(file.fileName()));
+    }
 
     QDialog::accept();
 }

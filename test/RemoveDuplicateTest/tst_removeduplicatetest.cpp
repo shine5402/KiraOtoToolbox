@@ -24,7 +24,6 @@ private:
     void deleteTestFiles();
     QDir testDir;
     void cleanCurrentTestFiles();
-    void cleanAllTestFiles();
     bool shouldCleanInEnd = true;
 
 private slots:
@@ -122,11 +121,6 @@ void RemoveDuplicateTest::cleanCurrentTestFiles()
     auto testDirName = testDir.dirName();
     Q_ASSERT(testDir.cdUp());
     Q_ASSERT(testDir.rmdir(testDirName));
-
-}
-
-void RemoveDuplicateTest::cleanAllTestFiles()
-{
 
 }
 
@@ -233,7 +227,6 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
     //因为直接发送点击事件会点击在QCheckBox的中心而导致无法选中，因为Qt本身应当是提供点击 -> Checked的保证的，此处直接设置Checked，而不是指定位置点击
     dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
     QVERIFY(dialog->ui->suffixListWidget->isEnabled());
-    //点击添加的测试略微有些麻烦，不过之后应该也能实现……这里就先放着吧
     dialog->ui->suffixListWidget->addItem("Power");
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
     OtoFileReader reader(testDir.filePath("withSpecificSuffixData.ini"));

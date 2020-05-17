@@ -162,6 +162,7 @@ void RemoveDuplicateTest::removeDuplicate_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
+    //TODO:使用std::equal
     QCOMPARE(list.count(), expectedAliasList.count());
     QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     dialog->close();

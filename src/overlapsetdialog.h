@@ -34,6 +34,8 @@ private:
 
     void setWorkingStartList(const QStringList* list);
 
+    void accept() override;
+
 private slots:
     void openFilePathBrowse();
     void loadOtoFile();
@@ -43,6 +45,8 @@ private slots:
     void loadStartListFromFile();
     void switchToUsePreset();
     void getStartListFromUserInput();
+    void saveFilePathBrowse();
+
 };
 
 #endif // OVERLAPSETDIALOG_H

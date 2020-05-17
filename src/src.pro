@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     otolistaliasshowchangemodel.cpp \
     otolistmodel.cpp \
+    otolistoverlapshowchangemodel.cpp \
     overlapsetdialog.cpp \
     removeduplicatedialog.cpp \
     showotolistdialog.cpp
@@ -30,6 +31,7 @@ HEADERS += \
     mainwindow.h \
     otolistaliasshowchangemodel.h \
     otolistmodel.h \
+    otolistoverlapshowchangemodel.h \
     overlapsetdialog.h \
     removeduplicatedialog.h \
     showotolistdialog.h

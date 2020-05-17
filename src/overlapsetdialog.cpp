@@ -19,18 +19,19 @@ OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     connect(ui->showOtoListButton, &QPushButton::clicked, this, &OverlapSetDialog::showOtoListDialog);
     connect(ui->setStartWithPresetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &OverlapSetDialog::switchPreset);
     connect(ui->setStartWithLoadFromFileRadioButton, &QRadioButton::toggled, this, &OverlapSetDialog::clearWorkingStartList);
+    connect(ui->setStartWithPresetRadioButton, &QRadioButton::toggled, this, &OverlapSetDialog::switchToUsePreset);
 
     loadPreset();
     if (!presetList.isEmpty()){
-    ui->setStartWithPresetComboBox->addItems([&]() -> QStringList{
-                                                 QStringList items;
-                                                 for (auto i : presetList)
-                                                 {
-                                                     items.append(i.name);
-                                                 }
-                                                 return items;
-                                             }());
-    ui->setStartWithPresetComboBox->setCurrentIndex(0);
+        ui->setStartWithPresetComboBox->addItems([&]() -> QStringList{
+                                                     QStringList items;
+                                                     for (auto i : presetList)
+                                                     {
+                                                         items.append(i.name);
+                                                     }
+                                                     return items;
+                                                 }());
+        ui->setStartWithPresetComboBox->setCurrentIndex(0);
     }
     else
     {
@@ -174,4 +175,32 @@ void OverlapSetDialog::switchPreset(int index)
 void OverlapSetDialog::clearWorkingStartList()
 {
     setWorkingStartList(&emptyStringList);
+}
+
+void OverlapSetDialog::loadStartListFromFile()
+{
+    auto path = QFileDialog::getOpenFileName(this, tr("选择文件"),{},tr("文本文件 (*.txt);;所有文件 (*.*)"));
+    if (!path.isEmpty())
+    {
+        QFile file(path);
+        if (file.open(QFile::ReadOnly | QFile::Text))
+        {
+            auto data = file.readAll();
+            notPresetStartList = QString::fromUtf8(data).split("\n",QString::SkipEmptyParts);
+            setWorkingStartList(&notPresetStartList);
+            ui->setStartWithListView->setEnabled(true);
+        }
+        else {
+#ifdef SHINE5402OTOBOX_TEST
+            Q_ASSERT(false);
+#endif
+            QMessageBox::critical(this,tr("读取失败"),tr("无法打开指定的文件。"));
+
+        }
+    }
+}
+
+void OverlapSetDialog::switchToUsePreset()
+{
+    switchPreset(ui->setStartWithPresetComboBox->currentIndex());
 }

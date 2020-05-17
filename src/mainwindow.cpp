@@ -44,6 +44,7 @@ void MainWindow::on_actionAbout_triggered()
                                                 <h3>本程序使用的开源软件库</h3>
                                                 <ul>
                                                 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
+                                                <li>Qt UTAU Librarys, shine_5402, under LGPL v3</li>
                                                 </ul>
                                                 )"));
 }

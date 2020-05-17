@@ -201,6 +201,9 @@
             </item>
             <item>
              <widget class="QRadioButton" name="setStartWithLoadFromFileRadioButton">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;从文件加载要匹配的“开头”字符串列表。&lt;/p&gt;&lt;p&gt;文件编码需要是UTF-8。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>从文件加载</string>
               </property>

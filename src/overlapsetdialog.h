@@ -40,6 +40,8 @@ private slots:
     void showOtoListDialog();
     void switchPreset(int index);
     void clearWorkingStartList();
+    void loadStartListFromFile();
+    void switchToDefaultPreset();
 };
 
 #endif // OVERLAPSETDIALOG_H

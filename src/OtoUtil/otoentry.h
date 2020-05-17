@@ -114,7 +114,7 @@ private:
     void setValid(bool valid);
 };
 
-using OtoEntryList = QList<OtoEntry>;
+using OtoEntryList = QVector<OtoEntry>;
 
 namespace OtoEntryFunctions {
     //After Qt 5.14, can use Q_NAMESAPCE_EXPORT and Q_ENUM to register this enum with the meta-object system, it can provide additional feature. But as I use 5.13, I can not use the feature. May change in future.

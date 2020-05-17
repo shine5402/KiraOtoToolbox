@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QInputDialog>
 
 OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     QDialog(parent),
@@ -20,6 +21,7 @@ OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     connect(ui->setStartWithPresetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &OverlapSetDialog::switchPreset);
     connect(ui->setStartWithLoadFromFileRadioButton, &QRadioButton::toggled, this, &OverlapSetDialog::clearWorkingStartList);
     connect(ui->setStartWithPresetRadioButton, &QRadioButton::toggled, this, &OverlapSetDialog::switchToUsePreset);
+    connect(ui->setStartWithInputButton, &QPushButton::clicked, this, &OverlapSetDialog::getStartListFromUserInput);
 
     loadPreset();
     if (!presetList.isEmpty()){
@@ -203,4 +205,15 @@ void OverlapSetDialog::loadStartListFromFile()
 void OverlapSetDialog::switchToUsePreset()
 {
     switchPreset(ui->setStartWithPresetComboBox->currentIndex());
+}
+
+void OverlapSetDialog::getStartListFromUserInput()
+{
+    bool ok = false;
+    auto result = QInputDialog::getMultiLineText(this, tr("输入开头列表"),tr("请输入要被匹配的开头字符串的列表，一行一个。"),workingStartList->join("\n"),&ok);
+    if (ok)
+    {
+        notPresetStartList = result.split("\n",QString::SkipEmptyParts);
+        setWorkingStartList(&notPresetStartList);
+    }
 }

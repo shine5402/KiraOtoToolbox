@@ -42,7 +42,7 @@ int OtoListModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    constexpr int parameterCount = 6;
+    constexpr int parameterCount = 7;
     return parameterCount;
 }
 

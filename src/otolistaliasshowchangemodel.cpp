@@ -44,7 +44,7 @@ int OtoListAliasShowChangeModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    constexpr int parameterCount = 7;
+    constexpr int parameterCount = 8;
     return parameterCount;
 }
 

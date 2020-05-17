@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 
+using OtoEntryList = QList<OtoEntry>;
 class QTUTAULIBRARYS_EXPORT OtoFileReader
 {
 public:

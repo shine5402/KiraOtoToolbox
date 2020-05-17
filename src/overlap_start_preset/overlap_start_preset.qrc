@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/overlap_start_preset">
+        <file>CHN_stopAndAffricateConsonant.txt</file>
+        <file>JPN_stopAndAffricateConsonant.txt</file>
+        <file>preset_list.json</file>
+    </qresource>
+</RCC>

@@ -37,11 +37,8 @@
     </item>
     <item>
      <widget class="QPushButton" name="pushButton">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
       <property name="text">
-       <string>Overlap设置</string>
+       <string>Overlap批量设定</string>
       </property>
      </widget>
     </item>

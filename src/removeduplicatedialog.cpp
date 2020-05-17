@@ -54,7 +54,7 @@ void RemoveDuplicateDialog::loadOtoFile()
 
     OtoFileReader reader(path);
     entryList = reader.getEntryList();
-    m_entryList_readed = true;
+    entryList_readed = true;
 
     ui->optionWidget->setEnabled(true);
     ui->saveOptionWidget->setEnabled(true);

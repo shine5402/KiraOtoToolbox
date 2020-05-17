@@ -1,0 +1,10 @@
+[
+    {
+        "name" : "日本語 破裂音と破擦音",
+        "path" : ":/overlap_start_preset/JPN_stopAndAffricateConsonant.txt"
+    },
+    {
+        "name" : "中文 塞音与塞擦音",
+        "path" : ":/overlap_start_preset/CHN_stopAndAffricateConsonant.txt"
+    }
+]

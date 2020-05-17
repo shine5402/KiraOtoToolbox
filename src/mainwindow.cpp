@@ -3,6 +3,7 @@
 
 #include "removeduplicatedialog.h"
 #include <QMessageBox>
+#include "overlapsetdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -50,4 +51,10 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionAbout_Qt_triggered()
 {
     QMessageBox::aboutQt(this, tr("关于 Qt"));
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    auto dialog = new OverlapSetDialog(this);
+    dialog->open();
 }

@@ -12,8 +12,6 @@ class RemoveDuplicateDialog : public QDialog
 {
     Q_OBJECT
 
-    using OtoEntryList = QList<OtoEntry>;
-
 #ifdef SHINE5402OTOBOX_TEST
     friend class RemoveDuplicateTest;
 #endif
@@ -40,7 +38,7 @@ private slots:
 private:
     Ui::RemoveDuplicateDialog *ui;
     OtoEntryList entryList = {};
-    bool m_entryList_readed = false;
+    bool entryList_readed = false;
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

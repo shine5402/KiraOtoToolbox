@@ -8,7 +8,6 @@ class OtoListModel : public QAbstractTableModel
 {
     Q_OBJECT
 
-    using OtoEntryList = QList<OtoEntry>;
 public:
     explicit OtoListModel(OtoEntryList* const entryList, QObject *parent = nullptr);
 

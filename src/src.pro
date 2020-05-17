@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     otolistaliasshowchangemodel.cpp \
     otolistmodel.cpp \
+    overlapsetdialog.cpp \
     removeduplicatedialog.cpp \
     showotolistdialog.cpp
 
@@ -29,11 +30,13 @@ HEADERS += \
     mainwindow.h \
     otolistaliasshowchangemodel.h \
     otolistmodel.h \
+    overlapsetdialog.h \
     removeduplicatedialog.h \
     showotolistdialog.h
 
 FORMS += \
     mainwindow.ui \
+    overlapsetdialog.ui \
     removeduplicatedialog.ui \
     showotolistdialog.ui
 
@@ -43,3 +46,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 include(include.pri)
+
+RESOURCES += \
+    overlap_start_preset/overlap_start_preset.qrc

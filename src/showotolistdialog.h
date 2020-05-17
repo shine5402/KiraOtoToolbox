@@ -14,7 +14,6 @@ class ShowOtoListDialog : public QDialog
 {
     Q_OBJECT
 
-    using OtoEntryList = QList<OtoEntry>;
 public:
     ShowOtoListDialog(OtoEntryList* entryList, QWidget *parent = nullptr);
     explicit ShowOtoListDialog(QAbstractItemModel* model, QWidget *parent = nullptr);

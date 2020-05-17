@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <otoentry.h>
+#include <QStringListModel>
 
 namespace Ui {
     class OverlapSetDialog;
@@ -26,12 +27,19 @@ private:
         QStringList content;
     };
     QVector<preset> presetList;
+    const QStringList* workingStartList = &emptyStringList;
+    const static QStringList emptyStringList;
+    QStringList notPresetStartList;
+    QStringListModel startListModel;
+
+    void setWorkingStartList(const QStringList* list);
 
 private slots:
     void openFilePathBrowse();
     void loadOtoFile();
     void showOtoListDialog();
-
+    void switchPreset(int index);
+    void clearWorkingStartList();
 };
 
 #endif // OVERLAPSETDIALOG_H

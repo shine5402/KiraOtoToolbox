@@ -1,4 +1,4 @@
-#include "overlapsetdialog.h"
+﻿#include "overlapsetdialog.h"
 #include "ui_overlapsetdialog.h"
 #include <QFileDialog>
 #include <otofilereader.h>
@@ -17,6 +17,8 @@ OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     connect(ui->browseButton_open, &QPushButton::clicked, this, &OverlapSetDialog::openFilePathBrowse);
     connect(ui->loadButton, &QPushButton::clicked, this, &OverlapSetDialog::loadOtoFile);
     connect(ui->showOtoListButton, &QPushButton::clicked, this, &OverlapSetDialog::showOtoListDialog);
+    connect(ui->setStartWithPresetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &OverlapSetDialog::switchPreset);
+    connect(ui->setStartWithLoadFromFileRadioButton, &QRadioButton::toggled, this, &OverlapSetDialog::clearWorkingStartList);
 
     loadPreset();
     if (!presetList.isEmpty()){
@@ -37,7 +39,11 @@ OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
         ui->setStartWithPresetRadioButton->setEnabled(false);
         ui->setStartWithLoadFromFileRadioButton->setChecked(true);
     }
+    startListModel.setStringList(*workingStartList);
+    ui->setStartWithListView->setModel(&startListModel);
 }
+
+const QStringList OverlapSetDialog::emptyStringList{};
 
 OverlapSetDialog::~OverlapSetDialog()
 {
@@ -118,6 +124,12 @@ void OverlapSetDialog::loadPreset()
     }
 }
 
+void OverlapSetDialog::setWorkingStartList(const QStringList* list)
+{
+    workingStartList = list;
+    startListModel.setStringList(*workingStartList);
+}
+
 void OverlapSetDialog::openFilePathBrowse()
 {
     auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
@@ -141,7 +153,7 @@ void OverlapSetDialog::loadOtoFile()
     entryList = reader.getEntryList();
     entryList_readed = true;
 
-    ui->widget->setEnabled(true);
+    ui->optionGroupBox->setEnabled(true);
     ui->showOtoListButton->setEnabled(true);
 
     ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));
@@ -152,4 +164,14 @@ void OverlapSetDialog::showOtoListDialog()
 {
     auto dialog = new ShowOtoListDialog(&entryList ,this);
     dialog->open();
+}
+
+void OverlapSetDialog::switchPreset(int index)
+{
+    setWorkingStartList(&presetList.at(index).content);
+}
+
+void OverlapSetDialog::clearWorkingStartList()
+{
+    setWorkingStartList(&emptyStringList);
 }

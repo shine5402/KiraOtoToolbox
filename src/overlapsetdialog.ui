@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>630</height>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,46 +15,67 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>指定oto.ini的位置</string>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>加载源数据</string>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="loadOtoWidget" native="true">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="fileNameEdit_open"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="browseButton_open">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>浏览</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
+         <string>指定oto.ini的位置</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
+      <item>
+       <widget class="QWidget" name="loadOtoWidget" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLineEdit" name="fileNameEdit_open"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="browseButton_open">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>浏览</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="loadButton">
+           <property name="text">
+            <string>加载</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="loadButton">
-        <property name="text">
-         <string>加载</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="4">
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
          <widget class="QLabel" name="countLabel">
@@ -92,9 +113,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QGroupBox" name="optionGroupBox">
      <property name="enabled">
       <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>行为设定</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -140,8 +164,11 @@
          <bool>false</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QWidget" name="" native="true">
+          <widget class="QWidget" name="widget" native="true">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <property name="leftMargin">
              <number>11</number>
@@ -233,6 +260,69 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="saveOptionGroupBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>保存位置</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>保存到</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="saveToSrcRadioButton">
+          <property name="text">
+           <string>源文件</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="saveToPathRadioButton">
+          <property name="text">
+           <string>指定路径</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="fileNameEdit_save">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="browseButton_save">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>浏览</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -254,7 +344,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>839</x>
-     <y>607</y>
+     <y>646</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -270,7 +360,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>904</x>
-     <y>607</y>
+     <y>646</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -281,32 +371,144 @@
   <connection>
    <sender>setStartWithCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>setStartWithSpinBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>128</x>
-     <y>149</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>856</x>
-     <y>154</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>setStartWithCheckBox</sender>
-   <signal>toggled(bool)</signal>
    <receiver>widget_2</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>150</y>
+     <x>169</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>176</y>
+     <x>180</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithPresetRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithPresetComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>99</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithLoadFromFileRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithBrowseButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>528</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>646</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithInputRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithInputButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>732</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>833</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveToPathRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>fileNameEdit_save</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>604</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>670</x>
+     <y>605</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveToPathRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>browseButton_save</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>604</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>891</x>
+     <y>609</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithPresetRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithListView</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithLoadFromFileRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithListView</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>527</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithInputRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithListView</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>767</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>768</x>
+     <y>277</y>
     </hint>
    </hints>
   </connection>

@@ -15,46 +15,67 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>指定oto.ini的位置</string>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>加载源数据</string>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="loadOtoWidget" native="true">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="browseButton_open">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>浏览</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
+         <string>指定oto.ini的位置</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="loadButton">
-        <property name="text">
-         <string>加载</string>
-        </property>
+      <item>
+       <widget class="QWidget" name="loadOtoWidget" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLineEdit" name="fileNameEdit_open"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="browseButton_open">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>浏览</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="loadButton">
+           <property name="text">
+            <string>加载</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="fileNameEdit_open"/>
-      </item>
-      <item row="1" column="0" colspan="4">
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
          <widget class="QLabel" name="countLabel">
@@ -92,9 +113,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="optionWidget" native="true">
+    <widget class="QGroupBox" name="optionGroupBox">
      <property name="enabled">
       <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>行为设定</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
@@ -110,6 +134,12 @@
          <bool>false</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QListWidget" name="suffixListWidget"/>
          </item>
@@ -167,6 +197,9 @@
          <bool>false</bool>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
@@ -485,6 +518,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="organizeStartFrom1CheckBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>重复项从1开始编号，而不是从2</string>
            </property>
@@ -492,6 +528,9 @@
          </item>
          <item>
           <widget class="QLabel" name="label_7">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>整理后音名字母：</string>
            </property>
@@ -499,6 +538,9 @@
          </item>
          <item>
           <widget class="QComboBox" name="organizeCaseComboBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <item>
             <property name="text">
              <string>大写</string>
@@ -518,9 +560,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="saveOptionWidget" native="true">
+    <widget class="QGroupBox" name="saveOptionGroupBox">
      <property name="enabled">
       <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>保存位置</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -673,12 +718,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>173</x>
-     <y>156</y>
+     <x>189</x>
+     <y>181</y>
     </hint>
     <hint type="destinationlabel">
-     <x>151</x>
-     <y>252</y>
+     <x>227</x>
+     <y>205</y>
     </hint>
    </hints>
   </connection>
@@ -689,12 +734,60 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>151</x>
-     <y>427</y>
+     <x>105</x>
+     <y>402</y>
     </hint>
     <hint type="destinationlabel">
-     <x>101</x>
-     <y>485</y>
+     <x>108</x>
+     <y>431</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>organizeCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>organizeStartFrom1CheckBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>538</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>372</x>
+     <y>543</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>organizeCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_7</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>536</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>532</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>organizeCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>organizeCaseComboBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>738</x>
+     <y>534</y>
     </hint>
    </hints>
   </connection>
@@ -705,12 +798,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>194</x>
-     <y>617</y>
+     <x>171</x>
+     <y>615</y>
     </hint>
     <hint type="destinationlabel">
-     <x>342</x>
-     <y>617</y>
+     <x>362</x>
+     <y>611</y>
     </hint>
    </hints>
   </connection>
@@ -721,12 +814,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>200</x>
-     <y>617</y>
+     <x>229</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
-     <x>705</x>
-     <y>621</y>
+     <x>693</x>
+     <y>613</y>
     </hint>
    </hints>
   </connection>
@@ -737,11 +830,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>652</y>
+     <x>130</x>
+     <y>645</y>
     </hint>
     <hint type="destinationlabel">
-     <x>298</x>
+     <x>294</x>
      <y>656</y>
     </hint>
    </hints>
@@ -753,12 +846,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>149</x>
-     <y>652</y>
+     <x>86</x>
+     <y>647</y>
     </hint>
     <hint type="destinationlabel">
-     <x>732</x>
-     <y>655</y>
+     <x>702</x>
+     <y>657</y>
     </hint>
    </hints>
   </connection>
@@ -770,11 +863,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>565</x>
-     <y>493</y>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
-     <x>635</x>
-     <y>498</y>
+     <x>658</x>
+     <y>471</y>
     </hint>
    </hints>
   </connection>
@@ -785,12 +878,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>576</x>
-     <y>486</y>
+     <x>573</x>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
-     <x>740</x>
-     <y>489</y>
+     <x>731</x>
+     <y>479</y>
     </hint>
    </hints>
   </connection>

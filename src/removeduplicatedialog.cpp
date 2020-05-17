@@ -56,8 +56,8 @@ void RemoveDuplicateDialog::loadOtoFile()
     entryList = reader.getEntryList();
     entryList_readed = true;
 
-    ui->optionWidget->setEnabled(true);
-    ui->saveOptionWidget->setEnabled(true);
+    ui->optionGroupBox->setEnabled(true);
+    ui->saveOptionGroupBox->setEnabled(true);
     ui->showOtoListButton->setEnabled(true);
 
     ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));

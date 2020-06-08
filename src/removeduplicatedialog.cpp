@@ -76,18 +76,18 @@ void RemoveDuplicateDialog::addSuffix()
 
     bool ok;
 #ifdef SHINE5402OTOBOX_TEST
-        auto suffix = QString("TestAdd");
-        ok = true;
+    auto suffix = QString("TestAdd");
+    ok = true;
 #endif
-        #ifndef SHINE5402OTOBOX_TEST
+#ifndef SHINE5402OTOBOX_TEST
     auto suffix = QInputDialog::getText(this, tr("输入新后缀"), tr("输入要添加到后缀列表的新后缀"), QLineEdit::Normal, {}, &ok);
-    #endif
+#endif
     if (ok)
     {
         if (suffix.isEmpty())
         {
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+            Q_ASSERT(false);
 #endif
             QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。后缀列表不会做出更改。"));
             return;
@@ -145,7 +145,7 @@ void RemoveDuplicateDialog::modifySuffix()
         auto modified = QString("TestModify");
 #endif
         item->setText(modified);
-            #ifndef SHINE5402OTOBOX_TEST
+#ifndef SHINE5402OTOBOX_TEST
     }
 #endif
 }
@@ -277,6 +277,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
     //删除重复项
     auto maxAppearTime = ui->maxSpinBox->value();
+    //检查重复并确认待删除项
     if (maxAppearTime != 0) {
         QList<int> toBeRemoved;
 
@@ -289,7 +290,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
                 toBeRemoved.append(values.mid(maxAppearTime));
             }
         }
-        //检查重复并确认待删除项
+        std::sort(toBeRemoved.begin(), toBeRemoved.end());
         OtoEntryList toBeRemovedEntryList;
         for (auto i : toBeRemoved)
         {
@@ -317,7 +318,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
                 if (code == -1)
                 {
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+                    Q_ASSERT(false);
 #endif
                     auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->fileNameEdit_save_deleted->text()), QMessageBox::Ok | QMessageBox::Cancel);
                     if (shouldContinue == QMessageBox::Cancel)
@@ -327,7 +328,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             else
             {
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+                Q_ASSERT(false);
 #endif
                 auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->fileNameEdit_save_deleted->text()), QMessageBox::Ok | QMessageBox::Cancel);
                 if (shouldContinue == QMessageBox::Cancel)
@@ -352,14 +353,14 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         if (code == -1)
         {
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+            Q_ASSERT(false);
 #endif
             QMessageBox::critical(this, tr("保存失败"), tr("无法保存文件。"));
         }
         else
         {
 #ifndef SHINE5402OTOBOX_TEST
-        QMessageBox::information(this, tr("成功"), tr("文件已经保存好了。"));
+            QMessageBox::information(this, tr("成功"), tr("文件已经保存好了。"));
 #endif
 
         }

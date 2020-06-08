@@ -20,11 +20,13 @@ public:
     RemoveDuplicateTest();
     ~RemoveDuplicateTest();
 private:
-    void prepareTestFiles();
+    void prepareTestFile(const QString& requiredFileName);
     void deleteTestFiles();
     QDir testDir;
     void cleanCurrentTestFiles();
     bool shouldCleanInEnd = true;
+
+    void prepareTestDir();
 
 private slots:
     void initTestCase();
@@ -44,23 +46,23 @@ private slots:
     void cleanup();
 };
 
-static auto getIntersection = [] (QList<QList<QString> > lists) -> QList<QString> {
-    QHash<QString,int> counts;
-    QList<QString> result;
-    for (auto list : lists)
-    {
-        for (auto i : list)
-        {
-            counts.insert(i,counts.value(i) + 1);
-        }
-    }
-    for (auto it = counts.begin();it != counts.end();++it)
-    {
-        if (it.value() == lists.count())
-            result.append(it.key());
-    }
-    return result;
-};
+//static auto getIntersection = [] (QList<QList<QString> > lists) -> QList<QString> {
+//    QHash<QString,int> counts;
+//    QList<QString> result;
+//    for (auto list : lists)
+//    {
+//        for (auto i : list)
+//        {
+//            counts.insert(i,counts.value(i) + 1);
+//        }
+//    }
+//    for (auto it = counts.begin();it != counts.end();++it)
+//    {
+//        if (it.value() == lists.count())
+//            result.append(it.key());
+//    }
+//    return result;
+//};
 
 
 RemoveDuplicateTest::RemoveDuplicateTest()
@@ -73,7 +75,7 @@ RemoveDuplicateTest::~RemoveDuplicateTest()
 
 }
 
-void RemoveDuplicateTest::prepareTestFiles()
+void RemoveDuplicateTest::prepareTestDir()
 {
     QDir dir{};
     dir.makeAbsolute();
@@ -87,20 +89,18 @@ void RemoveDuplicateTest::prepareTestFiles()
     Q_ASSERT(dir.mkdir(testDirName));
     Q_ASSERT(dir.cd(testDirName));
     testDir = dir;
+}
 
-    const QStringList dataResList = {":/file2Test/normalData.ini", ":/file2Test/withPitchSuffixData.ini",
-                                     ":/file2Test/withSpecificSuffixData.ini",":/file2Test/needOrganizedData.ini"};
-    for (auto res : dataResList)
-    {
-        auto fileName = QFileInfo(res).fileName();
-        Q_ASSERT(QFile::copy(res, dir.filePath(fileName)));
-        QFile file(dir.filePath(fileName));
-        //去除只读
-        qt_ntfs_permission_lookup++;
-        if (!file.permissions().testFlag(QFileDevice::WriteOther))
-            file.setPermissions(file.permissions() | QFileDevice::WriteOther);
-        qt_ntfs_permission_lookup--;
-    }
+void RemoveDuplicateTest::prepareTestFile(const QString& requiredFileName)
+{
+    auto fileName = QFileInfo(requiredFileName).fileName();
+    Q_ASSERT(QFile::copy(requiredFileName, testDir.filePath(fileName)));
+    QFile file(testDir.filePath(fileName));
+    //去除只读
+    qt_ntfs_permission_lookup++;
+    if (!file.permissions().testFlag(QFileDevice::WriteOther))
+        file.setPermissions(file.permissions() | QFileDevice::WriteOther);
+    qt_ntfs_permission_lookup--;
 }
 
 void RemoveDuplicateTest::cleanCurrentTestFiles()
@@ -131,11 +131,12 @@ void RemoveDuplicateTest::initTestCase()
 
 void RemoveDuplicateTest::init()
 {
-    prepareTestFiles();
+    prepareTestDir();
 }
 
 void RemoveDuplicateTest::loadFile_test()
 {
+
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(":/file2Test/normalData.ini");
@@ -147,6 +148,7 @@ void RemoveDuplicateTest::loadFile_test()
 
 void RemoveDuplicateTest::removeDuplicate_test()
 {
+    prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
@@ -162,15 +164,14 @@ void RemoveDuplicateTest::removeDuplicate_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
-    //TODO:使用std::equal
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
 {
+        prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
@@ -188,14 +189,14 @@ void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
 {
+        prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
@@ -213,14 +214,15 @@ void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ2","- さ3","a さ2","a R2","さ2","a s2","a 息R2","u ・2"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    qDebug() << aliasList;
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
 {
+        prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withSpecificSuffixData.ini"));
@@ -238,14 +240,14 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さPower","a さPower","a RPower","さPower","a sPower","a 息RPower","u ・Power"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::specificSuffixList_test()
 {
+            prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withSpecificSuffixData.ini"));
@@ -267,6 +269,7 @@ void RemoveDuplicateTest::specificSuffixList_test()
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
 {
+            prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
@@ -282,14 +285,14 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
 {
+    prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
@@ -306,14 +309,14 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
 {
+    prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
@@ -331,6 +334,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
 
 void RemoveDuplicateTest::organizeDuplicate_test()
 {
+    prepareTestFile(":/file2Test/needOrganizedData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
@@ -348,14 +352,16 @@ void RemoveDuplicateTest::organizeDuplicate_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ","- さ2","a さ"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    //QCOMPARE(list.count(), expectedAliasList.count());
+    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::organizeDuplicate_from1_test()
 {
+    prepareTestFile(":/file2Test/needOrganizedData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
@@ -374,14 +380,16 @@ void RemoveDuplicateTest::organizeDuplicate_from1_test()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さ","- さ1","a さ"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    //QCOMPARE(list.count(), expectedAliasList.count());
+    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
 {
+    prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
     dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
@@ -402,8 +410,9 @@ void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
         aliasList.append(i.alias());
     }
     const QStringList expectedAliasList = {"- さa#3","a さa#3","a Ra#3","さa#3","a sa#3","a 息Ra#3","u ・a#3"};
-    QCOMPARE(list.count(), expectedAliasList.count());
-    QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    //QCOMPARE(list.count(), expectedAliasList.count());
+    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
+    QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
 }

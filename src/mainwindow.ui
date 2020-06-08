@@ -36,9 +36,16 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="overlapBatchSetButton">
       <property name="text">
        <string>Overlap批量设定</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="suffixAddPushButton">
+      <property name="text">
+       <string>前/后缀增加</string>
       </property>
      </widget>
     </item>

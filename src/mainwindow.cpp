@@ -4,6 +4,7 @@
 #include "removeduplicatedialog.h"
 #include <QMessageBox>
 #include "overlapsetdialog.h"
+#include "addsuffixdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -54,8 +55,14 @@ void MainWindow::on_actionAbout_Qt_triggered()
     QMessageBox::aboutQt(this, tr("关于 Qt"));
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_overlapBatchSetButton_clicked()
 {
     auto dialog = new OverlapSetDialog(this);
     dialog->open();
+}
+
+void MainWindow::on_suffixAddPushButton_clicked()
+{
+    auto dialog = new AddSuffixDialog(this);
+    dialog->exec();
 }

@@ -17,6 +17,7 @@ public:
     explicit OverlapSetDialog(QWidget *parent = nullptr);
     ~OverlapSetDialog();
 
+    void accept() override;
 private:
     Ui::OverlapSetDialog *ui;
     OtoEntryList entryList = {};
@@ -33,9 +34,6 @@ private:
     QStringListModel startListModel;
 
     void setWorkingStartList(const QStringList* list);
-
-    void accept() override;
-
 private slots:
     void openFilePathBrowse();
     void loadOtoFile();

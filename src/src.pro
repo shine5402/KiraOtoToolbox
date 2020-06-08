@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
     otolistaliasshowchangemodel.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     showotolistdialog.cpp
 
 HEADERS += \
+    addsuffixdialog.h \
     mainwindow.h \
     otolistaliasshowchangemodel.h \
     otolistmodel.h \
@@ -37,6 +39,7 @@ HEADERS += \
     showotolistdialog.h
 
 FORMS += \
+    addsuffixdialog.ui \
     mainwindow.ui \
     overlapsetdialog.ui \
     removeduplicatedialog.ui \

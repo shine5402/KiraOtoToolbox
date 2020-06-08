@@ -24,6 +24,7 @@ private slots:
     void on_actionExit_triggered();
     void on_actionAbout_triggered();
     void on_actionAbout_Qt_triggered();
-    void on_pushButton_clicked();
+    void on_overlapBatchSetButton_clicked();
+    void on_suffixAddPushButton_clicked();
 };
 #endif // MAINWINDOW_H

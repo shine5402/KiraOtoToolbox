@@ -26,7 +26,8 @@ SOURCES += \
     otolistoverlapshowchangemodel.cpp \
     overlapsetdialog.cpp \
     removeduplicatedialog.cpp \
-    showotolistdialog.cpp
+    showotolistdialog.cpp \
+    widgets/filenameeditwithbrowse.cpp
 
 HEADERS += \
     addsuffixdialog.h \
@@ -36,14 +37,16 @@ HEADERS += \
     otolistoverlapshowchangemodel.h \
     overlapsetdialog.h \
     removeduplicatedialog.h \
-    showotolistdialog.h
+    showotolistdialog.h \
+    widgets/filenameeditwithbrowse.h
 
 FORMS += \
     addsuffixdialog.ui \
     mainwindow.ui \
     overlapsetdialog.ui \
     removeduplicatedialog.ui \
-    showotolistdialog.ui
+    showotolistdialog.ui \
+    widgets/filenameeditwithbrowse.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

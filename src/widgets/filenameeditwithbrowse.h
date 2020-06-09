@@ -18,6 +18,7 @@ public:
     ~FileNameEditWithBrowse();
 
     QString getFileName() const;
+    void setFileName(const QString& value);
     Purpose getPurpose() const;
     void setPurpose(const Purpose& value);
 private:

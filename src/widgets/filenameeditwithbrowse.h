@@ -23,7 +23,7 @@ public:
     void setPurpose(const Purpose& value);
 private:
     Ui::FileNameEditWithBrowse *ui;
-    Purpose purpose;
+    Purpose purpose = Open;
     void openFilePathBrowse();
     void saveFilePathBrowse();
 private slots:

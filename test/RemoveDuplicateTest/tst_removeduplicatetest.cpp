@@ -139,7 +139,7 @@ void RemoveDuplicateTest::loadFile_test()
 
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(":/file2Test/normalData.ini");
+    dialog->ui->openFileNameEdit->setFileName(":/file2Test/normalData.ini");
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     QCOMPARE(dialog->entryList.count(), 15);
     dialog->close();
@@ -151,7 +151,7 @@ void RemoveDuplicateTest::removeDuplicate_test()
     prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("normalData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
@@ -174,7 +174,7 @@ void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
         prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("normalData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->saveToPathRadioButton->setChecked(true);
     dialog->ui->fileNameEdit_save->setText(testDir.filePath("normalData2.ini"));
@@ -199,7 +199,7 @@ void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
         prepareTestFile(":/file2Test/normalData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("normalData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("normalData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->saveDeletedCheckBox->setChecked(true);
     dialog->ui->fileNameEdit_save_deleted->setText(testDir.filePath("normalData2.ini"));
@@ -222,10 +222,10 @@ void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
 
 void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
 {
-        prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
+    prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withSpecificSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withSpecificSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     //因为直接发送点击事件会点击在QCheckBox的中心而导致无法选中，因为Qt本身应当是提供点击 -> Checked的保证的，此处直接设置Checked，而不是指定位置点击
     dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
@@ -250,7 +250,7 @@ void RemoveDuplicateTest::specificSuffixList_test()
             prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withSpecificSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withSpecificSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
     QVERIFY(dialog->ui->suffixListWidget->isEnabled());
@@ -272,7 +272,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
             prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     QVERIFY(dialog->ui->widget->isEnabled());
@@ -295,7 +295,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     dialog->ui->caseSensitiveCheckBox->setChecked(true);
@@ -319,7 +319,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     dialog->ui->caseSensitiveCheckBox->setChecked(true);
@@ -337,7 +337,7 @@ void RemoveDuplicateTest::organizeDuplicate_test()
     prepareTestFile(":/file2Test/needOrganizedData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("needOrganizedData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->organizeCheckBox->setChecked(true);
     dialog->ui->maxSpinBox->setValue(0);
@@ -364,7 +364,7 @@ void RemoveDuplicateTest::organizeDuplicate_from1_test()
     prepareTestFile(":/file2Test/needOrganizedData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("needOrganizedData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("needOrganizedData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->organizeCheckBox->setChecked(true);
     dialog->ui->maxSpinBox->setValue(0);
@@ -392,7 +392,7 @@ void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
     auto dialog = new RemoveDuplicateDialog();
     dialog->open();
-    dialog->ui->fileNameEdit_open->setText(testDir.filePath("withPitchSuffixData.ini"));
+    dialog->ui->openFileNameEdit->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
     dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     QVERIFY(dialog->ui->widget->isEnabled());

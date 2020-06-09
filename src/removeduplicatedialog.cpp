@@ -17,8 +17,6 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui(new Ui::RemoveDuplicateDialog)
 {
     ui->setupUi(this);
-
-    connect(ui->browseButton_open, &QPushButton::clicked, this, &RemoveDuplicateDialog::openFilePathBrowse);
     connect(ui->loadButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::loadOtoFile);
     connect(ui->showOtoListButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::showOtoListDialog);
     connect(ui->addSuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::addSuffix);
@@ -33,16 +31,9 @@ RemoveDuplicateDialog::~RemoveDuplicateDialog()
     delete ui;
 }
 
-void RemoveDuplicateDialog::openFilePathBrowse()
-{
-    auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
-    if (!path.isEmpty())
-        ui->fileNameEdit_open->setText(path);
-}
-
 void RemoveDuplicateDialog::loadOtoFile()
 {
-    auto path = ui->fileNameEdit_open->text();
+    auto path = ui->openFileNameEdit->getFileName();
 
     if (!QFileInfo::exists(path)){
 #ifdef SHINE5402OTOBOX_TEST
@@ -346,7 +337,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
 
     //写入文件
-    QFile file(ui->saveToPathRadioButton->isChecked()? ui->fileNameEdit_save->text() : ui->fileNameEdit_open->text());
+    QFile file(ui->saveToPathRadioButton->isChecked()? ui->fileNameEdit_save->text() : ui->openFileNameEdit->getFileName());
     if (file.open(QFile::WriteOnly | QFile::Text))
     {
         auto code = OtoEntryFunctions::writeOtoListToFile(file, entryListWorking);

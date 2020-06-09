@@ -21,7 +21,6 @@ public:
     ~RemoveDuplicateDialog();
 
 private slots:
-    void openFilePathBrowse();
     void loadOtoFile();
 
     void showOtoListDialog();

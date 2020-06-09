@@ -9,19 +9,25 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/otolistaliasshowchangemodel.cpp \
     ../../src/otolistmodel.cpp \
     ../../src/removeduplicatedialog.cpp \
-    ../../src/showotolistdialog.cpp
+    ../../src/showotolistdialog.cpp \
+    ../../src/widgets/filenameeditwithbrowse.cpp
 
 FORMS += \
     ../../src/removeduplicatedialog.ui \
-    ../../src/showotolistdialog.ui
+    ../../src/showotolistdialog.ui \
+    ../../src/widgets/filenameeditwithbrowse.ui
 
 HEADERS += \
     ../../src/otolistaliasshowchangemodel.h \
     ../../src/otolistmodel.h \
     ../../src/removeduplicatedialog.h \
-    ../../src/showotolistdialog.h
+    ../../src/showotolistdialog.h \
+    ../../src/widgets/filenameeditwithbrowse.h
 
 DEFINES += SHINE5402OTOBOX_TEST
+
+INCLUDEPATH += ../../src/
+DEPENDPATH += ../../src/
 
 include(include.pri)
 

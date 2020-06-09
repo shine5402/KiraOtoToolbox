@@ -7,6 +7,8 @@ FileNameEditWithBrowse::FileNameEditWithBrowse(QWidget *parent) :
     ui(new Ui::FileNameEditWithBrowse)
 {
     ui->setupUi(this);
+
+    connect(ui->browseButton, &QPushButton::clicked, this, &FileNameEditWithBrowse::browse);
 }
 
 FileNameEditWithBrowse::~FileNameEditWithBrowse()
@@ -41,6 +43,7 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
+    //TODO: 把这里的参数拆出来
     auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);

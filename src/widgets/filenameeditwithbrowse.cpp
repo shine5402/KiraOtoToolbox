@@ -44,16 +44,77 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
     //TODO: 把这里的参数拆出来
-    auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
+    //auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
+    auto path = QFileDialog::getOpenFileName(this,caption,dir,filter,selectedFilter,options);
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);
 }
 
 void FileNameEditWithBrowse::saveFilePathBrowse()
 {
-    auto path = QFileDialog::getSaveFileName(this, tr("指定保存路径"), {}, tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
+    //auto path = QFileDialog::getSaveFileName(this, tr("指定保存路径"), {}, tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
+    auto path = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);
+}
+
+QString* FileNameEditWithBrowse::getSelectedFilter() const
+{
+    return selectedFilter;
+}
+
+void FileNameEditWithBrowse::setSelectedFilter(QString* value)
+{
+    selectedFilter = value;
+}
+
+QFileDialog::Options FileNameEditWithBrowse::getOptions() const
+{
+    return options;
+}
+
+void FileNameEditWithBrowse::setOptions(const QFileDialog::Options& value)
+{
+    options = value;
+}
+
+void FileNameEditWithBrowse::setParameters(const QString& caption, const QString& dir, const QString& filter, QString* selectedFilter, QFileDialog::Options options)
+{
+    setCaption(caption);
+    setDir(dir);
+    setFilter(filter);
+    setSelectedFilter(selectedFilter);
+    setOptions(options);
+}
+
+QString FileNameEditWithBrowse::getFilter() const
+{
+    return filter;
+}
+
+void FileNameEditWithBrowse::setFilter(const QString& value)
+{
+    filter = value;
+}
+
+QString FileNameEditWithBrowse::getDir() const
+{
+    return dir;
+}
+
+void FileNameEditWithBrowse::setDir(const QString& value)
+{
+    dir = value;
+}
+
+QString FileNameEditWithBrowse::getCaption() const
+{
+    return caption;
+}
+
+void FileNameEditWithBrowse::setCaption(const QString& value)
+{
+    caption = value;
 }
 
 void FileNameEditWithBrowse::browse()
@@ -62,4 +123,14 @@ void FileNameEditWithBrowse::browse()
         case Open: openFilePathBrowse();break;
         case Save: saveFilePathBrowse();break;
     }
+}
+
+FileNameEditWithOpenBrowse::FileNameEditWithOpenBrowse(QWidget* parent) : FileNameEditWithBrowse(parent)
+{
+    setPurpose(Open);
+}
+
+FileNameEditWithSaveBrowse::FileNameEditWithSaveBrowse(QWidget* parent) : FileNameEditWithBrowse(parent)
+{
+    setPurpose(Save);
 }

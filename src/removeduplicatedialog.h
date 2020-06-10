@@ -27,8 +27,6 @@ private slots:
     void addSuffix();
     void deleteSuffix();
     void modifySuffix();
-    void saveFilePathBrowse();
-    void saveDeletedFilePathBrowse();
 
     void accept() override;
 

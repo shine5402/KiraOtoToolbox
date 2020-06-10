@@ -10,7 +10,8 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/otolistmodel.cpp \
     ../../src/removeduplicatedialog.cpp \
     ../../src/showotolistdialog.cpp \
-    ../../src/widgets/filenameeditwithbrowse.cpp
+    ../../src/widgets/filenameeditwithbrowse.cpp \
+    ../../src/widgets/otofilenameeditwithbrowse.cpp
 
 FORMS += \
     ../../src/removeduplicatedialog.ui \
@@ -22,7 +23,8 @@ HEADERS += \
     ../../src/otolistmodel.h \
     ../../src/removeduplicatedialog.h \
     ../../src/showotolistdialog.h \
-    ../../src/widgets/filenameeditwithbrowse.h
+    ../../src/widgets/filenameeditwithbrowse.h \
+    ../../src/widgets/otofilenameeditwithbrowse.h
 
 DEFINES += SHINE5402OTOBOX_TEST
 

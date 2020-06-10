@@ -27,7 +27,8 @@ SOURCES += \
     overlapsetdialog.cpp \
     removeduplicatedialog.cpp \
     showotolistdialog.cpp \
-    widgets/filenameeditwithbrowse.cpp
+    widgets/filenameeditwithbrowse.cpp \
+    widgets/otofilenameeditwithbrowse.cpp
 
 HEADERS += \
     addsuffixdialog.h \
@@ -38,7 +39,8 @@ HEADERS += \
     overlapsetdialog.h \
     removeduplicatedialog.h \
     showotolistdialog.h \
-    widgets/filenameeditwithbrowse.h
+    widgets/filenameeditwithbrowse.h \
+    widgets/otofilenameeditwithbrowse.h
 
 FORMS += \
     addsuffixdialog.ui \

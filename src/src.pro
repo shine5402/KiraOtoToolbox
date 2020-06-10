@@ -28,6 +28,7 @@ SOURCES += \
     removeduplicatedialog.cpp \
     showotolistdialog.cpp \
     widgets/filenameeditwithbrowse.cpp \
+    widgets/otofileloadwidget.cpp \
     widgets/otofilenameeditwithbrowse.cpp
 
 HEADERS += \
@@ -40,6 +41,7 @@ HEADERS += \
     removeduplicatedialog.h \
     showotolistdialog.h \
     widgets/filenameeditwithbrowse.h \
+    widgets/otofileloadwidget.h \
     widgets/otofilenameeditwithbrowse.h
 
 FORMS += \
@@ -48,7 +50,8 @@ FORMS += \
     overlapsetdialog.ui \
     removeduplicatedialog.ui \
     showotolistdialog.ui \
-    widgets/filenameeditwithbrowse.ui
+    widgets/filenameeditwithbrowse.ui \
+    widgets/otofileloadwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -158,8 +158,8 @@ void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    dialog->ui->saveToPathRadioButton->setChecked(true);
-    dialog->ui->saveFileNameEdit->setFileName(testDir.filePath("normalData2.ini"));
+    dialog->ui->otoSaveWidget->setSaveToCustom();
+    dialog->ui->otoSaveWidget->setFileName(testDir.filePath("normalData2.ini"));
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
     OtoFileReader reader(testDir.filePath("normalData2.ini"));
@@ -183,8 +183,8 @@ void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    dialog->ui->saveDeletedCheckBox->setChecked(true);
-    dialog->ui->saveDeletedFileNameEdit->setFileName(testDir.filePath("normalData2.ini"));
+    dialog->ui->otoSaveWidget->setSecondFileNameUsed(true);
+    dialog->ui->otoSaveWidget->setSecondFileName(testDir.filePath("normalData2.ini"));
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
     OtoFileReader reader(testDir.filePath("normalData2.ini"));

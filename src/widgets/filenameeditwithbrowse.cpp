@@ -43,8 +43,6 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
-    //TODO: 把这里的参数拆出来
-    //auto path = QFileDialog::getOpenFileName(this,tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
     auto path = QFileDialog::getOpenFileName(this,caption,dir,filter,selectedFilter,options);
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);
@@ -52,7 +50,6 @@ void FileNameEditWithBrowse::openFilePathBrowse()
 
 void FileNameEditWithBrowse::saveFilePathBrowse()
 {
-    //auto path = QFileDialog::getSaveFileName(this, tr("指定保存路径"), {}, tr("原音设定文件 (*.ini);;所有文件 (*.*)"));
     auto path = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);

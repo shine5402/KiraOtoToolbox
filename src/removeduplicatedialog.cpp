@@ -110,7 +110,7 @@ void RemoveDuplicateDialog::modifySuffix()
 void RemoveDuplicateDialog::otoFileLoaded()
 {
     ui->optionGroupBox->setEnabled(true);
-    ui->saveOptionGroupBox->setEnabled(true);
+    ui->otoSaveWidget->setEnabled(true);
 }
 
 void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
@@ -257,9 +257,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         if (shouldDelete == QDialog::Rejected)
             return;
 
-        if (ui->saveDeletedCheckBox->isChecked())
+        if (ui->otoSaveWidget->isSecondFileNameUsed())
         {
-            QFile file(ui->saveDeletedFileNameEdit->fileName());
+            QFile file(ui->otoSaveWidget->secondFileName());
             if (file.open(QFile::WriteOnly | QFile::Text))
             {
                 auto code = OtoEntryFunctions::writeOtoListToFile(file, toBeRemovedEntryList);
@@ -268,7 +268,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 #ifdef SHINE5402OTOBOX_TEST
                     Q_ASSERT(false);
 #endif
-                    auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->fileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                    auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->otoSaveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
                     if (shouldContinue == QMessageBox::Cancel)
                         return;
                 }
@@ -278,7 +278,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 #ifdef SHINE5402OTOBOX_TEST
                 Q_ASSERT(false);
 #endif
-                auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->fileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->otoSaveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
                 if (shouldContinue == QMessageBox::Cancel)
                     return;
             }
@@ -294,7 +294,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
 
     //写入文件
-    QFile file(ui->saveToPathRadioButton->isChecked()? ui->saveFileNameEdit->fileName() : ui->otoLoadWidget->fileName());
+    QFile file(ui->otoSaveWidget->isSaveToCustom() ? ui->otoSaveWidget->fileName() : ui->otoLoadWidget->fileName());
     if (file.open(QFile::WriteOnly | QFile::Text))
     {
         auto code = OtoEntryFunctions::writeOtoListToFile(file, entryListWorking);

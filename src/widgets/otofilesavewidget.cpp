@@ -14,9 +14,24 @@ OtoFileSaveWidget::~OtoFileSaveWidget()
     delete ui;
 }
 
+bool OtoFileSaveWidget::isSaveToSrc() const
+{
+    return ui->saveToSrcRadioButton->isChecked();
+}
+
+bool OtoFileSaveWidget::isSaveToCustom() const
+{
+    return ui->saveToCustomRadioButton->isChecked();
+}
+
 QString OtoFileSaveWidget::fileName() const
 {
     return ui->saveFileNameEdit->fileName();
+}
+
+bool OtoFileSaveWidget::isSecondFileNameUsed() const
+{
+    return ui->secondFileNameCheckBox->isChecked();
 }
 
 QString OtoFileSaveWidget::secondFileName() const
@@ -24,9 +39,24 @@ QString OtoFileSaveWidget::secondFileName() const
     return ui->secondFileNameEdit->fileName();
 }
 
+void OtoFileSaveWidget::setSaveToSrc()
+{
+    ui->saveToSrcRadioButton->setChecked(true);
+}
+
+void OtoFileSaveWidget::setSaveToCustom()
+{
+    ui->saveToCustomRadioButton->setChecked(true);
+}
+
 void OtoFileSaveWidget::setFileName(const QString& value)
 {
     ui->saveFileNameEdit->setFileName(value);
+}
+
+void OtoFileSaveWidget::setSecondFileNameUsed(bool value)
+{
+    ui->secondFileNameCheckBox->setChecked(value);
 }
 
 void OtoFileSaveWidget::setSecondFileName(const QString& value)

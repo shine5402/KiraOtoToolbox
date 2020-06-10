@@ -29,7 +29,8 @@ SOURCES += \
     showotolistdialog.cpp \
     widgets/filenameeditwithbrowse.cpp \
     widgets/otofileloadwidget.cpp \
-    widgets/otofilenameeditwithbrowse.cpp
+    widgets/otofilenameeditwithbrowse.cpp \
+    widgets/otofilesavewidget.cpp
 
 HEADERS += \
     addsuffixdialog.h \
@@ -42,7 +43,8 @@ HEADERS += \
     showotolistdialog.h \
     widgets/filenameeditwithbrowse.h \
     widgets/otofileloadwidget.h \
-    widgets/otofilenameeditwithbrowse.h
+    widgets/otofilenameeditwithbrowse.h \
+    widgets/otofilesavewidget.h
 
 FORMS += \
     addsuffixdialog.ui \
@@ -51,7 +53,8 @@ FORMS += \
     removeduplicatedialog.ui \
     showotolistdialog.ui \
     widgets/filenameeditwithbrowse.ui \
-    widgets/otofileloadwidget.ui
+    widgets/otofileloadwidget.ui \
+    widgets/otofilesavewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

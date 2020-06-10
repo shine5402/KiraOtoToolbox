@@ -9,7 +9,7 @@ class OtoListAliasShowChangeModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit OtoListAliasShowChangeModel(OtoEntryList* const entryList, QStringList* const newAliasList, QObject *parent = nullptr);
+    explicit OtoListAliasShowChangeModel(const OtoEntryList* const entryList, const QStringList* const newAliasList, QObject *parent = nullptr);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -21,8 +21,8 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
-    OtoEntryList* const entryList;
-    QStringList* const newAliasList;
+    const OtoEntryList* const entryList;
+    const QStringList* const newAliasList;
     enum {FILENAME, ALIAS, NEWALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
 
 };

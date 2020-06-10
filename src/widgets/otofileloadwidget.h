@@ -16,10 +16,14 @@ public:
     explicit OtoFileLoadWidget(QWidget *parent = nullptr);
     ~OtoFileLoadWidget();
 
+    void setFileName(const QString& fileName);
+    QString fileName() const;
+    OtoEntryList getEntryList() const;
+    bool isEntryListReaded() const;
 private:
     Ui::OtoFileLoadWidget *ui;
     OtoEntryList entryList = {};
-    bool entryList_readed = false;
+    bool entryListReaded = false;
 private slots:
     void loadOtoFile();
     void showOtoListDialog();

@@ -1,7 +1,7 @@
 #include "otolistaliasshowchangemodel.h"
 #include <QFont>
 
-OtoListAliasShowChangeModel::OtoListAliasShowChangeModel(OtoEntryList* const entryList, QStringList* const newAliasList, QObject *parent)
+OtoListAliasShowChangeModel::OtoListAliasShowChangeModel(const OtoEntryList* const entryList, const QStringList* const newAliasList, QObject *parent)
     : QAbstractTableModel(parent), entryList(entryList), newAliasList(newAliasList)
 {
 }

@@ -10,6 +10,8 @@ OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     ui(new Ui::OtoFileLoadWidget)
 {
     ui->setupUi(this);
+    connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileLoadWidget::loadOtoFile);
+    connect(ui->showOtoListButton, &QPushButton::clicked, this, &OtoFileLoadWidget::showOtoListDialog);
 }
 
 OtoFileLoadWidget::~OtoFileLoadWidget()
@@ -17,9 +19,29 @@ OtoFileLoadWidget::~OtoFileLoadWidget()
     delete ui;
 }
 
+void OtoFileLoadWidget::setFileName(const QString& fileName)
+{
+    ui->openFileNameEdit->setFileName(fileName);
+}
+
+QString OtoFileLoadWidget::fileName() const
+{
+    return ui->openFileNameEdit->fileName();
+}
+
+OtoEntryList OtoFileLoadWidget::getEntryList() const
+{
+    return entryList;
+}
+
+bool OtoFileLoadWidget::isEntryListReaded() const
+{
+    return entryListReaded;
+}
+
 void OtoFileLoadWidget::loadOtoFile()
 {
-    auto path = ui->openFileNameEdit->getFileName();
+    auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
 #ifdef SHINE5402OTOBOX_TEST
@@ -31,10 +53,8 @@ void OtoFileLoadWidget::loadOtoFile()
 
     OtoFileReader reader(path);
     entryList = reader.getEntryList();
-    entryList_readed = true;
+    entryListReaded = true;
 
-    //ui->optionGroupBox->setEnabled(true);
-    //ui->saveOptionGroupBox->setEnabled(true);
     ui->showOtoListButton->setEnabled(true);
 
     ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));

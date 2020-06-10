@@ -18,7 +18,7 @@ public:
     explicit FileNameEditWithBrowse(QWidget *parent = nullptr);
     ~FileNameEditWithBrowse();
 
-    QString getFileName() const;
+    QString fileName() const;
     void setFileName(const QString& value);
     Purpose getPurpose() const;
     void setPurpose(const Purpose& value);

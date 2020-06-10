@@ -21,19 +21,16 @@ public:
     ~RemoveDuplicateDialog();
 
 private slots:
-    void loadOtoFile();
-
-    void showOtoListDialog();
     void addSuffix();
     void deleteSuffix();
     void modifySuffix();
+
+    void otoFileLoaded();
 
     void accept() override;
 
 private:
     Ui::RemoveDuplicateDialog *ui;
-    OtoEntryList entryList = {};
-    bool entryList_readed = false;
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

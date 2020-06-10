@@ -17,48 +17,16 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui(new Ui::RemoveDuplicateDialog)
 {
     ui->setupUi(this);
-    connect(ui->loadButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::loadOtoFile);
-    connect(ui->showOtoListButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::showOtoListDialog);
     connect(ui->addSuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::addSuffix);
     connect(ui->deleteSuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::deleteSuffix);
     connect(ui->modifySuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::modifySuffix);
+    connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
 }
 
 RemoveDuplicateDialog::~RemoveDuplicateDialog()
 {
     delete ui;
 }
-
-void RemoveDuplicateDialog::loadOtoFile()
-{
-    auto path = ui->openFileNameEdit->getFileName();
-
-    if (!QFileInfo::exists(path)){
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
-        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));\
-        return;
-    }
-
-    OtoFileReader reader(path);
-    entryList = reader.getEntryList();
-    entryList_readed = true;
-
-    ui->optionGroupBox->setEnabled(true);
-    ui->saveOptionGroupBox->setEnabled(true);
-    ui->showOtoListButton->setEnabled(true);
-
-    ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));
-    ui->loadOtoWidget->setDisabled(true);
-}
-
-void RemoveDuplicateDialog::showOtoListDialog()
-{
-    auto dialog = new ShowOtoListDialog(&entryList ,this);
-    dialog->open();
-}
-
 
 void RemoveDuplicateDialog::addSuffix()
 {
@@ -139,9 +107,16 @@ void RemoveDuplicateDialog::modifySuffix()
 #endif
 }
 
+void RemoveDuplicateDialog::otoFileLoaded()
+{
+    ui->optionGroupBox->setEnabled(true);
+    ui->saveOptionGroupBox->setEnabled(true);
+}
+
 void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 {
     QStringList compareStringList;
+    const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
 
     for (int i = 0; i < entryList.count(); ++i)
@@ -284,7 +259,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
         if (ui->saveDeletedCheckBox->isChecked())
         {
-            QFile file(ui->saveDeletedFileNameEdit->getFileName());
+            QFile file(ui->saveDeletedFileNameEdit->fileName());
             if (file.open(QFile::WriteOnly | QFile::Text))
             {
                 auto code = OtoEntryFunctions::writeOtoListToFile(file, toBeRemovedEntryList);
@@ -293,7 +268,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 #ifdef SHINE5402OTOBOX_TEST
                     Q_ASSERT(false);
 #endif
-                    auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->getFileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                    auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->fileName()), QMessageBox::Ok | QMessageBox::Cancel);
                     if (shouldContinue == QMessageBox::Cancel)
                         return;
                 }
@@ -303,7 +278,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 #ifdef SHINE5402OTOBOX_TEST
                 Q_ASSERT(false);
 #endif
-                auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->getFileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->saveDeletedFileNameEdit->fileName()), QMessageBox::Ok | QMessageBox::Cancel);
                 if (shouldContinue == QMessageBox::Cancel)
                     return;
             }
@@ -319,7 +294,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
 
     //写入文件
-    QFile file(ui->saveToPathRadioButton->isChecked()? ui->saveFileNameEdit->getFileName() : ui->openFileNameEdit->getFileName());
+    QFile file(ui->saveToPathRadioButton->isChecked()? ui->saveFileNameEdit->fileName() : ui->otoLoadWidget->fileName());
     if (file.open(QFile::WriteOnly | QFile::Text))
     {
         auto code = OtoEntryFunctions::writeOtoListToFile(file, entryListWorking);

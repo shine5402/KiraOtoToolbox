@@ -16,7 +16,7 @@ FileNameEditWithBrowse::~FileNameEditWithBrowse()
     delete ui;
 }
 
-QString FileNameEditWithBrowse::getFileName() const
+QString FileNameEditWithBrowse::fileName() const
 {
     auto fileName = ui->fileNameEdit->text();
     const bool isSurroundByDoubleQuotes = fileName.startsWith("\"") && fileName.endsWith("\"");

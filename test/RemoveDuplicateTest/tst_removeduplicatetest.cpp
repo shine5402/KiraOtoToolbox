@@ -8,6 +8,7 @@
 #include "ui_removeduplicatedialog.h"
 #include "otofilereader.h"
 #include <QRandomGenerator>
+#include <QPushButton>
 
 //为了NTFS权限处理
 extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
@@ -31,12 +32,10 @@ private:
 private slots:
     void initTestCase();
     void init();
-    //void loadFile_test();
     void removeDuplicate_test();
     void removeDuplicate_saveToOtherFile_test();
     void removeDuplicate_saveDeletedToOtherFile_test();
     void removeDuplicateWithSpecificSuffix_test();
-    void specificSuffixList_test();
     void removeDuplicateWithPitchSuffix_test();
     void removeDuplicateWithPitchSuffix_caseMatch_test();
     void removeDuplicateWithPitchSuffix_caseNotMatch_test();
@@ -212,7 +211,7 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
     //因为直接发送点击事件会点击在QCheckBox的中心而导致无法选中，因为Qt本身应当是提供点击 -> Checked的保证的，此处直接设置Checked，而不是指定位置点击
     dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
     QVERIFY(dialog->ui->suffixListWidget->isEnabled());
-    dialog->ui->suffixListWidget->addItem("Power");
+    dialog->ui->suffixListWidget->setData({"Power"});
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
     OtoFileReader reader(testDir.filePath("withSpecificSuffixData.ini"));
     auto list = reader.getEntryList();
@@ -225,28 +224,6 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
     QCOMPARE(aliasList, expectedAliasList);
     dialog->close();
     dialog->deleteLater();
-}
-
-void RemoveDuplicateTest::specificSuffixList_test()
-{
-            prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withSpecificSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
-    QVERIFY(dialog->ui->suffixListWidget->isEnabled());
-    QTest::mouseClick(dialog->ui->addSuffixButton, Qt::LeftButton);
-    QVERIFY(dialog->ui->suffixListWidget->item(0));
-    QCOMPARE(dialog->ui->suffixListWidget->item(0)->text(), "TestAdd");
-    dialog->ui->suffixListWidget->selectionModel()->select(dialog->ui->suffixListWidget->model()->index(0,0),QItemSelectionModel::Select);
-    QTest::mouseClick(dialog->ui->modifySuffixButton, Qt::LeftButton);
-    QCOMPARE(dialog->ui->suffixListWidget->item(0)->text(), "TestModify");
-    QTest::mouseClick(dialog->ui->deleteSuffixButton, Qt::LeftButton);
-    QCOMPARE(dialog->ui->suffixListWidget->count(), 0);
-    dialog->close();
-    dialog->deleteLater();
-
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()

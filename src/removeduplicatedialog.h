@@ -21,9 +21,6 @@ public:
     ~RemoveDuplicateDialog();
 
 private slots:
-    void addSuffix();
-    void deleteSuffix();
-    void modifySuffix();
 
     void otoFileLoaded();
 

@@ -17,94 +17,13 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui(new Ui::RemoveDuplicateDialog)
 {
     ui->setupUi(this);
-    connect(ui->addSuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::addSuffix);
-    connect(ui->deleteSuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::deleteSuffix);
-    connect(ui->modifySuffixButton, &QPushButton::clicked, this, &RemoveDuplicateDialog::modifySuffix);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
 }
+
 
 RemoveDuplicateDialog::~RemoveDuplicateDialog()
 {
     delete ui;
-}
-
-void RemoveDuplicateDialog::addSuffix()
-{
-
-    bool ok;
-#ifdef SHINE5402OTOBOX_TEST
-    auto suffix = QString("TestAdd");
-    ok = true;
-#endif
-#ifndef SHINE5402OTOBOX_TEST
-    auto suffix = QInputDialog::getText(this, tr("输入新后缀"), tr("输入要添加到后缀列表的新后缀"), QLineEdit::Normal, {}, &ok);
-#endif
-    if (ok)
-    {
-        if (suffix.isEmpty())
-        {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
-            QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。后缀列表不会做出更改。"));
-            return;
-        }
-        ui->suffixListWidget->addItem(suffix);
-    }
-}
-
-void RemoveDuplicateDialog::deleteSuffix()
-{
-
-    auto selectedItems = ui->suffixListWidget->selectedItems();
-    if (selectedItems.count() == 0)
-    {
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
-        QMessageBox::warning(this, tr("没有选择"), tr("没有后缀项被选中，因而无法删除。"));
-        return;
-    }
-    auto item = selectedItems.at(0);
-#ifndef SHINE5402OTOBOX_TEST
-
-
-    auto shouldDelete = QMessageBox::question(this, tr("确认删除"), tr("真的要删除 %1 吗？").arg(item->text()));
-    if (shouldDelete == QMessageBox::Yes)
-    {
-#endif
-        ui->suffixListWidget->removeItemWidget(item);
-        delete item;
-#ifndef SHINE5402OTOBOX_TEST
-    }
-#endif
-}
-
-void RemoveDuplicateDialog::modifySuffix()
-{
-    auto selectedItems = ui->suffixListWidget->selectedItems();
-    if (selectedItems.count() == 0)
-    {
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
-        QMessageBox::warning(this, tr("没有选择"), tr("没有后缀项被选中，因而无法修改。"));
-        return;
-    }
-    auto item = selectedItems.at(0);
-#ifndef SHINE5402OTOBOX_TEST
-    bool ok;
-    auto modified = QInputDialog::getText(this, tr("输入新后缀"), tr("指定一个新后缀用来替换 %1").arg(item->text()), QLineEdit::Normal, item->text(), &ok);
-    if (ok)
-    {
-#endif
-#ifdef SHINE5402OTOBOX_TEST
-        auto modified = QString("TestModify");
-#endif
-        item->setText(modified);
-#ifndef SHINE5402OTOBOX_TEST
-    }
-#endif
 }
 
 void RemoveDuplicateDialog::otoFileLoaded()
@@ -127,21 +46,21 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     //处理特定后缀
     auto isIgnoreSpecificSuffix = ui->ignoreSpecificSuffixCheckBox->isChecked();
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
-    if (isIgnoreSpecificSuffix)
+    if (isIgnoreSpecificSuffix){
+        auto suffixList = ui->suffixListWidget->getData();
         for (int i = 0; i < entryList.count(); ++i)
         {
-            for (int itemID = 0; itemID < ui->suffixListWidget->count(); ++itemID)
+            for (const auto& currentItem : suffixList)
             {
-                auto currentItem = ui->suffixListWidget->item(itemID);
-                if (compareStringList.at(i).endsWith(currentItem->text()))
+                if (compareStringList.at(i).endsWith(currentItem))
                 {
-                    auto result = OtoEntryFunctions::removeSuffix(compareStringList.at(i), currentItem->text());
+                    auto result = OtoEntryFunctions::removeSuffix(compareStringList.at(i), currentItem);
                     compareStringList.replace(i, result);
-                    removedSpecificSuffixMap.insert(i, currentItem->text());
+                    removedSpecificSuffixMap.insert(i, currentItem);
                 }
             }
         }
-
+}
     //处理音高后缀
     auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存

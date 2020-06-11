@@ -21,6 +21,7 @@ SOURCES += \
     addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    optionWidgets/removeduplicatedialogoptionwidget.cpp \
     otolistaliasshowchangemodel.cpp \
     otolistmodel.cpp \
     otolistoverlapshowchangemodel.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 HEADERS += \
     addsuffixdialog.h \
     mainwindow.h \
+    optionWidgets/removeduplicatedialogoptionwidget.h \
     otolistaliasshowchangemodel.h \
     otolistmodel.h \
     otolistoverlapshowchangemodel.h \
@@ -51,6 +53,7 @@ HEADERS += \
 FORMS += \
     addsuffixdialog.ui \
     mainwindow.ui \
+    optionWidgets/removeduplicatedialogoptionwidget.ui \
     overlapsetdialog.ui \
     removeduplicatedialog.ui \
     showotolistdialog.ui \

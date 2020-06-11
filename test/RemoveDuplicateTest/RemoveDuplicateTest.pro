@@ -6,6 +6,7 @@ CONFIG += qt warn_on depend_includepath testcase
 TEMPLATE = app
 
 SOURCES +=  tst_removeduplicatetest.cpp \
+    ../../src/optionWidgets/removeduplicatedialogoptionwidget.cpp \
     ../../src/otolistaliasshowchangemodel.cpp \
     ../../src/otolistmodel.cpp \
     ../../src/removeduplicatedialog.cpp \
@@ -17,6 +18,7 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/widgets/stringlistmodifywidget.cpp
 
 FORMS += \
+    ../../src/optionWidgets/removeduplicatedialogoptionwidget.ui \
     ../../src/removeduplicatedialog.ui \
     ../../src/showotolistdialog.ui \
     ../../src/widgets/filenameeditwithbrowse.ui \
@@ -25,6 +27,7 @@ FORMS += \
     ../../src/widgets/stringlistmodifywidget.ui
 
 HEADERS += \
+    ../../src/optionWidgets/removeduplicatedialogoptionwidget.h \
     ../../src/otolistaliasshowchangemodel.h \
     ../../src/otolistmodel.h \
     ../../src/removeduplicatedialog.h \

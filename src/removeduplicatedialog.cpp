@@ -38,19 +38,19 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
 
+    auto options = ui->optionWidget->getOptions();
+
     for (int i = 0; i < entryList.count(); ++i)
     {
         compareStringList.append(entryList.at(i).alias());
     }
 
     //处理特定后缀
-    auto isIgnoreSpecificSuffix = ui->ignoreSpecificSuffixCheckBox->isChecked();
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
-    if (isIgnoreSpecificSuffix){
-        auto suffixList = ui->suffixListWidget->getData();
+    if (options.ignoreSpecificSuffix){
         for (int i = 0; i < entryList.count(); ++i)
         {
-            for (const auto& currentItem : suffixList)
+            for (const auto& currentItem : options.suffixList)
             {
                 if (compareStringList.at(i).endsWith(currentItem))
                 {
@@ -62,17 +62,15 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         }
 }
     //处理音高后缀
-    auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
+    //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存
-    if (isIgnorePitchSuffix)
+    if (options.ignorePitchSuffix)
         for (int i = 0; i < entryList.count(); ++i)
         {
-            auto bottomPitch = QString("%1%2").arg(ui->bottomPitchComboBox->currentText()).arg(ui->bottomPitchSpinBox->value());
-            auto topPitch = QString("%1%2").arg(ui->topPitchComboBox->currentText()).arg(ui->topPitchSpinBox->value());
             QString removedPitch {};
-            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), bottomPitch, topPitch,
-                                                               ui->caseSensitiveCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                                                               ui->caseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower, &removedPitch);
+            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options.bottomPitch, options.topPitch,
+                                                               options.pitchCaseSensitive,
+                                                               options.pitchCase, &removedPitch);
             compareStringList.replace(i, result);
             if (!removedPitch.isEmpty())
                 removedPitchStringList.insert(i, removedPitch);
@@ -95,9 +93,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     }
 
     //整理重复项
-
-    auto shouldOrgnaize = ui->organizeCheckBox->isChecked();
-    if (shouldOrgnaize){
+    if (options.shouldOrganize){
         /*
          * 要做的事：重整重复项数字顺序，添加原后缀。
          */
@@ -111,8 +107,8 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             {
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
-                                (i > 0 ? QString::number((ui->organizeStartFrom1CheckBox->isChecked() ? i : i + 1)) : "") +
-                                (ui->organizeCaseComboBox->currentIndex() == 0 ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
+                                (i > 0 ? QString::number((options.organizeStartFrom1 ? i : i + 1)) : "") +
+                                (options.pitchCaseOrganized == OtoEntryFunctions::Upper ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
@@ -143,18 +139,17 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     }
 
     //删除重复项
-    auto maxAppearTime = ui->maxSpinBox->value();
     //检查重复并确认待删除项
-    if (maxAppearTime != 0) {
+    if (options.maxDuplicateCount != 0) {
         QList<int> toBeRemoved;
 
         for (auto key : compareStringMap.uniqueKeys())
         {
-            if (compareStringMap.count(key) > maxAppearTime)
+            if (compareStringMap.count(key) > options.maxDuplicateCount)
             {
                 auto values = compareStringMap.values(key);
                 std::sort(values.begin(), values.end());
-                toBeRemoved.append(values.mid(maxAppearTime));
+                toBeRemoved.append(values.mid(options.maxDuplicateCount));
             }
         }
         std::sort(toBeRemoved.begin(), toBeRemoved.end());

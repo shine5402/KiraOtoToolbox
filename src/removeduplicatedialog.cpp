@@ -8,6 +8,7 @@
 #include "otolistaliasshowchangemodel.h"
 #include <algorithm>
 #include "widgets/otofilesavewidget.h"
+#include "optionWidgets/removeduplicatedialogoptionwidget.h"
 #ifdef SHINE5402OTOBOX_TEST
 #include <QTimer>
 #endif
@@ -29,12 +30,12 @@ void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)
     auto saveWidget = rootLayout->parentWidget()->findChild<QWidget*>("otoSaveWidget");
 
     if (optionWidget){
-        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, this->optionWidget);
+        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, new RemoveDuplicateDialogOptionWidget(this));
         if (previousOptionWidget)
             previousOptionWidget->widget()->deleteLater();
     }
     if (saveWidget){
-        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, this->saveWidget);
+        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(this));
         if (previousSaveWidget)
             previousSaveWidget->widget()->deleteLater();
     }
@@ -57,6 +58,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
     auto optionWidget = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionLayout->parentWidget()->findChild<RemoveDuplicateDialogOptionWidget*>("optionWidget"));
+    Q_ASSERT(optionWidget);
     auto options = qobject_cast<const RemoveDuplicateOptions*>(optionWidget->getOptions(this));
 
     for (int i = 0; i < entryList.count(); ++i)

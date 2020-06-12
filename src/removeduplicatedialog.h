@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <otoentry.h>
+#include "optionWidgets/removeduplicatedialogoptionwidget.h"
+#include "widgets/otofilesavewidget.h"
 
 namespace Ui {
     class RemoveDuplicateDialog;
@@ -27,6 +29,8 @@ private slots:
 private:
     Ui::RemoveDuplicateDialog *ui;
     void setupSpecificUIWidgets(QLayout* rootLayout);
+    RemoveDuplicateDialogOptionWidget* optionWidget = new RemoveDuplicateDialogOptionWidget(this);
+    OtoFileSaveWidgetWithSecondFileNameAsDeleted* saveWidget = new OtoFileSaveWidgetWithSecondFileNameAsDeleted(this);
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

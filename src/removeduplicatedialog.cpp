@@ -13,6 +13,14 @@
 #include <QTimer>
 #endif
 
+void RemoveDuplicateDialog::reAssignUIWidgets()
+{
+    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    Q_ASSERT(ui->optionWidget);
+    ui->otoSaveWidget = ui->rootLayout->parentWidget()->findChildren<OtoFileSaveWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    Q_ASSERT(ui->otoSaveWidget);
+}
+
 RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RemoveDuplicateDialog)
@@ -20,10 +28,8 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
     setupSpecificUIWidgets(ui->rootLayout);
-    ui->optionWidget = ui->optionLayout->parentWidget()->findChild<RemoveDuplicateDialogOptionWidget*>(QString(), Qt::FindDirectChildrenOnly);
-    Q_ASSERT(ui->optionWidget);
-    ui->otoSaveWidget = ui->rootLayout->parentWidget()->findChild<OtoFileSaveWidgetWithSecondFileNameAsDeleted*>(QString(), Qt::FindDirectChildrenOnly);
-    Q_ASSERT(ui->otoSaveWidget);
+    //Use last() to choose the newest widgets.
+    reAssignUIWidgets();
 }
 
 void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)
@@ -194,7 +200,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
         auto shouldDelete = askDialog->exec();
         if (shouldDelete == QDialog::Rejected)
             return;
-
+Q_ASSERT(ui->otoSaveWidget);
         if (ui->otoSaveWidget->isSecondFileNameUsed())
         {
             QFile file(ui->otoSaveWidget->secondFileName());

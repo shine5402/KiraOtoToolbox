@@ -37,14 +37,14 @@ private:
     void refreshSecondFileNameWidgetVisible();
 };
 
-class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget{
+class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget {
     Q_OBJECT
 
 public:
     explicit OtoFileSaveWidgetWithSecondFileName(QWidget *parent = nullptr);
 };
 
-class OtoFileSaveWidgetWithSecondFileNameAsDeleted : public OtoFileSaveWidgetWithSecondFileName{
+class OtoFileSaveWidgetWithSecondFileNameAsDeleted : public OtoFileSaveWidgetWithSecondFileName {
     Q_OBJECT
 
 public:

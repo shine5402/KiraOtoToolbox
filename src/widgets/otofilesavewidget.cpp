@@ -31,11 +31,13 @@ QString OtoFileSaveWidget::fileName() const
 
 bool OtoFileSaveWidget::isSecondFileNameUsed() const
 {
+    Q_ASSERT(ui->secondFileNameCheckBox);
     return ui->secondFileNameCheckBox->isChecked();
 }
 
 QString OtoFileSaveWidget::secondFileName() const
 {
+
     return ui->secondFileNameEdit->fileName();
 }
 

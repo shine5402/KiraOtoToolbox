@@ -2,5 +2,4 @@
 
 ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 {
-
 }

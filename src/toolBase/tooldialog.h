@@ -1,15 +1,15 @@
-#ifndef REMOVEDUPLICATEDIALOG_H
-#define REMOVEDUPLICATEDIALOG_H
+#ifndef TOOLDIALOG_H
+#define TOOLDIALOG_H
 
 #include <QDialog>
 #include <otoentry.h>
 #include "toolBase/tooldialogadapter.h"
 
 namespace Ui {
-    class RemoveDuplicateDialog;
+    class ToolDialog;
 }
 
-class RemoveDuplicateDialog : public QDialog
+class ToolDialog : public QDialog
 {
     Q_OBJECT
 
@@ -18,16 +18,16 @@ class RemoveDuplicateDialog : public QDialog
 #endif
 
 public:
-    explicit RemoveDuplicateDialog(ToolDialogAdapter* adapter, QWidget *parent = nullptr);
-    ~RemoveDuplicateDialog();
+    explicit ToolDialog(ToolDialogAdapter* adapter, QWidget *parent = nullptr);
+    ~ToolDialog();
 
 private slots:
     void otoFileLoaded();
     void accept() override;
 private:
-    Ui::RemoveDuplicateDialog *ui;
+    Ui::ToolDialog *ui;
     void reAssignUIWidgets();
     ToolDialogAdapter* adapter;
 };
 
-#endif // REMOVEDUPLICATEDIALOG_H
+#endif // TOOLDIALOG_H

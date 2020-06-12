@@ -22,9 +22,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     overlapBatchSet/overlapsetdialog.cpp \
-    removeDuplicate/removeduplicatedialog.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/showotolistdialog.cpp \
@@ -42,9 +42,9 @@ HEADERS += \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
     overlapBatchSet/overlapsetdialog.h \
-    removeDuplicate/removeduplicatedialog.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
+    toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/showotolistdialog.h \
@@ -62,7 +62,7 @@ FORMS += \
     addSuffix/addsuffixdialog.ui \
     mainwindow.ui \
     overlapBatchSet/overlapsetdialog.ui \
-    removeDuplicate/removeduplicatedialog.ui \
+    toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showotolistdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \

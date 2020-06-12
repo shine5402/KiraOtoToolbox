@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "removeDuplicate/removeduplicatedialog.h"
+#include "toolBase/tooldialog.h"
 #include "removeDuplicate/removeduplicatedialogadapter.h"
 #include <QMessageBox>
 #include "overlapBatchSet/overlapsetdialog.h"
@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_duplicateRemoveButton_clicked()
 {
-    auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this),this);
+    auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this),this);
     dialog->open();
 }
 

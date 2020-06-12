@@ -6,7 +6,7 @@ CONFIG += qt warn_on depend_includepath testcase
 TEMPLATE = app
 
 SOURCES +=  tst_removeduplicatetest.cpp \
-    ../../src/removeDuplicate/removeduplicatedialog.cpp \
+    ../../src/toolBase/tooldialog.cpp \
     ../../src/removeDuplicate/removeduplicatedialogadapter.cpp \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     ../../src/toolBase/tooldialogadapter.cpp \
@@ -22,8 +22,8 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/utils/widgets/stringlistmodifywidget.cpp
 
 FORMS += \
-    ../../src/removeDuplicate/removeduplicatedialog.ui \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.ui \
+    ../../src/toolBase/tooldialog.ui \
     ../../src/utils/dialogs/showotolistdialog.ui \
     ../../src/utils/widgets/filenameeditwithbrowse.ui \
     ../../src/utils/widgets/otofileloadwidget.ui \
@@ -31,7 +31,7 @@ FORMS += \
     ../../src/utils/widgets/stringlistmodifywidget.ui
 
 HEADERS += \
-    ../../src/removeDuplicate/removeduplicatedialog.h \
+    ../../src/toolBase/tooldialog.h \
     ../../src/removeDuplicate/removeduplicatedialogadapter.h \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.h \
     ../../src/toolBase/tooldialogadapter.h \

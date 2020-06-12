@@ -213,9 +213,9 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
     //    dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
     //    QVERIFY(dialog->ui->suffixListWidget->isEnabled());
     //    dialog->ui->suffixListWidget->setData({"Power"});
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.ignoreSpecificSuffix = true;
-    options.suffixList = QStringList{"Power"};
+    auto options = new RemoveDuplicateOptions(this);
+    options->ignoreSpecificSuffix = true;
+    options->suffixList = QStringList{"Power"};
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
 
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
@@ -241,8 +241,8 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
     //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     //    QVERIFY(dialog->ui->widget->isEnabled());
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.ignorePitchSuffix = true;
+    auto options = new RemoveDuplicateOptions;
+    options->ignorePitchSuffix = true;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
 
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
@@ -269,10 +269,10 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
     //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     //    dialog->ui->caseSensitiveCheckBox->setChecked(true);
     //    dialog->ui->caseComboBox->setCurrentIndex(0);
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.ignorePitchSuffix = true;
-    options.pitchCaseSensitive = Qt::CaseSensitive;
-    options.pitchCase = OtoEntryFunctions::Upper;
+    auto options = new RemoveDuplicateOptions;
+    options->ignorePitchSuffix = true;
+    options->pitchCaseSensitive = Qt::CaseSensitive;
+    options->pitchCase = OtoEntryFunctions::Upper;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
 
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
@@ -299,10 +299,10 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
     //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
     //    dialog->ui->caseSensitiveCheckBox->setChecked(true);
     //    dialog->ui->caseComboBox->setCurrentIndex(1);
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.ignorePitchSuffix = true;
-    options.pitchCaseSensitive = Qt::CaseSensitive;
-    options.pitchCase = OtoEntryFunctions::Lower;
+    auto options = new RemoveDuplicateOptions;
+    options->ignorePitchSuffix = true;
+    options->pitchCaseSensitive = Qt::CaseSensitive;
+    options->pitchCase = OtoEntryFunctions::Lower;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
     OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
@@ -321,9 +321,9 @@ void RemoveDuplicateTest::organizeDuplicate_test()
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
     //    dialog->ui->organizeCheckBox->setChecked(true);
     //    dialog->ui->maxSpinBox->setValue(0);
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.shouldOrganize = true;
-    options.maxDuplicateCount = 0;
+    auto options = new RemoveDuplicateOptions;
+    options->shouldOrganize = true;
+    options->maxDuplicateCount = 0;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
@@ -353,10 +353,10 @@ void RemoveDuplicateTest::organizeDuplicate_from1_test()
     //    dialog->ui->organizeCheckBox->setChecked(true);
     //    dialog->ui->maxSpinBox->setValue(0);
     //    dialog->ui->organizeStartFrom1CheckBox->setChecked(true);
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.shouldOrganize = true;
-    options.maxDuplicateCount = 0;
-    options.organizeStartFrom1 = true;
+    auto options = new RemoveDuplicateOptions;
+    options->shouldOrganize = true;
+    options->maxDuplicateCount = 0;
+    options->organizeStartFrom1 = true;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
@@ -388,11 +388,11 @@ void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
     //    dialog->ui->organizeCheckBox->setChecked(true);
     //    dialog->ui->organizeCaseComboBox->setCurrentIndex(1);
     //    dialog->ui->maxSpinBox->setValue(1);
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->getOptions();
-    options.ignorePitchSuffix = true;
-    options.shouldOrganize = true;
-    options.pitchCaseOrganized = OtoEntryFunctions::Lower;
-    options.maxDuplicateCount = 1;
+    auto options = new RemoveDuplicateOptions;
+    options->ignorePitchSuffix = true;
+    options->shouldOrganize = true;
+    options->pitchCaseOrganized = OtoEntryFunctions::Lower;
+    options->maxDuplicateCount = 1;
     qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
     QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 

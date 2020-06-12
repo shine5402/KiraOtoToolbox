@@ -7,6 +7,7 @@ TEMPLATE = app
 
 SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/optionWidgets/removeduplicatedialogoptionwidget.cpp \
+    ../../src/optionWidgets/tooloptionwidget.cpp \
     ../../src/otolistaliasshowchangemodel.cpp \
     ../../src/otolistmodel.cpp \
     ../../src/removeduplicatedialog.cpp \
@@ -28,6 +29,7 @@ FORMS += \
 
 HEADERS += \
     ../../src/optionWidgets/removeduplicatedialogoptionwidget.h \
+    ../../src/optionWidgets/tooloptionwidget.h \
     ../../src/otolistaliasshowchangemodel.h \
     ../../src/otolistmodel.h \
     ../../src/removeduplicatedialog.h \

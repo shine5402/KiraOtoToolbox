@@ -57,8 +57,9 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     QStringList compareStringList;
     const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
-
-    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionWidget)->getOptions();
+    auto optionWidget = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionLayout->parentWidget()->findChild<RemoveDuplicateDialogOptionWidget*>("optionWidget"));
+    Q_ASSERT(optionWidget);
+    auto options = qobject_cast<const RemoveDuplicateOptions*>(optionWidget->getOptions(this));
 
     for (int i = 0; i < entryList.count(); ++i)
     {
@@ -67,10 +68,10 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
     //处理特定后缀
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
-    if (options.ignoreSpecificSuffix){
+    if (options->ignoreSpecificSuffix){
         for (int i = 0; i < entryList.count(); ++i)
         {
-            for (const auto& currentItem : options.suffixList)
+            for (const auto& currentItem : options->suffixList)
             {
                 if (compareStringList.at(i).endsWith(currentItem))
                 {
@@ -84,13 +85,13 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     //处理音高后缀
     //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存
-    if (options.ignorePitchSuffix)
+    if (options->ignorePitchSuffix)
         for (int i = 0; i < entryList.count(); ++i)
         {
             QString removedPitch {};
-            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options.bottomPitch, options.topPitch,
-                                                               options.pitchCaseSensitive,
-                                                               options.pitchCase, &removedPitch);
+            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options->bottomPitch, options->topPitch,
+                                                               options->pitchCaseSensitive,
+                                                               options->pitchCase, &removedPitch);
             compareStringList.replace(i, result);
             if (!removedPitch.isEmpty())
                 removedPitchStringList.insert(i, removedPitch);
@@ -113,7 +114,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     }
 
     //整理重复项
-    if (options.shouldOrganize){
+    if (options->shouldOrganize){
         /*
          * 要做的事：重整重复项数字顺序，添加原后缀。
          */
@@ -127,8 +128,8 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
             {
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
-                                (i > 0 ? QString::number((options.organizeStartFrom1 ? i : i + 1)) : "") +
-                                (options.pitchCaseOrganized == OtoEntryFunctions::Upper ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
+                                (i > 0 ? QString::number((options->organizeStartFrom1 ? i : i + 1)) : "") +
+                                (options->pitchCaseOrganized == OtoEntryFunctions::Upper ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
@@ -160,16 +161,16 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
 
     //删除重复项
     //检查重复并确认待删除项
-    if (options.maxDuplicateCount != 0) {
+    if (options->maxDuplicateCount != 0) {
         QList<int> toBeRemoved;
 
         for (auto key : compareStringMap.uniqueKeys())
         {
-            if (compareStringMap.count(key) > options.maxDuplicateCount)
+            if (compareStringMap.count(key) > options->maxDuplicateCount)
             {
                 auto values = compareStringMap.values(key);
                 std::sort(values.begin(), values.end());
-                toBeRemoved.append(values.mid(options.maxDuplicateCount));
+                toBeRemoved.append(values.mid(options->maxDuplicateCount));
             }
         }
         std::sort(toBeRemoved.begin(), toBeRemoved.end());

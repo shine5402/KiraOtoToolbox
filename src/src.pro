@@ -23,6 +23,7 @@ SOURCES += \
     mainwindow.cpp \
     overlapBatchSet/overlapsetdialog.cpp \
     removeDuplicate/removeduplicatedialog.cpp \
+    removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/tooloptionwidget.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     mainwindow.h \
     overlapBatchSet/overlapsetdialog.h \
     removeDuplicate/removeduplicatedialog.h \
+    removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
     toolBase/tooldialogadapter.h \
     toolBase/tooloptionwidget.h \

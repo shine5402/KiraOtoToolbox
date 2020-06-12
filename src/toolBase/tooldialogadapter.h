@@ -13,7 +13,8 @@ class ToolDialogAdapter : public QObject
 public:
     explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void setupSpecificUIWidgets(QLayout* rootLayout) = 0;
-    virtual bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget) = 0;
+    virtual bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
+                        const ToolOptionWidget* optionWidget, QWidget* dialogParent) = 0;
 signals:
 
 };

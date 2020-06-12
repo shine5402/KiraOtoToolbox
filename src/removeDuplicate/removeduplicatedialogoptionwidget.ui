@@ -434,7 +434,7 @@
   <customwidget>
    <class>StringListModifyWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/stringlistmodifywidget.h</header>
+   <header>utils/widgets/stringlistmodifywidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

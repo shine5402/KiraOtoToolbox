@@ -3,13 +3,13 @@
 #include <QFileDialog>
 #include <otofilereader.h>
 #include <QMessageBox>
-#include "showotolistdialog.h"
+#include "utils/dialogs/showotolistdialog.h"
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QInputDialog>
-#include "otolistoverlapshowchangemodel.h"
-#include "showotolistdialog.h"
+#include "utils/models/otolistoverlapshowchangemodel.h"
+#include "utils/dialogs/showotolistdialog.h"
 
 OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     QDialog(parent),

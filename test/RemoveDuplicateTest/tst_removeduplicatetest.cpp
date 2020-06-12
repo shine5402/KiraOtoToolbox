@@ -1,15 +1,15 @@
 #include <QtTest>
 
 #include <otoentry.h>
-#include "../../src/removeduplicatedialog.h"
+#include "removeDuplicate/removeduplicatedialog.h"
 #include <QTimer>
 #include <QMessageBox>
-#include "../../src/showotolistdialog.h"
+#include "utils/dialogs/showotolistdialog.h"
 #include "ui_removeduplicatedialog.h"
 #include "otofilereader.h"
 #include <QRandomGenerator>
 #include <QPushButton>
-#include "optionWidgets/removeduplicatedialogoptionwidget.h"
+#include "removeDuplicate/removeduplicatedialogoptionwidget.h"
 
 //为了NTFS权限处理
 extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;

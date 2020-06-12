@@ -51,13 +51,13 @@
   <customwidget>
    <class>OtoFileLoadWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/otofileloadwidget.h</header>
+   <header>utils/widgets/otofileloadwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>OtoFileSaveWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/otofilesavewidget.h</header>
+   <header>utils/widgets/otofilesavewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

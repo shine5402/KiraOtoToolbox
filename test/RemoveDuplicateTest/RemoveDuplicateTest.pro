@@ -6,39 +6,41 @@ CONFIG += qt warn_on depend_includepath testcase
 TEMPLATE = app
 
 SOURCES +=  tst_removeduplicatetest.cpp \
-    ../../src/optionWidgets/removeduplicatedialogoptionwidget.cpp \
-    ../../src/optionWidgets/tooloptionwidget.cpp \
-    ../../src/otolistaliasshowchangemodel.cpp \
-    ../../src/otolistmodel.cpp \
-    ../../src/removeduplicatedialog.cpp \
-    ../../src/showotolistdialog.cpp \
-    ../../src/widgets/filenameeditwithbrowse.cpp \
-    ../../src/widgets/otofileloadwidget.cpp \
-    ../../src/widgets/otofilenameeditwithbrowse.cpp \
-    ../../src/widgets/otofilesavewidget.cpp \
-    ../../src/widgets/stringlistmodifywidget.cpp
+    ../../src/removeDuplicate/removeduplicatedialog.cpp \
+    ../../src/removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    ../../src/toolBase/tooloptionwidget.cpp \
+    ../../src/utils/dialogs/showotolistdialog.cpp \
+    ../../src/utils/models/otolistaliasshowchangemodel.cpp \
+    ../../src/utils/models/otolistmodel.cpp \
+    ../../src/utils/models/otolistoverlapshowchangemodel.cpp \
+    ../../src/utils/widgets/filenameeditwithbrowse.cpp \
+    ../../src/utils/widgets/otofileloadwidget.cpp \
+    ../../src/utils/widgets/otofilenameeditwithbrowse.cpp \
+    ../../src/utils/widgets/otofilesavewidget.cpp \
+    ../../src/utils/widgets/stringlistmodifywidget.cpp
 
 FORMS += \
-    ../../src/optionWidgets/removeduplicatedialogoptionwidget.ui \
-    ../../src/removeduplicatedialog.ui \
-    ../../src/showotolistdialog.ui \
-    ../../src/widgets/filenameeditwithbrowse.ui \
-    ../../src/widgets/otofileloadwidget.ui \
-    ../../src/widgets/otofilesavewidget.ui \
-    ../../src/widgets/stringlistmodifywidget.ui
+    ../../src/removeDuplicate/removeduplicatedialog.ui \
+    ../../src/removeDuplicate/removeduplicatedialogoptionwidget.ui \
+    ../../src/utils/dialogs/showotolistdialog.ui \
+    ../../src/utils/widgets/filenameeditwithbrowse.ui \
+    ../../src/utils/widgets/otofileloadwidget.ui \
+    ../../src/utils/widgets/otofilesavewidget.ui \
+    ../../src/utils/widgets/stringlistmodifywidget.ui
 
 HEADERS += \
-    ../../src/optionWidgets/removeduplicatedialogoptionwidget.h \
-    ../../src/optionWidgets/tooloptionwidget.h \
-    ../../src/otolistaliasshowchangemodel.h \
-    ../../src/otolistmodel.h \
-    ../../src/removeduplicatedialog.h \
-    ../../src/showotolistdialog.h \
-    ../../src/widgets/filenameeditwithbrowse.h \
-    ../../src/widgets/otofileloadwidget.h \
-    ../../src/widgets/otofilenameeditwithbrowse.h \
-    ../../src/widgets/otofilesavewidget.h \
-    ../../src/widgets/stringlistmodifywidget.h
+    ../../src/removeDuplicate/removeduplicatedialog.h \
+    ../../src/removeDuplicate/removeduplicatedialogoptionwidget.h \
+    ../../src/toolBase/tooloptionwidget.h \
+    ../../src/utils/dialogs/showotolistdialog.h \
+    ../../src/utils/models/otolistaliasshowchangemodel.h \
+    ../../src/utils/models/otolistmodel.h \
+    ../../src/utils/models/otolistoverlapshowchangemodel.h \
+    ../../src/utils/widgets/filenameeditwithbrowse.h \
+    ../../src/utils/widgets/otofileloadwidget.h \
+    ../../src/utils/widgets/otofilenameeditwithbrowse.h \
+    ../../src/utils/widgets/otofilesavewidget.h \
+    ../../src/utils/widgets/stringlistmodifywidget.h
 
 DEFINES += SHINE5402OTOBOX_TEST
 

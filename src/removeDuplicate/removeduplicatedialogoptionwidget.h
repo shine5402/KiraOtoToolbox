@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <otoentry.h>
-#include "tooloptionwidget.h"
+#include "toolBase/tooloptionwidget.h"
 
 namespace Ui {
     class RemoveDuplicateDialogOptionWidget;

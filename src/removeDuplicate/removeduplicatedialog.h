@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::RemoveDuplicateDialog *ui;
     void setupSpecificUIWidgets(QLayout* rootLayout);
+    void reAssignUIWidgets();
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

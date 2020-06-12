@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "removeduplicatedialog.h"
+#include "removeDuplicate/removeduplicatedialog.h"
 #include <QMessageBox>
-#include "overlapsetdialog.h"
-#include "addsuffixdialog.h"
+#include "overlapBatchSet/overlapsetdialog.h"
+#include "addSuffix/addsuffixdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

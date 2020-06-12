@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <otoentry.h>
-#include "otolistmodel.h"
+#include "../models/otolistmodel.h"
 #include <QDialogButtonBox>
 
 namespace Ui {

@@ -3,12 +3,12 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "otofilereader.h"
-#include "showotolistdialog.h"
+#include "utils/dialogs/showotolistdialog.h"
 #include <QInputDialog>
-#include "otolistaliasshowchangemodel.h"
+#include "utils/models/otolistaliasshowchangemodel.h"
 #include <algorithm>
-#include "widgets/otofilesavewidget.h"
-#include "optionWidgets/removeduplicatedialogoptionwidget.h"
+#include "utils/widgets/otofilesavewidget.h"
+#include "removeduplicatedialogoptionwidget.h"
 #ifdef SHINE5402OTOBOX_TEST
 #include <QTimer>
 #endif

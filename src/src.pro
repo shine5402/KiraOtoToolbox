@@ -18,51 +18,54 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addsuffixdialog.cpp \
+    addSuffix/addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    optionWidgets/removeduplicatedialogoptionwidget.cpp \
-    optionWidgets/tooloptionwidget.cpp \
-    otolistaliasshowchangemodel.cpp \
-    otolistmodel.cpp \
-    otolistoverlapshowchangemodel.cpp \
-    overlapsetdialog.cpp \
-    removeduplicatedialog.cpp \
-    showotolistdialog.cpp \
-    widgets/filenameeditwithbrowse.cpp \
-    widgets/otofileloadwidget.cpp \
-    widgets/otofilenameeditwithbrowse.cpp \
-    widgets/otofilesavewidget.cpp \
-    widgets/stringlistmodifywidget.cpp
+    overlapBatchSet/overlapsetdialog.cpp \
+    removeDuplicate/removeduplicatedialog.cpp \
+    removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    toolBase/tooloptionwidget.cpp \
+    utils/dialogs/showotolistdialog.cpp \
+    utils/models/otolistaliasshowchangemodel.cpp \
+    utils/models/otolistmodel.cpp \
+    utils/models/otolistoverlapshowchangemodel.cpp \
+    utils/widgets/filenameeditwithbrowse.cpp \
+    utils/widgets/otofileloadwidget.cpp \
+    utils/widgets/otofilenameeditwithbrowse.cpp \
+    utils/widgets/otofilesavewidget.cpp \
+    utils/widgets/stringlistmodifywidget.cpp
+
 
 HEADERS += \
-    addsuffixdialog.h \
+    addSuffix/addsuffixdialog.h \
     mainwindow.h \
-    optionWidgets/removeduplicatedialogoptionwidget.h \
-    optionWidgets/tooloptionwidget.h \
-    otolistaliasshowchangemodel.h \
-    otolistmodel.h \
-    otolistoverlapshowchangemodel.h \
-    overlapsetdialog.h \
-    removeduplicatedialog.h \
-    showotolistdialog.h \
-    widgets/filenameeditwithbrowse.h \
-    widgets/otofileloadwidget.h \
-    widgets/otofilenameeditwithbrowse.h \
-    widgets/otofilesavewidget.h \
-    widgets/stringlistmodifywidget.h
+    overlapBatchSet/overlapsetdialog.h \
+    removeDuplicate/removeduplicatedialog.h \
+    removeDuplicate/removeduplicatedialogoptionwidget.h \
+    toolBase/tooloptionwidget.h \
+    utils/dialogs/showotolistdialog.h \
+    utils/models/otolistaliasshowchangemodel.h \
+    utils/models/otolistmodel.h \
+    utils/models/otolistoverlapshowchangemodel.h \
+    utils/widgets/filenameeditwithbrowse.h \
+    utils/widgets/otofileloadwidget.h \
+    utils/widgets/otofilenameeditwithbrowse.h \
+    utils/widgets/otofilesavewidget.h \
+    utils/widgets/stringlistmodifywidget.h
+
 
 FORMS += \
-    addsuffixdialog.ui \
+    addSuffix/addsuffixdialog.ui \
     mainwindow.ui \
-    optionWidgets/removeduplicatedialogoptionwidget.ui \
-    overlapsetdialog.ui \
-    removeduplicatedialog.ui \
-    showotolistdialog.ui \
-    widgets/filenameeditwithbrowse.ui \
-    widgets/otofileloadwidget.ui \
-    widgets/otofilesavewidget.ui \
-    widgets/stringlistmodifywidget.ui
+    overlapBatchSet/overlapsetdialog.ui \
+    removeDuplicate/removeduplicatedialog.ui \
+    removeDuplicate/removeduplicatedialogoptionwidget.ui \
+    utils/dialogs/showotolistdialog.ui \
+    utils/widgets/filenameeditwithbrowse.ui \
+    utils/widgets/otofileloadwidget.ui \
+    utils/widgets/otofilesavewidget.ui \
+    utils/widgets/stringlistmodifywidget.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -72,4 +75,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 include(include.pri)
 
 RESOURCES += \
-    overlap_start_preset/overlap_start_preset.qrc
+    presets/overlap_start_preset/overlap_start_preset.qrc

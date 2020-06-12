@@ -2,7 +2,7 @@
 #include "ui_addsuffixdialog.h"
 #include <QFileDialog>
 #include <otofilereader.h>
-#include "showotolistdialog.h"
+#include "utils/dialogs/showotolistdialog.h"
 #include <QMessageBox>
 
 AddSuffixDialog::AddSuffixDialog(QWidget *parent) :

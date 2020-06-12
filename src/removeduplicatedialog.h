@@ -21,13 +21,12 @@ public:
     ~RemoveDuplicateDialog();
 
 private slots:
-
     void otoFileLoaded();
 
     void accept() override;
-
 private:
     Ui::RemoveDuplicateDialog *ui;
+    void setupSpecificUIWidgets(QLayout* rootLayout);
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

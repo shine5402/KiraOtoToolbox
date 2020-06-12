@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>去除重复项</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="rootLayout" stretch="0,1,0,0">
    <item>
     <widget class="OtoFileLoadWidget" name="otoLoadWidget" native="true"/>
    </item>
@@ -25,15 +25,15 @@
      <property name="title">
       <string>行为设定</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="optionLayout">
       <item>
-       <widget class="RemoveDuplicateDialogOptionWidget" name="optionWidget" native="true"/>
+       <widget class="QWidget" name="optionWidget" native="true"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="OtoFileSaveWidgetWithSecondFileNameAsDeleted" name="otoSaveWidget" native="true"/>
+    <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -55,15 +55,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>OtoFileSaveWidgetWithSecondFileNameAsDeleted</class>
+   <class>OtoFileSaveWidget</class>
    <extends>QWidget</extends>
    <header>widgets/otofilesavewidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>RemoveDuplicateDialogOptionWidget</class>
-   <extends>QWidget</extends>
-   <header>optionWidgets/removeduplicatedialogoptionwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

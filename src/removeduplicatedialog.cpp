@@ -7,10 +7,11 @@
 #include <QInputDialog>
 #include "otolistaliasshowchangemodel.h"
 #include <algorithm>
+#include "widgets/otofilesavewidget.h"
+#include "optionWidgets/removeduplicatedialogoptionwidget.h"
 #ifdef SHINE5402OTOBOX_TEST
 #include <QTimer>
 #endif
-
 
 RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     QDialog(parent),
@@ -18,8 +19,27 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
+    setupSpecificUIWidgets(ui->rootLayout);
 }
 
+void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)
+{
+    auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
+    auto optionWidget = optionLayout->parentWidget()->findChild<QWidget*>("optionWidget");
+
+    auto saveWidget = rootLayout->parentWidget()->findChild<QWidget*>("otoSaveWidget");
+
+    if (optionWidget){
+        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, new RemoveDuplicateDialogOptionWidget(this));
+        if (previousOptionWidget)
+            previousOptionWidget->widget()->deleteLater();
+    }
+    if (saveWidget){
+        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(this));
+        if (previousSaveWidget)
+            previousSaveWidget->widget()->deleteLater();
+    }
+}
 
 RemoveDuplicateDialog::~RemoveDuplicateDialog()
 {
@@ -38,7 +58,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
 
-    auto options = ui->optionWidget->getOptions();
+    auto options = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionWidget)->getOptions();
 
     for (int i = 0; i < entryList.count(); ++i)
     {
@@ -60,7 +80,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
                 }
             }
         }
-}
+    }
     //处理音高后缀
     //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存

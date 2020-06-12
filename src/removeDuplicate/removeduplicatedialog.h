@@ -26,8 +26,8 @@ private slots:
     void accept() override;
 private:
     Ui::RemoveDuplicateDialog *ui;
-    void setupSpecificUIWidgets(QLayout* rootLayout);
     void reAssignUIWidgets();
+    ToolDialogAdapter* adapter;
 };
 
 #endif // REMOVEDUPLICATEDIALOG_H

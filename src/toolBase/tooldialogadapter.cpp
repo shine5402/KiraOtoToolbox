@@ -6,3 +6,4 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 {
 
 }
+

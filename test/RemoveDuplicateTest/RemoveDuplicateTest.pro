@@ -7,7 +7,9 @@ TEMPLATE = app
 
 SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/removeDuplicate/removeduplicatedialog.cpp \
+    ../../src/removeDuplicate/removeduplicatedialogadapter.cpp \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    ../../src/toolBase/tooldialogadapter.cpp \
     ../../src/toolBase/tooloptionwidget.cpp \
     ../../src/utils/dialogs/showotolistdialog.cpp \
     ../../src/utils/models/otolistaliasshowchangemodel.cpp \
@@ -30,7 +32,9 @@ FORMS += \
 
 HEADERS += \
     ../../src/removeDuplicate/removeduplicatedialog.h \
+    ../../src/removeDuplicate/removeduplicatedialogadapter.h \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.h \
+    ../../src/toolBase/tooldialogadapter.h \
     ../../src/toolBase/tooloptionwidget.h \
     ../../src/utils/dialogs/showotolistdialog.h \
     ../../src/utils/models/otolistaliasshowchangemodel.h \

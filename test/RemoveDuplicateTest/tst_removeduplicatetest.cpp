@@ -10,6 +10,7 @@
 #include <QRandomGenerator>
 #include <QPushButton>
 #include "removeDuplicate/removeduplicatedialogoptionwidget.h"
+#include "removeDuplicate/removeduplicatedialogadapter.h"
 
 //为了NTFS权限处理
 extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
@@ -119,7 +120,7 @@ void RemoveDuplicateTest::init()
 //void RemoveDuplicateTest::loadFile_test()
 //{
 
-//    auto dialog = new RemoveDuplicateDialog();
+//        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
 //    dialog->open();
 //    dialog->ui->otoLoadWidget->setFileName(":/file2Test/normalData.ini");
 //    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
@@ -131,7 +132,7 @@ void RemoveDuplicateTest::init()
 void RemoveDuplicateTest::removeDuplicate_test()
 {
     prepareTestFile(":/file2Test/normalData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+    auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -154,7 +155,7 @@ void RemoveDuplicateTest::removeDuplicate_test()
 void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
 {
     prepareTestFile(":/file2Test/normalData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -179,7 +180,7 @@ void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
 void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
 {
     prepareTestFile(":/file2Test/normalData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -205,7 +206,7 @@ void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
 void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
 {
     prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withSpecificSuffixData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -235,7 +236,7 @@ void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -262,7 +263,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -292,7 +293,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -315,7 +316,7 @@ void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
 void RemoveDuplicateTest::organizeDuplicate_test()
 {
     prepareTestFile(":/file2Test/needOrganizedData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("needOrganizedData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -346,7 +347,7 @@ void RemoveDuplicateTest::organizeDuplicate_test()
 void RemoveDuplicateTest::organizeDuplicate_from1_test()
 {
     prepareTestFile(":/file2Test/needOrganizedData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("needOrganizedData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
@@ -379,7 +380,7 @@ void RemoveDuplicateTest::organizeDuplicate_from1_test()
 void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-    auto dialog = new RemoveDuplicateDialog();
+        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");

@@ -3,6 +3,9 @@
 #include "utils/models/otolistaliasshowchangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
 #include <QMessageBox>
+#ifdef SHINE5402OTOBOX_TEST
+#include <QTimer>
+#endif
 
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
@@ -168,7 +171,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
             return false;
         if (saveWidget->isSecondFileNameUsed())
         {
-            QFile file(ui->otoSaveWidget->secondFileName());
+            QFile file(saveWidget->secondFileName());
             if (file.open(QFile::WriteOnly | QFile::Text))
             {
                 auto code = OtoEntryFunctions::writeOtoListToFile(file, toBeRemovedEntryList);
@@ -177,7 +180,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 #ifdef SHINE5402OTOBOX_TEST
                     Q_ASSERT(false);
 #endif
-                    auto shouldContinue = QMessageBox::critical(this, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(ui->otoSaveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                    auto shouldContinue = QMessageBox::critical(dialogParent, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(saveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
                     if (shouldContinue == QMessageBox::Cancel)
                         return false;
                 }
@@ -187,7 +190,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 #ifdef SHINE5402OTOBOX_TEST
                 Q_ASSERT(false);
 #endif
-                auto shouldContinue = QMessageBox::critical(this, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(ui->otoSaveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
+                auto shouldContinue = QMessageBox::critical(dialogParent, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(saveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
                 if (shouldContinue == QMessageBox::Cancel)
                     return false;
             }
@@ -228,5 +231,5 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 #endif
         QMessageBox::critical(dialogParent, tr("无法打开指定路径"), tr("无法打开 %1。").arg(file.fileName()));
     }
-
+    return true;
 }

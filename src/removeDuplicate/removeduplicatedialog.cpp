@@ -13,13 +13,13 @@
 #include <QTimer>
 #endif
 
-RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
+RemoveDuplicateDialog::RemoveDuplicateDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RemoveDuplicateDialog)
 {
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
-    setupSpecificUIWidgets(ui->rootLayout);
+    adapter->setupSpecificUIWidgets(ui->rootLayout);
     reAssignUIWidgets();
 }
 

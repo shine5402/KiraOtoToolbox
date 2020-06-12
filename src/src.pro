@@ -24,6 +24,7 @@ SOURCES += \
     overlapBatchSet/overlapsetdialog.cpp \
     removeDuplicate/removeduplicatedialog.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    toolBase/tooldialogadapter.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/models/otolistaliasshowchangemodel.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     overlapBatchSet/overlapsetdialog.h \
     removeDuplicate/removeduplicatedialog.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
+    toolBase/tooldialogadapter.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/showotolistdialog.h \
     utils/models/otolistaliasshowchangemodel.h \

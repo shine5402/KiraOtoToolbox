@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += RemoveDuplicateTest \
-    OverlapSetTest
+    OverlapSetTest \
+    UtilWidgetsTest

@@ -20,6 +20,10 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
     setupSpecificUIWidgets(ui->rootLayout);
+    ui->optionWidget = ui->optionLayout->parentWidget()->findChild<RemoveDuplicateDialogOptionWidget*>(QString(), Qt::FindDirectChildrenOnly);
+    Q_ASSERT(ui->optionWidget);
+    ui->otoSaveWidget = ui->rootLayout->parentWidget()->findChild<OtoFileSaveWidgetWithSecondFileNameAsDeleted*>(QString(), Qt::FindDirectChildrenOnly);
+    Q_ASSERT(ui->otoSaveWidget);
 }
 
 void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)
@@ -30,12 +34,12 @@ void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)
     auto saveWidget = rootLayout->parentWidget()->findChild<QWidget*>("otoSaveWidget");
 
     if (optionWidget){
-        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, new RemoveDuplicateDialogOptionWidget(this));
+        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, new RemoveDuplicateDialogOptionWidget(rootLayout->parentWidget()));
         if (previousOptionWidget)
             previousOptionWidget->widget()->deleteLater();
     }
     if (saveWidget){
-        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(this));
+        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
         if (previousSaveWidget)
             previousSaveWidget->widget()->deleteLater();
     }
@@ -57,8 +61,7 @@ void RemoveDuplicateDialog::RemoveDuplicateDialog::accept()
     QStringList compareStringList;
     const auto entryList = ui->otoLoadWidget->getEntryList();
     auto entryListWorking = entryList;
-    auto optionWidget = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionLayout->parentWidget()->findChild<RemoveDuplicateDialogOptionWidget*>("optionWidget"));
-    Q_ASSERT(optionWidget);
+    auto optionWidget = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionWidget);
     auto options = qobject_cast<const RemoveDuplicateOptions*>(optionWidget->getOptions(this));
 
     for (int i = 0; i < entryList.count(); ++i)

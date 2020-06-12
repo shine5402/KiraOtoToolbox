@@ -13,14 +13,6 @@
 #include <QTimer>
 #endif
 
-void RemoveDuplicateDialog::reAssignUIWidgets()
-{
-    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
-    Q_ASSERT(ui->optionWidget);
-    ui->otoSaveWidget = ui->rootLayout->parentWidget()->findChildren<OtoFileSaveWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
-    Q_ASSERT(ui->otoSaveWidget);
-}
-
 RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RemoveDuplicateDialog)
@@ -28,8 +20,16 @@ RemoveDuplicateDialog::RemoveDuplicateDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &RemoveDuplicateDialog::otoFileLoaded);
     setupSpecificUIWidgets(ui->rootLayout);
-    //Use last() to choose the newest widgets.
     reAssignUIWidgets();
+}
+
+void RemoveDuplicateDialog::reAssignUIWidgets()
+{
+    //Use last() to choose the newest widgets.
+    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    Q_ASSERT(ui->optionWidget);
+    ui->otoSaveWidget = ui->rootLayout->parentWidget()->findChildren<OtoFileSaveWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    Q_ASSERT(ui->otoSaveWidget);
 }
 
 void RemoveDuplicateDialog::setupSpecificUIWidgets(QLayout* rootLayout)

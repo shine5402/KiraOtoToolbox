@@ -31,7 +31,7 @@ ToolDialog::~ToolDialog()
 
 void ToolDialog::otoFileLoaded()
 {
-    ui->optionGroupBox->setEnabled(true);
+    ui->optionWidget->setEnabled(true);
     ui->otoSaveWidget->setEnabled(true);
 }
 

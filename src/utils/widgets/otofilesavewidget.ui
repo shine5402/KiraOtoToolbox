@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>OtoFileSaveWidget</class>
  <widget class="QWidget" name="OtoFileSaveWidget">
+  <property name="enabled">
+   <bool>false</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -28,9 +31,6 @@
    </property>
    <item>
     <widget class="QGroupBox" name="saveOptionGroupBox">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
      <property name="title">
       <string>保存位置</string>
      </property>
@@ -103,6 +103,9 @@
          </item>
          <item>
           <widget class="OtoFileNameEditWithSaveBrowse" name="secondFileNameEdit" native="true">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -128,7 +131,24 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>secondFileNameCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>secondFileNameEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="saveFileNameButtonGroup"/>
  </buttongroups>

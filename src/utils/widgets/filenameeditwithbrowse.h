@@ -12,6 +12,10 @@ class FileNameEditWithBrowse : public QWidget
 {
     Q_OBJECT
 
+#ifdef SHINE5402OTOBOX_TEST
+    friend class UtilWidgetsTest;
+#endif
+
 public:
     enum Purpose{Open, Save};
     Q_ENUM(Purpose);
@@ -56,14 +60,20 @@ private slots:
     void browse();
 };
 
-class FileNameEditWithOpenBrowse : FileNameEditWithBrowse{
+class FileNameEditWithOpenBrowse : public FileNameEditWithBrowse{
     Q_OBJECT
+#ifdef SHINE5402OTOBOX_TEST
+    friend class UtilWidgetsTest;
+#endif
 public:
     explicit FileNameEditWithOpenBrowse(QWidget *parent = nullptr);
 };
 
-class FileNameEditWithSaveBrowse : FileNameEditWithBrowse{
+class FileNameEditWithSaveBrowse : public FileNameEditWithBrowse{
     Q_OBJECT
+#ifdef SHINE5402OTOBOX_TEST
+    friend class UtilWidgetsTest;
+#endif
 public:
     explicit FileNameEditWithSaveBrowse(QWidget *parent = nullptr);
 };

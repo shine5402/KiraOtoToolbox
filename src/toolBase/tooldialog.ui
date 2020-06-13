@@ -33,7 +33,11 @@
     </widget>
    </item>
    <item>
-    <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true"/>
+    <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

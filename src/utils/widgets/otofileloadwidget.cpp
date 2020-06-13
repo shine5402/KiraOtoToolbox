@@ -5,6 +5,10 @@
 #include <otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
 
+#ifdef SHINE5402OTOBOX_TEST
+#include <QTimer>
+#endif
+
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OtoFileLoadWidget)
@@ -66,5 +70,8 @@ void OtoFileLoadWidget::loadOtoFile()
 void OtoFileLoadWidget::showOtoListDialog()
 {
     auto dialog = new ShowOtoListDialog(&entryList ,this);
+#ifdef SHINE5402OTOBOX_TEST
+        QTimer::singleShot(0, dialog, &ShowOtoListDialog::accept);
+#endif
     dialog->open();
 }

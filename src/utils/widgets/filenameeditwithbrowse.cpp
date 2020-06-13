@@ -43,14 +43,22 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
+#ifdef SHINE5402OTOBOX_TEST
+    auto path = QString(":/testOpen");
+#else
     auto path = QFileDialog::getOpenFileName(this,caption,dir,filter,selectedFilter,options);
+#endif
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);
 }
 
 void FileNameEditWithBrowse::saveFilePathBrowse()
 {
+#ifdef SHINE5402OTOBOX_TEST
+    auto path = QString(":/testSave");
+#else
     auto path = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
+#endif
     if (!path.isEmpty())
         ui->fileNameEdit->setText(path);
 }

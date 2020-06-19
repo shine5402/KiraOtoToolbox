@@ -29,7 +29,16 @@ private:
     void cleanCurrentTestFiles();
     bool shouldCleanInEnd = true;
 
+    ToolDialog* dialog = nullptr;
+    RemoveDuplicateOptions* options = nullptr;
+
     void prepareTestDir();
+    void prepareDialogAndLoadFile(const QString& fileName);
+    void acceptDialog();
+
+    void setToolOptionsWrapper(std::function<void()> optionFunc);
+
+    QStringList getAliasListFromFile(const QString& fileName);
 
 private slots:
     void initTestCase();
@@ -103,7 +112,6 @@ void RemoveDuplicateTest::cleanCurrentTestFiles()
     auto testDirName = testDir.dirName();
     Q_ASSERT(testDir.cdUp());
     Q_ASSERT(testDir.rmdir(testDirName));
-
 }
 
 void RemoveDuplicateTest::initTestCase()
@@ -116,29 +124,30 @@ void RemoveDuplicateTest::init()
     prepareTestDir();
 }
 
-//TODO:Write test for load file widget
-//void RemoveDuplicateTest::loadFile_test()
-//{
-
-//        auto dialog = new RemoveDuplicateDialog(new RemoveDuplicateDialogAdapter(this));
-//    dialog->open();
-//    dialog->ui->otoLoadWidget->setFileName(":/file2Test/normalData.ini");
-//    QTest::mouseClick(dialog->ui->loadButton, Qt::MouseButton::LeftButton);
-//    QCOMPARE(dialog->entryList.count(), 15);
-//    dialog->close();
-//    dialog->deleteLater();
-//}
-
-void RemoveDuplicateTest::removeDuplicate_test()
+void RemoveDuplicateTest::prepareDialogAndLoadFile(const QString& fileName)
 {
-    prepareTestFile(":/file2Test/normalData.ini");
-    auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
+    dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
     dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
+    dialog->ui->otoLoadWidget->setFileName(testDir.filePath(fileName));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
-    OtoFileReader reader(testDir.filePath("normalData.ini"));
+}
+
+void RemoveDuplicateTest::acceptDialog()
+{
+    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+}
+
+void RemoveDuplicateTest::setToolOptionsWrapper(std::function<void ()> optionFunc)
+{
+    options = new RemoveDuplicateOptions(this);
+    optionFunc();
+    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
+}
+
+QStringList RemoveDuplicateTest::getAliasListFromFile(const QString& fileName)
+{
+    OtoFileReader reader(testDir.filePath(fileName));
     auto list = reader.getEntryList();
 
     QStringList aliasList;
@@ -146,271 +155,156 @@ void RemoveDuplicateTest::removeDuplicate_test()
     {
         aliasList.append(i.alias());
     }
+    return aliasList;
+}
+
+void RemoveDuplicateTest::removeDuplicate_test()
+{
+    prepareTestFile(":/file2Test/normalData.ini");
+    prepareDialogAndLoadFile("normalData.ini");
+    acceptDialog();
+    auto aliasList = getAliasListFromFile("normalData.ini");
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicate_saveToOtherFile_test()
 {
     prepareTestFile(":/file2Test/normalData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
+    prepareDialogAndLoadFile("normalData.ini");
+
     dialog->ui->otoSaveWidget->setSaveToCustom();
     dialog->ui->otoSaveWidget->setFileName(testDir.filePath("normalData2.ini"));
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
 
-    OtoFileReader reader(testDir.filePath("normalData2.ini"));
-    auto list = reader.getEntryList();
+    acceptDialog();
 
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("normalData2.ini");
     const QStringList expectedAliasList = {"- さ","a さ","a R","さ","a s","a 息R","u ・"};
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicate_saveDeletedToOtherFile_test()
 {
     prepareTestFile(":/file2Test/normalData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("normalData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
+    prepareDialogAndLoadFile("normalData.ini");
     dialog->ui->otoSaveWidget->setSecondFileNameUsed(true);
     dialog->ui->otoSaveWidget->setSecondFileName(testDir.filePath("normalData2.ini"));
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+    acceptDialog();
 
-    OtoFileReader reader(testDir.filePath("normalData2.ini"));
-    auto list = reader.getEntryList();
-
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("normalData2.ini");
     const QStringList expectedAliasList = {"- さ2","- さ3","a さ2","a R2","さ2","a s2","a 息R2","u ・2"};
-    qDebug() << aliasList;
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithSpecificSuffix_test()
 {
     prepareTestFile(":/file2Test/withSpecificSuffixData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withSpecificSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //因为直接发送点击事件会点击在QCheckBox的中心而导致无法选中，因为Qt本身应当是提供点击 -> Checked的保证的，此处直接设置Checked，而不是指定位置点击
-    //    dialog->ui->ignoreSpecificSuffixCheckBox->setChecked(true);
-    //    QVERIFY(dialog->ui->suffixListWidget->isEnabled());
-    //    dialog->ui->suffixListWidget->setData({"Power"});
-    auto options = new RemoveDuplicateOptions(this);
-    options->ignoreSpecificSuffix = true;
-    options->suffixList = QStringList{"Power"};
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
+    prepareDialogAndLoadFile("withSpecificSuffixData.ini");
+    setToolOptionsWrapper([&](){
+        options->ignoreSpecificSuffix = true;
+        options->suffixList = QStringList{"Power"};
+    });
 
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
-    OtoFileReader reader(testDir.filePath("withSpecificSuffixData.ini"));
-    auto list = reader.getEntryList();
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    acceptDialog();
+
+    auto aliasList = getAliasListFromFile("withSpecificSuffixData.ini");
     const QStringList expectedAliasList = {"- さPower","a さPower","a RPower","さPower","a sPower","a 息RPower","u ・Power"};
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
-    //    QVERIFY(dialog->ui->widget->isEnabled());
-    auto options = new RemoveDuplicateOptions;
-    options->ignorePitchSuffix = true;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
+    prepareDialogAndLoadFile("withPitchSuffixData.ini");
+    setToolOptionsWrapper([&](){
+            options->ignorePitchSuffix = true;
+    });
+    acceptDialog();
 
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
-    OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
-    auto list = reader.getEntryList();
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("withPitchSuffixData.ini");
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseMatch_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
-    //    dialog->ui->caseSensitiveCheckBox->setChecked(true);
-    //    dialog->ui->caseComboBox->setCurrentIndex(0);
-    auto options = new RemoveDuplicateOptions;
-    options->ignorePitchSuffix = true;
-    options->pitchCaseSensitive = Qt::CaseSensitive;
-    options->pitchCase = OtoEntryFunctions::Upper;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
+    prepareDialogAndLoadFile("withPitchSuffixData.ini");
 
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
-    OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
-    auto list = reader.getEntryList();
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    setToolOptionsWrapper([&](){
+        options->ignorePitchSuffix = true;
+        options->pitchCaseSensitive = Qt::CaseSensitive;
+        options->pitchCase = OtoEntryFunctions::Upper;
+    });
+
+    acceptDialog();
+
+    auto aliasList = getAliasListFromFile("withPitchSuffixData.ini");
     const QStringList expectedAliasList = {"- さA#3","a さA#3","a RA#3","さA#3","a sA#3","a 息RA#3","u ・A#3"};
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::removeDuplicateWithPitchSuffix_caseNotMatch_test()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
-    //    dialog->ui->caseSensitiveCheckBox->setChecked(true);
-    //    dialog->ui->caseComboBox->setCurrentIndex(1);
-    auto options = new RemoveDuplicateOptions;
-    options->ignorePitchSuffix = true;
-    options->pitchCaseSensitive = Qt::CaseSensitive;
-    options->pitchCase = OtoEntryFunctions::Lower;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
-    OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
-    auto list = reader.getEntryList();
-    QCOMPARE(list.count(), 15);
-    dialog->close();
-    dialog->deleteLater();
+    prepareDialogAndLoadFile("withPitchSuffixData.ini");
+    setToolOptionsWrapper([&](){
+        options->ignorePitchSuffix = true;
+        options->pitchCaseSensitive = Qt::CaseSensitive;
+        options->pitchCase = OtoEntryFunctions::Lower;
+    });
+    acceptDialog();
+    auto aliasList = getAliasListFromFile("withPitchSuffixData.ini");
+    QCOMPARE(aliasList.count(), 15);
 }
 
 void RemoveDuplicateTest::organizeDuplicate_test()
 {
     prepareTestFile(":/file2Test/needOrganizedData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("needOrganizedData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->organizeCheckBox->setChecked(true);
-    //    dialog->ui->maxSpinBox->setValue(0);
-    auto options = new RemoveDuplicateOptions;
-    options->shouldOrganize = true;
-    options->maxDuplicateCount = 0;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+    prepareDialogAndLoadFile("needOrganizedData.ini");
+    setToolOptionsWrapper([&](){
+        options = new RemoveDuplicateOptions;
+        options->shouldOrganize = true;
+        options->maxDuplicateCount = 0;
+    });
+    acceptDialog();
 
-    OtoFileReader reader(testDir.filePath("needOrganizedData.ini"));
-    auto list = reader.getEntryList();
-
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("needOrganizedData.ini");
     const QStringList expectedAliasList = {"- さ","- さ2","a さ"};
-    //QCOMPARE(list.count(), expectedAliasList.count());
-    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::organizeDuplicate_from1_test()
 {
     prepareTestFile(":/file2Test/needOrganizedData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("needOrganizedData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->organizeCheckBox->setChecked(true);
-    //    dialog->ui->maxSpinBox->setValue(0);
-    //    dialog->ui->organizeStartFrom1CheckBox->setChecked(true);
-    auto options = new RemoveDuplicateOptions;
-    options->shouldOrganize = true;
-    options->maxDuplicateCount = 0;
-    options->organizeStartFrom1 = true;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+    prepareDialogAndLoadFile("needOrganizedData.ini");
+    setToolOptionsWrapper([&](){
+        options->shouldOrganize = true;
+        options->maxDuplicateCount = 0;
+        options->organizeStartFrom1 = true;
+    });
+    acceptDialog();
 
-    OtoFileReader reader(testDir.filePath("needOrganizedData.ini"));
-    auto list = reader.getEntryList();
-
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("needOrganizedData.ini");
     const QStringList expectedAliasList = {"- さ","- さ1","a さ"};
-    //QCOMPARE(list.count(), expectedAliasList.count());
-    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::organizeDuplicate_convertPitchCase()
 {
     prepareTestFile(":/file2Test/withPitchSuffixData.ini");
-        auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this));
-    dialog->open();
-    dialog->ui->otoLoadWidget->setFileName(testDir.filePath("withPitchSuffixData.ini"));
-    QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-    //    dialog->ui->ignorePitchSuffixCheckBox->setChecked(true);
-    //    QVERIFY(dialog->ui->widget->isEnabled());
-    //    dialog->ui->organizeCheckBox->setChecked(true);
-    //    dialog->ui->organizeCaseComboBox->setCurrentIndex(1);
-    //    dialog->ui->maxSpinBox->setValue(1);
-    auto options = new RemoveDuplicateOptions;
-    options->ignorePitchSuffix = true;
-    options->shouldOrganize = true;
-    options->pitchCaseOrganized = OtoEntryFunctions::Lower;
-    options->maxDuplicateCount = 1;
-    qobject_cast<RemoveDuplicateDialogOptionWidget*>(dialog->ui->optionWidget)->setOptions(options);
-    QTest::mouseClick(dialog->ui->buttonBox->button(QDialogButtonBox::Ok), Qt::MouseButton::LeftButton);
+    prepareDialogAndLoadFile("withPitchSuffixData.ini");
+    setToolOptionsWrapper([&](){
+        options->ignorePitchSuffix = true;
+        options->shouldOrganize = true;
+        options->pitchCaseOrganized = OtoEntryFunctions::Lower;
+        options->maxDuplicateCount = 1;
+    });
+    acceptDialog();
 
-    OtoFileReader reader(testDir.filePath("withPitchSuffixData.ini"));
-    auto list = reader.getEntryList();
-
-    QStringList aliasList;
-    for (auto i : list)
-    {
-        aliasList.append(i.alias());
-    }
+    auto aliasList = getAliasListFromFile("withPitchSuffixData.ini");
     const QStringList expectedAliasList = {"- さa#3","a さa#3","a Ra#3","さa#3","a sa#3","a 息Ra#3","u ・a#3"};
-    //QCOMPARE(list.count(), expectedAliasList.count());
-    //QCOMPARE(getIntersection({expectedAliasList, aliasList}).count(), expectedAliasList.count());
     QCOMPARE(aliasList, expectedAliasList);
-    dialog->close();
-    dialog->deleteLater();
 }
 
 void RemoveDuplicateTest::cleanup()
@@ -419,6 +313,16 @@ void RemoveDuplicateTest::cleanup()
         shouldCleanInEnd = false;
     else
         cleanCurrentTestFiles();
+
+    if (dialog){
+        dialog->close();
+        dialog->deleteLater();
+        dialog = nullptr;
+    }
+    if (options){
+        options->deleteLater();
+        options = nullptr;
+    }
 }
 
 QTEST_MAIN(RemoveDuplicateTest)

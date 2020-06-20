@@ -22,7 +22,7 @@ public:
 
 private:
     OtoEntryList* const entryList;
-    enum {FILENAME, ALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
+    //enum {FILENAME, ALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
 };
 
 #endif // OTOLISTMODEL_H

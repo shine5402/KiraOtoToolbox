@@ -206,6 +206,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 
 
     //写入文件
+    //TODO:Using QSaveFile
     QFile file(saveWidget->isSaveToCustom() ? saveWidget->fileName() : loadWidget->fileName());
     if (file.open(QFile::WriteOnly | QFile::Text))
     {

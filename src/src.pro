@@ -31,6 +31,7 @@ SOURCES += \
     utils/models/otolistaliasshowchangemodel.cpp \
     utils/models/otolistmodel.cpp \
     utils/models/otolistoverlapshowchangemodel.cpp \
+    utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
     utils/widgets/otofileloadwidget.cpp \
     utils/widgets/otofilenameeditwithbrowse.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     utils/models/otolistaliasshowchangemodel.h \
     utils/models/otolistmodel.h \
     utils/models/otolistoverlapshowchangemodel.h \
+    utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/filenameeditwithbrowse.h \
     utils/widgets/otofileloadwidget.h \
     utils/widgets/otofilenameeditwithbrowse.h \

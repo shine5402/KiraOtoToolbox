@@ -10,13 +10,13 @@ QVariant OtoListModel::headerData(int section, Qt::Orientation orientation, int 
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
         switch (section) {
-            case FILENAME: return tr("文件名");
-            case ALIAS: return tr("别名");
-            case LEFT: return tr("左");
-            case CONSONANT: return tr("固定范围");
-            case RIGHT: return tr("右");
-            case PREUTTERANCE: return tr("先行发声");
-            case OVERLAP: return ("重叠");
+            case OtoEntry::FILENAME: return tr("文件名");
+            case OtoEntry::ALIAS: return tr("别名");
+            case OtoEntry::LEFT: return tr("左");
+            case OtoEntry::CONSONANT: return tr("固定范围");
+            case OtoEntry::RIGHT: return tr("右");
+            case OtoEntry::PREUTTERANCE: return tr("先行发声");
+            case OtoEntry::OVERLAP: return ("重叠");
         }
     }
     if (orientation == Qt::Vertical && role == Qt::DisplayRole)
@@ -42,8 +42,7 @@ int OtoListModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    constexpr int parameterCount = 7;
-    return parameterCount;
+    return OtoEntry::OtoParameterCount;
 }
 
 QVariant OtoListModel::data(const QModelIndex &index, int role) const
@@ -59,13 +58,13 @@ QVariant OtoListModel::data(const QModelIndex &index, int role) const
         auto oto = entryList->at(index.row());
         switch (index.column())
         {
-            case FILENAME: return oto.fileName();
-            case ALIAS: return oto.alias();
-            case LEFT: return oto.left();
-            case CONSONANT: return oto.consonant();
-            case RIGHT: return oto.right();
-            case PREUTTERANCE: return oto.preUtterance();
-            case OVERLAP: return oto.overlap();
+            case OtoEntry::FILENAME: return oto.fileName();
+            case OtoEntry::ALIAS: return oto.alias();
+            case OtoEntry::LEFT: return oto.left();
+            case OtoEntry::CONSONANT: return oto.consonant();
+            case OtoEntry::RIGHT: return oto.right();
+            case OtoEntry::PREUTTERANCE: return oto.preUtterance();
+            case OtoEntry::OVERLAP: return oto.overlap();
         }
     }
 

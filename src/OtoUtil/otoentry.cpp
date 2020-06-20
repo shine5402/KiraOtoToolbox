@@ -2,6 +2,7 @@
 #include <utility>
 #include <QHash>
 #include <QDebug>
+#include <QMetaEnum>
 
 OtoEntry::OtoEntry(QString fileName,
                    QString alias,
@@ -17,6 +18,8 @@ OtoEntry::OtoEntry(QString fileName,
 {
 
 }
+
+const int OtoEntry::OtoParameterCount = QMetaEnum::fromType<OtoEntry::OtoParameter>().keyCount();
 
 OtoEntry::OtoEntry(const QString& otoString)
 {
@@ -52,11 +55,11 @@ OtoEntry::OtoEntry(const QString& otoString)
             if (!doubleConvertOks.at(i))
             {
                 switch (i) {
-                case LEFT: setError(LeftConvertFailed);break;
-                case CONSONANT: setError(ConsonantConvertFailed);break;
-                case RIGHT: setError(RightConvertFailed);break;
-                case PREUTTERANCE: setError(PreUtteranceConvertFailed);break;
-                case OVERLAP: setError(OverlapConvertFailed);break;
+                    case LEFT: setError(LeftConvertFailed);break;
+                    case CONSONANT: setError(ConsonantConvertFailed);break;
+                    case RIGHT: setError(RightConvertFailed);break;
+                    case PREUTTERANCE: setError(PreUtteranceConvertFailed);break;
+                    case OVERLAP: setError(OverlapConvertFailed);break;
                 }
                 return;
             }
@@ -201,6 +204,90 @@ void OtoEntry::setOverlap(double value)
     emit overlapChanged();
 }
 
+QVariant OtoEntry::getParameter(OtoEntry::OtoParameter parameter) const
+{
+    switch (parameter)
+    {
+        case FileName: return fileName();
+        case Alias: return alias();
+        case Left: return left();
+        case Consonant: return consonant();
+        case Right: return right();
+        case PreUtterrance: return preUtterance();
+        case Overlap: return overlap();
+    }
+    return {};
+}
+
+QVariant OtoEntry::getParameter(OtoEntry::OtoParameterOrder parameter) const
+{
+    switch (parameter) {
+        case FILENAME: return fileName();
+        case ALIAS: return alias();
+        case LEFT: return left();
+        case CONSONANT: return consonant();
+        case RIGHT: return right();
+        case PREUTTERANCE: return preUtterance();
+        case OVERLAP: return overlap();
+    }
+    return {};
+}
+
+void OtoEntry::setParameter(OtoEntry::OtoParameter parameter, QVariant value)
+{
+    switch (parameter) {
+        case FileName: setFileName(value.toString());break;
+        case Alias: setAlias(value.toString());break;
+        case Left: setLeft(value.toDouble());break;
+        case Consonant: setConsonant(value.toDouble());break;
+        case Right: setRight(value.toDouble());break;
+        case PreUtterrance: setPreUtterance(value.toDouble());break;
+        case Overlap: setOverlap(value.toDouble());break;
+    }
+}
+
+void OtoEntry::setParameter(OtoEntry::OtoParameterOrder parameter, QVariant value)
+{
+    switch (parameter) {
+        case FILENAME: setFileName(value.toString());break;
+        case ALIAS: setAlias(value.toString());break;
+        case LEFT: setLeft(value.toDouble());break;
+        case CONSONANT: setConsonant(value.toDouble());break;
+        case RIGHT: setRight(value.toDouble());break;
+        case PREUTTERANCE: setPreUtterance(value.toDouble());break;
+        case OVERLAP: setOverlap(value.toDouble());break;
+    }
+
+}
+
+OtoEntry::OtoParameter OtoEntry::getParameterFlag(OtoEntry::OtoParameterOrder order)
+{
+    switch (order) {
+        case FILENAME: return FileName;
+        case ALIAS: return Alias;
+        case LEFT: return Left;
+        case CONSONANT: return Consonant;
+        case RIGHT: return Right;
+        case PREUTTERANCE: return PreUtterrance;
+        case OVERLAP: return Overlap;
+    }
+    throw std::runtime_error("Invalid OtoParameterOrder");
+}
+
+OtoEntry::OtoParameterOrder OtoEntry::getParameterOrder(OtoEntry::OtoParameter flag)
+{
+    switch (flag) {
+        case FileName: return FILENAME;
+        case Alias: return ALIAS;
+        case Left: return LEFT;
+        case Consonant: return CONSONANT;
+        case Right: return RIGHT;
+        case PreUtterrance: return PREUTTERANCE;
+        case Overlap: return OVERLAP;
+    }
+    throw std::runtime_error("Invalid OtoParameter");
+}
+
 OtoEntry::OtoEntryError OtoEntry::error() const
 {
     return m_error;
@@ -269,12 +356,12 @@ QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, c
         return {};
 
     auto getPitchNameID = [&PitchNameOrder] (const QString& str) -> int{
-      for (int i = 0; i < PitchNameOrder.count(); ++i)
-      {
-          if (str.startsWith(PitchNameOrder.at(i), Qt::CaseInsensitive))
-              return i;
-      }
-      return -1;
+        for (int i = 0; i < PitchNameOrder.count(); ++i)
+        {
+            if (str.startsWith(PitchNameOrder.at(i), Qt::CaseInsensitive))
+                return i;
+        }
+        return -1;
     };
     auto bottomPitchName = getPitchNameID(bottomPitch);
     auto topPitchName = getPitchNameID(topPitch);

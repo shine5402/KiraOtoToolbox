@@ -45,18 +45,38 @@ public:
     };
     Q_ENUM(OtoEntryError);
 
+    enum OtoParameter{
+        FileName = 0x1,
+        Alias = 0x2,
+        Left = 0x4,
+        Consonant = 0x8,
+        Right = 0x10,
+        PreUtterrance = 0x20,
+        Overlap = 0x40,
+    };
+
+    Q_DECLARE_FLAGS(OtoParameters, OtoParameter);
+    Q_FLAG(OtoParameter);
+
+    enum OtoParameterOrder{
+        FILENAME, ALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP
+    };
+    Q_ENUM(OtoParameterOrder);
+
+    static const int OtoParameterCount;
+
     /*!
     @brief 该条条目的文件名属性。
     fileName 告知UTAU引擎时应该在哪个文件中寻找对应原音块。
     这个文件名相对于oto.ini所在的文件夹。
     @see void setFileName(const QString& value)
-*/
+    */
     QString fileName() const;
 
     /*!
     @brief 设置该条条目的文件名属性。
     @see QString fileName() const
-*/
+    */
     void setFileName(const QString& value);
 
     QString alias() const;
@@ -76,6 +96,15 @@ public:
 
     double overlap() const;
     void setOverlap(double value);
+
+    QVariant getParameter(OtoParameter parameter) const;
+    QVariant getParameter(OtoParameterOrder parameter) const;
+
+    void setParameter(OtoParameter parameter, QVariant value);
+    void setParameter(OtoParameterOrder parameter, QVariant value);
+
+    static OtoParameter getParameterFlag(OtoParameterOrder order);
+    static OtoParameterOrder getParameterOrder(OtoParameter flag);
 
     OtoEntryError error() const;
     QString errorString() const;
@@ -113,6 +142,7 @@ private:
 
     void setValid(bool valid);
 };
+    Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 
 using OtoEntryList = QList<OtoEntry>;
 

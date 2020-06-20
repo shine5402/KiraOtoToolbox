@@ -2,6 +2,7 @@
 
 #include <otoentry.h>
 #include <otofilereader.h>
+#include <QMetaEnum>
 
 class OtoUtilTest : public QObject
 {
@@ -84,6 +85,8 @@ private slots:
     void getDigitalSuffixTest();
     void getDigitalSuffixTest_data();
 
+    void parameterCountTest();
+    void parameterOrderFlagConversionTest();
 };
 
 OtoUtilTest::OtoUtilTest()
@@ -509,6 +512,36 @@ void OtoUtilTest::getDigitalSuffixTest_data()
     QTest::addRow("1 digit") << "a2" << "2" << 1;
     QTest::addRow("2 digit") << "a23" << "23" << 1;
     QTest::addRow("no digit") << "abc" << "" << -1;
+}
+
+void OtoUtilTest::parameterCountTest()
+{
+    static const int expectedCount = 7;
+    auto metaObjOrder = QMetaEnum::fromType<OtoEntry::OtoParameterOrder>();
+    auto metaObjFlag = QMetaEnum::fromType<OtoEntry::OtoParameter>();
+    QCOMPARE(metaObjOrder.keyCount(), metaObjFlag.keyCount());
+    QCOMPARE(metaObjOrder.keyCount(), expectedCount);
+}
+
+void OtoUtilTest::parameterOrderFlagConversionTest()
+{
+    auto metaObjOrder = QMetaEnum::fromType<OtoEntry::OtoParameterOrder>();
+    auto metaObjFlag = QMetaEnum::fromType<OtoEntry::OtoParameter>();
+
+    for (int i = 0; i < metaObjOrder.keyCount(); ++i){
+        auto keyOrder = metaObjOrder.key(i);
+        auto keyFlag = metaObjFlag.key(i);
+        auto valueOrder = metaObjOrder.value(i);
+        auto valueFlag = metaObjFlag.value(i);
+
+        auto orderToFlag = OtoEntry::getParameterFlag(static_cast<OtoEntry::OtoParameterOrder>(valueOrder));
+        auto orderToFlagKey  = metaObjFlag.valueToKey(orderToFlag);
+        QCOMPARE(orderToFlagKey, keyFlag);
+
+        auto flagToOrder = OtoEntry::getParameterOrder(static_cast<OtoEntry::OtoParameter>(valueFlag));
+        auto flagToOrderKey = metaObjOrder.valueToKey(flagToOrder);
+        QCOMPARE(flagToOrderKey, keyOrder);
+    }
 }
 
 QTEST_APPLESS_MAIN(OtoUtilTest)

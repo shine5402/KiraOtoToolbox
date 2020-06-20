@@ -51,12 +51,13 @@ public:
         Left = 0x4,
         Consonant = 0x8,
         Right = 0x10,
-        PreUtterrance = 0x20,
+        PreUtterance = 0x20,
         Overlap = 0x40,
     };
 
     Q_DECLARE_FLAGS(OtoParameters, OtoParameter);
     Q_FLAG(OtoParameter);
+
 
     enum OtoParameterOrder{
         FILENAME, ALIAS, LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP
@@ -142,7 +143,7 @@ private:
 
     void setValid(bool valid);
 };
-    Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
+Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 
 using OtoEntryList = QList<OtoEntry>;
 
@@ -159,6 +160,5 @@ namespace OtoEntryFunctions {
     //TODO: test writeOtoListToFile
     QTUTAULIBRARYS_EXPORT int writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
 }
-
 
 #endif // OTOENTRY_H

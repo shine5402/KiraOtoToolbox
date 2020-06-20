@@ -87,6 +87,14 @@ private slots:
 
     void parameterCountTest();
     void parameterOrderFlagConversionTest();
+    void parameterValidFlagTest();
+
+    void getParameterTest();
+    void getParameterTest_data(){
+        prepareNormalData();
+    }
+    
+    void setParameterTest();
 };
 
 OtoUtilTest::OtoUtilTest()
@@ -542,6 +550,111 @@ void OtoUtilTest::parameterOrderFlagConversionTest()
         auto flagToOrderKey = metaObjOrder.valueToKey(flagToOrder);
         QCOMPARE(flagToOrderKey, keyOrder);
     }
+}
+
+void OtoUtilTest::parameterValidFlagTest()
+{
+    auto metaObjFlag = QMetaEnum::fromType<OtoEntry::OtoParameter>();
+    for (int i = 0; i < metaObjFlag.keyCount(); ++i){
+        for (int j = 0; j < metaObjFlag.keyCount(); ++j){
+            if (i == j)
+                continue;
+            QVERIFY(metaObjFlag.value(i) ^ metaObjFlag.value(j));
+        }
+    }
+}
+
+void OtoUtilTest::getParameterTest()
+{
+    QFETCH(QString, string);
+    OtoEntry entry(string);
+    QFETCH(QString, fileName);
+    QFETCH(QString, alias);
+    QFETCH(double, left);
+    QFETCH(double, consonant);
+    QFETCH(double, right);
+    QFETCH(double, preUtterance);
+    QFETCH(double, overlap);
+
+    auto expectedFileName = entry.getParameter(OtoEntry::FileName);
+    QCOMPARE(expectedFileName, fileName);
+    auto expectedFileNameOrder = entry.getParameter(OtoEntry::FILENAME);
+    QCOMPARE(expectedFileNameOrder, fileName);
+
+    auto expectedAlias = entry.getParameter(OtoEntry::Alias);
+    QCOMPARE(expectedAlias, alias);
+    auto expectedAliasOrder = entry.getParameter(OtoEntry::ALIAS);
+    QCOMPARE(expectedAliasOrder, alias);
+
+    auto expectedLeft = entry.getParameter(OtoEntry::Left);
+    QCOMPARE(expectedLeft, left);
+    auto expectedLeftOrder = entry.getParameter(OtoEntry::LEFT);
+    QCOMPARE(expectedLeftOrder, left);
+
+    auto expectedConsonant = entry.getParameter(OtoEntry::Consonant);
+    QCOMPARE(expectedConsonant, consonant);
+    auto expectedConsonantOrder = entry.getParameter(OtoEntry::CONSONANT);
+    QCOMPARE(expectedConsonantOrder, consonant);
+
+    auto expectedRight = entry.getParameter(OtoEntry::Right);
+    QCOMPARE(expectedRight, right);
+    auto expectedRightOrder = entry.getParameter(OtoEntry::RIGHT);
+    QCOMPARE(expectedRightOrder, right);
+
+    auto expectedPreutterance = entry.getParameter(OtoEntry::PreUtterance);
+    QCOMPARE(expectedPreutterance, preUtterance);
+    auto expectedPreutteranceOrder = entry.getParameter(OtoEntry::PREUTTERANCE);
+    QCOMPARE(expectedPreutteranceOrder, preUtterance);
+
+    auto expectedOverlap = entry.getParameter(OtoEntry::Overlap);
+    QCOMPARE(expectedOverlap, overlap);
+    auto expectedOverlapOrder = entry.getParameter(OtoEntry::OVERLAP);
+    QCOMPARE(expectedOverlapOrder, overlap);
+}
+
+void OtoUtilTest::setParameterTest()
+{
+    OtoEntry entry{"test.wav", "test", 0, 0, 0, 0, 0};
+    
+    entry.setParameter(OtoEntry::FileName, "test1.wav");
+    QCOMPARE(entry.fileName(), "test1.wav");
+    entry.setParameter(OtoEntry::FILENAME, "test2.wav");
+    QCOMPARE(entry.fileName(), "test2.wav");
+
+    entry.setParameter(OtoEntry::Alias, "test1");
+    QCOMPARE(entry.alias(), "test1");
+    entry.setParameter(OtoEntry::ALIAS, "test2");
+    QCOMPARE(entry.alias(), "test2");
+
+    entry.setParameter(OtoEntry::Left, 1.0);
+    QCOMPARE(entry.left(), 1.0);
+    entry.setParameter(OtoEntry::LEFT, 2.0);
+    QCOMPARE(entry.left(), 2.0);
+
+    entry.setParameter(OtoEntry::Consonant, 1.0);
+    QCOMPARE(entry.consonant(), 1.0);
+    entry.setParameter(OtoEntry::CONSONANT, 2.0);
+    QCOMPARE(entry.consonant(), 2.0);
+
+    entry.setParameter(OtoEntry::Consonant, 1.0);
+    QCOMPARE(entry.consonant(), 1.0);
+    entry.setParameter(OtoEntry::CONSONANT, 2.0);
+    QCOMPARE(entry.consonant(), 2.0);
+
+    entry.setParameter(OtoEntry::Right, 1.0);
+    QCOMPARE(entry.right(), 1.0);
+    entry.setParameter(OtoEntry::RIGHT, 2.0);
+    QCOMPARE(entry.right(), 2.0);
+
+    entry.setParameter(OtoEntry::PreUtterance, 1.0);
+    QCOMPARE(entry.preUtterance(), 1.0);
+    entry.setParameter(OtoEntry::PREUTTERANCE, 2.0);
+    QCOMPARE(entry.preUtterance(), 2.0);
+
+    entry.setParameter(OtoEntry::Overlap, 1.0);
+    QCOMPARE(entry.overlap(), 1.0);
+    entry.setParameter(OtoEntry::OVERLAP, 2.0);
+    QCOMPARE(entry.overlap(), 2.0);
 }
 
 QTEST_APPLESS_MAIN(OtoUtilTest)

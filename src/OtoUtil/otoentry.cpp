@@ -213,7 +213,7 @@ QVariant OtoEntry::getParameter(OtoEntry::OtoParameter parameter) const
         case Left: return left();
         case Consonant: return consonant();
         case Right: return right();
-        case PreUtterrance: return preUtterance();
+        case PreUtterance: return preUtterance();
         case Overlap: return overlap();
     }
     return {};
@@ -241,7 +241,7 @@ void OtoEntry::setParameter(OtoEntry::OtoParameter parameter, QVariant value)
         case Left: setLeft(value.toDouble());break;
         case Consonant: setConsonant(value.toDouble());break;
         case Right: setRight(value.toDouble());break;
-        case PreUtterrance: setPreUtterance(value.toDouble());break;
+        case PreUtterance: setPreUtterance(value.toDouble());break;
         case Overlap: setOverlap(value.toDouble());break;
     }
 }
@@ -268,7 +268,7 @@ OtoEntry::OtoParameter OtoEntry::getParameterFlag(OtoEntry::OtoParameterOrder or
         case LEFT: return Left;
         case CONSONANT: return Consonant;
         case RIGHT: return Right;
-        case PREUTTERANCE: return PreUtterrance;
+        case PREUTTERANCE: return PreUtterance;
         case OVERLAP: return Overlap;
     }
     throw std::runtime_error("Invalid OtoParameterOrder");
@@ -282,7 +282,7 @@ OtoEntry::OtoParameterOrder OtoEntry::getParameterOrder(OtoEntry::OtoParameter f
         case Left: return LEFT;
         case Consonant: return CONSONANT;
         case Right: return RIGHT;
-        case PreUtterrance: return PREUTTERANCE;
+        case PreUtterance: return PREUTTERANCE;
         case Overlap: return OVERLAP;
     }
     throw std::runtime_error("Invalid OtoParameter");

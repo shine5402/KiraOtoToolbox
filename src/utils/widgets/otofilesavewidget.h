@@ -35,10 +35,14 @@ public:
     void setSecondFileNameAvailable(bool value);
     void setSecondFileNameCheckBoxText(const QString& text);
 
+    QString secondFileNameUsage() const;
+    void setSecondFileNameUsage(const QString& value);
+
 private:
     Ui::OtoFileSaveWidget *ui;
-    bool secondFileNameAvailable = false;
+    bool m_secondFileNameAvailable = false;
     void refreshSecondFileNameWidgetVisible();
+    QString m_secondFileNameUsage{};
 };
 
 class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget {

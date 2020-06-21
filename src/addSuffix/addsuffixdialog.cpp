@@ -4,7 +4,7 @@
 #include <otofilereader.h>
 #include "utils/dialogs/showotolistdialog.h"
 #include <QMessageBox>
-
+//TODO:迁移
 AddSuffixDialog::AddSuffixDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddSuffixDialog)

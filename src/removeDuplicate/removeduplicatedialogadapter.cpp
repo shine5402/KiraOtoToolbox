@@ -19,24 +19,20 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
 }
 
-bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, OtoEntryList& otoListWorking, OtoEntryList& secondSaveList, const ToolOptions* abstractOptions, QWidget* dialogParent)
 {
-    //TODO:重构此处，合并重复代码
-    QStringList compareStringList;
-    const auto entryList = loadWidget->getEntryList();
-    auto entryListWorking = entryList;
-    //auto optionWidget = qobject_cast<RemoveDuplicateDialogOptionWidget*>(ui->optionWidget);
-    auto options = qobject_cast<const RemoveDuplicateOptions*>(optionWidget->getOptions(this));
+    auto options = qobject_cast<const RemoveDuplicateOptions*>(abstractOptions);
 
-    for (int i = 0; i < entryList.count(); ++i)
+    QStringList compareStringList;
+    for (int i = 0; i < otoList.count(); ++i)
     {
-        compareStringList.append(entryList.at(i).alias());
+        compareStringList.append(otoList.at(i).alias());
     }
 
     //处理特定后缀
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
     if (options->ignoreSpecificSuffix){
-        for (int i = 0; i < entryList.count(); ++i)
+        for (int i = 0; i < otoList.count(); ++i)
         {
             for (const auto& currentItem : options->suffixList)
             {
@@ -53,7 +49,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
     //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存
     if (options->ignorePitchSuffix)
-        for (int i = 0; i < entryList.count(); ++i)
+        for (int i = 0; i < otoList.count(); ++i)
         {
             QString removedPitch {};
             auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options->bottomPitch, options->topPitch,
@@ -66,7 +62,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 
     //处理数字后缀（重复）
     QStringList digitSuffixList;
-    for (int i = 0; i < entryList.count(); ++i)
+    for (int i = 0; i < otoList.count(); ++i)
     {
         auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
         digitSuffixList.append(suffix);
@@ -100,7 +96,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
-        auto model = new OtoListShowValueChangeModel(&entryList, &entryListWorking, OtoEntry::Alias, this);
+        auto model = new OtoListShowValueChangeModel(&otoList, &otoListWorking, OtoEntry::Alias, this);
         auto askDialog = new ShowOtoListDialog(model, dialogParent);
         askDialog->setWindowTitle(tr("重复项整理结果"));
         askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
@@ -115,9 +111,9 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
 
         for (auto currentID : newAlias.keys())
         {
-            auto currentEntry = entryListWorking.at(currentID);
+            auto currentEntry = otoListWorking.at(currentID);
             currentEntry.setAlias(newAlias.value(currentID));
-            entryListWorking.replace(currentID, currentEntry);
+            otoListWorking.replace(currentID, currentEntry);
         }
     }
 
@@ -136,12 +132,12 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
             }
         }
         std::sort(toBeRemoved.begin(), toBeRemoved.end());
-        OtoEntryList toBeRemovedEntryList;
+        OtoEntryList toBeRemovedOtoList;
         for (auto i : toBeRemoved)
         {
-            toBeRemovedEntryList.append(entryListWorking.at(i));
+            toBeRemovedOtoList.append(otoListWorking.at(i));
         }
-        auto askDialog = new ShowOtoListDialog(&toBeRemovedEntryList, dialogParent);
+        auto askDialog = new ShowOtoListDialog(&toBeRemovedOtoList, dialogParent);
         askDialog->setWindowTitle(tr("要被删除的原音设定条目列表"));
         askDialog->setLabel(tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(toBeRemoved.count()));
         askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -153,68 +149,13 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
         auto shouldDelete = askDialog->exec();
         if (shouldDelete == QDialog::Rejected)
             return false;
-        if (saveWidget->isSecondFileNameUsed())
-        {
-            QFile file(saveWidget->secondFileName());
-            if (file.open(QFile::WriteOnly | QFile::Text))
-            {
-                auto code = OtoEntryFunctions::writeOtoListToFile(file, toBeRemovedEntryList);
-                if (code == -1)
-                {
-#ifdef SHINE5402OTOBOX_TEST
-                    Q_ASSERT(false);
-#endif
-                    auto shouldContinue = QMessageBox::critical(dialogParent, tr("被删除项保存失败"), tr("无法正常保存 %1。请问要继续操作吗？").arg(saveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
-                    if (shouldContinue == QMessageBox::Cancel)
-                        return false;
-                }
-            }
-            else
-            {
-#ifdef SHINE5402OTOBOX_TEST
-                Q_ASSERT(false);
-#endif
-                auto shouldContinue = QMessageBox::critical(dialogParent, tr("无法打开指定路径"), tr("无法打开 %1，将不会保存被删除项到另外的文件。请问要继续操作吗？").arg(saveWidget->secondFileName()), QMessageBox::Ok | QMessageBox::Cancel);
-                if (shouldContinue == QMessageBox::Cancel)
-                    return false;
-            }
-        }
 
+        secondSaveList = toBeRemovedOtoList;
 
-        for (auto i : toBeRemovedEntryList){
-            entryListWorking.removeOne(i);
+        for (auto i : toBeRemovedOtoList){
+            otoListWorking.removeOne(i);
         }
     }
 
-
-
-
-    //写入文件
-    //TODO:Using QSaveFile
-    QFile file(saveWidget->isSaveToCustom() ? saveWidget->fileName() : loadWidget->fileName());
-    if (file.open(QFile::WriteOnly | QFile::Text))
-    {
-        auto code = OtoEntryFunctions::writeOtoListToFile(file, entryListWorking);
-        if (code == -1)
-        {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
-            QMessageBox::critical(dialogParent, tr("保存失败"), tr("无法保存文件。"));
-        }
-        else
-        {
-#ifndef SHINE5402OTOBOX_TEST
-            QMessageBox::information(dialogParent, tr("成功"), tr("文件已经保存好了。"));
-#endif
-
-        }
-    }
-    else{
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
-        QMessageBox::critical(dialogParent, tr("无法打开指定路径"), tr("无法打开 %1。").arg(file.fileName()));
-    }
     return true;
 }

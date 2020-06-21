@@ -9,6 +9,8 @@
 #include <QTimer>
 #endif
 
+//TODO: 编码检测
+
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OtoFileLoadWidget)

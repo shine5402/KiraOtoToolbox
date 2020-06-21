@@ -5,7 +5,6 @@
 #include "removeDuplicate/removeduplicatedialogadapter.h"
 #include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include <QMessageBox>
-#include "overlapBatchSet/overlapsetdialog.h"
 #include "addSuffix/addsuffixdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)

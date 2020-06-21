@@ -68,12 +68,12 @@ void OtoFileSaveWidget::setSecondFileName(const QString& value)
 
 bool OtoFileSaveWidget::isSecondFileNameAvailable() const
 {
-    return secondFileNameAvailable;
+    return m_secondFileNameAvailable;
 }
 
 void OtoFileSaveWidget::setSecondFileNameAvailable(bool value)
 {
-    secondFileNameAvailable = value;
+    m_secondFileNameAvailable = value;
     refreshSecondFileNameWidgetVisible();
 }
 
@@ -84,7 +84,17 @@ void OtoFileSaveWidget::setSecondFileNameCheckBoxText(const QString& text)
 
 void OtoFileSaveWidget::refreshSecondFileNameWidgetVisible()
 {
-    ui->secondFileNameWidget->setVisible(secondFileNameAvailable);
+    ui->secondFileNameWidget->setVisible(m_secondFileNameAvailable);
+}
+
+QString OtoFileSaveWidget::secondFileNameUsage() const
+{
+    return m_secondFileNameUsage;
+}
+
+void OtoFileSaveWidget::setSecondFileNameUsage(const QString& value)
+{
+    m_secondFileNameUsage = value;
 }
 
 OtoFileSaveWidgetWithSecondFileName::OtoFileSaveWidgetWithSecondFileName(QWidget* parent) : OtoFileSaveWidget(parent)
@@ -95,4 +105,5 @@ OtoFileSaveWidgetWithSecondFileName::OtoFileSaveWidgetWithSecondFileName(QWidget
 OtoFileSaveWidgetWithSecondFileNameAsDeleted::OtoFileSaveWidgetWithSecondFileNameAsDeleted(QWidget* parent) : OtoFileSaveWidgetWithSecondFileName(parent)
 {
     setSecondFileNameCheckBoxText(tr("保存被删除的项到："));
+    setSecondFileNameUsage(tr("保存被删除的项"));
 }

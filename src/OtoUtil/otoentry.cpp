@@ -433,8 +433,8 @@ int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entry
 }
 
 
-bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QTextCodec* textCodec,
-                                           bool directWriteFallback, QFileDevice::FileError* error, QString* errorString){
+bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QFileDevice::FileError* error, QString* errorString , QTextCodec* textCodec,
+                                           bool directWriteFallback){
     QSaveFile file(fileName);
     file.setDirectWriteFallback(directWriteFallback);
     bool successed = false;

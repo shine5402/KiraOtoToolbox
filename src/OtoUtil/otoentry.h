@@ -157,11 +157,11 @@ namespace OtoEntryFunctions {
     QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
     QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive);
     QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
-    //TODO: test writeOtoListToFile
     ///@deprecated
     QTUTAULIBRARYS_EXPORT int writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
-    QTUTAULIBRARYS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
-                                                  bool directWriteFallback = true, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr);
+
+    QTUTAULIBRARYS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
+                                                  bool directWriteFallback = true);
 }
 
 #endif // OTOENTRY_H

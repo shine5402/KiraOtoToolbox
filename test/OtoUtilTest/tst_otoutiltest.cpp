@@ -95,6 +95,8 @@ private slots:
     }
     
     void setParameterTest();
+
+    void writeToFileTest();
 };
 
 OtoUtilTest::OtoUtilTest()
@@ -657,6 +659,23 @@ void OtoUtilTest::setParameterTest()
     QCOMPARE(entry.overlap(), 2.0);
 }
 
-QTEST_APPLESS_MAIN(OtoUtilTest)
+void OtoUtilTest::writeToFileTest()
+{
+    OtoFileReader reader(":/file2test/normalData.ini");
+    auto entryList = reader.getEntryList();
+
+    QStandardPaths::setTestModeEnabled(true);
+    auto destFileName = QDir(QStandardPaths::writableLocation(QStandardPaths::TempLocation)).filePath("testSave.ini");
+    QVERIFY(OtoEntryFunctions::writeOtoListToFile(destFileName, entryList));
+
+    reader.setFileName(destFileName);
+    auto entryListDest = reader.getEntryList();
+
+    QCOMPARE(entryListDest, entryList);
+
+    QFile::remove(destFileName);
+}
+
+QTEST_MAIN(OtoUtilTest)
 
 #include "tst_otoutiltest.moc"

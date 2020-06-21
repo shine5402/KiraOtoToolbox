@@ -110,7 +110,7 @@ void RemoveDuplicateTest::prepareDialogAndLoadFile(const QString& fileName)
     dialog->open();
     dialog->ui->otoLoadWidget->setFileName(testDir.filePath(fileName));
     QMetaObject::invokeMethod(dialog->ui->otoLoadWidget, "loadOtoFile");
-
+    QVERIFY(dialog->ui->optionWidget->isEnabled());
 }
 
 void RemoveDuplicateTest::acceptDialog()

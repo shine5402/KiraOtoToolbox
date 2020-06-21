@@ -1,6 +1,7 @@
 #include "removeduplicatedialogadapter.h"
 #include "removeduplicatedialogoptionwidget.h"
 #include "utils/models/otolistaliasshowchangemodel.h"
+#include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
 #include <QMessageBox>
 #ifdef SHINE5402OTOBOX_TEST
@@ -111,12 +112,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, c
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
-        QStringList toBeReplacedNewAlias;
-        for (int i = 0; i < entryList.count(); ++i)
-        {
-            toBeReplacedNewAlias.append(newAlias.value(i, ""));
-        }
-        auto model = new OtoListAliasShowChangeModel(&entryList, &toBeReplacedNewAlias, this);
+        auto model = new OtoListShowValueChangeModel(&entryList, &entryListWorking, OtoEntry::Alias, this);
         auto askDialog = new ShowOtoListDialog(model, dialogParent);
         askDialog->setWindowTitle(tr("重复项整理结果"));
         askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));

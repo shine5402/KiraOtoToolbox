@@ -2,7 +2,7 @@
 #include <QMetaEnum>
 #include <QFont>
 
-OtoListShowValueChangeModel::OtoListShowValueChangeModel(OtoEntryList* oldEntryList, OtoEntryList* newEntryList,
+OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList,
                                                          OtoEntry::OtoParameters changedParamters, QObject *parent)
     : QAbstractTableModel(parent),
       oldEntryList(oldEntryList), newEntryList(newEntryList),

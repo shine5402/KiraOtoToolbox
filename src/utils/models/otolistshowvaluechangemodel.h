@@ -9,7 +9,7 @@ class OtoListShowValueChangeModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit OtoListShowValueChangeModel(OtoEntryList* oldEntryList, OtoEntryList* newEntryList,
+    explicit OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList,
                                          OtoEntry::OtoParameters changedParamters, QObject *parent = nullptr);
 
     // Header:
@@ -22,8 +22,8 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
-    OtoEntryList* oldEntryList;
-    OtoEntryList* newEntryList;
+    const OtoEntryList* const oldEntryList;
+    const OtoEntryList* const newEntryList;
     OtoEntry::OtoParameters changedParameters;
     QStringList headerList;
     void refreshHeaderList();

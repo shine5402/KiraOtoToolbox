@@ -51,6 +51,7 @@ ToolOptions* OverlapBatchSetDialogOptionWidget::getOptions(QObject* parent) cons
     auto options = new OverlapBatchSetOptions(parent);
 
     options->setOverlapStartWith = ui->setStartWithCheckBox->isChecked();
+    options->overlapStartWith = ui->setStartWithSpinBox->value();
     options->startWithPatternList = *workingStartList;
     options->startWithMatchStartAlias = ui->matchStartOtoCheckBox->isChecked();
     options->makeOneThird = ui->OneThirdCheckBox->isChecked();

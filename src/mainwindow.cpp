@@ -3,6 +3,7 @@
 
 #include "toolBase/tooldialog.h"
 #include "removeDuplicate/removeduplicatedialogadapter.h"
+#include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include <QMessageBox>
 #include "overlapBatchSet/overlapsetdialog.h"
 #include "addSuffix/addsuffixdialog.h"
@@ -22,7 +23,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_duplicateRemoveButton_clicked()
 {
-    auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this),this);
+    auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this), this);
     dialog->open();
 }
 
@@ -58,7 +59,7 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::on_overlapBatchSetButton_clicked()
 {
-    auto dialog = new OverlapSetDialog(this);
+    auto dialog = new ToolDialog(new OverlapBatchSetDialogAdapter(this), this);
     dialog->open();
 }
 

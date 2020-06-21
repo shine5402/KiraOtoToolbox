@@ -158,5 +158,38 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>setStartWithCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>12</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setStartWithCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>setStartWithSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>12</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>15</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

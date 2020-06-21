@@ -1,5 +1,6 @@
 #include "otolistshowvaluechangemodel.h"
 #include <QMetaEnum>
+#include <QFont>
 
 OtoListShowValueChangeModel::OtoListShowValueChangeModel(OtoEntryList* oldEntryList, OtoEntryList* newEntryList,
                                                          OtoEntry::OtoParameters changedParamters, QObject *parent)
@@ -49,21 +50,58 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
 {
     if (!index.isValid())
         return QVariant();
-    if (role == Qt::DisplayRole)
-    {
-        auto oldOto = oldEntryList->at(index.row());
-        auto newOto = newEntryList->at(index.row());
+    auto oldOto = oldEntryList->at(index.row());
+    auto newOto = newEntryList->at(index.row());
 
-        QVariantList dataContents;
-        auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
-        for (int i = 0; i < meta.keyCount(); ++i){
-            auto currentFlag = static_cast<OtoEntry::OtoParameter>(meta.value(i));
-            dataContents.append(oldOto.getParameter(currentFlag));
-            if (changedParameters.testFlag(currentFlag))
-                dataContents.append(newOto.getParameter(currentFlag));
+
+    QVariantList dataContents;
+    QList<QFont> fonts;
+    auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
+    for (int i = 0; i < meta.keyCount(); ++i) {
+        auto currentFlag = static_cast<OtoEntry::OtoParameter>(meta.value(i));
+        dataContents.append(oldOto.getParameter(currentFlag));
+        fonts.append(QFont{});
+        if (changedParameters.testFlag(currentFlag)){
+            dataContents.append([&]() -> QVariant{
+                                    auto parameter = newOto.getParameter(currentFlag);
+                                    if (parameter.type() == QVariant::Double)
+                                    {
+                                        return QString::number(parameter.toDouble(),'f',3);
+                                    }
+                                    return parameter;
+                                }());
+            if ([&]() -> bool {
+                    //因为工具箱假定和保存时oto.ini内是三位小数，此处比较的精度也要相应做修改。
+                    auto doubleEqual = [] (double lhs, double rhs) -> bool
+            {
+                    return std::abs(lhs - rhs) < 1e-3;
+        };
+                    auto oldParameter = oldOto.getParameter(currentFlag);
+                    auto newParameter = newOto.getParameter(currentFlag);
+                    if (oldParameter.type() == QVariant::Double && newParameter.type() == QVariant::Double)
+            {
+        return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble());
         }
+                    return oldParameter != newParameter;
+        }()){
+                if (!fonts.isEmpty())
+                    fonts.last().setItalic(true);
+                auto bold = []() -> QFont{
+                        QFont font{};
+                        font.setBold(true);
+                        return font;
+            }();
+                fonts.append(bold);
+            }
+            else
+                fonts.append(QFont{});
+        }
+    }
 
-        return (dataContents.at(index.column()));
+    if (role == Qt::DisplayRole)
+        return dataContents.at(index.column());
+    if (role == Qt::FontRole){
+        return fonts.at(index.column());
     }
     return QVariant();
 }
@@ -80,9 +118,10 @@ void OtoListShowValueChangeModel::refreshHeaderList()
 
     auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
     for (int i = 0; i < meta.keyCount(); ++i){
-        const auto currentName = parameterName.value(static_cast<OtoEntry::OtoParameter>(i));
+        const auto currentName = parameterName.value(static_cast<OtoEntry::OtoParameter>(meta.value(i)));
         headerList.append(currentName);
         if (changedParameters.testFlag(static_cast<OtoEntry::OtoParameter>(meta.value(i))))
             headerList.append(QString("新的%1").arg(currentName));
     }
 }
+

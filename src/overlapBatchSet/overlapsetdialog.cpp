@@ -8,9 +8,9 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QInputDialog>
-#include "utils/models/otolistoverlapshowchangemodel.h"
+#include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
-
+//TODO:考虑空别名
 OverlapSetDialog::OverlapSetDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OverlapSetDialog)
@@ -173,12 +173,7 @@ void OverlapSetDialog::accept()
     }
 
     //显示差异和向用户确认
-    QVector<double> newOverlapList;
-    for (auto i : entryListWorking)
-    {
-        newOverlapList.append(i.overlap());
-    }
-    auto model = new OtoListOverlapShowChangeModel(&entryList, &newOverlapList, this);
+    auto model = new OtoListShowValueChangeModel(&entryList, &entryListWorking, OtoEntry::Overlap ,this);
     auto dialog = new ShowOtoListDialog(model, this);
     dialog->setWindowTitle(tr("确认对Overlap的更改"));
     dialog->setLabel(tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));

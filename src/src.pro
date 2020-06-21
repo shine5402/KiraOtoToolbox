@@ -21,6 +21,7 @@ SOURCES += \
     addSuffix/addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
     overlapBatchSet/overlapsetdialog.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
 HEADERS += \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
     overlapBatchSet/overlapsetdialog.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
@@ -63,6 +65,7 @@ HEADERS += \
 FORMS += \
     addSuffix/addsuffixdialog.ui \
     mainwindow.ui \
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     overlapBatchSet/overlapsetdialog.ui \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \

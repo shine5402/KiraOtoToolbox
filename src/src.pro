@@ -21,6 +21,7 @@ SOURCES += \
     addSuffix/addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    overlapBatchSet/overlapbatchsetdialogadapter.cpp \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
     overlapBatchSet/overlapsetdialog.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
 HEADERS += \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
+    overlapBatchSet/overlapbatchsetdialogadapter.h \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
     overlapBatchSet/overlapsetdialog.h \
     removeDuplicate/removeduplicatedialogadapter.h \

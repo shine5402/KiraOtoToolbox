@@ -15,21 +15,8 @@ RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : To
 
 void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 {
-    auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    auto optionWidget = optionLayout->parentWidget()->findChild<QWidget*>("optionWidget");
-
-    auto saveWidget = rootLayout->parentWidget()->findChild<QWidget*>("otoSaveWidget");
-
-    if (optionWidget){
-        auto previousOptionWidget = optionLayout->replaceWidget(optionWidget, new RemoveDuplicateDialogOptionWidget(rootLayout->parentWidget()));
-        if (previousOptionWidget)
-            previousOptionWidget->widget()->deleteLater();
-    }
-    if (saveWidget){
-        auto previousSaveWidget = rootLayout->replaceWidget(saveWidget, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
-        if (previousSaveWidget)
-            previousSaveWidget->widget()->deleteLater();
-    }
+    replaceOptionWidget(rootLayout, new RemoveDuplicateDialogOptionWidget(rootLayout->parentWidget()));
+    replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
 }
 
 bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)

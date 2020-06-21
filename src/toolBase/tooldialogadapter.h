@@ -15,6 +15,11 @@ public:
     virtual void setupSpecificUIWidgets(QLayout* rootLayout) = 0;
     virtual bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                         const ToolOptionWidget* optionWidget, QWidget* dialogParent) = 0;
+protected:
+    void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
+    void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
+private:
+    void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
 signals:
 
 };

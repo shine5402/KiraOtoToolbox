@@ -3,6 +3,9 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -36,6 +39,8 @@ OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *pa
     ui->setStartWithListView->setModel(&startListModel);
 }
 
+const QStringList OverlapBatchSetDialogOptionWidget::emptyStringList{};
+
 OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
 {
     delete ui;
@@ -64,6 +69,87 @@ void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions* options)
     ui->matchStartOtoCheckBox->setChecked(specificOptions->startWithMatchStartAlias);
     ui->OneThirdCheckBox->setChecked(specificOptions->makeOneThird);
 }
+
+void OverlapBatchSetDialogOptionWidget::setWorkingStartList(const QStringList* list)
+{
+    workingStartList = list;
+    startListModel.setStringList(*workingStartList);
+}
+
+void OverlapBatchSetDialogOptionWidget::loadPreset()
+{
+    QFile file(":/overlap_start_preset/preset_list.json");
+    if (file.open(QFile::ReadOnly | QFile::Text))
+    {
+        auto data = file.readAll();
+        QJsonParseError error;
+        auto jsonDoc = QJsonDocument::fromJson(data, &error);
+        if (!jsonDoc.isNull())
+        {
+            if (jsonDoc.isArray())
+            {
+                auto array = jsonDoc.array();
+                for (auto value : array)
+                {
+                    auto obj = value.toObject();
+                    auto name = obj.value("name").toString();
+                    auto path = obj.value("path").toString();
+                    if (name.isEmpty() || path.isEmpty())
+                    {
+#ifdef SHINE5402OTOBOX_TEST
+                        Q_ASSERT(false);
+#endif
+                        QMessageBox::warning(this,tr("有预设读取失败"),tr("预设描述值至少有一项为空。出现问题的预设将无法使用。"));
+                        continue;
+                    }
+                    QFile file(path);
+                    if (file.open(QFile::ReadOnly | QFile::Text))
+                    {
+                        auto data = file.readAll();
+                        if (data.isEmpty())
+                        {
+#ifdef SHINE5402OTOBOX_TEST
+                            Q_ASSERT(false);
+#endif
+                            QMessageBox::warning(this,tr("有预设读取失败"),tr("预设值为空。出现问题的预设将无法使用。"));
+                        }
+                        presetList.append({name, QString::fromUtf8(data).split("\n",QString::SplitBehavior::SkipEmptyParts)});
+                    }
+                    else
+                    {
+#ifdef SHINE5402OTOBOX_TEST
+                        Q_ASSERT(false);
+#endif
+                        QMessageBox::warning(this,tr("有预设读取失败"),tr("读取预设"));
+                    }
+                    //presetList.append({obj.value("name")})
+                }
+            }
+            else
+            {
+#ifdef SHINE5402OTOBOX_TEST
+                Q_ASSERT(false);
+#endif
+                QMessageBox::warning(this, tr("预设清单读取失败"),tr("解析预设清单时出现错误：根元素不是Array。预设将不可用。"));
+            }
+        }
+        else
+        {
+#ifdef SHINE5402OTOBOX_TEST
+            Q_ASSERT(false);
+#endif
+            QMessageBox::warning(this, tr("预设清单读取失败"),tr("解析预设清单时出现错误，错误说明为 %1。预设将不可用。").arg(error.errorString()));
+        }
+    }
+    else
+    {
+#ifdef SHINE5402OTOBOX_TEST
+        Q_ASSERT(false);
+#endif
+        QMessageBox::warning(this, tr("预设清单读取失败"),tr("程序无法打开预设清单文件，预设将不可用。"));
+    }
+}
+
 
 void OverlapBatchSetDialogOptionWidget::switchPreset(int index)
 {

@@ -3,6 +3,7 @@
 #include <QHash>
 #include <QDebug>
 #include <QMetaEnum>
+#include <QSaveFile>
 
 OtoEntry::OtoEntry(QString fileName,
                    QString alias,
@@ -429,4 +430,29 @@ int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entry
         otoStringList.append(i.toString());
     }
     return file.write(textCodec->makeEncoder()->fromUnicode(otoStringList.join("\n")));
+}
+
+
+bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QTextCodec* textCodec,
+                                           bool directWriteFallback, QFileDevice::FileError* error, QString* errorString){
+    QSaveFile file(fileName);
+    file.setDirectWriteFallback(directWriteFallback);
+    bool successed = false;
+    if (file.open(QFile::Text | QFile::WriteOnly)){
+        QStringList otoStringList;
+        for (auto i : entryList)
+        {
+            otoStringList.append(i.toString());
+        }
+        file.write(textCodec->makeEncoder()->fromUnicode(otoStringList.join("\n")));
+        successed = file.commit();
+    }
+    if (!successed)
+    {
+        if (error)
+            *error = file.error();
+        if (errorString)
+            *errorString = file.errorString();
+    }
+    return successed;
 }

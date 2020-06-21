@@ -39,6 +39,6 @@ void ToolDialog::otoFileLoaded()
 
 void ToolDialog::ToolDialog::accept()
 {
-    adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this);
-    QDialog::accept();
+    if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this))
+        QDialog::accept();
 }

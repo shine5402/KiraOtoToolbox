@@ -21,6 +21,7 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 
 bool RemoveDuplicateDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
+    //TODO:重构此处，合并重复代码
     QStringList compareStringList;
     const auto entryList = loadWidget->getEntryList();
     auto entryListWorking = entryList;

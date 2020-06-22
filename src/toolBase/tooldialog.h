@@ -5,6 +5,8 @@
 #include <otoentry.h>
 #include "toolBase/tooldialogadapter.h"
 
+//BUG: 提供给Adapter修改窗口标题的途径
+
 namespace Ui {
     class ToolDialog;
 }

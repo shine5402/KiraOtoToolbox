@@ -10,9 +10,6 @@
     <height>730</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>去除重复项</string>
-  </property>
   <layout class="QVBoxLayout" name="rootLayout" stretch="0,1,0,0">
    <item>
     <widget class="OtoFileLoadWidget" name="otoLoadWidget" native="true"/>

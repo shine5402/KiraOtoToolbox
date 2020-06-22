@@ -38,7 +38,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
         return result;
     };
 
-    auto result = processOtoList(entryList, entryListWorking, secondSaveList, options, dialogParent);
+    auto result = doWorkAdapter(entryList, entryListWorking, secondSaveList, options, dialogParent);
     if (result)
     {
         if (saveWidget->isSecondFileNameAvailable() && saveWidget->isSecondFileNameUsed()){
@@ -70,5 +70,11 @@ void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidge
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {
     replaceWidget(rootLayout, "otoSaveWidget", newSaveWidget);
+}
+
+bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ToolDialogAdapter::ChangeType changeType, OtoEntryList& secondSaveOtoList,
+                                               const QString& title, const QString& label, QWidget* dialogParent)
+{
+
 }
 

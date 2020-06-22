@@ -2,6 +2,7 @@
 #include "removeduplicatedialogoptionwidget.h"
 #include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
+#include "utils/dialogs/tableviewdialog.h"
 #include <QMessageBox>
 #ifdef SHINE5402OTOBOX_TEST
 #include <QTimer>
@@ -18,7 +19,7 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
 }
 
-bool RemoveDuplicateDialogAdapter::processOtoList(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                   OtoEntryList& secondSaveOtoList, const ToolOptions* abstractOptions,
                                                   QWidget* dialogParent)
 {
@@ -97,8 +98,14 @@ bool RemoveDuplicateDialogAdapter::processOtoList(const OtoEntryList& srcOtoList
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
+        for (auto currentID : newAlias.keys())
+        {
+            auto currentEntry = resultOtoList.at(currentID);
+            currentEntry.setAlias(newAlias.value(currentID));
+            resultOtoList.replace(currentID, currentEntry);
+        }
         auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Alias, this);
-        auto askDialog = new ShowOtoListDialog(model, dialogParent);
+        auto askDialog = new TableViewDialog(dialogParent, model);
         askDialog->setWindowTitle(tr("重复项整理结果"));
         askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
         askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -110,12 +117,7 @@ bool RemoveDuplicateDialogAdapter::processOtoList(const OtoEntryList& srcOtoList
         if (shouldOrganize == QDialog::Rejected)
             return false;
 
-        for (auto currentID : newAlias.keys())
-        {
-            auto currentEntry = resultOtoList.at(currentID);
-            currentEntry.setAlias(newAlias.value(currentID));
-            resultOtoList.replace(currentID, currentEntry);
-        }
+
     }
 
     //删除重复项
@@ -159,4 +161,9 @@ bool RemoveDuplicateDialogAdapter::processOtoList(const OtoEntryList& srcOtoList
     }
 
     return true;
+}
+
+QString RemoveDuplicateDialogAdapter::getWindowTitle() const
+{
+    return tr("去除重复项");
 }

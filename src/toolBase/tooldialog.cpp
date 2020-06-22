@@ -13,6 +13,7 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &ToolDialog::otoFileLoaded);
     adapter->setupSpecificUIWidgets(ui->rootLayout);
     reAssignUIWidgets();
+    setWindowTitle(adapter->getWindowTitle());
 }
 
 void ToolDialog::reAssignUIWidgets()

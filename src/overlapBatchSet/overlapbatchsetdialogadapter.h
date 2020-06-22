@@ -11,7 +11,8 @@ class OverlapBatchSetDialogAdapter : public ToolDialogAdapter
 public:
     explicit OverlapBatchSetDialogAdapter(QObject *parent = nullptr);
     void setupSpecificUIWidgets(QLayout *rootLayout) override;
-    bool processOtoList(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions *abstractOptions, QWidget *dialogParent) override;
+    bool doWorkAdapter(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions *abstractOptions, QWidget *dialogParent) override;
+    QString getWindowTitle() const override;
 };
 
 #endif // OVERLAPBATCHSETDIALOGADAPTER_H

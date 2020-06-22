@@ -13,3 +13,4 @@ void ToolOptionWidget::setOptions(const ToolOptions*)
 {
 
 }
+

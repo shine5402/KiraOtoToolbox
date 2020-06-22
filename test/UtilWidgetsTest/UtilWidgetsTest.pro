@@ -7,6 +7,7 @@ TEMPLATE = app
 
 SOURCES +=  tst_utilwidgetstest.cpp \
     ../../src/utils/dialogs/showotolistdialog.cpp \
+    ../../src/utils/dialogs/tableviewdialog.cpp \
     ../../src/utils/models/otolistmodel.cpp \
     ../../src/utils/widgets/filenameeditwithbrowse.cpp \
     ../../src/utils/widgets/otofileloadwidget.cpp \
@@ -15,7 +16,6 @@ SOURCES +=  tst_utilwidgetstest.cpp \
     ../../src/utils/widgets/stringlistmodifywidget.cpp
 
 FORMS += \
-    ../../src/utils/dialogs/showotolistdialog.ui \
     ../../src/utils/widgets/filenameeditwithbrowse.ui \
     ../../src/utils/widgets/otofileloadwidget.ui \
     ../../src/utils/widgets/otofilesavewidget.ui \
@@ -23,6 +23,7 @@ FORMS += \
 
 HEADERS += \
     ../../src/utils/dialogs/showotolistdialog.h \
+    ../../src/utils/dialogs/tableviewdialog.h \
     ../../src/utils/models/otolistmodel.h \
     ../../src/utils/widgets/filenameeditwithbrowse.h \
     ../../src/utils/widgets/otofileloadwidget.h \

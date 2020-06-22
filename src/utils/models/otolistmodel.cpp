@@ -1,6 +1,6 @@
 #include "otolistmodel.h"
 
-OtoListModel::OtoListModel(OtoEntryList* const entryList, QObject *parent)
+OtoListModel::OtoListModel(const OtoEntryList* const entryList, QObject *parent)
     : QAbstractTableModel(parent), entryList(entryList)
 {
 }

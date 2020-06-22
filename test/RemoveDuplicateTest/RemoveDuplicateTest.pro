@@ -10,8 +10,10 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/removeDuplicate/removeduplicatedialogadapter.cpp \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     ../../src/toolBase/tooldialogadapter.cpp \
+    ../../src/toolBase/tooloptions.cpp \
     ../../src/toolBase/tooloptionwidget.cpp \
     ../../src/utils/dialogs/showotolistdialog.cpp \
+    ../../src/utils/dialogs/tableviewdialog.cpp \
     ../../src/utils/models/otolistmodel.cpp \
     ../../src/utils/models/otolistshowvaluechangemodel.cpp \
     ../../src/utils/widgets/filenameeditwithbrowse.cpp \
@@ -23,7 +25,6 @@ SOURCES +=  tst_removeduplicatetest.cpp \
 FORMS += \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.ui \
     ../../src/toolBase/tooldialog.ui \
-    ../../src/utils/dialogs/showotolistdialog.ui \
     ../../src/utils/widgets/filenameeditwithbrowse.ui \
     ../../src/utils/widgets/otofileloadwidget.ui \
     ../../src/utils/widgets/otofilesavewidget.ui \
@@ -34,8 +35,10 @@ HEADERS += \
     ../../src/removeDuplicate/removeduplicatedialogadapter.h \
     ../../src/removeDuplicate/removeduplicatedialogoptionwidget.h \
     ../../src/toolBase/tooldialogadapter.h \
+    ../../src/toolBase/tooloptions.h \
     ../../src/toolBase/tooloptionwidget.h \
     ../../src/utils/dialogs/showotolistdialog.h \
+    ../../src/utils/dialogs/tableviewdialog.h \
     ../../src/utils/models/otolistmodel.h \
     ../../src/utils/models/otolistshowvaluechangemodel.h \
     ../../src/utils/widgets/filenameeditwithbrowse.h \

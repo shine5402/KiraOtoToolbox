@@ -2,12 +2,8 @@
 #define TOOLOPTIONWIDGET_H
 
 #include <QWidget>
-//TODO: getOption/setOption 用QHash<QString, QVariant>存储
-class ToolOptions : public QObject{
-    Q_OBJECT
-public:
-    explicit ToolOptions(QObject* parent) : QObject(parent){};
-};
+#include <QVariant>
+#include "tooloptions.h"
 
 class ToolOptionWidget : public QWidget
 {

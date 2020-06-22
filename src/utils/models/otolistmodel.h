@@ -9,7 +9,7 @@ class OtoListModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit OtoListModel(OtoEntryList* const entryList, QObject *parent = nullptr);
+    explicit OtoListModel(const OtoEntryList* const entryList, QObject *parent = nullptr);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -21,7 +21,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
 private:
-    OtoEntryList* const entryList;
+    const OtoEntryList* const entryList;
 };
 
 #endif // OTOLISTMODEL_H

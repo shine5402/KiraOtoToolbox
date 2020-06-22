@@ -1,6 +1,5 @@
 #include "removeduplicatedialogadapter.h"
 #include "removeduplicatedialogoptionwidget.h"
-#include "utils/models/otolistaliasshowchangemodel.h"
 #include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
 #include <QMessageBox>
@@ -19,20 +18,22 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
 }
 
-bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, OtoEntryList& otoListWorking, OtoEntryList& secondSaveList, const ToolOptions* abstractOptions, QWidget* dialogParent)
+bool RemoveDuplicateDialogAdapter::processOtoList(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                  OtoEntryList& secondSaveOtoList, const ToolOptions* abstractOptions,
+                                                  QWidget* dialogParent)
 {
     auto options = qobject_cast<const RemoveDuplicateOptions*>(abstractOptions);
 
     QStringList compareStringList;
-    for (int i = 0; i < otoList.count(); ++i)
+    for (int i = 0; i < srcOtoList.count(); ++i)
     {
-        compareStringList.append(otoList.at(i).alias());
+        compareStringList.append(srcOtoList.at(i).alias());
     }
 
     //处理特定后缀
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
     if (options->ignoreSpecificSuffix){
-        for (int i = 0; i < otoList.count(); ++i)
+        for (int i = 0; i < srcOtoList.count(); ++i)
         {
             for (const auto& currentItem : options->suffixList)
             {
@@ -49,7 +50,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
     //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存
     if (options->ignorePitchSuffix)
-        for (int i = 0; i < otoList.count(); ++i)
+        for (int i = 0; i < srcOtoList.count(); ++i)
         {
             QString removedPitch {};
             auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options->bottomPitch, options->topPitch,
@@ -62,7 +63,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
 
     //处理数字后缀（重复）
     QStringList digitSuffixList;
-    for (int i = 0; i < otoList.count(); ++i)
+    for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
         digitSuffixList.append(suffix);
@@ -96,7 +97,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
-        auto model = new OtoListShowValueChangeModel(&otoList, &otoListWorking, OtoEntry::Alias, this);
+        auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Alias, this);
         auto askDialog = new ShowOtoListDialog(model, dialogParent);
         askDialog->setWindowTitle(tr("重复项整理结果"));
         askDialog->setLabel(tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
@@ -111,9 +112,9 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
 
         for (auto currentID : newAlias.keys())
         {
-            auto currentEntry = otoListWorking.at(currentID);
+            auto currentEntry = resultOtoList.at(currentID);
             currentEntry.setAlias(newAlias.value(currentID));
-            otoListWorking.replace(currentID, currentEntry);
+            resultOtoList.replace(currentID, currentEntry);
         }
     }
 
@@ -135,7 +136,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
         OtoEntryList toBeRemovedOtoList;
         for (auto i : toBeRemoved)
         {
-            toBeRemovedOtoList.append(otoListWorking.at(i));
+            toBeRemovedOtoList.append(resultOtoList.at(i));
         }
         auto askDialog = new ShowOtoListDialog(&toBeRemovedOtoList, dialogParent);
         askDialog->setWindowTitle(tr("要被删除的原音设定条目列表"));
@@ -150,10 +151,10 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& otoList, Ot
         if (shouldDelete == QDialog::Rejected)
             return false;
 
-        secondSaveList = toBeRemovedOtoList;
+        secondSaveOtoList = toBeRemovedOtoList;
 
         for (auto i : toBeRemovedOtoList){
-            otoListWorking.removeOne(i);
+            resultOtoList.removeOne(i);
         }
     }
 

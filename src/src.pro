@@ -29,9 +29,7 @@ SOURCES += \
     toolBase/tooldialogadapter.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/showotolistdialog.cpp \
-    utils/models/otolistaliasshowchangemodel.cpp \
     utils/models/otolistmodel.cpp \
-    utils/models/otolistoverlapshowchangemodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
     utils/widgets/otofileloadwidget.cpp \
@@ -51,9 +49,7 @@ HEADERS += \
     toolBase/tooldialogadapter.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/showotolistdialog.h \
-    utils/models/otolistaliasshowchangemodel.h \
     utils/models/otolistmodel.h \
-    utils/models/otolistoverlapshowchangemodel.h \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/filenameeditwithbrowse.h \
     utils/widgets/otofileloadwidget.h \

@@ -7,6 +7,7 @@
 #include "utils/widgets/otofilesavewidget.h"
 #include "toolBase/tooloptionwidget.h"
 
+//TODO:Test
 class ToolDialogAdapter : public QObject
 {
     Q_OBJECT
@@ -15,11 +16,14 @@ public:
     virtual void setupSpecificUIWidgets(QLayout* rootLayout) = 0;
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                         const ToolOptionWidget* optionWidget, QWidget* dialogParent);
+    virtual bool processOtoList(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
+                               const ToolOptions* abstractOptions, QWidget* dialogParent) = 0;
+    bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
+                                        const QString& title, const QString& label, QWidget* dialogParent){};//FIXME: 之后转为抽象函数
 protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
     void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
-    virtual bool doWorkAdapter(const OtoEntryList& otoList, OtoEntryList& otoListWorking, OtoEntryList& secondSaveList,
-                               const ToolOptions* abstractOptions, QWidget* dialogParent) = 0;
+
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
 signals:

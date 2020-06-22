@@ -38,7 +38,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
         return result;
     };
 
-    auto result = doWorkAdapter(entryList, entryListWorking, secondSaveList, options, dialogParent);
+    auto result = processOtoList(entryList, entryListWorking, secondSaveList, options, dialogParent);
     if (result)
     {
         if (saveWidget->isSecondFileNameAvailable() && saveWidget->isSecondFileNameUsed()){

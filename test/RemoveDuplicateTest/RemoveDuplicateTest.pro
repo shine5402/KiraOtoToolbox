@@ -12,9 +12,7 @@ SOURCES +=  tst_removeduplicatetest.cpp \
     ../../src/toolBase/tooldialogadapter.cpp \
     ../../src/toolBase/tooloptionwidget.cpp \
     ../../src/utils/dialogs/showotolistdialog.cpp \
-    ../../src/utils/models/otolistaliasshowchangemodel.cpp \
     ../../src/utils/models/otolistmodel.cpp \
-    ../../src/utils/models/otolistoverlapshowchangemodel.cpp \
     ../../src/utils/models/otolistshowvaluechangemodel.cpp \
     ../../src/utils/widgets/filenameeditwithbrowse.cpp \
     ../../src/utils/widgets/otofileloadwidget.cpp \
@@ -38,9 +36,7 @@ HEADERS += \
     ../../src/toolBase/tooldialogadapter.h \
     ../../src/toolBase/tooloptionwidget.h \
     ../../src/utils/dialogs/showotolistdialog.h \
-    ../../src/utils/models/otolistaliasshowchangemodel.h \
     ../../src/utils/models/otolistmodel.h \
-    ../../src/utils/models/otolistoverlapshowchangemodel.h \
     ../../src/utils/models/otolistshowvaluechangemodel.h \
     ../../src/utils/widgets/filenameeditwithbrowse.h \
     ../../src/utils/widgets/otofileloadwidget.h \

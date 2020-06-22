@@ -18,9 +18,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    RemoveSuffix/removepitchaffixotolisttask.cpp \
-    RemoveSuffix/removespecificaffixotolisttask.cpp \
-    RemoveSuffix/removesuffixotolisttask.cpp \
+    RemoveAffix/removeaffixotolisttask.cpp \
+    RemoveAffix/removepitchaffixotolisttask.cpp \
+    RemoveAffix/removespecificaffixotolisttask.cpp \
     addSuffix/addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -45,9 +45,9 @@ SOURCES += \
 
 
 HEADERS += \
-    RemoveSuffix/removepitchaffixotolisttask.h \
-    RemoveSuffix/removespecificaffixotolisttask.h \
-    RemoveSuffix/removesuffixotolisttask.h \
+    RemoveAffix/removeaffixotolisttask.h \
+    RemoveAffix/removepitchaffixotolisttask.h \
+    RemoveAffix/removespecificaffixotolisttask.h \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \

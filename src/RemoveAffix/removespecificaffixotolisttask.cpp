@@ -1,11 +1,11 @@
 #include "removespecificaffixotolisttask.h"
 
-RemoveSpecificAffixOtoListTask::RemoveSpecificAffixOtoListTask(QObject* parent) : OtoListTask(parent)
+RemoveSpecificAffixOtoListModifyWorker::RemoveSpecificAffixOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
 {
 
 }
 
-bool RemoveSpecificAffixOtoListTask::doTask(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
 {
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;
@@ -56,12 +56,12 @@ bool RemoveSpecificAffixOtoListTask::doTask(const OtoEntryList& srcOtoList, OtoE
     return removeFunc.operator bool();
 }
 
-QHash<int, QString> RemoveSpecificAffixOtoListTask::getRemovedSpecificPrefixMap() const
+QHash<int, QString> RemoveSpecificAffixOtoListModifyWorker::getRemovedSpecificPrefixMap() const
 {
     return removedSpecificPrefixMap;
 }
 
-QHash<int, QString> RemoveSpecificAffixOtoListTask::getRemovedSpecificSuffixMap() const
+QHash<int, QString> RemoveSpecificAffixOtoListModifyWorker::getRemovedSpecificSuffixMap() const
 {
     return removedSpecificSuffixMap;
 }

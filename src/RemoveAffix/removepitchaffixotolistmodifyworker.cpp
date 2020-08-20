@@ -1,11 +1,11 @@
-#include "removepitchaffixotolisttask.h"
+#include "removepitchaffixotolistmodifyworker.h"
 
-RemovePitchAffixOtoListTask::RemovePitchAffixOtoListTask(QObject* parent) : OtoListTask(parent)
+RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
 {
 
 }
 
-bool RemovePitchAffixOtoListTask::doTask(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
 {
     Q_UNUSED(secondSaveOtoList);
     removedPitchStringList.clear();
@@ -37,7 +37,7 @@ bool RemovePitchAffixOtoListTask::doTask(const OtoEntryList& srcOtoList, OtoEntr
     return removeFunc.operator bool();
 }
 
-QHash<int, QString> RemovePitchAffixOtoListTask::getRemovedPitchStringList() const
+QHash<int, QString> RemovePitchAffixOtoListModifyWorker::getRemovedPitchStringList() const
 {
     return removedPitchStringList;
 }

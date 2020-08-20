@@ -2,17 +2,17 @@
 #define REMOVEAFFIXOTOLISTTASK_H
 
 #include <QObject>
-#include "../toolBase/otolisttask.h"
+#include "../toolBase/otolistmodifyworker.h"
 
 class RemoveSpecificAffixOtoListTask;
 class RemovePitchAffixOtoListTask;
 
-class RemoveAffixOtoListTask : public OtoListTask
+class RemoveAffixOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    explicit RemoveAffixOtoListTask(QObject* parent = nullptr);
-    bool doTask(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options) override;
+    explicit RemoveAffixOtoListModifyWorker(QObject* parent = nullptr);
+    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options) override;
     RemoveSpecificAffixOtoListTask* getSpecificTask() const;
     RemovePitchAffixOtoListTask* getPitchTask() const;
 

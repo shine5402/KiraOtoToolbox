@@ -20,8 +20,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     RemoveAffix/removeaffixdialogadapter.cpp \
     RemoveAffix/removeaffixoptionwidget.cpp \
-    RemoveAffix/removeaffixotolisttask.cpp \
-    RemoveAffix/removepitchaffixotolisttask.cpp \
+    RemoveAffix/removeaffixotolistmodifyworker.cpp \
+    RemoveAffix/removepitchaffixotolistmodifyworker.cpp \
     RemoveAffix/removespecificaffixotolisttask.cpp \
     addSuffix/addsuffixdialog.cpp \
     main.cpp \
@@ -30,7 +30,7 @@ SOURCES += \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
-    toolBase/otolisttask.cpp \
+    toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/tooloptions.cpp \
@@ -50,8 +50,8 @@ SOURCES += \
 HEADERS += \
     RemoveAffix/removeaffixdialogadapter.h \
     RemoveAffix/removeaffixoptionwidget.h \
-    RemoveAffix/removeaffixotolisttask.h \
-    RemoveAffix/removepitchaffixotolisttask.h \
+    RemoveAffix/removeaffixotolistmodifyworker.h \
+    RemoveAffix/removepitchaffixotolistmodifyworker.h \
     RemoveAffix/removespecificaffixotolisttask.h \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
@@ -59,7 +59,7 @@ HEADERS += \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
-    toolBase/otolisttask.h \
+    toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/tooloptions.h \

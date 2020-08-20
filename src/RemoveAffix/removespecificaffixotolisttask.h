@@ -2,14 +2,14 @@
 #define REMOVESPECIFICAFFIXOTOLISTTASK_H
 
 #include <QObject>
-#include "../toolBase/otolisttask.h"
+#include "../toolBase/otolistmodifyworker.h"
 
-class RemoveSpecificAffixOtoListTask : public OtoListTask
+class RemoveSpecificAffixOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    explicit RemoveSpecificAffixOtoListTask(QObject* parent = nullptr);
-    bool doTask(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions *options) override;
+    explicit RemoveSpecificAffixOtoListModifyWorker(QObject* parent = nullptr);
+    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions *options) override;
     QHash<int, QString> getRemovedSpecificPrefixMap() const;
     QHash<int, QString> getRemovedSpecificSuffixMap() const;
 

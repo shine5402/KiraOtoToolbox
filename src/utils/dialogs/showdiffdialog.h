@@ -4,22 +4,25 @@
 #include <QDialog>
 #include <QFutureWatcher>
 #include <QFutureSynchronizer>
+#include <QDialogButtonBox>
 
 namespace Ui {
     class ShowDiffDialog;
 }
 
-//TODO:test
 class ShowDiffDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ShowDiffDialog(QString source, QString result, const QString& message = QString(),
+    explicit ShowDiffDialog(QString source, QString result, const QString& title = {},
+                            const QString& message = {},
+                            QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::Ok,
                             QWidget *parent = nullptr);
     ~ShowDiffDialog();
 
     void setMessage(const QString& message);
+    void setStandardButtons(QDialogButtonBox::StandardButtons buttons);
 
     void open() override;
     int exec() override;

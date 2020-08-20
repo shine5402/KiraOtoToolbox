@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+#ifdef NDEBUG
+    ui->debugButton->setVisible(false);
+#endif
 }
 
 
@@ -47,6 +50,7 @@ void MainWindow::on_actionAbout_triggered()
                                                 <ul>
                                                 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
                                                 <li>Qt UTAU Librarys, shine_5402, under LGPL v3</li>
+                                                <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
                                                 </ul>
                                                 )"));
 }
@@ -66,4 +70,11 @@ void MainWindow::on_suffixAddPushButton_clicked()
 {
     auto dialog = new AddSuffixDialog(this);
     dialog->exec();
+}
+
+#include "utils/dialogs/showdiffdialog.h"
+
+void MainWindow::on_debugButton_clicked()
+{
+
 }

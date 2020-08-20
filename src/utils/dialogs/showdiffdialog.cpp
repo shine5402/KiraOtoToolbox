@@ -5,16 +5,19 @@
 #include <QtConcurrent/QtConcurrent>
 #include "../lib/diff-match-patch/diff_match_patch.h"
 
-ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& message, QWidget *parent) :
+ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& message, const QString& title, QDialogButtonBox::StandardButtons standardButtons, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ShowDiffDialog),
     source(std::move(source)), result(std::move(result))
 {
     ui->setupUi(this);
-    setMessage(message);
 
-    ui->sourceTextEdit->setText(source);
-    ui->resultTextEdit->setText(result);
+    setMessage(message);
+    setStandardButtons(standardButtons);
+    setWindowTitle(title);
+
+    ui->sourceTextEdit->setPlainText(this->source);
+    ui->resultTextEdit->setPlainText(this->result);
 }
 
 void ShowDiffDialog::setMessage(const QString& message)
@@ -25,6 +28,11 @@ void ShowDiffDialog::setMessage(const QString& message)
     }
     else
         ui->messageLabel->setVisible(false);
+}
+
+void ShowDiffDialog::setStandardButtons(QDialogButtonBox::StandardButtons buttons)
+{
+    ui->buttonBox->setStandardButtons(buttons);
 }
 
 void ShowDiffDialog::open()

@@ -50,6 +50,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="debugButton">
+      <property name="text">
+       <string>Debug 测试按钮</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>

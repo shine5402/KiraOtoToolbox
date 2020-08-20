@@ -3,6 +3,9 @@
 #include <QMessageBox>
 #include <QSaveFile>
 #include <QTextStream>
+#include <utils/dialogs/showdiffdialog.h>
+#include <utils/models/otolistshowvaluechangemodel.h>
+#include <utils/dialogs/tableviewdialog.h>
 
 
 ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
@@ -72,9 +75,29 @@ void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget
     replaceWidget(rootLayout, "otoSaveWidget", newSaveWidget);
 }
 
-bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ToolDialogAdapter::ChangeAskDialogType changeAskDialogType, OtoEntryList& secondSaveOtoList,
+bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ToolDialogAdapter::ChangeAskDialogType changeAskDialogType,
                                                const QString& title, const QString& label, QWidget* dialogParent)
 {
-    //TODO:建立增删的Model
+    auto dialog = [&]() -> QDialog* {
+
+            switch (changeAskDialogType) {
+            case (ValueChangeModel):{
+            auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Alias, dialogParent);
+            return new TableViewDialog(dialogParent, model, title, label, QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+}
+            case (Diff):{
+            auto otoList2String = [](const OtoEntryList& list) -> QString{
+        QStringList stringList{};
+        for (auto i : list){
+            stringList.append(i.toString());
+        }
+        return stringList.join("\n");
+    };
+            return new ShowDiffDialog(otoList2String(srcOtoList), otoList2String(resultOtoList), title, label, QDialogButtonBox::Ok | QDialogButtonBox::Cancel, dialogParent);
+}
+}
+            return nullptr;
+}();
+    return dialog->exec();
 }
 

@@ -104,3 +104,5 @@ include(include.pri)
 
 RESOURCES += \
     presets/overlap_start_preset/overlap_start_preset.qrc
+
+CONFIG(release, debug|release): DEFINES += NDEBUG

@@ -25,7 +25,7 @@ protected:
     void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
 
     enum ChangeType{
-        Value, AdditionAndDelete
+        Value, Line
     };
 
     static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeType changeType, OtoEntryList& secondSaveOtoList,

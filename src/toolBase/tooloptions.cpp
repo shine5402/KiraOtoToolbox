@@ -7,7 +7,7 @@ QVariant ToolOptions::getOption(const QString& key, const QVariant& defaultValue
     return options.value(key, defaultValue);
 }
 
-void ToolOptions::setOption(const QString& key, const QString& value, bool* replaced)
+void ToolOptions::setOption(const QString& key, const QVariant& value, bool* replaced)
 {
     if (replaced)
         *replaced = options.contains(key);

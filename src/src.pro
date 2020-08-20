@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    RemoveAffix/removeaffixdialogadapter.cpp \
     RemoveAffix/removeaffixoptionwidget.cpp \
     RemoveAffix/removeaffixotolisttask.cpp \
     RemoveAffix/removepitchaffixotolisttask.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
     utils/models/otolistmodel.cpp \
+    utils/models/otolistshowlinechangemodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
@@ -47,6 +49,7 @@ SOURCES += \
 
 
 HEADERS += \
+    RemoveAffix/removeaffixdialogadapter.h \
     RemoveAffix/removeaffixoptionwidget.h \
     RemoveAffix/removeaffixotolisttask.h \
     RemoveAffix/removepitchaffixotolisttask.h \
@@ -65,6 +68,7 @@ HEADERS += \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
     utils/models/otolistmodel.h \
+    utils/models/otolistshowlinechangemodel.h \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \

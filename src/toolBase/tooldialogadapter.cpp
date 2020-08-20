@@ -75,6 +75,6 @@ void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget
 bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ToolDialogAdapter::ChangeType changeType, OtoEntryList& secondSaveOtoList,
                                                const QString& title, const QString& label, QWidget* dialogParent)
 {
-
+    //TODO:建立增删的Model
 }
 

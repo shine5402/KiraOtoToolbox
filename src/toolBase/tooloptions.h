@@ -8,9 +8,9 @@
 class ToolOptions : public QObject {
     Q_OBJECT
 public:
-    explicit ToolOptions(QObject* parent) : QObject(parent){};
+    explicit ToolOptions(QObject* parent = nullptr) : QObject(parent){};
     QVariant getOption(const QString& key, const QVariant& defaultValue = {}, bool* matched = nullptr) const;
-    void setOption(const QString& key, const QString& value, bool* replaced = nullptr);
+    void setOption(const QString& key, const QVariant& value, bool* replaced = nullptr);
     bool removeOption(const QString& key);
     QStringList getOptionKeys() const;
 protected:

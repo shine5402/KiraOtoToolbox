@@ -31,7 +31,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QCheckBox" name="ignoreSpecificSuffixCheckBox">
+        <widget class="QCheckBox" name="specificPrefixCheckBox">
          <property name="text">
           <string>去除别名中的特定前缀</string>
          </property>
@@ -46,7 +46,7 @@
           <number>11</number>
          </property>
          <item>
-          <widget class="StringListModifyWidget" name="suffixListWidget" native="true">
+          <widget class="StringListModifyWidget" name="prefixListWidget" native="true">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -65,7 +65,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QCheckBox" name="ignoreSpecificSuffixCheckBox_2">
+        <widget class="QCheckBox" name="specificSuffixCheckBox">
          <property name="text">
           <string>去除别名中的特定后缀</string>
          </property>
@@ -80,7 +80,7 @@
           <number>11</number>
          </property>
          <item>
-          <widget class="StringListModifyWidget" name="suffixListWidget_2" native="true">
+          <widget class="StringListModifyWidget" name="suffixListWidget" native="true">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -131,7 +131,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="pitchPrefixCheckBox">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -141,7 +141,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QCheckBox" name="pitchSuffixCheckBox">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -367,7 +367,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QCheckBox" name="caseSensitiveCheckBox">
+         <widget class="QCheckBox" name="pitchCaseSensitiveCheckBox">
           <property name="text">
            <string>区分大小写</string>
           </property>
@@ -384,7 +384,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="caseComboBox">
+         <widget class="QComboBox" name="pitchCaseComboBox">
           <property name="enabled">
            <bool>false</bool>
           </property>

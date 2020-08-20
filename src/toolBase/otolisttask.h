@@ -5,7 +5,7 @@
 #include <otoentry.h>
 #include "tooloptions.h"
 
-//TODO:Rename to worker
+//TODO:Rename to mofidyworker
 class OtoListTask : public QObject
 {
     Q_OBJECT

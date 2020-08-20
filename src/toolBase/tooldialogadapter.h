@@ -24,11 +24,11 @@ protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
     void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
 
-    enum ChangeType{
-        Value, Line
+    enum ChangeAskDialogType{
+        ValueChangeModel, Diff
     };
 
-    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeType changeType, OtoEntryList& secondSaveOtoList,
+    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeAskDialogType changeType, OtoEntryList& secondSaveOtoList,
                                         const QString& title, const QString& label, QWidget* dialogParent);
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);

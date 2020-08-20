@@ -38,7 +38,6 @@ SOURCES += \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
     utils/models/otolistmodel.cpp \
-    utils/models/otolistshowlinechangemodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
@@ -68,7 +67,6 @@ HEADERS += \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
     utils/models/otolistmodel.h \
-    utils/models/otolistshowlinechangemodel.h \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \

@@ -4,8 +4,8 @@
 #include <QObject>
 #include "../toolBase/otolistmodifyworker.h"
 
-class RemoveSpecificAffixOtoListTask;
-class RemovePitchAffixOtoListTask;
+class RemoveSpecificAffixOtoListModifyWorker;
+class RemovePitchAffixOtoListModifyWorker;
 
 class RemoveAffixOtoListModifyWorker : public OtoListModifyWorker
 {
@@ -13,12 +13,12 @@ class RemoveAffixOtoListModifyWorker : public OtoListModifyWorker
 public:
     explicit RemoveAffixOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options) override;
-    RemoveSpecificAffixOtoListTask* getSpecificTask() const;
-    RemovePitchAffixOtoListTask* getPitchTask() const;
+    RemoveSpecificAffixOtoListModifyWorker* getSpecificWorker() const;
+    RemovePitchAffixOtoListModifyWorker* getPitchWorker() const;
 
 private:
-    RemoveSpecificAffixOtoListTask* specificTask = nullptr;
-    RemovePitchAffixOtoListTask* pitchTask = nullptr;
+    RemoveSpecificAffixOtoListModifyWorker* specificWorker = nullptr;
+    RemovePitchAffixOtoListModifyWorker* pitchWorker = nullptr;
 };
 
 #endif // REMOVEAFFIXOTOLISTTASK_H

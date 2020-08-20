@@ -1279,11 +1279,11 @@ QString diff_match_patch::diff_prettyHtml(const QList<Diff> &diffs) {
                 .replace(">", "&gt;").replace("\n", "&para;<br>");
         switch (aDiff.operation) {
             case INSERT:
-                html += QString("<ins style=\"background:#e6ffe6;\">") + text
+                html += QString("<ins style=\"background:#e6ffe6;text-decoration:underline;\">") + text
                         + QString("</ins>");
                 break;
             case DELETE:
-                html += QString("<del style=\"background:#ffe6e6;\">") + text
+                html += QString("<del style=\"background:#ffe6e6;text-decoration:line-through;\">") + text
                         + QString("</del>");
                 break;
             case EQUAL:

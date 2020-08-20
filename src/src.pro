@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../lib/diff-match-patch/diff_match_patch.cpp \
     RemoveAffix/removeaffixdialogadapter.cpp \
     RemoveAffix/removeaffixoptionwidget.cpp \
     RemoveAffix/removeaffixotolistmodifyworker.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
     toolBase/tooldialogadapter.cpp \
     toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
+    utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
     utils/models/otolistmodel.cpp \
@@ -48,6 +50,7 @@ SOURCES += \
 
 
 HEADERS += \
+    ../lib/diff-match-patch/diff_match_patch.h \
     RemoveAffix/removeaffixdialogadapter.h \
     RemoveAffix/removeaffixoptionwidget.h \
     RemoveAffix/removeaffixotolistmodifyworker.h \
@@ -64,6 +67,7 @@ HEADERS += \
     toolBase/tooldialogadapter.h \
     toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
+    utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
     utils/models/otolistmodel.h \
@@ -84,6 +88,7 @@ FORMS += \
     overlapBatchSet/overlapsetdialog.ui \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
+    utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \
     utils/widgets/otofilesavewidget.ui \

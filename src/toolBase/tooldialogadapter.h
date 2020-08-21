@@ -17,23 +17,27 @@ public:
     explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void setupSpecificUIWidgets(QLayout* rootLayout) = 0;
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
-                        const ToolOptionWidget* optionWidget, QWidget* dialogParent);
+                const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions* options, QWidget* dialogParent) = 0;
+                               const ToolOptions* options, QWidget* dialogParent);
     virtual QString getWindowTitle() const = 0;
+
 protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
     void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
+    OtoListModifyWorker* getWorker() const;
+    void setWorker(OtoListModifyWorker* value);
 
     enum ChangeAskDialogType{
         ValueChangeModel, Diff
     };
 
     static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
-                                        const QString& title, const QString& label, QWidget* dialogParent);
+                                       const QString& title, const QString& label, QWidget* dialogParent);
     static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
+    OtoListModifyWorker* worker = nullptr;
 signals:
 
 };

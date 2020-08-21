@@ -86,7 +86,6 @@ HEADERS += \
 
 FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
-    addSuffix/addsuffixdialog.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     overlapBatchSet/overlapsetdialog.ui \

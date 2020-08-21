@@ -25,8 +25,9 @@ ToolOptions* RemoveAffixOptionWidget::getOptions(QObject* parent) const
     options->setOption("prefixList", ui->prefixListWidget->getData());
 
     options->setOption("removeSuffix", ui->specificSuffixCheckBox->isChecked());
-    options->setOption("removeSuffix", ui->specificSuffixCheckBox->isChecked());
+    options->setOption("suffixList", ui->suffixListWidget->getData());
 
+    options->setOption("removePitchAffix", ui->ignorePitchSuffixCheckBox->isChecked());
     options->setOption("removePitchPrefix", ui->pitchPrefixCheckBox->isChecked());
     options->setOption("removePitchSuffix", ui->pitchSuffixCheckBox->isChecked());
 
@@ -46,6 +47,7 @@ void RemoveAffixOptionWidget::setOptions(const ToolOptions* options)
     ui->specificSuffixCheckBox->setChecked(options->getOption("removeSuffix").toBool());
     ui->suffixListWidget->setData(options->getOption("suffixList").toStringList());
 
+    ui->ignorePitchSuffixCheckBox->setChecked(options->getOption("removePitchAffix").toBool());
     ui->pitchPrefixCheckBox->setChecked(options->getOption("removePitchPrefix").toBool());
     ui->pitchSuffixCheckBox->setChecked(options->getOption("removePitchSuffix").toBool());
 

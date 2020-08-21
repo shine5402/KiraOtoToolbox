@@ -43,7 +43,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="suffixAddPushButton">
+     <widget class="QPushButton" name="affixAddPushButton">
       <property name="text">
        <string>前/后缀增加</string>
       </property>

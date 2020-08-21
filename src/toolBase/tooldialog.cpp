@@ -45,6 +45,8 @@ void ToolDialog::ToolDialog::accept()
         QMessageBox::critical(this, tr("文件未加载"), tr("您还没有加载oto.ini文件。请加载后重试。"));
         return;
     }
-    if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this))
+    if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this)){
+        QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
         QDialog::accept();
+    }
 }

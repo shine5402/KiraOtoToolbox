@@ -5,29 +5,29 @@
 #include "removeDuplicate/removeduplicatedialogadapter.h"
 #include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include <QMessageBox>
-#include "addSuffix/addsuffixdialog.h"
-#include "RemoveAffix/removeaffixdialogadapter.h"
+#include "removeAffix/removeaffixdialogadapter.h"
+#include "addAffix/addaffixdialogadapter.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 #ifdef NDEBUG
     ui->debugButton->setVisible(false);
 #endif
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+
+}
+
 
 void MainWindow::on_duplicateRemoveButton_clicked()
 {
-    auto dialog = new ToolDialog(new RemoveDuplicateDialogAdapter(this), this);
-    dialog->open();
+    (new ToolDialog(new RemoveDuplicateDialogAdapter(this), this))->open();
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -63,14 +63,7 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::on_overlapBatchSetButton_clicked()
 {
-    auto dialog = new ToolDialog(new OverlapBatchSetDialogAdapter(this), this);
-    dialog->open();
-}
-
-void MainWindow::on_suffixAddPushButton_clicked()
-{
-    auto dialog = new AddSuffixDialog(this);
-    dialog->exec();
+    (new ToolDialog(new OverlapBatchSetDialogAdapter(this), this))->open();
 }
 
 void MainWindow::on_debugButton_clicked()
@@ -81,4 +74,9 @@ void MainWindow::on_debugButton_clicked()
 void MainWindow::on_affixRemoveButton_clicked()
 {
     (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();
+}
+
+void MainWindow::on_affixAddPushButton_clicked()
+{
+    (new ToolDialog(new AddAffixDialogAdapter(this), this))->open();
 }

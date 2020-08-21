@@ -10,8 +10,15 @@ RemoveAffixOtoListModifyWorker::RemoveAffixOtoListModifyWorker(QObject* parent) 
 
 bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
 {
-    auto result = specificWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
-    result |= pitchWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+    ToolOptions newOptions(*options);
+    if (!options->getOption("removePitchAffix").toBool())
+    {
+        newOptions.setOption("removePitchPrefix", false);
+        newOptions.setOption("removePitchSuffix", false);
+    }
+
+    auto result = specificWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, &newOptions);
+    result |= pitchWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, &newOptions);
     return result;
 }
 

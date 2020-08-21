@@ -19,12 +19,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
-    RemoveAffix/removeaffixdialogadapter.cpp \
-    RemoveAffix/removeaffixoptionwidget.cpp \
-    RemoveAffix/removeaffixotolistmodifyworker.cpp \
-    RemoveAffix/removepitchaffixotolistmodifyworker.cpp \
-    RemoveAffix/removespecificaffixotolistmodifyworker.cpp \
-    addSuffix/addsuffixdialog.cpp \
+    removeAffix/removeaffixdialogadapter.cpp \
+    removeAffix/removeaffixoptionwidget.cpp \
+    removeAffix/removeaffixotolistmodifyworker.cpp \
+    removeAffix/removepitchaffixotolistmodifyworker.cpp \
+    removeAffix/removespecificaffixotolistmodifyworker.cpp \
+    addAffix/addaffixdialogadapter.cpp \
+    addAffix/addaffixoptionwidget.cpp \
+    addAffix/addaffixotolistmodifyworker.cpp \
     main.cpp \
     mainwindow.cpp \
     overlapBatchSet/overlapbatchsetdialogadapter.cpp \
@@ -51,12 +53,14 @@ SOURCES += \
 
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
-    RemoveAffix/removeaffixdialogadapter.h \
-    RemoveAffix/removeaffixoptionwidget.h \
-    RemoveAffix/removeaffixotolistmodifyworker.h \
-    RemoveAffix/removepitchaffixotolistmodifyworker.h \
-    RemoveAffix/removespecificaffixotolistmodifyworker.h \
-    addSuffix/addsuffixdialog.h \
+    removeAffix/removeaffixdialogadapter.h \
+    removeAffix/removeaffixoptionwidget.h \
+    removeAffix/removeaffixotolistmodifyworker.h \
+    removeAffix/removepitchaffixotolistmodifyworker.h \
+    removeAffix/removespecificaffixotolistmodifyworker.h \
+    addAffix/addaffixdialogadapter.h \
+    addAffix/addaffixoptionwidget.h \
+    addAffix/addaffixotolistmodifyworker.h \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \

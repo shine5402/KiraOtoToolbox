@@ -115,6 +115,6 @@ bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData,
 #ifdef SHINE5402OTOBOX_TEST
         QTimer::singleShot(0, dialog, &QDialog::accept);
 #endif
-    return dialog->exec();
+        return dialog->exec();
 }
 

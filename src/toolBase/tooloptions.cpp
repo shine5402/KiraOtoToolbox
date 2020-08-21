@@ -23,3 +23,24 @@ QStringList ToolOptions::getOptionKeys() const
 {
     return options.keys();
 }
+
+ToolOptions::ToolOptions(const ToolOptions& options)
+{
+    this->options = options.options;
+}
+
+void ToolOptions::operator=(const ToolOptions& options)
+{
+    if (options != *this)
+        this->options = options.options;
+}
+
+bool ToolOptions::operator==(const ToolOptions& rhs) const
+{
+    return rhs.options == options;
+}
+
+bool ToolOptions::operator!=(const ToolOptions& rhs) const
+{
+    return !(*this == rhs);
+}

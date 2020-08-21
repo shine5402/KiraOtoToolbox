@@ -6,6 +6,7 @@
 #include "utils/widgets/otofileloadwidget.h"
 #include "utils/widgets/otofilesavewidget.h"
 #include "toolBase/tooloptionwidget.h"
+#include "toolBase/otolistmodifyworker.h"
 
 //TODO:Test
 

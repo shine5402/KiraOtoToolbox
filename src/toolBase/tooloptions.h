@@ -13,6 +13,10 @@ public:
     void setOption(const QString& key, const QVariant& value, bool* replaced = nullptr);
     bool removeOption(const QString& key);
     QStringList getOptionKeys() const;
+    ToolOptions(const ToolOptions& options);
+    void operator=(const ToolOptions& options);
+    bool operator==(const ToolOptions& rhs) const;
+    bool operator!=(const ToolOptions& rhs) const;
 protected:
     QHash<QString, QVariant> options;
 };

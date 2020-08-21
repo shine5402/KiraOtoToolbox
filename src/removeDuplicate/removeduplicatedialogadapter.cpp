@@ -140,16 +140,8 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
         {
             toBeRemovedOtoList.append(resultOtoList.at(i));
         }
-        auto askDialog = new ShowOtoListDialog(&toBeRemovedOtoList, dialogParent);
-        askDialog->setWindowTitle(tr("要被删除的原音设定条目列表"));
-        askDialog->setLabel(tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(toBeRemoved.count()));
-        askDialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
-#ifdef SHINE5402OTOBOX_TEST
-        QTimer::singleShot(0, askDialog, &ShowOtoListDialog::accept);
-#endif
-
-        auto shouldDelete = askDialog->exec();
+        auto shouldDelete = askUserForSecondSave(toBeRemovedOtoList, tr("要被删除的原音设定条目列表"), tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(toBeRemoved.count()), dialogParent);
         if (shouldDelete == QDialog::Rejected)
             return false;
 

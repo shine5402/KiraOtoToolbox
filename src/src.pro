@@ -23,7 +23,7 @@ SOURCES += \
     RemoveAffix/removeaffixoptionwidget.cpp \
     RemoveAffix/removeaffixotolistmodifyworker.cpp \
     RemoveAffix/removepitchaffixotolistmodifyworker.cpp \
-    RemoveAffix/removespecificaffixotolisttask.cpp \
+    RemoveAffix/removespecificaffixotolistmodifyworker.cpp \
     addSuffix/addsuffixdialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -55,7 +55,7 @@ HEADERS += \
     RemoveAffix/removeaffixoptionwidget.h \
     RemoveAffix/removeaffixotolistmodifyworker.h \
     RemoveAffix/removepitchaffixotolistmodifyworker.h \
-    RemoveAffix/removespecificaffixotolisttask.h \
+    RemoveAffix/removespecificaffixotolistmodifyworker.h \
     addSuffix/addsuffixdialog.h \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \

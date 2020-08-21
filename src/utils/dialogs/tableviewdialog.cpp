@@ -44,3 +44,8 @@ void TableViewDialog::setModel(QAbstractTableModel* value)
 {
     model = value;
 }
+
+QSize TableViewDialog::sizeHint() const
+{
+    return QSize(750, 550);
+}

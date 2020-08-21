@@ -6,7 +6,6 @@
 
 class QButtonGroup;
 
-//TODO: Test
 class AtLeastOneCheckedButtonGroup : public QObject
 {
     Q_OBJECT

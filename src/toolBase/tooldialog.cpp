@@ -3,7 +3,7 @@
 #ifdef SHINE5402OTOBOX_TEST
 #include <QTimer>
 #endif
-
+#include <QMessageBox>
 ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ToolDialog),
@@ -40,6 +40,11 @@ void ToolDialog::otoFileLoaded()
 
 void ToolDialog::ToolDialog::accept()
 {
+    if (!ui->otoLoadWidget->isEntryListReaded())
+    {
+        QMessageBox::critical(this, tr("文件未加载"), tr("您还没有加载oto.ini文件。请加载后重试。"));
+        return;
+    }
     if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this))
         QDialog::accept();
 }

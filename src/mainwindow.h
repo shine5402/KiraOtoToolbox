@@ -27,5 +27,6 @@ private slots:
     void on_overlapBatchSetButton_clicked();
     void on_suffixAddPushButton_clicked();
     void on_debugButton_clicked();
+    void on_affixRemoveButton_clicked();
 };
 #endif // MAINWINDOW_H

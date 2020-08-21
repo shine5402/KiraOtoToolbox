@@ -54,11 +54,12 @@ bool OverlapBatchSetDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
     }
 
     //显示差异和向用户确认
-    auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Overlap ,this);
-    auto dialog = new TableViewDialog(dialogParent, model);
-    dialog->setWindowTitle(tr("确认对Overlap的更改"));
-    dialog->setLabel(tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
-    auto code = dialog->exec();
+//    auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Overlap ,this);
+//    auto dialog = new TableViewDialog(dialogParent, model);
+//    dialog->setWindowTitle(tr("确认对Overlap的更改"));
+//    dialog->setLabel(tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"));
+//    auto code = dialog->exec();
+    auto code = askUserForApplyChanges(srcOtoList, resultOtoList, ValueChangeModel, tr("确认对Overlap的更改"), tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"), dialogParent);
     if (code == QDialog::Rejected)
         return false;
     return true;

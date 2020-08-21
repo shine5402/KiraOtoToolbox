@@ -12,11 +12,11 @@ class ShowOtoListDialog : public TableViewDialog
     Q_OBJECT
 
 public:
-    ShowOtoListDialog(OtoEntryList* entryList, QWidget *parent = nullptr);
+    ShowOtoListDialog(const OtoEntryList* entryList, QWidget *parent = nullptr);
     ~ShowOtoListDialog();
 
 private:
-    OtoEntryList* entryList = nullptr;
+    const OtoEntryList* entryList = nullptr;
     OtoListModel* model;
 };
 

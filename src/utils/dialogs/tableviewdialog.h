@@ -16,6 +16,7 @@ public:
     void setStandardButtons(QDialogButtonBox::StandardButtons buttons);
     QAbstractTableModel* getModel() const;
     void setModel(QAbstractTableModel* value);
+    QSize sizeHint() const override;
 
 protected:
     QAbstractTableModel* model = nullptr;

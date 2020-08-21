@@ -5,7 +5,7 @@
 #include <QtConcurrent/QtConcurrent>
 #include "../lib/diff-match-patch/diff_match_patch.h"
 
-ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& message, const QString& title, QDialogButtonBox::StandardButtons standardButtons, QWidget *parent) :
+ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& title, const QString& message, QDialogButtonBox::StandardButtons standardButtons, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ShowDiffDialog),
     source(std::move(source)), result(std::move(result))
@@ -52,7 +52,7 @@ void ShowDiffDialog::startDiffCalc()
     auto future = QtConcurrent::run([&]() -> QString { //returns diff's prettyHtml
         diff_match_patch dmp;
         dmp.Diff_Timeout = 0.0f;
-        auto diff = dmp.diff_main(source, result, true);
+        auto diff = dmp.diff_main(source, result, false);
         return dmp.diff_prettyHtml(diff);
     });
     futureSynchronizer.addFuture(future);

@@ -6,6 +6,7 @@
 #include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include <QMessageBox>
 #include "addSuffix/addsuffixdialog.h"
+#include "RemoveAffix/removeaffixdialogadapter.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -72,9 +73,12 @@ void MainWindow::on_suffixAddPushButton_clicked()
     dialog->exec();
 }
 
-#include "utils/dialogs/showdiffdialog.h"
-
 void MainWindow::on_debugButton_clicked()
 {
 
+}
+
+void MainWindow::on_affixRemoveButton_clicked()
+{
+    (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();
 }

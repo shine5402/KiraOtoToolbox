@@ -1,6 +1,6 @@
 #include "showotolistdialog.h"
 
-ShowOtoListDialog::ShowOtoListDialog(OtoEntryList* entryList, QWidget *parent) :
+ShowOtoListDialog::ShowOtoListDialog(const OtoEntryList* entryList, QWidget *parent) :
     TableViewDialog(parent), entryList(entryList)
 {
     if (!entryList)

@@ -1,4 +1,4 @@
-#include "removespecificaffixotolisttask.h"
+#include "removespecificaffixotolistmodifyworker.h"
 
 RemoveSpecificAffixOtoListModifyWorker::RemoveSpecificAffixOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
 {

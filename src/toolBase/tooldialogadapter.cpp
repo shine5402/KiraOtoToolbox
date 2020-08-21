@@ -6,6 +6,8 @@
 #include <utils/dialogs/showdiffdialog.h>
 #include <utils/models/otolistshowvaluechangemodel.h>
 #include <utils/dialogs/tableviewdialog.h>
+#include <QTimer>
+#include <utils/dialogs/showotolistdialog.h>
 
 
 ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
@@ -98,6 +100,21 @@ bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, O
 }
             return nullptr;
 }();
+#ifdef SHINE5402OTOBOX_TEST
+        QTimer::singleShot(0, dialog, &QDialog::accept);
+#endif
+        return dialog->exec();
+}
+
+bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
+{
+    auto dialog = new ShowOtoListDialog(&secondSaveData, dialogParent);
+    dialog->setLabel(label);
+    dialog->setWindowTitle(title);
+    dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+#ifdef SHINE5402OTOBOX_TEST
+        QTimer::singleShot(0, dialog, &QDialog::accept);
+#endif
     return dialog->exec();
 }
 

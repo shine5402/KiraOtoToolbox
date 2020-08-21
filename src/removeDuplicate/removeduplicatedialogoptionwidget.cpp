@@ -15,6 +15,7 @@ RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
 
 ToolOptions* RemoveDuplicateDialogOptionWidget::getOptions(QObject* parent) const
 {
+    //TODO: Change to new API
     auto options = new RemoveDuplicateOptions(parent);
 
     options->ignoreSpecificSuffix = ui->ignoreSpecificSuffixCheckBox->isChecked();
@@ -28,6 +29,10 @@ ToolOptions* RemoveDuplicateDialogOptionWidget::getOptions(QObject* parent) cons
     options->shouldOrganize = ui->organizeCheckBox->isChecked();
     options->organizeStartFrom1 = ui->organizeStartFrom1CheckBox->isChecked();
     options->pitchCaseOrganized = ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower;
+
+    //options->setOption("ignoreSpecificSuffix", ui->ignoreSpecificSuffixCheckBox->isChecked());
+    //options->setOption("suffixList", ui->suffixListWidget->getData());
+    //options->setOption("bottomPitch")
 
     return options;
 }

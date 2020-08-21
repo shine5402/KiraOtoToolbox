@@ -99,7 +99,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QCheckBox" name="ignorePitchSuffixCheckBox">
        <property name="text">
@@ -108,7 +108,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_3">
+      <spacer name="horizontalSpacer_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -121,42 +121,45 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QWidget" name="pitchRangeOptionWidget" native="true">
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text">
-        <string>范围：</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="pitchPrefixCheckBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>前缀</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="pitchSuffixCheckBox">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>后缀</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>范围：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="pitchPrefixCheckBox">
+          <property name="text">
+           <string>前缀</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="pitchSuffixCheckBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>后缀</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="pitchOptionWidget" native="true">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -416,5 +419,70 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>specificPrefixCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>prefixListWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>specificSuffixCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>suffixListWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>515</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ignorePitchSuffixCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pitchOptionWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>93</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ignorePitchSuffixCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pitchRangeOptionWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>101</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>713</x>
+     <y>379</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

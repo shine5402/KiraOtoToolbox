@@ -18,7 +18,7 @@ public:
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                         const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions* abstractOptions, QWidget* dialogParent) = 0;
+                               const ToolOptions* options, QWidget* dialogParent) = 0;
     virtual QString getWindowTitle() const = 0;
 protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
@@ -28,8 +28,9 @@ protected:
         ValueChangeModel, Diff
     };
 
-    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeAskDialogType changeType, OtoEntryList& secondSaveOtoList,
+    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
                                         const QString& title, const QString& label, QWidget* dialogParent);
+    static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
 signals:

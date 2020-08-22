@@ -20,10 +20,9 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 }
 
 bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                                                  OtoEntryList& secondSaveOtoList, const ToolOptions* abstractOptions,
+                                                  OtoEntryList& secondSaveOtoList, const ToolOptions* options,
                                                   QWidget* dialogParent)
 {
-    auto options = qobject_cast<const RemoveDuplicateOptions*>(abstractOptions);
 
     QStringList compareStringList;
     for (int i = 0; i < srcOtoList.count(); ++i)
@@ -33,10 +32,10 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
 
     //处理特定后缀
     QHash<int, QString> removedSpecificSuffixMap; //为整理时添加回特定后缀留存
-    if (options->ignoreSpecificSuffix){
+    if (options->getOption("ignoreSpecificSuffix").toBool()){
         for (int i = 0; i < srcOtoList.count(); ++i)
         {
-            for (const auto& currentItem : options->suffixList)
+            for (const auto& currentItem : options->getOption("suffixList").toStringList())
             {
                 if (compareStringList.at(i).endsWith(currentItem))
                 {
@@ -50,13 +49,16 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
     //处理音高后缀
     //auto isIgnorePitchSuffix = ui->ignorePitchSuffixCheckBox->isChecked();
     QHash<int, QString> removedPitchStringList; //为整理时添加回音高后缀留存
-    if (options->ignorePitchSuffix)
+    if (options->getOption("ignorePitchSuffix").toBool())
         for (int i = 0; i < srcOtoList.count(); ++i)
         {
             QString removedPitch {};
-            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i), options->bottomPitch, options->topPitch,
-                                                               options->pitchCaseSensitive,
-                                                               options->pitchCase, &removedPitch);
+            auto result = OtoEntryFunctions::removePitchSuffix(compareStringList.at(i),
+                                                               options->getOption("bottomPitch").toString(),
+                                                               options->getOption("topPitch").toString(),
+                                                               options->getOption("pitchCaseSensitive").value<Qt::CaseSensitivity>(),
+                                                               static_cast<OtoEntryFunctions::CharacterCase>(options->getOption("pitchCase").toInt()),
+                                                               &removedPitch);
             compareStringList.replace(i, result);
             if (!removedPitch.isEmpty())
                 removedPitchStringList.insert(i, removedPitch);
@@ -79,7 +81,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
     }
 
     //整理重复项
-    if (options->shouldOrganize){
+    if (options->getOption("shouldOrganize").toBool()){
         /*
          * 要做的事：重整重复项数字顺序，添加原后缀。
          */
@@ -93,8 +95,8 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
             {
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
-                                (i > 0 ? QString::number((options->organizeStartFrom1 ? i : i + 1)) : "") +
-                                (options->pitchCaseOrganized == OtoEntryFunctions::Upper ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
+                                (i > 0 ? QString::number((options->getOption("organizeStartFrom1").toBool() ? i : i + 1)) : "") +
+                                (options->getOption("pitchCaseOrganized").toInt() == OtoEntryFunctions::Upper ? removedPitchStringList.value(currentID, "").toUpper() : removedPitchStringList.value(currentID, "").toLower()) +
                                 removedSpecificSuffixMap.value(currentID, ""));
             }
         }
@@ -122,16 +124,16 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
 
     //删除重复项
     //检查重复并确认待删除项
-    if (options->maxDuplicateCount != 0) {
+    if (options->getOption("maxDuplicateCount").toInt() != 0) {
         QList<int> toBeRemoved;
 
         for (auto key : compareStringMap.uniqueKeys())
         {
-            if (compareStringMap.count(key) > options->maxDuplicateCount)
+            if (compareStringMap.count(key) > options->getOption("maxDuplicateCount").toInt())
             {
                 auto values = compareStringMap.values(key);
                 std::sort(values.begin(), values.end());
-                toBeRemoved.append(values.mid(options->maxDuplicateCount));
+                toBeRemoved.append(values.mid(options->getOption("maxDuplicateCount").toInt()));
             }
         }
         std::sort(toBeRemoved.begin(), toBeRemoved.end());

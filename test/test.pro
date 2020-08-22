@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-# SUBDIRS += RemoveDuplicateTest \
+SUBDIRS += RemoveDuplicateTest \
 #     OverlapSetTest \
 #     UtilModelsTest \
 #     UtilWidgetsTest

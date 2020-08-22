@@ -10,18 +10,6 @@ namespace Ui {
     class OverlapBatchSetDialogOptionWidget;
 }
 
-class OverlapBatchSetOptions : public ToolOptions {
-    Q_OBJECT
-public:
-    explicit OverlapBatchSetOptions(QObject* parent = nullptr) : ToolOptions(parent){};
-    bool ifSetOverlapStartWith = false;
-    double overlapStartWith = 0.0;
-    QStringList startWithPatternList{};
-    bool ifMatchStartOto = false;
-    bool makeOneThird = false;
-
-};
-
 class OverlapBatchSetDialogOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT

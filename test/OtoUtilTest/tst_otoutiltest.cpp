@@ -79,8 +79,14 @@ private slots:
     void removeSuffixTest();
     void removeSuffixTest_data();
 
+    void removePrefixTest();
+    void removePrefixTest_data();
+
     void removePitchSuffixTest();
     void removePitchSuffixTest_data();
+
+    void removePitchPrefixTest();
+    void removePitchPrefixTest_data();
 
     void getDigitalSuffixTest();
     void getDigitalSuffixTest_data();
@@ -454,6 +460,31 @@ void OtoUtilTest::removeSuffixTest_data()
     QTest::newRow("char suffix, case insensitive") << "あF" << "f" << Qt::CaseInsensitive << "あ";
 }
 
+void OtoUtilTest::removePrefixTest()
+{
+    QFETCH(QString, src);
+    QFETCH(QString, prefix);
+    QFETCH(QString, expect);
+    QFETCH(Qt::CaseSensitivity, cs);
+
+    QCOMPARE(OtoEntryFunctions::removeSuffix(src, prefix, cs), expect);
+}
+
+void OtoUtilTest::removePrefixTest_data()
+{
+    QTest::addColumn<QString>("src");
+    QTest::addColumn<QString>("prefix");
+    QTest::addColumn<Qt::CaseSensitivity>("cs");
+    QTest::addColumn<QString>("expect");
+
+    QTest::newRow("Pitch prefix") << "F3あ" << "F3" << Qt::CaseSensitive << "あ";
+    QTest::newRow("Number prefix") << "3あ" << "3" << Qt::CaseSensitive << "あ";
+    QTest::newRow("Chinese character") << "息a" << "息" << Qt::CaseSensitive << "a";
+
+    QTest::newRow("Pitch prefix, case insensitive") << "F3あ" << "f3" << Qt::CaseInsensitive << "あ";
+    QTest::newRow("char prefix, case insensitive") << "Fあ" << "f" << Qt::CaseInsensitive << "あ";
+}
+
 void OtoUtilTest::removePitchSuffixTest()
 {
     QFETCH(QString, src);
@@ -498,6 +529,52 @@ void OtoUtilTest::removePitchSuffixTest_data()
     QTest::newRow("range not match") << "aF3" << "A3" << "C4" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "" << "aF3";
 
     QTest::newRow("with #") << "aF#3" << "F3" << "G3" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F#3" << "a";
+}
+
+void OtoUtilTest::removePitchPrefixTest()
+{
+    QFETCH(QString, src);
+    QFETCH(QString, bottomPitch);
+    QFETCH(QString, topPitch);
+    QFETCH(Qt::CaseSensitivity, cs);
+    QFETCH(int, characterCase);
+    auto characterCaseEnum = static_cast<OtoEntryFunctions::CharacterCase>(characterCase);
+    QFETCH(QString, expect);
+    QFETCH(QString, pitchToRemove);
+
+    QString pitchToRemoveResult;
+
+    QCOMPARE(OtoEntryFunctions::removePitchPrefix(src, bottomPitch, topPitch, cs, characterCaseEnum, &pitchToRemoveResult), expect);
+    QCOMPARE(pitchToRemoveResult, pitchToRemove);
+}
+
+void OtoUtilTest::removePitchPrefixTest_data()
+{
+    QTest::addColumn<QString>("src");
+    QTest::addColumn<QString>("bottomPitch");
+    QTest::addColumn<QString>("topPitch");
+    QTest::addColumn<Qt::CaseSensitivity>("cs");
+    QTest::addColumn<int>("characterCase");
+    QTest::addColumn<QString>("pitchToRemove");
+    QTest::addColumn<QString>("expect");
+
+    QTest::newRow("case sensitive, upper") << "F3a" << "C1" << "C6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F3" <<"a";
+    QTest::newRow("case sensitive, upper, not match") << "f3a" << "C1" << "C6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "" << "f3a";
+    QTest::newRow("case insensitive, upper") << "f3a" << "C1" << "C6" << Qt::CaseInsensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F3" << "a";
+    QTest::newRow("case sensitive, lower") << "f3a" << "C1" << "C6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Lower) << "f3" << "a";
+    QTest::newRow("case sensitive, lower, not match") << "F3a" << "C1" << "C6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Lower) << "" << "F3a";
+    QTest::newRow("case insensitive, lower") << "F3a" << "C1" << "C6" << Qt::CaseInsensitive << static_cast<int>(OtoEntryFunctions::Lower) << "f3" << "a";
+
+    QTest::newRow("case sensitive, upper, lower range input") << "F3a" << "c1" << "c6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F3" << "a";
+    QTest::newRow("case sensitive, upper, not match, lower range input") << "f3a" << "c1" << "c6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "" << "f3a";
+    QTest::newRow("case insensitive, upper, lower range input") << "f3a" << "c1" << "c6" << Qt::CaseInsensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F3" << "a";
+    QTest::newRow("case sensitive, lower, lower range input") << "f3a" << "c1" << "c6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Lower) << "f3" << "a";
+    QTest::newRow("case sensitive, lower, not match, lower range input") << "F3a" << "c1" << "c6" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Lower) << "" << "F3a";
+    QTest::newRow("case insensitive, lower, lower range input") << "F3a" << "c1" << "c6" << Qt::CaseInsensitive << static_cast<int>(OtoEntryFunctions::Lower) << "f3" << "a";
+
+    QTest::newRow("range not match") << "F3a" << "A3" << "C4" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "" << "F3a";
+
+    QTest::newRow("with #") << "F#3a" << "F3" << "G3" << Qt::CaseSensitive << static_cast<int>(OtoEntryFunctions::Upper) << "F#3" << "a";
 }
 
 void OtoUtilTest::getDigitalSuffixTest()

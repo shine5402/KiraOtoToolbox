@@ -155,7 +155,9 @@ namespace OtoEntryFunctions {
 
     QTUTAULIBRARYS_EXPORT QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
     QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
-    QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive);
+        QTUTAULIBRARYS_EXPORT QString removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
+    QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
+    QTUTAULIBRARYS_EXPORT QString removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
     QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
     ///@deprecated
     QTUTAULIBRARYS_EXPORT int writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));

@@ -331,14 +331,30 @@ QString OtoEntryFunctions::removePitchSuffix(QString alias, const QString& botto
     auto pitchRange = getPitchStringRange(bottomPitch, topPitch, pitchRangeCharacterCase);
     for (const auto& pitch : pitchRange)
     {
-        auto pitchPos = alias.lastIndexOf(pitch, -1 ,cs);
-        if (pitchPos != -1)
+        bool removed = false;
+        auto result = removeSuffix(alias, pitch, cs, &removed);
+        if (removed)
         {
             if (pitchRemoved)
-            {
                 *pitchRemoved = pitch;
-            }
-            return removeSuffix(alias, pitch, cs);
+            return result;
+        }
+    }
+    return alias;
+}
+
+QString OtoEntryFunctions::removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs, OtoEntryFunctions::CharacterCase pitchRangeCharacterCase, QString* pitchRemoved)
+{
+    auto pitchRange = getPitchStringRange(bottomPitch, topPitch, pitchRangeCharacterCase);
+    for (const auto& pitch : pitchRange)
+    {
+        bool removed = false;
+        auto result = removePrefix(alias, pitch, cs, &removed);
+        if (removed)
+        {
+            if (pitchRemoved)
+                *pitchRemoved = pitch;
+            return result;
         }
     }
     return alias;
@@ -393,12 +409,26 @@ QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, c
     return pitchStringRange;
 }
 
-QString OtoEntryFunctions::removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs)
+QString OtoEntryFunctions::removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs, bool* removed)
 {
     auto suffixPos = string.lastIndexOf(suffix, -1, cs);
+    if (removed)
+        *removed = suffixPos != -1;
     if (suffixPos != -1)
     {
         return string.remove(suffixPos, suffix.count());
+    }
+    return string;
+}
+
+QString OtoEntryFunctions::removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs, bool* removed)
+{
+    auto prefixPos = string.indexOf(prefix, 0, cs);
+    if (removed)
+        *removed = prefixPos != -1;
+    if (prefixPos != -1)
+    {
+        return string.remove(prefixPos, prefix.count());
     }
     return string;
 }
@@ -456,3 +486,6 @@ bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEnt
     }
     return successed;
 }
+
+
+

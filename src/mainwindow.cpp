@@ -1,28 +1,33 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "removeduplicatedialog.h"
+#include "toolBase/tooldialog.h"
+#include "removeDuplicate/removeduplicatedialogadapter.h"
+#include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include <QMessageBox>
-#include "overlapsetdialog.h"
-#include "addsuffixdialog.h"
+#include "removeAffix/removeaffixdialogadapter.h"
+#include "addAffix/addaffixdialogadapter.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+#ifdef NDEBUG
+    ui->debugButton->setVisible(false);
+#endif
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
 }
 
 
 void MainWindow::on_duplicateRemoveButton_clicked()
 {
-    auto dialog = new RemoveDuplicateDialog(this);
-    dialog->open();
+    (new ToolDialog(new RemoveDuplicateDialogAdapter(this), this))->open();
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -35,6 +40,7 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox::information(this, tr("关于"), tr(R"(<h2>shine_5402 的 oto 工具箱</h2>
 
                                                 <p>Copyright 2020 <a href="https://shine5402.top/about-me">shine_5402</a></p>
+                                                <p>版本 %1</p>
                                                 <h3>关于</h3>
                                                 <p>一个个人自用向的操作UTAU用声音资料库的原音设定文件oto.ini的工具箱</p>
                                                 <h3>许可</h3>
@@ -46,8 +52,9 @@ void MainWindow::on_actionAbout_triggered()
                                                 <ul>
                                                 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
                                                 <li>Qt UTAU Librarys, shine_5402, under LGPL v3</li>
+                                                <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
                                                 </ul>
-                                                )"));
+                                                )").arg(qApp->applicationVersion()));
 }
 
 void MainWindow::on_actionAbout_Qt_triggered()
@@ -57,12 +64,20 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::on_overlapBatchSetButton_clicked()
 {
-    auto dialog = new OverlapSetDialog(this);
-    dialog->open();
+    (new ToolDialog(new OverlapBatchSetDialogAdapter(this), this))->open();
 }
 
-void MainWindow::on_suffixAddPushButton_clicked()
+void MainWindow::on_debugButton_clicked()
 {
-    auto dialog = new AddSuffixDialog(this);
-    dialog->exec();
+
+}
+
+void MainWindow::on_affixRemoveButton_clicked()
+{
+    (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();
+}
+
+void MainWindow::on_affixAddPushButton_clicked()
+{
+    (new ToolDialog(new AddAffixDialogAdapter(this), this))->open();
 }

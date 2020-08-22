@@ -1,10 +1,12 @@
-QT       += core gui
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
+
+VERSION = 0.2.0
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,32 +20,95 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addsuffixdialog.cpp \
+    ../lib/diff-match-patch/diff_match_patch.cpp \
+    overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
+    removeAffix/removeaffixdialogadapter.cpp \
+    removeAffix/removeaffixoptionwidget.cpp \
+    removeAffix/removeaffixotolistmodifyworker.cpp \
+    removeAffix/removedstringinfo.cpp \
+    removeAffix/removepitchaffixotolistmodifyworker.cpp \
+    removeAffix/removespecificaffixotolistmodifyworker.cpp \
+    addAffix/addaffixdialogadapter.cpp \
+    addAffix/addaffixoptionwidget.cpp \
+    addAffix/addaffixotolistmodifyworker.cpp \
     main.cpp \
     mainwindow.cpp \
-    otolistaliasshowchangemodel.cpp \
-    otolistmodel.cpp \
-    otolistoverlapshowchangemodel.cpp \
-    overlapsetdialog.cpp \
-    removeduplicatedialog.cpp \
-    showotolistdialog.cpp
+    overlapBatchSet/overlapbatchsetdialogadapter.cpp \
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
+    removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
+    removeDuplicate/removeduplicatedialogadapter.cpp \
+    removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
+    removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    toolBase/otolistmodifyworker.cpp \
+    toolBase/tooldialog.cpp \
+    toolBase/tooldialogadapter.cpp \
+    toolBase/tooloptions.cpp \
+    toolBase/tooloptionwidget.cpp \
+    utils/dialogs/showdiffdialog.cpp \
+    utils/dialogs/showotolistdialog.cpp \
+    utils/dialogs/tableviewdialog.cpp \
+    utils/models/otolistmodel.cpp \
+    utils/models/otolistshowvaluechangemodel.cpp \
+    utils/widgets/atleastonecheckedbuttongroup.cpp \
+    utils/widgets/filenameeditwithbrowse.cpp \
+    utils/widgets/otofileloadwidget.cpp \
+    utils/widgets/otofilenameeditwithbrowse.cpp \
+    utils/widgets/otofilesavewidget.cpp \
+    utils/widgets/stringlistmodifywidget.cpp
+
 
 HEADERS += \
-    addsuffixdialog.h \
+    ../lib/diff-match-patch/diff_match_patch.h \
+    overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
+    removeAffix/removeaffixdialogadapter.h \
+    removeAffix/removeaffixoptionwidget.h \
+    removeAffix/removeaffixotolistmodifyworker.h \
+    removeAffix/removedstringinfo.h \
+    removeAffix/removepitchaffixotolistmodifyworker.h \
+    removeAffix/removespecificaffixotolistmodifyworker.h \
+    addAffix/addaffixdialogadapter.h \
+    addAffix/addaffixoptionwidget.h \
+    addAffix/addaffixotolistmodifyworker.h \
     mainwindow.h \
-    otolistaliasshowchangemodel.h \
-    otolistmodel.h \
-    otolistoverlapshowchangemodel.h \
-    overlapsetdialog.h \
-    removeduplicatedialog.h \
-    showotolistdialog.h
+    overlapBatchSet/overlapbatchsetdialogadapter.h \
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
+    removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
+    removeDuplicate/removeduplicatedialogadapter.h \
+    removeDuplicate/removeduplicatedialogoptionwidget.h \
+    removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
+    removeDuplicate/removeduplicateotolistmodifyworker.h \
+    toolBase/otolistmodifyworker.h \
+    toolBase/tooldialog.h \
+    toolBase/tooldialogadapter.h \
+    toolBase/tooloptions.h \
+    toolBase/tooloptionwidget.h \
+    utils/dialogs/showdiffdialog.h \
+    utils/dialogs/showotolistdialog.h \
+    utils/dialogs/tableviewdialog.h \
+    utils/models/otolistmodel.h \
+    utils/models/otolistshowvaluechangemodel.h \
+    utils/widgets/atleastonecheckedbuttongroup.h \
+    utils/widgets/filenameeditwithbrowse.h \
+    utils/widgets/otofileloadwidget.h \
+    utils/widgets/otofilenameeditwithbrowse.h \
+    utils/widgets/otofilesavewidget.h \
+    utils/widgets/stringlistmodifywidget.h
+
 
 FORMS += \
-    addsuffixdialog.ui \
+    RemoveAffix/removeaffixoptionwidget.ui \
     mainwindow.ui \
-    overlapsetdialog.ui \
-    removeduplicatedialog.ui \
-    showotolistdialog.ui
+    overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
+    overlapBatchSet/overlapsetdialog.ui \
+    toolBase/tooldialog.ui \
+    removeDuplicate/removeduplicatedialogoptionwidget.ui \
+    utils/dialogs/showdiffdialog.ui \
+    utils/widgets/filenameeditwithbrowse.ui \
+    utils/widgets/otofileloadwidget.ui \
+    utils/widgets/otofilesavewidget.ui \
+    utils/widgets/stringlistmodifywidget.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -53,4 +118,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 include(include.pri)
 
 RESOURCES += \
-    overlap_start_preset/overlap_start_preset.qrc
+    presets/overlap_start_preset/overlap_start_preset.qrc
+
+CONFIG(release, debug|release): DEFINES += NDEBUG

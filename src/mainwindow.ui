@@ -43,9 +43,23 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="suffixAddPushButton">
+     <widget class="QPushButton" name="affixAddPushButton">
       <property name="text">
        <string>前/后缀增加</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="affixRemoveButton">
+      <property name="text">
+       <string>前/后缀去除</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="debugButton">
+      <property name="text">
+       <string>Debug 测试按钮</string>
       </property>
      </widget>
     </item>

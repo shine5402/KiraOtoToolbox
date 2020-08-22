@@ -56,6 +56,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
     return result;
 }
 
+//TODO: 提供一个使用Diff的默认可调用实现
 bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options, QWidget* dialogParent)
 {
     Q_ASSERT(getWorker());
@@ -102,7 +103,7 @@ bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, O
 
             switch (changeAskDialogType) {
             case (ValueChangeModel):{
-            auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, OtoEntry::Alias, dialogParent);
+            auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, dialogParent);
             return new TableViewDialog(dialogParent, model, title, label, QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 }
             case (Diff):{
@@ -119,9 +120,9 @@ bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, O
             return nullptr;
 }();
 #ifdef SHINE5402OTOBOX_TEST
-        QTimer::singleShot(0, dialog, &QDialog::accept);
+    QTimer::singleShot(0, dialog, &QDialog::accept);
 #endif
-        return dialog->exec();
+    return dialog->exec();
 }
 
 bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
@@ -131,8 +132,8 @@ bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData,
     dialog->setWindowTitle(title);
     dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 #ifdef SHINE5402OTOBOX_TEST
-        QTimer::singleShot(0, dialog, &QDialog::accept);
+    QTimer::singleShot(0, dialog, &QDialog::accept);
 #endif
-        return dialog->exec();
+    return dialog->exec();
 }
 

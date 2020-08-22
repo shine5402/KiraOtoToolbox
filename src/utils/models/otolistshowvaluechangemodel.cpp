@@ -2,14 +2,26 @@
 #include <QMetaEnum>
 #include <QFont>
 
+void OtoListShowValueChangeModel::construct(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList)
+{
+    Q_ASSERT(oldEntryList->count() == newEntryList->count());
+    refreshHeaderList();
+}
+
 OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList,
                                                          OtoEntry::OtoParameters changedParamters, QObject *parent)
     : QAbstractTableModel(parent),
       oldEntryList(oldEntryList), newEntryList(newEntryList),
       changedParameters(changedParamters)
 {
-    Q_ASSERT(oldEntryList->count() == newEntryList->count());
-    refreshHeaderList();
+    construct(oldEntryList, newEntryList);
+}
+
+OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList, QObject* parent): QAbstractTableModel(parent),
+    oldEntryList(oldEntryList), newEntryList(newEntryList)
+{
+    changedParameters = guessChangedParameters(*oldEntryList, *newEntryList);
+    construct(oldEntryList, newEntryList);
 }
 
 QVariant OtoListShowValueChangeModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -80,7 +92,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
                     auto newParameter = newOto.getParameter(currentFlag);
                     if (oldParameter.type() == QVariant::Double && newParameter.type() == QVariant::Double)
             {
-        return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble());
+                    return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble());
         }
                     return oldParameter != newParameter;
         }()){
@@ -104,6 +116,28 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
         return fonts.at(index.column());
     }
     return QVariant();
+}
+
+OtoEntry::OtoParameters OtoListShowValueChangeModel::guessChangedParameters(const OtoEntryList& oldEntryList, const OtoEntryList newEntryList)
+{
+    OtoEntry::OtoParameters changedParameter;
+    for (int para = 0; para < OtoEntry::OtoParameterCount; ++para){
+        bool paraChanged = false;
+        for (int otoId = 0; otoId < oldEntryList.count(); ++otoId){
+            auto oldPara = oldEntryList.at(otoId).getParameter(static_cast<OtoEntry::OtoParameterOrder>(para));
+            auto newPara = newEntryList.at(otoId).getParameter(static_cast<OtoEntry::OtoParameterOrder>(para));
+            if (oldPara != newPara){
+                paraChanged = true;
+                break;
+            }
+        }
+        if (paraChanged)
+        {
+            changedParameter |= OtoEntry::getParameterFlag(static_cast<OtoEntry::OtoParameterOrder>(para));
+            break;
+        }
+    }
+    return changedParameter;
 }
 
 void OtoListShowValueChangeModel::refreshHeaderList()

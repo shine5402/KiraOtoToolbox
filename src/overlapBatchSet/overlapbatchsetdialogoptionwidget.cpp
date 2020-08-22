@@ -48,27 +48,24 @@ OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
 
 ToolOptions* OverlapBatchSetDialogOptionWidget::getOptions(QObject* parent) const
 {
-    auto options = new OverlapBatchSetOptions(parent);
+    auto options = new ToolOptions(parent);
 
-    options->setOverlapStartWith = ui->setStartWithCheckBox->isChecked();
-    options->overlapStartWith = ui->setStartWithSpinBox->value();
-    options->startWithPatternList = *workingStartList;
-    options->startWithMatchStartAlias = ui->matchStartOtoCheckBox->isChecked();
-    options->makeOneThird = ui->OneThirdCheckBox->isChecked();
-
+    options->setOption("ifSetOverlapStartWith", ui->setStartWithCheckBox->isChecked());
+    options->setOption("overlapStartWith", ui->setStartWithSpinBox->value());
+    options->setOption("startWithPatternList", *workingStartList);
+    options->setOption("ifMatchStartOto", ui->matchStartOtoCheckBox->isChecked());
+    options->setOption("makeOneThird", ui->OneThirdCheckBox->isChecked());
     return options;
 }
 
 void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions* options)
 {
-    auto specificOptions = qobject_cast<const OverlapBatchSetOptions*>(options);
-    if (!specificOptions)
-        return;
-    ui->setStartWithCheckBox->setChecked(specificOptions->setOverlapStartWith);
+    ui->setStartWithCheckBox->setChecked(options->getOption("ifSetOverlapStartWith").toBool());
+    ui->setStartWithSpinBox->setValue(options->getOption("overlapStartWith").toDouble());
     ui->setStartWithInputRadioButton->setChecked(true);
-    notPresetStartList = specificOptions->startWithPatternList;
-    ui->matchStartOtoCheckBox->setChecked(specificOptions->startWithMatchStartAlias);
-    ui->OneThirdCheckBox->setChecked(specificOptions->makeOneThird);
+    notPresetStartList = options->getOption("startWithPatternList").toStringList();
+    ui->matchStartOtoCheckBox->setChecked(options->getOption("ifMatchStartOto").toBool());
+    ui->OneThirdCheckBox->setChecked(options->getOption("makeOneThird").toBool());
 }
 
 void OverlapBatchSetDialogOptionWidget::setWorkingStartList(const QStringList* list)
@@ -77,6 +74,7 @@ void OverlapBatchSetDialogOptionWidget::setWorkingStartList(const QStringList* l
     startListModel.setStringList(*workingStartList);
 }
 
+//TODO: 更通用的预设系统 使用Model等来解耦合？
 void OverlapBatchSetDialogOptionWidget::loadPreset()
 {
     QFile file(":/overlap_start_preset/preset_list.json");

@@ -14,10 +14,10 @@ class OverlapBatchSetOptions : public ToolOptions {
     Q_OBJECT
 public:
     explicit OverlapBatchSetOptions(QObject* parent = nullptr) : ToolOptions(parent){};
-    bool setOverlapStartWith = false;
+    bool ifSetOverlapStartWith = false;
     double overlapStartWith = 0.0;
     QStringList startWithPatternList{};
-    bool startWithMatchStartAlias = false;
+    bool ifMatchStartOto = false;
     bool makeOneThird = false;
 
 };

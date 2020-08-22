@@ -5,10 +5,10 @@ OrgnaizeDuplicateOtoListModifyWorker::OrgnaizeDuplicateOtoListModifyWorker(QObje
 
 }
 
-bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     //整理重复项
-    //if (options->getOption("shouldOrganize").toBool()){
+    //if (options.getOption("shouldOrganize").toBool()){
         /*
          * 要做的事：重整重复项数字顺序，添加原后缀。
          */
@@ -33,7 +33,7 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
             {
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
-                                (i > 0 ? QString::number((options->getOption("organizeStartFrom1").toBool() ? i : i + 1)) : ""));
+                                (i > 0 ? QString::number((options.getOption("organizeStartFrom1").toBool() ? i : i + 1)) : ""));
                 //FIXME: 在外层Adapter考虑被去除的情况
             }
         }

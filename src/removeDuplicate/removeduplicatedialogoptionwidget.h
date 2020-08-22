@@ -33,8 +33,8 @@ class RemoveDuplicateDialogOptionWidget : public ToolOptionWidget
 public:
     explicit RemoveDuplicateDialogOptionWidget(QWidget *parent = nullptr);
     ~RemoveDuplicateDialogOptionWidget();
-    ToolOptions* getOptions(QObject* parent = nullptr) const override;
-    void setOptions(const ToolOptions* options) override;
+    ToolOptions getOptions() const override;
+    void setOptions(const ToolOptions& options) override;
 private:
     Ui::RemoveDuplicateDialogOptionWidget *ui;
 };

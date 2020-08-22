@@ -8,17 +8,17 @@ RemoveAffixOtoListModifyWorker::RemoveAffixOtoListModifyWorker(QObject* parent) 
     pitchWorker = new RemovePitchAffixOtoListModifyWorker(this);
 }
 
-bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
-    ToolOptions newOptions(*options);
-    if (!options->getOption("removePitchAffix").toBool())
+    ToolOptions newOptions(options);
+    if (!options.getOption("removePitchAffix").toBool())
     {
         newOptions.setOption("removePitchPrefix", false);
         newOptions.setOption("removePitchSuffix", false);
     }
 
-    auto result = specificWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, &newOptions);
-    result |= pitchWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, &newOptions);
+    auto result = specificWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, newOptions);
+    result |= pitchWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, newOptions);
     return result;
 }
 

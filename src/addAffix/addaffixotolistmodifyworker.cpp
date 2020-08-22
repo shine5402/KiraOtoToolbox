@@ -5,13 +5,13 @@ AddAffixOtoListModifyWorker::AddAffixOtoListModifyWorker(QObject* parent) : OtoL
 
 }
 
-bool AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;
 
-    auto prefix = options->getOption("prefix").toString();
-    auto suffix = options->getOption("suffix").toString();
+    auto prefix = options.getOption("prefix").toString();
+    auto suffix = options.getOption("suffix").toString();
 
     for (auto& i : resultOtoList)
     {

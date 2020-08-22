@@ -5,7 +5,7 @@ RemoveSpecificAffixOtoListModifyWorker::RemoveSpecificAffixOtoListModifyWorker(Q
 
 }
 
-bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;
@@ -31,18 +31,18 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
     }
     };
 
-    if (options->getOption("removePrefix").toBool()){
+    if (options.getOption("removePrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePrefix;
-        affixList = options->getOption("prefixList").toStringList();
+        affixList = options.getOption("prefixList").toStringList();
         compareFunc = [](const OtoEntry& oto, const QString& prefix) -> bool {
             return oto.alias().startsWith(prefix);
         };
         func(RemovedStringInfo::Prefix);
     }
 
-    if (options->getOption("removeSuffix").toBool()){
+    if (options.getOption("removeSuffix").toBool()){
         removeFunc = OtoEntryFunctions::removeSuffix;
-        affixList = options->getOption("suffixList").toStringList();
+        affixList = options.getOption("suffixList").toStringList();
         compareFunc = [](const OtoEntry& oto, const QString& suffix) -> bool {
             return oto.alias().endsWith(suffix);
         };

@@ -11,7 +11,7 @@ class OtoListModifyWorker : public QObject
 public:
     explicit OtoListModifyWorker(QObject *parent = nullptr);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions* options) = 0;
+                               const ToolOptions& options) = 0;
 };
 
 #endif // OTOPROCESSOR_H

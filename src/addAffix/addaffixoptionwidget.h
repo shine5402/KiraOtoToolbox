@@ -10,8 +10,8 @@ class AddAffixOptionWidget : public ToolOptionWidget
     Q_OBJECT
 public:
     explicit AddAffixOptionWidget(QWidget *parent = nullptr);
-    ToolOptions * getOptions(QObject *parent = nullptr) const override;
-    void setOptions(const ToolOptions *options) override;
+    ToolOptions getOptions() const override;
+    void setOptions(const ToolOptions& options) override;
 private:
     QLineEdit* prefixEdit;
     QLineEdit* suffixEdit;

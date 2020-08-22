@@ -11,8 +11,8 @@ class ToolOptionWidget : public QWidget
 public:
     explicit ToolOptionWidget(QWidget *parent = nullptr);
 
-    virtual ToolOptions* getOptions(QObject* parent = nullptr) const;
-    virtual void setOptions(const ToolOptions* options);
+    virtual ToolOptions getOptions() const;
+    virtual void setOptions(const ToolOptions& options);
 };
 
 //TODO:空OptionWidget

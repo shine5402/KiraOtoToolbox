@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -30,288 +30,20 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QCheckBox" name="ignoreSpecificSuffixCheckBox">
-     <property name="text">
-      <string>比较时忽略别名中的特定后缀</string>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>比较时……</string>
      </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <property name="leftMargin">
-      <number>11</number>
-     </property>
-     <property name="rightMargin">
-      <number>11</number>
-     </property>
-     <item>
-      <widget class="StringListModifyWidget" name="suffixListWidget" native="true">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="ignorePitchSuffixCheckBox">
-     <property name="text">
-      <string>比较时忽略别名中的音阶名</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="widget" native="true">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>音阶范围：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QComboBox" name="bottomPitchComboBox">
-            <item>
-             <property name="text">
-              <string>C</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>C#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>D</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>D#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>E</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>F</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>F#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>G</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>G#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>B</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="bottomPitchSpinBox">
-            <property name="minimum">
-             <number>-99</number>
-            </property>
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>到</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QComboBox" name="topPitchComboBox">
-            <item>
-             <property name="text">
-              <string>C</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>C#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>D</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>D#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>E</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>F</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>F#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>G</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>G#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A#</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>B</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="topPitchSpinBox">
-            <property name="minimum">
-             <number>-99</number>
-            </property>
-            <property name="value">
-             <number>7</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="caseSensitiveCheckBox">
-          <property name="text">
-           <string>区分大小写</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>音名字母：</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="caseComboBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <item>
-           <property name="text">
-            <string>大写</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>小写</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="RemoveAffixOptionWidget" name="affixRemoveWidget" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -435,78 +167,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>StringListModifyWidget</class>
+   <class>RemoveAffixOptionWidget</class>
    <extends>QWidget</extends>
-   <header>utils/widgets/stringlistmodifywidget.h</header>
+   <header>removeAffix/removeaffixoptionwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>ignoreSpecificSuffixCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>suffixListWidget</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>128</x>
-     <y>19</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>144</x>
-     <y>63</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ignorePitchSuffixCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>widget</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>111</x>
-     <y>373</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>251</x>
-     <y>419</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>caseSensitiveCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_4</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>601</x>
-     <y>432</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>635</x>
-     <y>434</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>caseSensitiveCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>caseComboBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>592</x>
-     <y>428</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>754</x>
-     <y>432</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>organizeCheckBox</sender>
    <signal>toggled(bool)</signal>
@@ -515,11 +183,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>74</x>
-     <y>502</y>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
-     <x>487</x>
-     <y>498</y>
+     <x>594</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -547,7 +215,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>66</x>
-     <y>494</y>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>757</x>

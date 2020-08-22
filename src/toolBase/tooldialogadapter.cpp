@@ -20,7 +20,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
     const auto entryList = loadWidget->getEntryList();
     auto entryListWorking = entryList;
     OtoEntryList secondSaveList{};
-    auto options = optionWidget->getOptions(this);
+    auto options = optionWidget->getOptions();
 
     auto saveOtoFile = [&](const OtoEntryList& entryList, const QString& fileName, const QString& usage) -> bool{
         QString errorString;
@@ -57,7 +57,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
 }
 
 //TODO: 提供一个使用Diff的默认可调用实现
-bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options, QWidget* dialogParent)
+bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
     Q_ASSERT(getWorker());
     if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))

@@ -24,7 +24,7 @@ QStringList ToolOptions::getOptionKeys() const
     return options.keys();
 }
 
-ToolOptions::ToolOptions(const ToolOptions& options)
+ToolOptions::ToolOptions(const ToolOptions& options): QObject(options.parent())
 {
     this->options = options.options;
 }
@@ -43,4 +43,44 @@ bool ToolOptions::operator==(const ToolOptions& rhs) const
 bool ToolOptions::operator!=(const ToolOptions& rhs) const
 {
     return !(*this == rhs);
+}
+
+void ToolOptions::combine(const ToolOptions& rhs, const QString& prefix)
+{
+    doCombine(*this, rhs, prefix);
+}
+
+void ToolOptions::doCombine(ToolOptions& lhs, const ToolOptions& rhs, const QString& prefix)
+{
+    for (auto i = rhs.options.begin(); i != rhs.options.end(); ++i){
+        lhs.options.insertMulti(prefix + i.key(), i.value());
+    }
+}
+
+ToolOptions ToolOptions::combine(const ToolOptions& lhs, const ToolOptions& rhs, const QString& prefix)
+{
+    auto result = lhs;
+    doCombine(result, rhs, prefix);
+    return result;
+}
+
+ToolOptions ToolOptions::extract(const QString& prefix) const
+{
+    ToolOptions result;
+    for (auto i = options.begin(); i != options.end(); ++i){
+        if (i.key().startsWith(prefix))
+        {
+            result.setOption(i.key().mid(i.key().indexOf(prefix), prefix.count()), i.value());
+        }
+    }
+    return result;
+}
+
+ToolOptions ToolOptions::unCombine(const QString& prefix)
+{
+    auto extractResult = extract(prefix);
+    for (auto i = extractResult.options.begin(); i != options.end(); ++i){
+        removeOption(prefix + i.key());
+    }
+    return extractResult;
 }

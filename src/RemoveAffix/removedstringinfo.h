@@ -13,13 +13,15 @@ public:
     bool operator==(const RemovedStringInfo& rhs) const;
     bool operator!=(const RemovedStringInfo& rhs) const;
 
-    AffixType getType() const;
-    QString getValue() const;
+    AffixType type() const;
+    int id() const;
+    QString value() const;
 
 private:
-    AffixType type;
-    QString value;
-    int id;
+    AffixType m_type;
+    int m_id;
+    QString m_value;
+
 };
 
 #endif // REMOVEDSTRINGINFO_H

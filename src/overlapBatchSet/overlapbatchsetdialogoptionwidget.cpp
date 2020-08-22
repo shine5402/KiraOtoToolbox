@@ -46,26 +46,26 @@ OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
     delete ui;
 }
 
-ToolOptions* OverlapBatchSetDialogOptionWidget::getOptions(QObject* parent) const
+ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
 {
-    auto options = new ToolOptions(parent);
+    ToolOptions options;
 
-    options->setOption("ifSetOverlapStartWith", ui->setStartWithCheckBox->isChecked());
-    options->setOption("overlapStartWith", ui->setStartWithSpinBox->value());
-    options->setOption("startWithPatternList", *workingStartList);
-    options->setOption("ifMatchStartOto", ui->matchStartOtoCheckBox->isChecked());
-    options->setOption("makeOneThird", ui->OneThirdCheckBox->isChecked());
+    options.setOption("ifSetOverlapStartWith", ui->setStartWithCheckBox->isChecked());
+    options.setOption("overlapStartWith", ui->setStartWithSpinBox->value());
+    options.setOption("startWithPatternList", *workingStartList);
+    options.setOption("ifMatchStartOto", ui->matchStartOtoCheckBox->isChecked());
+    options.setOption("makeOneThird", ui->OneThirdCheckBox->isChecked());
     return options;
 }
 
-void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions* options)
+void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions& options)
 {
-    ui->setStartWithCheckBox->setChecked(options->getOption("ifSetOverlapStartWith").toBool());
-    ui->setStartWithSpinBox->setValue(options->getOption("overlapStartWith").toDouble());
+    ui->setStartWithCheckBox->setChecked(options.getOption("ifSetOverlapStartWith").toBool());
+    ui->setStartWithSpinBox->setValue(options.getOption("overlapStartWith").toDouble());
     ui->setStartWithInputRadioButton->setChecked(true);
-    notPresetStartList = options->getOption("startWithPatternList").toStringList();
-    ui->matchStartOtoCheckBox->setChecked(options->getOption("ifMatchStartOto").toBool());
-    ui->OneThirdCheckBox->setChecked(options->getOption("makeOneThird").toBool());
+    notPresetStartList = options.getOption("startWithPatternList").toStringList();
+    ui->matchStartOtoCheckBox->setChecked(options.getOption("ifMatchStartOto").toBool());
+    ui->OneThirdCheckBox->setChecked(options.getOption("makeOneThird").toBool());
 }
 
 void OverlapBatchSetDialogOptionWidget::setWorkingStartList(const QStringList* list)

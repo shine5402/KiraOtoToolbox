@@ -19,7 +19,7 @@ public:
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                 const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions* options, QWidget* dialogParent);
+                               const ToolOptions& options, QWidget* dialogParent);
     virtual QString getWindowTitle() const = 0;
 
 protected:

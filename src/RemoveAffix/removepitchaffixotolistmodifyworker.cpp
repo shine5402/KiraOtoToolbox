@@ -5,7 +5,7 @@ RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject
 
 }
 
-bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     Q_UNUSED(secondSaveOtoList);
     removedStringInfos.clear();
@@ -15,16 +15,16 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
     {
         auto& currentOto = resultOtoList[i];
         QString removedPitch {};
-        auto result = removeFunc(currentOto.alias(), options->getOption("bottomPitch").toString(), options->getOption("topPitch").toString(),
-                                                           options->getOption("pitchCaseSensitive", Qt::CaseInsensitive).value<Qt::CaseSensitivity>(),
-                                                           static_cast<OtoEntryFunctions::CharacterCase>(options->getOption("pitchCase").toInt()), &removedPitch);
+        auto result = removeFunc(currentOto.alias(), options.getOption("bottomPitch").toString(), options.getOption("topPitch").toString(),
+                                                           options.getOption("pitchCaseSensitive", Qt::CaseInsensitive).value<Qt::CaseSensitivity>(),
+                                                           static_cast<OtoEntryFunctions::CharacterCase>(options.getOption("pitchCase").toInt()), &removedPitch);
         currentOto.setAlias(result);
         return {i, removedPitch};
     }
         return {-1, {}};
     };
 
-    if (options->getOption("removePitchPrefix").toBool()){
+    if (options.getOption("removePitchPrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchPrefix;
         auto removed = func();
         if (!(removed.first != -1))
@@ -33,7 +33,7 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         }
     }
 
-    if (options->getOption("removePitchSuffix").toBool()){
+    if (options.getOption("removePitchSuffix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchSuffix;
         auto removed = func();
         if (!(removed.first != -1))

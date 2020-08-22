@@ -5,8 +5,9 @@ RemoveDuplicateOtoListModifyWorker::RemoveDuplicateOtoListModifyWorker(QObject* 
 
 }
 
-bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
+bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
+    resultOtoList = srcOtoList;
     QStringList compareStringList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
@@ -29,16 +30,16 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     }
     //删除重复项
     //检查重复并确认待删除项
-    if (options->getOption("maxDuplicateCount").toInt() != 0) {
+    if (options.getOption("maxDuplicateCount").toInt() != 0) {
         QList<int> toBeRemoved;
 
         for (auto key : compareStringMap.uniqueKeys())
         {
-            if (compareStringMap.count(key) > options->getOption("maxDuplicateCount").toInt())
+            if (compareStringMap.count(key) > options.getOption("maxDuplicateCount").toInt())
             {
                 auto values = compareStringMap.values(key);
                 std::sort(values.begin(), values.end());
-                toBeRemoved.append(values.mid(options->getOption("maxDuplicateCount").toInt()));
+                toBeRemoved.append(values.mid(options.getOption("maxDuplicateCount").toInt()));
             }
         }
         std::sort(toBeRemoved.begin(), toBeRemoved.end());

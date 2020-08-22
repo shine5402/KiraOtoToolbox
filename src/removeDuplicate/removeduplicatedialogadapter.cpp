@@ -9,11 +9,11 @@
 #endif
 #include "removeAffix/removeaffixotolistmodifyworker.h"
 #include "orgnaizeduplicateotolistmodifyworker.h"
-#include "removeduplicateotolistmodifyworker.h"
+#include "removeduplicatemoduleotolistmodifyworker.h"
 
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-
+    setWorker(new RemoveDuplicateModuleOtoListModifyWorker(this));
 }
 
 void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
@@ -22,42 +22,27 @@ void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
 }
 
-bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                                                 OtoEntryList& secondSaveOtoList, const ToolOptions& options,
-                                                 QWidget* dialogParent)
+bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
-    //TODO:使用循环
-    OtoEntryList lastResult = srcOtoList;
-    OtoEntryList currentResult;
-    bool success = false;
-
-    auto updateResult = [&](){
-        lastResult = std::move(currentResult);
-        currentResult = {};
-    };
-
-    RemoveAffixOtoListModifyWorker removeAffixWorker;
-    success |= removeAffixWorker.doWork(lastResult, currentResult, secondSaveOtoList, options.extract("affixRemove"));
-    updateResult();
-
-    if (options.getOption("shouldOrganize").toBool()){
-        OrgnaizeDuplicateOtoListModifyWorker orgnaizeWorker;
-        success |= orgnaizeWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
-        auto apply = askUserForApplyChanges(srcOtoList, currentResult, ValueChangeModel, tr("重复项整理结果"), tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"), dialogParent);
-        if (!apply)
+    if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+    {
+        auto specificWorker = static_cast<RemoveDuplicateModuleOtoListModifyWorker*>(getWorker());
+        if ((!specificWorker->getOrganizeResult().isEmpty()) &&
+                (!askUserForApplyChanges(srcOtoList, specificWorker->getOrganizeResult(),
+                                         ValueChangeModel, tr("重复项整理结果"),
+                                         tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                                         dialogParent)))
             return false;
-        updateResult();
+        if ((!secondSaveOtoList.isEmpty()) && (!askUserForSecondSave(secondSaveOtoList, tr("要被删除的原音设定条目列表"),
+                                                                     tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(secondSaveOtoList.count()),
+                                                                     dialogParent)))
+            return false;
+        return askUserForApplyChanges(srcOtoList, resultOtoList, Diff,
+                                      tr("确认更改"),
+                                      tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                                      dialogParent);
     }
-
-    RemoveDuplicateOtoListModifyWorker removeDuplicateWorker;
-    success |= removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
-
-    auto shouldDelete = askUserForSecondSave(secondSaveOtoList, tr("要被删除的原音设定条目列表"), tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(secondSaveOtoList.count()), dialogParent);
-    if (shouldDelete == QDialog::Rejected)
-        return false;
-
-    resultOtoList = currentResult;
-    return success;
+    return false;
 }
 
 QString RemoveDuplicateDialogAdapter::getWindowTitle() const

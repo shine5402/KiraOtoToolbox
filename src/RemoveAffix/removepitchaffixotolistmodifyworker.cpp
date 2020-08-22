@@ -8,9 +8,10 @@ RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject
 bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     Q_UNUSED(secondSaveOtoList);
+    resultOtoList = srcOtoList;
     removedStringInfos.clear();
     std::function<decltype (OtoEntryFunctions::removePitchPrefix)> removeFunc{};
-    auto func = [&]() -> QPair<int, QString> {//return 被删除的字符串
+    auto func = [&](RemovedStringInfo::AffixType affixType) {//return 被删除的字符串
         for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto& currentOto = resultOtoList[i];
@@ -19,27 +20,18 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
                                                            options.getOption("pitchCaseSensitive", Qt::CaseInsensitive).value<Qt::CaseSensitivity>(),
                                                            static_cast<OtoEntryFunctions::CharacterCase>(options.getOption("pitchCase").toInt()), &removedPitch);
         currentOto.setAlias(result);
-        return {i, removedPitch};
+        removedStringInfos.append(RemovedStringInfo(affixType, i, removedPitch));
     }
-        return {-1, {}};
     };
 
     if (options.getOption("removePitchPrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchPrefix;
-        auto removed = func();
-        if (!(removed.first != -1))
-        {
-            removedStringInfos.append(RemovedStringInfo(RemovedStringInfo::Prefix, removed.first, removed.second));
-        }
+        func(RemovedStringInfo::Prefix);
     }
 
     if (options.getOption("removePitchSuffix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchSuffix;
-        auto removed = func();
-        if (!(removed.first != -1))
-        {
-            removedStringInfos.append(RemovedStringInfo(RemovedStringInfo::Suffix, removed.first, removed.second));
-        }
+        func(RemovedStringInfo::Suffix);
     }
     return removeFunc.operator bool();
 }

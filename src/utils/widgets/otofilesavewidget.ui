@@ -69,6 +69,9 @@
         </item>
         <item>
          <widget class="OtoFileNameEditWithSaveBrowse" name="saveFileNameEdit" native="true">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -145,6 +148,22 @@
     <hint type="destinationlabel">
      <x>213</x>
      <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveToCustomRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>saveFileNameEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>196</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>245</x>
+     <y>49</y>
     </hint>
    </hints>
   </connection>

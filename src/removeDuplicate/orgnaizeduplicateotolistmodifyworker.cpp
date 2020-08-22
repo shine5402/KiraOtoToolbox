@@ -8,15 +8,22 @@ OrgnaizeDuplicateOtoListModifyWorker::OrgnaizeDuplicateOtoListModifyWorker(QObje
 bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
 {
     //整理重复项
-    //if (options.getOption("shouldOrganize").toBool()){
-        /*
-         * 要做的事：重整重复项数字顺序，添加原后缀。
-         */
+    Q_UNUSED(secondSaveOtoList)
+    resultOtoList = srcOtoList;
     QStringList compareStringList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
         compareStringList.append(srcOtoList.at(i).alias());
     }
+
+    QStringList digitSuffixList;
+    for (int i = 0; i < srcOtoList.count(); ++i)
+    {
+        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
+        digitSuffixList.append(suffix);
+        compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
+    }
+
     QMultiHash<QString, int> compareStringMap;
 
     for (int i = 0; i < compareStringList.count(); ++i)
@@ -34,7 +41,6 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
                 auto currentID = values.at(i);
                 newAlias.insert(currentID, compareStringList.at(currentID) +
                                 (i > 0 ? QString::number((options.getOption("organizeStartFrom1").toBool() ? i : i + 1)) : ""));
-                //FIXME: 在外层Adapter考虑被去除的情况
             }
         }
         for (auto currentID : newAlias.keys())

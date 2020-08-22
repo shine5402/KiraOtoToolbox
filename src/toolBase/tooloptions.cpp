@@ -1,4 +1,5 @@
 #include "tooloptions.h"
+#include <otoentry.h>
 
 QVariant ToolOptions::getOption(const QString& key, const QVariant& defaultValue, bool* matched) const
 {
@@ -70,7 +71,7 @@ ToolOptions ToolOptions::extract(const QString& prefix) const
     for (auto i = options.begin(); i != options.end(); ++i){
         if (i.key().startsWith(prefix))
         {
-            result.setOption(i.key().mid(i.key().indexOf(prefix), prefix.count()), i.value());
+            result.setOption(OtoEntryFunctions::removePrefix(i.key(), prefix), i.value());
         }
     }
     return result;

@@ -9,6 +9,10 @@ class RemoveDuplicateOtoListModifyWorker : public OtoListModifyWorker
 public:
     RemoveDuplicateOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions& options) override;
+    QList<int> getRemovedIDs() const;
+
+private:
+    QList<int> removedIDs;
 };
 
 #endif // REMOVEDUPLICATEOTOLISTMODIFYWORKER_H

@@ -31,20 +31,20 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     //删除重复项
     //检查重复并确认待删除项
     if (options.getOption("maxDuplicateCount").toInt() != 0) {
-        QList<int> toBeRemoved;
 
+        removedIDs.clear();
         for (auto key : compareStringMap.uniqueKeys())
         {
             if (compareStringMap.count(key) > options.getOption("maxDuplicateCount").toInt())
             {
                 auto values = compareStringMap.values(key);
                 std::sort(values.begin(), values.end());
-                toBeRemoved.append(values.mid(options.getOption("maxDuplicateCount").toInt()));
+                removedIDs.append(values.mid(options.getOption("maxDuplicateCount").toInt()));
             }
         }
-        std::sort(toBeRemoved.begin(), toBeRemoved.end());
+        std::sort(removedIDs.begin(), removedIDs.end());
         OtoEntryList toBeRemovedOtoList;
-        for (auto i : toBeRemoved)
+        for (auto i : removedIDs)
         {
             toBeRemovedOtoList.append(resultOtoList.at(i));
         }
@@ -57,4 +57,9 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     }
 
     return true;
+}
+
+QList<int> RemoveDuplicateOtoListModifyWorker::getRemovedIDs() const
+{
+    return removedIDs;
 }

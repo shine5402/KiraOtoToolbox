@@ -32,7 +32,7 @@ protected:
         ValueChangeModel, Diff
     };
 
-    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
+    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
                                        const QString& title, const QString& label, QWidget* dialogParent);
     static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 private:

@@ -23,6 +23,7 @@ SOURCES += \
     removeAffix/removeaffixdialogadapter.cpp \
     removeAffix/removeaffixoptionwidget.cpp \
     removeAffix/removeaffixotolistmodifyworker.cpp \
+    removeAffix/removedstringinfo.cpp \
     removeAffix/removepitchaffixotolistmodifyworker.cpp \
     removeAffix/removespecificaffixotolistmodifyworker.cpp \
     addAffix/addaffixdialogadapter.cpp \
@@ -32,8 +33,10 @@ SOURCES += \
     mainwindow.cpp \
     overlapBatchSet/overlapbatchsetdialogadapter.cpp \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
+    removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
+    removeDuplicate/removeduplicateotolistmodifyworker.cpp \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
@@ -58,6 +61,7 @@ HEADERS += \
     removeAffix/removeaffixdialogadapter.h \
     removeAffix/removeaffixoptionwidget.h \
     removeAffix/removeaffixotolistmodifyworker.h \
+    removeAffix/removedstringinfo.h \
     removeAffix/removepitchaffixotolistmodifyworker.h \
     removeAffix/removespecificaffixotolistmodifyworker.h \
     addAffix/addaffixdialogadapter.h \
@@ -66,8 +70,10 @@ HEADERS += \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
+    removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
+    removeDuplicate/removeduplicateotolistmodifyworker.h \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \

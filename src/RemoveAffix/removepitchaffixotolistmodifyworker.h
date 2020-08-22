@@ -2,6 +2,8 @@
 #define REMOVEPITCHAFFIXOTOLISTTASK_H
 
 #include "../toolBase/otolistmodifyworker.h"
+#include "removedstringinfo.h"
+//TODO:使用类来说明被删除情况
 
 class RemovePitchAffixOtoListModifyWorker : public OtoListModifyWorker
 {
@@ -9,9 +11,10 @@ class RemovePitchAffixOtoListModifyWorker : public OtoListModifyWorker
 public:
     explicit RemovePitchAffixOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions *options) override;
-    QHash<int, QString> getRemovedPitchStringList() const;
+    QVector<RemovedStringInfo> getRemovedStringInfos() const;
+
 private:
-    QHash<int, QString> removedPitchStringList;
+    QVector<RemovedStringInfo> removedStringInfos;
 };
 
 #endif // REMOVEPITCHAFFIXOTOLISTTASK_H

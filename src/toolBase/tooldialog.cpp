@@ -46,7 +46,9 @@ void ToolDialog::ToolDialog::accept()
         return;
     }
     if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this)){
-        QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
+#ifndef SHINE5402OTOBOX_TEST
+    QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
+#endif
         QDialog::accept();
     }
 }

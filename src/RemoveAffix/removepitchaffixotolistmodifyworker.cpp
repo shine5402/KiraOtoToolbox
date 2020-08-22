@@ -8,9 +8,9 @@ RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject
 bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions* options)
 {
     Q_UNUSED(secondSaveOtoList);
-    removedPitchStringList.clear();
+    removedStringInfos.clear();
     std::function<decltype (OtoEntryFunctions::removePitchPrefix)> removeFunc{};
-    auto func = [&](){
+    auto func = [&]() -> QPair<int, QString> {//return 被删除的字符串
         for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto& currentOto = resultOtoList[i];
@@ -19,25 +19,32 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
                                                            options->getOption("pitchCaseSensitive", Qt::CaseInsensitive).value<Qt::CaseSensitivity>(),
                                                            static_cast<OtoEntryFunctions::CharacterCase>(options->getOption("pitchCase").toInt()), &removedPitch);
         currentOto.setAlias(result);
-        if (!removedPitch.isEmpty())
-            removedPitchStringList.insert(i, removedPitch);
+        return {i, removedPitch};
     }
+        return {-1, {}};
     };
 
     if (options->getOption("removePitchPrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchPrefix;
-        func();
+        auto removed = func();
+        if (!(removed.first != -1))
+        {
+            removedStringInfos.append(RemovedStringInfo(RemovedStringInfo::Prefix, removed.first, removed.second));
+        }
     }
 
     if (options->getOption("removePitchSuffix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchSuffix;
-        func();
+        auto removed = func();
+        if (!(removed.first != -1))
+        {
+            removedStringInfos.append(RemovedStringInfo(RemovedStringInfo::Suffix, removed.first, removed.second));
+        }
     }
-
     return removeFunc.operator bool();
 }
 
-QHash<int, QString> RemovePitchAffixOtoListModifyWorker::getRemovedPitchStringList() const
+QVector<RemovedStringInfo> RemovePitchAffixOtoListModifyWorker::getRemovedStringInfos() const
 {
-    return removedPitchStringList;
+    return removedStringInfos;
 }

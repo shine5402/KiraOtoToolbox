@@ -10,15 +10,13 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;
 
-    removedSpecificPrefixMap.clear();
-    removedSpecificSuffixMap.clear();
+    removedStringInfos.clear();
 
     QStringList affixList{};
     std::function<decltype (OtoEntryFunctions::removePrefix)> removeFunc;
     std::function<bool(const OtoEntry&, const QString&)> compareFunc;
-    QHash<int, QString>* removedMap = nullptr;
 
-    auto func = [&](){for (int i = 0; i < srcOtoList.count(); ++i)
+    auto func = [&](RemovedStringInfo::AffixType type){for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto& currentOto = resultOtoList[i];
         for (const auto& currentAffix : affixList)
@@ -27,7 +25,7 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
             {
                 auto result = removeFunc(currentOto.alias(), currentAffix, Qt::CaseSensitive, nullptr);
                 currentOto.setAlias(result);
-                removedMap->insert(i, currentAffix);
+                removedStringInfos.append(RemovedStringInfo(type, i, currentAffix));
             }
         }
     }
@@ -36,32 +34,25 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
     if (options->getOption("removePrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePrefix;
         affixList = options->getOption("prefixList").toStringList();
-        removedMap = &removedSpecificPrefixMap;
         compareFunc = [](const OtoEntry& oto, const QString& prefix) -> bool {
             return oto.alias().startsWith(prefix);
         };
-        func();
+        func(RemovedStringInfo::Prefix);
     }
 
     if (options->getOption("removeSuffix").toBool()){
         removeFunc = OtoEntryFunctions::removeSuffix;
         affixList = options->getOption("suffixList").toStringList();
-        removedMap = &removedSpecificSuffixMap;
         compareFunc = [](const OtoEntry& oto, const QString& suffix) -> bool {
             return oto.alias().endsWith(suffix);
         };
-        func();
+        func(RemovedStringInfo::Suffix);
     }
 
     return removeFunc.operator bool();
 }
 
-QHash<int, QString> RemoveSpecificAffixOtoListModifyWorker::getRemovedSpecificPrefixMap() const
+QVector<RemovedStringInfo> RemoveSpecificAffixOtoListModifyWorker::getRemovedStringInfos() const
 {
-    return removedSpecificPrefixMap;
-}
-
-QHash<int, QString> RemoveSpecificAffixOtoListModifyWorker::getRemovedSpecificSuffixMap() const
-{
-    return removedSpecificSuffixMap;
+    return removedStringInfos;
 }

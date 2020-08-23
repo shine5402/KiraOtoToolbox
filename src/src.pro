@@ -104,7 +104,6 @@ FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
-    overlapBatchSet/overlapsetdialog.ui \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \

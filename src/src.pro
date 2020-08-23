@@ -43,6 +43,7 @@ SOURCES += \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
+    toolBase/toolmanager.cpp \
     toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/showdiffdialog.cpp \
@@ -81,6 +82,7 @@ HEADERS += \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
+    toolBase/toolmanager.h \
     toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/showdiffdialog.h \

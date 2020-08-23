@@ -22,6 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
+    registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
     removeAffix/removeaffixoptionwidget.cpp \
     removeAffix/removeaffixotolistmodifyworker.cpp \
@@ -62,6 +63,7 @@ SOURCES += \
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
+    registerTools.h \
     removeAffix/removeaffixdialogadapter.h \
     removeAffix/removeaffixoptionwidget.h \
     removeAffix/removeaffixotolistmodifyworker.h \

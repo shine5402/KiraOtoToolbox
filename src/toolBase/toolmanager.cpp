@@ -25,6 +25,8 @@ void ToolManager::registerTool(OtoListModifyWorker* modifyWorker, ToolDialogAdap
 
 void ToolManager::registerTool(const Tool& tool)
 {
+    tool.getModifyWorker()->setParent(this);
+    tool.getDialogAdapter()->setParent(this);
     tools.append(tool);
 }
 

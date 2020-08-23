@@ -15,5 +15,12 @@ public:
     virtual void setOptions(const ToolOptions& options);
 };
 
+class EmptyToolOptionWidget : public ToolOptionWidget
+{
+    Q_OBJECT
+public:
+    explicit EmptyToolOptionWidget(QWidget* parent = nullptr);
+};
+
 //TODO:空OptionWidget
 #endif // TOOLOPTIONWIDGET_H

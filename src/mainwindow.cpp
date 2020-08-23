@@ -66,12 +66,12 @@ void MainWindow::on_overlapBatchSetButton_clicked()
 {
     (new ToolDialog(new OverlapBatchSetDialogAdapter(this), this))->open();
 }
-
+#ifndef NDEBUG
 void MainWindow::on_debugButton_clicked()
 {
 
 }
-
+#endif
 void MainWindow::on_affixRemoveButton_clicked()
 {
     (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();

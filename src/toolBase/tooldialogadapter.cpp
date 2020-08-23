@@ -72,9 +72,11 @@ void ToolDialogAdapter::replaceWidget(QLayout* parentLayout, const QString& widg
     auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
     if (oldWidget){
         newWidget->setParent(newParent ? newParent : parentLayout->parentWidget());
-        auto previousOptionWidget = parentLayout->replaceWidget(oldWidget, newWidget);
-        if (previousOptionWidget)
-            previousOptionWidget->widget()->deleteLater();
+        auto previousWidget = parentLayout->replaceWidget(oldWidget, newWidget);
+        if (previousWidget){
+            oldWidget->deleteLater();
+            delete previousWidget;
+        }
     }
 }
 

@@ -2,7 +2,6 @@
 #define REMOVEAFFIXDIALOGADAPTER_H
 #include "toolBase/tooldialogadapter.h"
 
-//TODO:
 class RemoveAffixDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT

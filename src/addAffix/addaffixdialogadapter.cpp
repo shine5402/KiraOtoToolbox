@@ -14,5 +14,5 @@ void AddAffixDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 
 QString AddAffixDialogAdapter::getWindowTitle() const
 {
-    return tr("添加前/后缀");
+    return tr("添加别名前/后缀");
 }

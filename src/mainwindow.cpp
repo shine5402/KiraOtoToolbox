@@ -7,6 +7,9 @@
 #include <QMessageBox>
 #include "removeAffix/removeaffixdialogadapter.h"
 #include "addAffix/addaffixdialogadapter.h"
+#include "toolBase/toolmanager.h"
+#include <QPushButton>
+#include <QButtonGroup>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +19,21 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef NDEBUG
     ui->debugButton->setVisible(false);
 #endif
+
+    connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
+    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
+    connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
+
+    auto buttonGroup = new QButtonGroup(this);
+
+    auto tools = ToolManager::getManager()->getTools();
+    for (int id = 0; id < tools.count(); ++id){
+        auto tool = tools.at(id);
+        auto button = new QPushButton(tool.getName(), this);
+        buttonGroup->addButton(button, id);
+        connect(button, &QPushButton::clicked, this, &MainWindow::processButtonClicked);
+        ui->centralLayout->insertWidget(id + 1, button);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -24,20 +42,14 @@ MainWindow::~MainWindow()
 
 }
 
-
-void MainWindow::on_duplicateRemoveButton_clicked()
-{
-    (new ToolDialog(new RemoveDuplicateDialogAdapter(this), this))->open();
-}
-
-void MainWindow::on_actionExit_triggered()
+void MainWindow::exit()
 {
     qApp->exit();
 }
 
-void MainWindow::on_actionAbout_triggered()
+void MainWindow::showAboutDialog()
 {
-    QMessageBox::information(this, tr("关于"), tr(R"(<h2>shine_5402 的 oto 工具箱</h2>
+    QMessageBox::about(this, tr("关于"), tr(R"(<h2>shine_5402 的 oto 工具箱</h2>
 
                                                 <p>Copyright 2020 <a href="https://shine5402.top/about-me">shine_5402</a></p>
                                                 <p>版本 %1</p>
@@ -57,27 +69,20 @@ void MainWindow::on_actionAbout_triggered()
                                                 )").arg(qApp->applicationVersion()));
 }
 
-void MainWindow::on_actionAbout_Qt_triggered()
+void MainWindow::showAboutQtDialog()
 {
     QMessageBox::aboutQt(this, tr("关于 Qt"));
 }
 
-void MainWindow::on_overlapBatchSetButton_clicked()
-{
-    (new ToolDialog(new OverlapBatchSetDialogAdapter(this), this))->open();
-}
 #ifndef NDEBUG
 void MainWindow::on_debugButton_clicked()
 {
 
 }
-#endif
-void MainWindow::on_affixRemoveButton_clicked()
-{
-    (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();
-}
 
-void MainWindow::on_affixAddPushButton_clicked()
+void MainWindow::processButtonClicked(int id)
 {
-    (new ToolDialog(new AddAffixDialogAdapter(this), this))->open();
+    auto tools = ToolManager::getManager()->getTools();
+    (new ToolDialog(tools.at(id).getDialogAdapter()))->open();
 }
+#endif

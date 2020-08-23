@@ -9,6 +9,24 @@ class Tool{
 public:
     Tool(OtoListModifyWorker* modifyWorker, ToolDialogAdapter* dialogAdapter, const QString& name)
         : modifyWorker(modifyWorker), dialogAdapter(dialogAdapter), name((name)) {}
+    Tool(const Tool& other){
+        modifyWorker = other.modifyWorker;
+        dialogAdapter = other.dialogAdapter;
+        name = other.name;
+    }
+    bool operator==(const Tool& rhs) const{
+        return modifyWorker == rhs.modifyWorker && dialogAdapter == rhs.dialogAdapter && name == rhs.name;
+    }
+    bool operator!=(const Tool& rhs) const{
+        return !(*this == rhs);
+    }
+    void operator=(const Tool& rhs){
+        if (*this != rhs){
+            modifyWorker = rhs.modifyWorker;
+            dialogAdapter = rhs.dialogAdapter;
+            name = rhs.name;
+        }
+    }
 
     OtoListModifyWorker* getModifyWorker() const{
         return modifyWorker;

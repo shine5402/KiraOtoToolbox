@@ -32,16 +32,7 @@ private slots:
     void on_affixAddPushButton_clicked();
 };
 #ifndef NDEBUG
-#include "toolBase/tooldialogadapter.h"
-class EmptyToolDialogAdapter : public ToolDialogAdapter{
-    Q_OBJECT
-public:
-    EmptyToolDialogAdapter(QObject* parent = nullptr) : ToolDialogAdapter(parent){
 
-    }
-    void setupSpecificUIWidgets(QLayout *rootLayout) override;;
-    QString getWindowTitle() const override;
-};
 #endif
 
 #endif // MAINWINDOW_H

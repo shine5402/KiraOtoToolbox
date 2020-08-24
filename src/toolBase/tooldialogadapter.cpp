@@ -15,6 +15,13 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 
 }
 
+void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
+{
+    Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
+    optionWidget->setParent(rootLayout->parentWidget());
+    replaceOptionWidget(rootLayout, optionWidget);
+}
+
 bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
     const auto entryList = loadWidget->getEntryList();
@@ -80,6 +87,11 @@ void ToolDialogAdapter::replaceWidget(QLayout* parentLayout, const QString& widg
     }
 }
 
+void ToolDialogAdapter::setOptionWidget(ToolOptionWidget* value)
+{
+    optionWidget = value;
+}
+
 OtoListModifyWorker* ToolDialogAdapter::getWorker() const
 {
     return worker;
@@ -92,6 +104,8 @@ void ToolDialogAdapter::setWorker(OtoListModifyWorker* value)
 
 void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
 {
+    if (optionWidget != newOptionWidget)
+        optionWidget = newOptionWidget;
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
     replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
 }

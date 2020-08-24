@@ -10,7 +10,6 @@ class OverlapBatchSetDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     explicit OverlapBatchSetDialogAdapter(QObject *parent = nullptr);
-    void setupSpecificUIWidgets(QLayout *rootLayout) override;
     QString getWindowTitle() const override;
 };
 

@@ -8,7 +8,6 @@ class AddAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     AddAffixDialogAdapter(QObject* parent = nullptr);
-    void setupSpecificUIWidgets(QLayout *rootLayout) override;
     QString getWindowTitle() const override;
 };
 

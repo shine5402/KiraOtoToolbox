@@ -5,11 +5,7 @@
 RemoveBlankDialogAdapter::RemoveBlankDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorker(new RemoveBlankOtoListModifyWorker(this));
-}
-
-void RemoveBlankDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
-{
-    replaceOptionWidget(rootLayout, new RemoveBlankOptionWidget(rootLayout->parentWidget()));
+    setOptionWidget(new RemoveBlankOptionWidget);
 }
 
 QString RemoveBlankDialogAdapter::getWindowTitle() const

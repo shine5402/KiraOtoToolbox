@@ -15,7 +15,7 @@ class ToolDialogAdapter : public QObject
     Q_OBJECT
 public:
     explicit ToolDialogAdapter(QObject *parent = nullptr);
-    virtual void setupSpecificUIWidgets(QLayout* rootLayout) = 0;
+    virtual void setupSpecificUIWidgets(QLayout* rootLayout);
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                 const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
@@ -27,6 +27,7 @@ protected:
     void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
     OtoListModifyWorker* getWorker() const;
     void setWorker(OtoListModifyWorker* value);
+    void setOptionWidget(ToolOptionWidget* value);
 
     enum ChangeAskDialogType{
         ValueChangeModel, Diff
@@ -39,9 +40,10 @@ private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
     OtoListModifyWorker* worker = nullptr;
     //TODO: 存储optionWidget
+    ToolOptionWidget* optionWidget = nullptr;
 signals:
 
-    friend class ToolManager;
+    friend class Tool;
 };
 
 #endif // TOOLDIALOGADAPTER_H

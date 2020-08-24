@@ -5,12 +5,9 @@
 AddAffixDialogAdapter::AddAffixDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorker(new AddAffixOtoListModifyWorker(this));
+    setOptionWidget(new AddAffixOptionWidget);
 }
 
-void AddAffixDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
-{
-    replaceOptionWidget(rootLayout, new AddAffixOptionWidget(rootLayout->parentWidget()));
-}
 
 QString AddAffixDialogAdapter::getWindowTitle() const
 {

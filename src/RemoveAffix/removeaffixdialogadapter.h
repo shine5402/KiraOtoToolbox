@@ -7,7 +7,6 @@ class RemoveAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     RemoveAffixDialogAdapter(QWidget* parent = nullptr);
-    void setupSpecificUIWidgets(QLayout *rootLayout) override;
     QString getWindowTitle() const override;
 };
 

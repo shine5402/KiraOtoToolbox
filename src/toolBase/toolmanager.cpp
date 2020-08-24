@@ -10,22 +10,9 @@ ToolManager* ToolManager::getManager()
     return manager;
 }
 
-void ToolManager::registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, QString name)
+void ToolManager::registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, ToolOptionWidget* optionWidget, QString name)
 {
-    if (name.isEmpty())
-    {
-        if (!dialogAdapter->getWindowTitle().isEmpty())
-            name = dialogAdapter->getWindowTitle();
-        else {
-            name = modifyWorker->metaObject()->className();
-        }
-    }
-    if (!modifyWorker){
-        modifyWorker = dialogAdapter->worker;
-        Q_ASSERT(modifyWorker);
-    }
-    //dialogAdapter->findChildren<ToolOptionWidget *>().last();
-    tools.append(Tool{modifyWorker, dialogAdapter, name});
+    tools.append(Tool{dialogAdapter, modifyWorker, optionWidget, name});
 }
 
 void ToolManager::registerTool(const Tool& tool)
@@ -56,4 +43,27 @@ ToolManager* ToolManager::manager = new ToolManager();
 ToolManager::Garbo::~Garbo()
 {
     manager->deleteLater();
+}
+
+Tool::Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, ToolOptionWidget* optionWidget, const QString& name)
+    : modifyWorker(modifyWorker), dialogAdapter(dialogAdapter), optionWidget(optionWidget), name((name)) {
+    if (dialogAdapter){
+        if (name.isEmpty())
+        {
+            if (!dialogAdapter->getWindowTitle().isEmpty())
+                this->name = dialogAdapter->getWindowTitle();
+            else {
+                this->name = modifyWorker->metaObject()->className();
+            }
+        }
+        if (!modifyWorker){
+            this->modifyWorker = dialogAdapter->worker;
+            Q_ASSERT(modifyWorker);
+        }
+        if (!optionWidget)
+        {
+            this->optionWidget = dialogAdapter->optionWidget;
+            Q_ASSERT(optionWidget);
+        }
+    }
 }

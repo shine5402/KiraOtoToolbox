@@ -5,11 +5,7 @@
 RemoveAffixDialogAdapter::RemoveAffixDialogAdapter(QWidget* parent) : ToolDialogAdapter(parent)
 {
     setWorker(new RemoveAffixOtoListModifyWorker(this));
-}
-
-void RemoveAffixDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
-{
-    replaceOptionWidget(rootLayout, new RemoveAffixOptionWidget(rootLayout->parentWidget()));
+    setOptionWidget(new RemoveAffixOptionWidget);
 }
 
 QString RemoveAffixDialogAdapter::getWindowTitle() const

@@ -14,12 +14,13 @@
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorker(new RemoveDuplicateModuleOtoListModifyWorker(this));
+    setOptionWidget(new RemoveDuplicateDialogOptionWidget);
 }
 
 void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 {
-    replaceOptionWidget(rootLayout, new RemoveDuplicateDialogOptionWidget(rootLayout->parentWidget()));
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
+    ToolDialogAdapter::setupSpecificUIWidgets(rootLayout);
 }
 
 bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)

@@ -7,15 +7,20 @@
 
 class Tool{
 public:
-    Tool(OtoListModifyWorker* modifyWorker, ToolDialogAdapter* dialogAdapter, const QString& name)
-        : modifyWorker(modifyWorker), dialogAdapter(dialogAdapter), name((name)) {}
+    Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr,
+         ToolOptionWidget* optionWidget = nullptr, const QString& name = nullptr);
+
     Tool(const Tool& other){
         modifyWorker = other.modifyWorker;
         dialogAdapter = other.dialogAdapter;
         name = other.name;
+        optionWidget = other.optionWidget;
     }
     bool operator==(const Tool& rhs) const{
-        return modifyWorker == rhs.modifyWorker && dialogAdapter == rhs.dialogAdapter && name == rhs.name;
+        return modifyWorker == rhs.modifyWorker &&
+                dialogAdapter == rhs.dialogAdapter &&
+                name == rhs.name &&
+                optionWidget == rhs.optionWidget;
     }
     bool operator!=(const Tool& rhs) const{
         return !(*this == rhs);
@@ -25,6 +30,7 @@ public:
             modifyWorker = rhs.modifyWorker;
             dialogAdapter = rhs.dialogAdapter;
             name = rhs.name;
+            optionWidget = rhs.optionWidget;
         }
     }
 
@@ -39,9 +45,15 @@ public:
     QString getName() const{
         return name;
     }
+
+    ToolOptionWidget* getOptionWidget() const{
+        return optionWidget;
+    }
+
 private:
     OtoListModifyWorker* modifyWorker;
     ToolDialogAdapter* dialogAdapter;
+    ToolOptionWidget* optionWidget;
     QString name;
 };
 
@@ -53,7 +65,7 @@ class ToolManager : public QObject
 public:
     static ToolManager* getManager();
 
-    void registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, QString name = {});
+    void registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, ToolOptionWidget* optionWidget = nullptr, QString name = {});
     void registerTool(const Tool& tool);
     void unRegisterTool(int i);
     void unRegisterTool(const Tool& tool);

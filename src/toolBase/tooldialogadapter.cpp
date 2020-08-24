@@ -18,7 +18,7 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
     const auto entryList = loadWidget->getEntryList();
-    auto entryListWorking = entryList;
+    OtoEntryList entryListWorking{};
     OtoEntryList secondSaveList{};
     auto options = optionWidget->getOptions();
 
@@ -58,7 +58,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
 
 bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
-    Q_ASSERT(getWorker());
+    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return askUserForApplyChanges(srcOtoList, resultOtoList,
                                       srcOtoList.count() == resultOtoList.count() ? ValueChangeModel : Diff,

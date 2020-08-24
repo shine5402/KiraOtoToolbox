@@ -53,7 +53,7 @@ class ToolManager : public QObject
 public:
     static ToolManager* getManager();
 
-    void registerTool(OtoListModifyWorker* modifyWorker, ToolDialogAdapter* dialogAdapter, QString name = {});
+    void registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, QString name = {});
     void registerTool(const Tool& tool);
     void unRegisterTool(int i);
     void unRegisterTool(const Tool& tool);

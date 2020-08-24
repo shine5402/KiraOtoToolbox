@@ -10,7 +10,7 @@ ToolManager* ToolManager::getManager()
     return manager;
 }
 
-void ToolManager::registerTool(OtoListModifyWorker* modifyWorker, ToolDialogAdapter* dialogAdapter, QString name)
+void ToolManager::registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, QString name)
 {
     if (name.isEmpty())
     {
@@ -20,6 +20,11 @@ void ToolManager::registerTool(OtoListModifyWorker* modifyWorker, ToolDialogAdap
             name = modifyWorker->metaObject()->className();
         }
     }
+    if (!modifyWorker){
+        modifyWorker = dialogAdapter->worker;
+        Q_ASSERT(modifyWorker);
+    }
+    //dialogAdapter->findChildren<ToolOptionWidget *>().last();
     tools.append(Tool{modifyWorker, dialogAdapter, name});
 }
 

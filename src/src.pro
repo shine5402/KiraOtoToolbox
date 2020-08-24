@@ -36,6 +36,9 @@ SOURCES += \
     mainwindow.cpp \
     overlapBatchSet/overlapbatchsetdialogadapter.cpp \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
+    removeBlank/removeblankdialogadapter.cpp \
+    removeBlank/removeblankoptionwidget.cpp \
+    removeBlank/removeblankotolistmodifyworker.cpp \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
@@ -76,6 +79,9 @@ HEADERS += \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
+    removeBlank/removeblankdialogadapter.h \
+    removeBlank/removeblankoptionwidget.h \
+    removeBlank/removeblankotolistmodifyworker.h \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \

@@ -7,12 +7,15 @@
 #include "removeAffix/removeaffixotolistmodifyworker.h"
 #include "addAffix/addaffixdialogadapter.h"
 #include "addAffix/addaffixotolistmodifyworker.h"
+#include "removeBlank/removeblankdialogadapter.h"
+#include "removeBlank/removeblankotolistmodifyworker.h"
 
 void registerTools()
 {
     auto manager = ToolManager::getManager();
-    manager->registerTool(new RemoveDuplicateModuleOtoListModifyWorker, new RemoveDuplicateDialogAdapter);
-    manager->registerTool(new OverlapBatchSetOtoListModifyWorker, new OverlapBatchSetDialogAdapter);
-    manager->registerTool(new RemoveAffixOtoListModifyWorker, new RemoveAffixDialogAdapter);
-    manager->registerTool(new AddAffixOtoListModifyWorker, new AddAffixDialogAdapter);
+    manager->registerTool(new RemoveDuplicateDialogAdapter);
+    manager->registerTool(new OverlapBatchSetDialogAdapter);
+    manager->registerTool(new RemoveAffixDialogAdapter);
+    manager->registerTool(new AddAffixDialogAdapter);
+    manager->registerTool(new RemoveBlankDialogAdapter);
 }

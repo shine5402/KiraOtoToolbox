@@ -25,7 +25,6 @@ private slots:
 #ifndef NDEBUG
     void on_debugButton_clicked();
 #endif
-    void processButtonClicked(int id);
 };
 #ifndef NDEBUG
 

@@ -38,8 +38,10 @@ protected:
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
     OtoListModifyWorker* worker = nullptr;
+    //TODO: 存储optionWidget
 signals:
 
+    friend class ToolManager;
 };
 
 #endif // TOOLDIALOGADAPTER_H

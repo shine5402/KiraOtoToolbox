@@ -31,9 +31,13 @@ MainWindow::MainWindow(QWidget *parent)
         auto tool = tools.at(id);
         auto button = new QPushButton(tool.getName(), this);
         buttonGroup->addButton(button, id);
-        connect(button, &QPushButton::clicked, this, &MainWindow::processButtonClicked);
         ui->centralLayout->insertWidget(id + 1, button);
     }
+
+    connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
+        auto tools = ToolManager::getManager()->getTools();
+        (new ToolDialog(tools.at(buttonGroup->id(button)).getDialogAdapter(), this))->open();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -80,9 +84,4 @@ void MainWindow::on_debugButton_clicked()
 
 }
 
-void MainWindow::processButtonClicked(int id)
-{
-    auto tools = ToolManager::getManager()->getTools();
-    (new ToolDialog(tools.at(id).getDialogAdapter()))->open();
-}
 #endif

@@ -58,12 +58,12 @@ Tool::Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, 
         }
         if (!modifyWorker){
             this->modifyWorker = dialogAdapter->worker;
-            Q_ASSERT(modifyWorker);
+            Q_ASSERT(this->modifyWorker);
         }
         if (!optionWidget)
         {
             this->optionWidget = dialogAdapter->optionWidget;
-            Q_ASSERT(optionWidget);
+            Q_ASSERT(this->optionWidget);
         }
     }
 }

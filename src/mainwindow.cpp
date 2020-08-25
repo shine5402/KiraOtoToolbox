@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto buttonGroup = new QButtonGroup(this);
 
-    auto tools = ToolManager::getManager()->getTools();
+    auto availableTools = ToolManager::getManager()->getTools();
     auto toolGroups = ToolManager::getManager()->getToolGroups();
     auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
     for (int groupID = 0; groupID < groups.count(); ++groupID){
@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
         for (auto tool : tools)
         {
             auto button = new QPushButton(tool.getName(), this);
-            buttonGroup->addButton(button, tools.indexOf(tool));
+            buttonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
         ui->centralLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面

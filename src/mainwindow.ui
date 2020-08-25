@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>309</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>shine_5402 的 oto 工具箱</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="centralLayout">
     <item>
      <spacer name="verticalSpacer_2">
       <property name="orientation">
@@ -27,34 +27,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="duplicateRemoveButton">
-      <property name="text">
-       <string>去除重复项</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="overlapBatchSetButton">
-      <property name="text">
-       <string>Overlap批量设定</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="affixAddPushButton">
-      <property name="text">
-       <string>前/后缀增加</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="affixRemoveButton">
-      <property name="text">
-       <string>前/后缀去除</string>
-      </property>
-     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="debugButton">

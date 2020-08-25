@@ -13,7 +13,7 @@ class RemoveAffixOptionWidget : public ToolOptionWidget
     Q_OBJECT
 
 public:
-    explicit RemoveAffixOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit RemoveAffixOptionWidget(QWidget *parent = nullptr);
     ~RemoveAffixOptionWidget();
     ToolOptions getOptions() const override;
     void setOptions(const ToolOptions& options) override;

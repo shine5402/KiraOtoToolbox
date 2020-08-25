@@ -8,7 +8,7 @@ class RemoveSpecificAffixOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    explicit RemoveSpecificAffixOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE explicit RemoveSpecificAffixOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions& options) override;
 
     QVector<RemovedStringInfo> getRemovedStringInfos() const;

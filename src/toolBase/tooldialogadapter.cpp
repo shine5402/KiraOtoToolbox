@@ -15,10 +15,18 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 
 }
 
+void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
+{
+    Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
+    optionWidget->setOptions(ToolOptions{});
+    optionWidget->setParent(rootLayout->parentWidget());
+    replaceOptionWidget(rootLayout, optionWidget);
+}
+
 bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
     const auto entryList = loadWidget->getEntryList();
-    auto entryListWorking = entryList;
+    OtoEntryList entryListWorking{};
     OtoEntryList secondSaveList{};
     auto options = optionWidget->getOptions();
 
@@ -58,7 +66,7 @@ bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFil
 
 bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
-    Q_ASSERT(getWorker());
+    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return askUserForApplyChanges(srcOtoList, resultOtoList,
                                       srcOtoList.count() == resultOtoList.count() ? ValueChangeModel : Diff,
@@ -68,14 +76,27 @@ bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryLi
     return false;
 }
 
+QString ToolDialogAdapter::getWindowTitle() const
+{
+    return metaObject()->className();
+}
+
+
 void ToolDialogAdapter::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent){
     auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
     if (oldWidget){
         newWidget->setParent(newParent ? newParent : parentLayout->parentWidget());
-        auto previousOptionWidget = parentLayout->replaceWidget(oldWidget, newWidget);
-        if (previousOptionWidget)
-            previousOptionWidget->widget()->deleteLater();
+        auto previousWidget = parentLayout->replaceWidget(oldWidget, newWidget);
+        if (previousWidget){
+            oldWidget->deleteLater();
+            delete previousWidget;
+        }
     }
+}
+
+void ToolDialogAdapter::setOptionWidget(ToolOptionWidget* value)
+{
+    optionWidget = value;
 }
 
 OtoListModifyWorker* ToolDialogAdapter::getWorker() const
@@ -90,6 +111,8 @@ void ToolDialogAdapter::setWorker(OtoListModifyWorker* value)
 
 void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
 {
+    if (optionWidget != newOptionWidget)
+        optionWidget = newOptionWidget;
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
     replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
 }
@@ -139,4 +162,3 @@ bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData,
 #endif
     return dialog->exec();
 }
-

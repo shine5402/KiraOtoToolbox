@@ -2,13 +2,11 @@
 #define REMOVEAFFIXDIALOGADAPTER_H
 #include "toolBase/tooldialogadapter.h"
 
-//TODO:
 class RemoveAffixDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    RemoveAffixDialogAdapter(QWidget* parent = nullptr);
-    void setupSpecificUIWidgets(QLayout *rootLayout) override;
+    Q_INVOKABLE RemoveAffixDialogAdapter(QObject* parent = nullptr);
     QString getWindowTitle() const override;
 };
 

@@ -6,7 +6,7 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.2.0
+VERSION = 0.3.0
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -21,7 +21,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
+    chain/chaindialogadapter.cpp \
+    chain/chainotolistmodifyworker.cpp \
+    chain/chainstepsmodel.cpp \
+    chain/chaintooloptionwidget.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
+    registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
     removeAffix/removeaffixoptionwidget.cpp \
     removeAffix/removeaffixotolistmodifyworker.cpp \
@@ -35,6 +40,9 @@ SOURCES += \
     mainwindow.cpp \
     overlapBatchSet/overlapbatchsetdialogadapter.cpp \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.cpp \
+    removeBlank/removeblankdialogadapter.cpp \
+    removeBlank/removeblankoptionwidget.cpp \
+    removeBlank/removeblankotolistmodifyworker.cpp \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
@@ -43,8 +51,10 @@ SOURCES += \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
+    toolBase/toolmanager.cpp \
     toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
+    utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
@@ -60,7 +70,12 @@ SOURCES += \
 
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
+    chain/chaindialogadapter.h \
+    chain/chainotolistmodifyworker.h \
+    chain/chainstepsmodel.h \
+    chain/chaintooloptionwidget.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
+    registerTools.h \
     removeAffix/removeaffixdialogadapter.h \
     removeAffix/removeaffixoptionwidget.h \
     removeAffix/removeaffixotolistmodifyworker.h \
@@ -73,6 +88,9 @@ HEADERS += \
     mainwindow.h \
     overlapBatchSet/overlapbatchsetdialogadapter.h \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.h \
+    removeBlank/removeblankdialogadapter.h \
+    removeBlank/removeblankoptionwidget.h \
+    removeBlank/removeblankotolistmodifyworker.h \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
     removeDuplicate/removeduplicatedialogadapter.h \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
@@ -81,8 +99,10 @@ HEADERS += \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
+    toolBase/toolmanager.h \
     toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
+    utils/dialogs/listviewdialog.h \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
@@ -98,9 +118,9 @@ HEADERS += \
 
 FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
+    chain/chaintooloptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
-    overlapBatchSet/overlapsetdialog.ui \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \

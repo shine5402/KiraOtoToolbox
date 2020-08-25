@@ -19,14 +19,15 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-
-    void on_duplicateRemoveButton_clicked();
-    void on_actionExit_triggered();
-    void on_actionAbout_triggered();
-    void on_actionAbout_Qt_triggered();
-    void on_overlapBatchSetButton_clicked();
+    void exit();
+    void showAboutDialog();
+    void showAboutQtDialog();
+#ifndef NDEBUG
     void on_debugButton_clicked();
-    void on_affixRemoveButton_clicked();
-    void on_affixAddPushButton_clicked();
+#endif
 };
+#ifndef NDEBUG
+
+#endif
+
 #endif // MAINWINDOW_H

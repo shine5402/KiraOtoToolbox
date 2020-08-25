@@ -7,6 +7,10 @@
 #include <QMessageBox>
 #include "removeAffix/removeaffixdialogadapter.h"
 #include "addAffix/addaffixdialogadapter.h"
+#include "toolBase/toolmanager.h"
+#include <QPushButton>
+#include <QButtonGroup>
+#include <QGroupBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +20,35 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef NDEBUG
     ui->debugButton->setVisible(false);
 #endif
+
+    connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
+    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
+    connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
+
+    auto buttonGroup = new QButtonGroup(this);
+
+    auto availableTools = ToolManager::getManager()->getTools();
+    auto toolGroups = ToolManager::getManager()->getToolGroups();
+    auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
+    for (int groupID = 0; groupID < groups.count(); ++groupID){
+        auto group = groups.at(groupID);
+        auto groupBox = new QGroupBox(group.isEmpty() ? tr("未分类") : group, this);
+        auto groupBoxLayout = new QVBoxLayout(groupBox);
+        auto tools = toolGroups.values(group);
+        std::reverse(tools.begin(), tools.end());
+        for (auto tool : tools)
+        {
+            auto button = new QPushButton(tool.getName(), this);
+            buttonGroup->addButton(button, availableTools.indexOf(tool));
+            groupBoxLayout->addWidget(button);
+        }
+        ui->centralLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
+    }
+
+    connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
+        auto tools = ToolManager::getManager()->getTools();
+        (new ToolDialog(tools.at(buttonGroup->id(button)).getDialogAdapter(), this))->open();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -24,20 +57,14 @@ MainWindow::~MainWindow()
 
 }
 
-
-void MainWindow::on_duplicateRemoveButton_clicked()
-{
-    (new ToolDialog(new RemoveDuplicateDialogAdapter(this), this))->open();
-}
-
-void MainWindow::on_actionExit_triggered()
+void MainWindow::exit()
 {
     qApp->exit();
 }
 
-void MainWindow::on_actionAbout_triggered()
+void MainWindow::showAboutDialog()
 {
-    QMessageBox::information(this, tr("关于"), tr(R"(<h2>shine_5402 的 oto 工具箱</h2>
+    QMessageBox::about(this, tr("关于"), tr(R"(<h2>shine_5402 的 oto 工具箱</h2>
 
                                                 <p>Copyright 2020 <a href="https://shine5402.top/about-me">shine_5402</a></p>
                                                 <p>版本 %1</p>
@@ -57,27 +84,17 @@ void MainWindow::on_actionAbout_triggered()
                                                 )").arg(qApp->applicationVersion()));
 }
 
-void MainWindow::on_actionAbout_Qt_triggered()
+void MainWindow::showAboutQtDialog()
 {
     QMessageBox::aboutQt(this, tr("关于 Qt"));
 }
 
-void MainWindow::on_overlapBatchSetButton_clicked()
-{
-    (new ToolDialog(new OverlapBatchSetDialogAdapter(this), this))->open();
-}
-
+#ifndef NDEBUG
+#include "chain/chaintooloptionwidget.h"
 void MainWindow::on_debugButton_clicked()
 {
-
+    auto widget = new ChainToolOptionWidget;
+    widget->show();
 }
 
-void MainWindow::on_affixRemoveButton_clicked()
-{
-    (new ToolDialog(new RemoveAffixDialogAdapter(this), this))->open();
-}
-
-void MainWindow::on_affixAddPushButton_clicked()
-{
-    (new ToolDialog(new AddAffixDialogAdapter(this), this))->open();
-}
+#endif

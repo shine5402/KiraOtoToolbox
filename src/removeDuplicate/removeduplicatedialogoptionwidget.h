@@ -12,7 +12,7 @@ namespace Ui {
 class RemoveDuplicateOptions : public ToolOptions {
     Q_OBJECT
 public:
-    explicit RemoveDuplicateOptions(QObject* parent = nullptr) : ToolOptions(parent){};
+    Q_INVOKABLE explicit RemoveDuplicateOptions(QObject* parent = nullptr) : ToolOptions(parent){};
     bool ignoreSpecificSuffix = false;
     QStringList suffixList{};
     bool ignorePitchSuffix = false;

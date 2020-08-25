@@ -15,7 +15,6 @@ RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
 
 ToolOptions RemoveDuplicateDialogOptionWidget::getOptions() const
 {
-    //TODO: 使用去除Affix替换这里的后缀检测
     ToolOptions options;
 
     options.combine(ui->affixRemoveWidget->getOptions(), "affixRemove/");

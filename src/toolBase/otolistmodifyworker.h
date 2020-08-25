@@ -9,9 +9,9 @@ class OtoListModifyWorker : public QObject
 {
     Q_OBJECT
 public:
-    explicit OtoListModifyWorker(QObject *parent = nullptr);
+    Q_INVOKABLE explicit OtoListModifyWorker(QObject *parent = nullptr);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions& options) = 0;
+                               const ToolOptions& options);
 };
 
 #endif // OTOPROCESSOR_H

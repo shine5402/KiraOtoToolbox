@@ -9,10 +9,17 @@ class ToolOptionWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ToolOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit ToolOptionWidget(QWidget *parent = nullptr);
 
     virtual ToolOptions getOptions() const;
     virtual void setOptions(const ToolOptions& options);
+};
+
+class EmptyToolOptionWidget : public ToolOptionWidget
+{
+    Q_OBJECT
+public:
+    explicit EmptyToolOptionWidget(QWidget* parent = nullptr);
 };
 
 //TODO:空OptionWidget

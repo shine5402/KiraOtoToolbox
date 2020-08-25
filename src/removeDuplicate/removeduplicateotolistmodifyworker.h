@@ -7,7 +7,7 @@ class RemoveDuplicateOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    RemoveDuplicateOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE RemoveDuplicateOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions& options) override;
     QList<int> getRemovedIDs() const;
 

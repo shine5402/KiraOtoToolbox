@@ -15,7 +15,7 @@ class OverlapBatchSetDialogOptionWidget : public ToolOptionWidget
     Q_OBJECT
 
 public:
-    explicit OverlapBatchSetDialogOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit OverlapBatchSetDialogOptionWidget(QWidget *parent = nullptr);
     ~OverlapBatchSetDialogOptionWidget();
 
     ToolOptions getOptions() const override;

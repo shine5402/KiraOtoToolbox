@@ -16,7 +16,7 @@ class ChainToolOptionWidget : public ToolOptionWidget
     Q_OBJECT
 
 public:
-    explicit ChainToolOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit ChainToolOptionWidget(QWidget *parent = nullptr);
     ~ChainToolOptionWidget();
     ToolOptions getOptions() const override;
     void setOptions(const ToolOptions &options) override;

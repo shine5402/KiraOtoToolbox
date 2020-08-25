@@ -7,7 +7,7 @@ class ChainOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    ChainOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE ChainOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions &options) override;
 };
 

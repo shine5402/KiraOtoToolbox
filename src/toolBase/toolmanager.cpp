@@ -10,31 +10,54 @@ ToolManager* ToolManager::getManager()
     return manager;
 }
 
-void ToolManager::registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, ToolOptionWidget* optionWidget, QString name)
+void ToolManager::registerTool(const QString& group, ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, ToolOptionWidget* optionWidget, QString name)
 {
-    tools.append(Tool{dialogAdapter, modifyWorker, optionWidget, name});
+    Tool tool{dialogAdapter, modifyWorker, optionWidget, name};
+    registerTool(group, tool);
 }
 
-void ToolManager::registerTool(const Tool& tool)
+void ToolManager::registerTool(const QString& group, const Tool& tool)
 {
-    tool.getModifyWorker()->setParent(this);
-    tool.getDialogAdapter()->setParent(this);
+    if (!tool.getDialogAdapter())
+        tool.getModifyWorker()->setParent(this);
+    else
+        tool.getDialogAdapter()->setParent(this);
     tools.append(tool);
+    toolGroups.insert(group, tool);
+    if (!toolGroupNames.contains(group))
+    {
+        toolGroupNames.append(group);
+    }
 }
 
 void ToolManager::unRegisterTool(int i)
 {
-    tools.removeAt(i);
+    auto tool = tools.at(i);
+    unRegisterTool(tool);
 }
 
 void ToolManager::unRegisterTool(const Tool& tool)
 {
+    auto group = toolGroups.key(tool);
+    toolGroups.remove(group, tool);
     tools.removeOne(tool);
+    if (!toolGroups.contains(group))
+        toolGroupNames.removeOne(group);
 }
 
 QVector<Tool> ToolManager::getTools() const
 {
     return tools;
+}
+
+QMultiHash<QString, Tool> ToolManager::getToolGroups() const
+{
+    return toolGroups;
+}
+
+QStringList ToolManager::getToolGroupNamesInRegisterOrder() const
+{
+    return toolGroupNames;
 }
 
 ToolManager* ToolManager::manager = new ToolManager();

@@ -10,6 +10,7 @@
 #include "toolBase/toolmanager.h"
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QGroupBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,12 +27,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto buttonGroup = new QButtonGroup(this);
 
+
     auto tools = ToolManager::getManager()->getTools();
-    for (int id = 0; id < tools.count(); ++id){
-        auto tool = tools.at(id);
-        auto button = new QPushButton(tool.getName(), this);
-        buttonGroup->addButton(button, id);
-        ui->centralLayout->insertWidget(id + 1, button);
+    auto toolGroups = ToolManager::getManager()->getToolGroups();
+    auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
+    for (int groupID = 0; groupID < groups.count(); ++groupID){
+        auto group = groups.at(groupID);
+        auto groupBox = new QGroupBox(group.isEmpty() ? tr("未分类") : group, this);
+        auto groupBoxLayout = new QVBoxLayout(groupBox);
+        auto tools = toolGroups.values(group);
+        std::reverse(tools.begin(), tools.end());
+        for (auto tool : tools)
+        {
+            auto button = new QPushButton(tool.getName(), this);
+            buttonGroup->addButton(button, tools.indexOf(tool));
+            groupBoxLayout->addWidget(button);
+        }
+        ui->centralLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
     }
 
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){

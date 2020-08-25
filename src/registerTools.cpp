@@ -7,16 +7,20 @@
 #include "removeBlank/removeblankdialogadapter.h"
 #include "removeBlank/removeblankotolistmodifyworker.h"
 #include "chain/chaindialogadapter.h"
+#include <QCoreApplication>
 
 void registerTools()
 {
     auto manager = ToolManager::getManager();
-    manager->registerTool(new RemoveDuplicateDialogAdapter);
-    manager->registerTool(new OverlapBatchSetDialogAdapter);
-    manager->registerTool(new RemoveAffixDialogAdapter);
-    manager->registerTool(new AddAffixDialogAdapter);
-    manager->registerTool(new RemoveBlankDialogAdapter);
-    manager->registerTool(new ChainDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "去除不需要的项"), new RemoveDuplicateDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "去除不需要的项"), new RemoveBlankDialogAdapter);
+
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "批量设置数值"), new OverlapBatchSetDialogAdapter);
+
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new RemoveAffixDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new AddAffixDialogAdapter);
+
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new ChainDialogAdapter);
 }
 
 //TODO:合并oto.ini文件

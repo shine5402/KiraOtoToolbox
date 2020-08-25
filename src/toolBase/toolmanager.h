@@ -69,16 +69,23 @@ class ToolManager : public QObject
 public:
     static ToolManager* getManager();
 
-    void registerTool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, ToolOptionWidget* optionWidget = nullptr, QString name = {});
-    void registerTool(const Tool& tool);
+    void registerTool( const QString& group, ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, ToolOptionWidget* optionWidget = nullptr,
+                      QString name = {});
+    void registerTool(const QString& group, const Tool& tool);
     void unRegisterTool(int i);
     void unRegisterTool(const Tool& tool);
 
     QVector<Tool> getTools() const;
 
+    QMultiHash<QString, Tool> getToolGroups() const;
+
+    QStringList getToolGroupNamesInRegisterOrder() const;//用来保持注册顺序
+
 private:
     static ToolManager* manager;
     QVector<Tool> tools;
+    QMultiHash<QString, Tool> toolGroups;
+    QStringList toolGroupNames;
 };
 
 #endif // TOOLMANAGER_H

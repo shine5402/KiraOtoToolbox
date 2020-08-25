@@ -7,6 +7,7 @@
 #include "utils/widgets/otofilesavewidget.h"
 #include "toolBase/tooloptionwidget.h"
 #include "toolBase/otolistmodifyworker.h"
+#include <QPointer>
 
 //TODO:Test
 
@@ -14,13 +15,13 @@ class ToolDialogAdapter : public QObject
 {
     Q_OBJECT
 public:
-    explicit ToolDialogAdapter(QObject *parent = nullptr);
+    Q_INVOKABLE explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void setupSpecificUIWidgets(QLayout* rootLayout);
     bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
                 const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
                                const ToolOptions& options, QWidget* dialogParent);
-    virtual QString getWindowTitle() const = 0;
+    virtual QString getWindowTitle() const;
 
 protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
@@ -38,9 +39,8 @@ protected:
     static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 private:
     void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
-    OtoListModifyWorker* worker = nullptr;
-    //TODO: 存储optionWidget
-    ToolOptionWidget* optionWidget = nullptr;
+    QPointer<OtoListModifyWorker> worker = nullptr;
+    QPointer<ToolOptionWidget> optionWidget = nullptr;
 signals:
 
     friend class Tool;

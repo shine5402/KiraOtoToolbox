@@ -7,7 +7,7 @@ class RemoveBlankDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    RemoveBlankDialogAdapter(QObject* parent = nullptr);
+    Q_INVOKABLE RemoveBlankDialogAdapter(QObject* parent = nullptr);
     QString getWindowTitle() const override;
 };
 

@@ -18,6 +18,7 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
+    optionWidget->setOptions(ToolOptions{});
     optionWidget->setParent(rootLayout->parentWidget());
     replaceOptionWidget(rootLayout, optionWidget);
 }
@@ -74,6 +75,12 @@ bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryLi
                                       dialogParent);
     return false;
 }
+
+QString ToolDialogAdapter::getWindowTitle() const
+{
+    return metaObject()->className();
+}
+
 
 void ToolDialogAdapter::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent){
     auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
@@ -155,4 +162,3 @@ bool ToolDialogAdapter::askUserForSecondSave(const OtoEntryList& secondSaveData,
 #endif
     return dialog->exec();
 }
-

@@ -7,7 +7,7 @@ class RemoveDuplicateModuleOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    RemoveDuplicateModuleOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE RemoveDuplicateModuleOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions &options) override;
     OtoEntryList getOrganizeResult() const;
 

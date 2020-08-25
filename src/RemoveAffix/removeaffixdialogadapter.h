@@ -6,7 +6,7 @@ class RemoveAffixDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    RemoveAffixDialogAdapter(QWidget* parent = nullptr);
+    Q_INVOKABLE RemoveAffixDialogAdapter(QObject* parent = nullptr);
     QString getWindowTitle() const override;
 };
 

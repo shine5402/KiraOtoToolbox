@@ -79,9 +79,11 @@ void MainWindow::showAboutQtDialog()
 }
 
 #ifndef NDEBUG
+#include "chain/chaintooloptionwidget.h"
 void MainWindow::on_debugButton_clicked()
 {
-
+    auto widget = new ChainToolOptionWidget;
+    widget->show();
 }
 
 #endif

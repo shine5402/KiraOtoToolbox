@@ -2,7 +2,7 @@
 #include "removeaffixoptionwidget.h"
 #include "removeaffixotolistmodifyworker.h"
 
-RemoveAffixDialogAdapter::RemoveAffixDialogAdapter(QWidget* parent) : ToolDialogAdapter(parent)
+RemoveAffixDialogAdapter::RemoveAffixDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorker(new RemoveAffixOtoListModifyWorker(this));
     setOptionWidget(new RemoveAffixOptionWidget);

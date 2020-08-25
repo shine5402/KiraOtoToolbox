@@ -11,7 +11,7 @@ class RemoveAffixOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    explicit RemoveAffixOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE explicit RemoveAffixOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options) override;
     RemoveSpecificAffixOtoListModifyWorker* getSpecificWorker() const;
     RemovePitchAffixOtoListModifyWorker* getPitchWorker() const;

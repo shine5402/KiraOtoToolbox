@@ -1,0 +1,14 @@
+#ifndef CHAINOTOLISTMODIFYWORKER_H
+#define CHAINOTOLISTMODIFYWORKER_H
+
+#include "toolBase/otolistmodifyworker.h"
+
+class ChainOtoListModifyWorker : public OtoListModifyWorker
+{
+    Q_OBJECT
+public:
+    ChainOtoListModifyWorker(QObject* parent = nullptr);
+    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions &options) override;
+};
+
+#endif // CHAINOTOLISTMODIFYWORKER_H

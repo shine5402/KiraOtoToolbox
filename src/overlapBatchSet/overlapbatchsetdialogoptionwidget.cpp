@@ -55,6 +55,11 @@ ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
     options.setOption("startWithPatternList", *workingStartList);
     options.setOption("ifMatchStartOto", ui->matchStartOtoCheckBox->isChecked());
     options.setOption("makeOneThird", ui->OneThirdCheckBox->isChecked());
+    //以下的options是UI记录状态用，对worker来说意义不大
+    options.setOption("ui_patternList_usingPreset", ui->setStartWithPresetRadioButton->isChecked());
+    options.setOption("ui_patternList_currentPreset", ui->setStartWithPresetComboBox->currentIndex());
+    options.setOption("ui_patternList_usingFile", ui->setStartWithLoadFromFileRadioButton->isChecked());
+    options.setOption("ui_patternList_usingUserInput", ui->setStartWithInputRadioButton->isChecked());
     return options;
 }
 
@@ -62,8 +67,13 @@ void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions& options)
 {
     ui->setStartWithCheckBox->setChecked(options.getOption("ifSetOverlapStartWith").toBool());
     ui->setStartWithSpinBox->setValue(options.getOption("overlapStartWith").toDouble());
-    ui->setStartWithInputRadioButton->setChecked(true);
+
+    ui->setStartWithPresetRadioButton->setChecked(options.getOption("ui_patternList_usingPreset", true).toBool());
+    ui->setStartWithPresetComboBox->setCurrentIndex(options.getOption("ui_patternList_currentPreset", 0).toInt());
+    ui->setStartWithLoadFromFileRadioButton->setChecked(options.getOption("ui_patternList_usingFile", false).toBool());
+    ui->setStartWithInputRadioButton->setChecked(options.getOption("ui_patternList_usingUserInput",false).toBool());
     notPresetStartList = options.getOption("startWithPatternList").toStringList();
+
     ui->matchStartOtoCheckBox->setChecked(options.getOption("ifMatchStartOto").toBool());
     ui->OneThirdCheckBox->setChecked(options.getOption("makeOneThird").toBool());
 }

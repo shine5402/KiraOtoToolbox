@@ -37,15 +37,10 @@ QVector<Tool> ToolManager::getTools() const
     return tools;
 }
 
-ToolManager::Garbo ToolManager::garbo{};
 ToolManager* ToolManager::manager = new ToolManager();
 
-ToolManager::Garbo::~Garbo()
-{
-    manager->deleteLater();
-}
 
-Tool::Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, ToolOptionWidget* optionWidget, const QString& name)
+Tool::Tool(QPointer<ToolDialogAdapter> dialogAdapter, QPointer<OtoListModifyWorker> modifyWorker, QPointer<ToolOptionWidget> optionWidget, const QString& name)
     : modifyWorker(modifyWorker), dialogAdapter(dialogAdapter), optionWidget(optionWidget), name((name)) {
     if (dialogAdapter){
         if (name.isEmpty())
@@ -66,4 +61,22 @@ Tool::Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker, 
             Q_ASSERT(this->optionWidget);
         }
     }
+}
+
+
+Tool Tool::makeNewInstance(QObject* parent, QWidget* optionWidgetParent, const QString& nameModifier) const{
+    OtoListModifyWorker* modifyWorkerNew = nullptr;
+    ToolDialogAdapter* dialogAdapterNew = nullptr;
+    ToolOptionWidget* optionWidgetNew = nullptr;
+
+    if (dialogAdapter)
+        dialogAdapterNew = qobject_cast<ToolDialogAdapter*>(dialogAdapter->metaObject()->newInstance(Q_ARG(QObject*, parent)));
+    else
+    {
+        if (modifyWorker)
+            modifyWorkerNew = qobject_cast<OtoListModifyWorker*>(modifyWorker->metaObject()->newInstance(Q_ARG(QObject*, parent)));
+        if (optionWidget)
+            optionWidgetNew = qobject_cast<ToolOptionWidget*>(optionWidget->metaObject()->newInstance(Q_ARG(QWidget*, optionWidgetParent)));
+    }
+    return Tool{dialogAdapterNew, modifyWorkerNew, optionWidgetNew, nameModifier.arg(name)};
 }

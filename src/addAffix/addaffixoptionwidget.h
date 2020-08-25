@@ -9,7 +9,7 @@ class AddAffixOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
 public:
-    explicit AddAffixOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit AddAffixOptionWidget(QWidget *parent = nullptr);
     ToolOptions getOptions() const override;
     void setOptions(const ToolOptions& options) override;
 private:

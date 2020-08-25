@@ -9,7 +9,7 @@ class RemoveBlankOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
 public:
-    RemoveBlankOptionWidget(QWidget* parent = nullptr);
+    Q_INVOKABLE RemoveBlankOptionWidget(QWidget* parent = nullptr);
     ToolOptions getOptions() const override;
     void setOptions(const ToolOptions &options) override;
 private:

@@ -4,11 +4,13 @@
 #include <QObject>
 #include "toolBase/tooldialogadapter.h"
 #include "toolBase/otolistmodifyworker.h"
+#include <QPointer>
 
 class Tool{
 public:
-    Tool(ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr,
-         ToolOptionWidget* optionWidget = nullptr, const QString& name = nullptr);
+    Tool() = default;
+    Tool(QPointer<ToolDialogAdapter> dialogAdapter, QPointer<OtoListModifyWorker> modifyWorker = nullptr,
+         QPointer<ToolOptionWidget> optionWidget = nullptr, const QString& name = nullptr);
 
     Tool(const Tool& other){
         modifyWorker = other.modifyWorker;
@@ -16,6 +18,7 @@ public:
         name = other.name;
         optionWidget = other.optionWidget;
     }
+    ~Tool(){}
     bool operator==(const Tool& rhs) const{
         return modifyWorker == rhs.modifyWorker &&
                 dialogAdapter == rhs.dialogAdapter &&
@@ -34,11 +37,11 @@ public:
         }
     }
 
-    OtoListModifyWorker* getModifyWorker() const{
+    QPointer<OtoListModifyWorker> getModifyWorker() const{
         return modifyWorker;
     }
 
-    ToolDialogAdapter* getDialogAdapter() const{
+    QPointer<ToolDialogAdapter> getDialogAdapter() const{
         return dialogAdapter;
     }
 
@@ -46,17 +49,18 @@ public:
         return name;
     }
 
-    ToolOptionWidget* getOptionWidget() const{
+    QPointer<ToolOptionWidget> getOptionWidget() const{
         return optionWidget;
     }
-
+    Tool makeNewInstance(QObject* parent = nullptr, QWidget* optionWidgetParent = nullptr, const QString& nameModifier = {"%1"}) const;
 private:
-    OtoListModifyWorker* modifyWorker;
-    ToolDialogAdapter* dialogAdapter;
-    ToolOptionWidget* optionWidget;
+    QPointer<OtoListModifyWorker> modifyWorker;
+    QPointer<ToolDialogAdapter> dialogAdapter;
+    QPointer<ToolOptionWidget> optionWidget;
     QString name;
 };
 
+Q_DECLARE_METATYPE(Tool)
 
 class ToolManager : public QObject
 {
@@ -74,11 +78,6 @@ public:
 
 private:
     static ToolManager* manager;
-    static class Garbo{
-    public:
-        ~Garbo();
-    } garbo;
-
     QVector<Tool> tools;
 };
 

@@ -7,7 +7,7 @@ class OverlapBatchSetOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    OverlapBatchSetOtoListModifyWorker(QObject* parent = nullptr);
+    Q_INVOKABLE OverlapBatchSetOtoListModifyWorker(QObject* parent = nullptr);
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions& options) override;
 };
 

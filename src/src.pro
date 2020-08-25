@@ -21,6 +21,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
+    chain/chaindialogadapter.cpp \
+    chain/chainotolistmodifyworker.cpp \
+    chain/chainstepsmodel.cpp \
+    chain/chaintooloptionwidget.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
     registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
@@ -50,6 +54,7 @@ SOURCES += \
     toolBase/toolmanager.cpp \
     toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
+    utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
@@ -65,6 +70,10 @@ SOURCES += \
 
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
+    chain/chaindialogadapter.h \
+    chain/chainotolistmodifyworker.h \
+    chain/chainstepsmodel.h \
+    chain/chaintooloptionwidget.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
     registerTools.h \
     removeAffix/removeaffixdialogadapter.h \
@@ -93,6 +102,7 @@ HEADERS += \
     toolBase/toolmanager.h \
     toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
+    utils/dialogs/listviewdialog.h \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
@@ -108,6 +118,7 @@ HEADERS += \
 
 FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
+    chain/chaintooloptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     toolBase/tooldialog.ui \

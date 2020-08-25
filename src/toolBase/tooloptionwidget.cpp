@@ -9,11 +9,13 @@ ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 
 ToolOptions ToolOptionWidget::getOptions() const
 {
+    Q_UNREACHABLE();
     return ToolOptions{};
 }
 
 void ToolOptionWidget::setOptions(const ToolOptions& options)
 {
+    Q_UNREACHABLE();
     Q_UNUSED(options)
     return;
 }

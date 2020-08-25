@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto buttonGroup = new QButtonGroup(this);
 
-
     auto tools = ToolManager::getManager()->getTools();
     auto toolGroups = ToolManager::getManager()->getToolGroups();
     auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();

@@ -39,7 +39,7 @@ void StringListModifyWidget::addRow()
     ok = true;
 #endif
 #ifndef SHINE5402OTOBOX_TEST
-    auto str = QInputDialog::getText(this, tr("输入新后缀"), tr("输入要添加到后缀列表的新后缀"), QLineEdit::Normal, {}, &ok);
+    auto str = QInputDialog::getText(this, tr("输入新值"), tr("输入要添加到列表的新字符串"), QLineEdit::Normal, {}, &ok);
 #endif
     if (ok)
     {
@@ -48,11 +48,11 @@ void StringListModifyWidget::addRow()
 #ifdef SHINE5402OTOBOX_TEST
             Q_ASSERT(false);
 #endif
-            QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。后缀列表不会做出更改。"));
+            QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。列表不会做出更改。"));
             return;
         }
-        model->insertRow(model->rowCount() == 0 ? 0 : model->rowCount() - 1);
-        model->setData(model->index(model->rowCount() == 0 ? 0 : model->rowCount() - 1), str);
+        model->insertRow(model->rowCount());
+        model->setData(model->index(model->rowCount() - 1), str);
     }
 }
 

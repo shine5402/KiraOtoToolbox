@@ -17,9 +17,22 @@ bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoE
         newOptions.setOption("removePitchSuffix", false);
     }
 
-    auto result = specificWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, newOptions);
-    result |= pitchWorker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, newOptions);
-    return result;
+    OtoEntryList lastResult = srcOtoList;
+    OtoEntryList currentResult;
+    bool success = false;
+
+    auto updateResult = [&](){
+        lastResult = std::move(currentResult);
+        currentResult = {};
+    };
+
+    success = specificWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
+    updateResult();
+    success |= pitchWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
+
+    resultOtoList = currentResult;
+
+    return success;
 }
 
 RemoveSpecificAffixOtoListModifyWorker* RemoveAffixOtoListModifyWorker::getSpecificWorker() const

@@ -8,7 +8,7 @@ ChainDialogAdapter::ChainDialogAdapter(QObject* parent) : ToolDialogAdapter(pare
     setOptionWidget(new ChainToolOptionWidget);
 }
 
-QString ChainDialogAdapter::getWindowTitle() const
+QString ChainDialogAdapter::getToolName() const
 {
     return tr("进行多个操作");
 }

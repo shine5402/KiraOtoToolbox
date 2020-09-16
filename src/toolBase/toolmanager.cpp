@@ -68,8 +68,8 @@ Tool::Tool(QPointer<ToolDialogAdapter> dialogAdapter, QPointer<OtoListModifyWork
     if (dialogAdapter){
         if (name.isEmpty())
         {
-            if (!dialogAdapter->getWindowTitle().isEmpty())
-                this->name = dialogAdapter->getWindowTitle();
+            if (!dialogAdapter->getToolName().isEmpty())
+                this->name = dialogAdapter->getToolName();
             else {
                 this->name = modifyWorker->metaObject()->className();
             }

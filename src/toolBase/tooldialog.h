@@ -28,6 +28,7 @@ private:
     Ui::ToolDialog *ui;
     void reAssignUIWidgets();
     ToolDialogAdapter* adapter;
+    bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
 };
 
 #endif // TOOLDIALOG_H

@@ -8,7 +8,7 @@ class ChainDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE ChainDialogAdapter(QObject* parent = nullptr);
-    QString getWindowTitle() const override;
+    QString getToolName() const override;
 };
 
 #endif // CHAINDIALOGADAPTER_H

@@ -4,6 +4,8 @@
 #include <QTimer>
 #endif
 #include <QMessageBox>
+#include <QTextStream>
+
 ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ToolDialog),
@@ -11,9 +13,9 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::loaded, this, &ToolDialog::otoFileLoaded);
-    adapter->setupSpecificUIWidgets(ui->rootLayout);
+    adapter->replaceUIWidgets(ui->rootLayout);
     reAssignUIWidgets();
-    setWindowTitle(adapter->getWindowTitle());
+    setWindowTitle(adapter->getToolName());
 }
 
 void ToolDialog::reAssignUIWidgets()
@@ -45,10 +47,51 @@ void ToolDialog::ToolDialog::accept()
         QMessageBox::critical(this, tr("文件未加载"), tr("您还没有加载oto.ini文件。请加载后重试。"));
         return;
     }
-    if (adapter->doWork(ui->otoLoadWidget, ui->otoSaveWidget, ui->optionWidget, this)){
+    if (doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), ui->otoSaveWidget, ui->optionWidget, this)){
 #ifndef SHINE5402OTOBOX_TEST
     QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
 #endif
         QDialog::accept();
     }
+}
+
+
+bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+{
+    OtoEntryList entryListWorking{};
+    OtoEntryList secondSaveList{};
+    auto options = optionWidget->getOptions();
+
+    auto saveOtoFileWithErrorInform = [&](const OtoEntryList& entryList, const QString& fileName, const QString& usage) -> bool{
+        QString errorString;
+        auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, nullptr, &errorString);
+        if (!result)
+        {
+#ifdef SHINE5402OTOBOX_TEST
+            Q_ASSERT(false);
+#endif
+            QMessageBox::critical(dialogParent, tr("保存失败"), [&]() -> QString{
+                                      QString result;
+                                      QTextStream stream(&result);
+                                      stream << tr("在保存 %1 时发生错误。").arg(fileName);
+                                      if (!usage.isEmpty())
+                                      stream << tr("该文件的用途是 %1。").arg(usage);
+                                      stream << tr("遇到的错误是：%1").arg(errorString);
+                                      return result;
+                                  }());
+        }
+        return result;
+    };
+
+    auto result = adapter->doWork(srcList, entryListWorking, secondSaveList, options, dialogParent);
+    if (result)
+    {
+        if (saveWidget->isSecondFileNameAvailable() && saveWidget->isSecondFileNameUsed()){
+            result = saveOtoFileWithErrorInform(secondSaveList, saveWidget->secondFileName(), saveWidget->secondFileNameUsage());
+            if (!result)
+                return false;
+        }
+        result = saveOtoFileWithErrorInform(entryListWorking, saveWidget->isSaveToSrc() ? srcFileName : saveWidget->fileName(), tr("保存处理结果"));
+    }
+    return result;
 }

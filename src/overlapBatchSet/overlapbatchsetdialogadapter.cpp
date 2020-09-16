@@ -11,7 +11,7 @@ OverlapBatchSetDialogAdapter::OverlapBatchSetDialogAdapter(QObject* parent) : To
     setOptionWidget(new OverlapBatchSetDialogOptionWidget);
 }
 
-QString OverlapBatchSetDialogAdapter::getWindowTitle() const
+QString OverlapBatchSetDialogAdapter::getToolName() const
 {
     return tr("批量修改Overlap");
 }

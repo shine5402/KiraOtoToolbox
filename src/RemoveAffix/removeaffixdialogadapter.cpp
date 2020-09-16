@@ -8,7 +8,7 @@ RemoveAffixDialogAdapter::RemoveAffixDialogAdapter(QObject* parent) : ToolDialog
     setOptionWidget(new RemoveAffixOptionWidget);
 }
 
-QString RemoveAffixDialogAdapter::getWindowTitle() const
+QString RemoveAffixDialogAdapter::getToolName() const
 {
     return tr("去除别名前/后缀");
 }

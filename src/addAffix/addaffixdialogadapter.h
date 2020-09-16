@@ -8,7 +8,7 @@ class AddAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE AddAffixDialogAdapter(QObject* parent = nullptr);
-    QString getWindowTitle() const override;
+    QString getToolName() const override;
 };
 
 #endif // ADDAFFIXDIALOGADAPTER_H

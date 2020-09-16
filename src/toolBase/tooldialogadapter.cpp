@@ -15,7 +15,7 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 
 }
 
-void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
+void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
     optionWidget->setOptions(ToolOptions{});

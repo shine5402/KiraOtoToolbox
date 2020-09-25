@@ -18,7 +18,7 @@ OtoEntryList OtoFileReader::getEntryList() const
         auto rawData = file.readAll();
         file.close();
         auto data = textCodec()->makeDecoder()->toUnicode(rawData);
-        auto otoStringList = data.split("\n",QString::SplitBehavior::SkipEmptyParts);
+        auto otoStringList = data.split("\n",Qt::SkipEmptyParts);
         for (const auto& otoString : otoStringList){
             auto otoEntry = OtoEntry(otoString);
             if ((!otoEntry.isValid()) && (!keepInvalid()))

@@ -148,14 +148,15 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 using OtoEntryList = QList<OtoEntry>;
 
 namespace OtoEntryFunctions {
-    //After Qt 5.14, can use Q_NAMESAPCE_EXPORT and Q_ENUM to register this enum with the meta-object system, it can provide additional feature. But as I use 5.13, I can not use the feature. May change in future.
+    Q_NAMESPACE_EXPORT(QTUTAULIBRARYS_EXPORT)
     enum CharacterCase{
         Upper, Lower
     };
+    Q_ENUM_NS(CharacterCase)
 
     QTUTAULIBRARYS_EXPORT QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
     QTUTAULIBRARYS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
-        QTUTAULIBRARYS_EXPORT QString removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
+    QTUTAULIBRARYS_EXPORT QString removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
     QTUTAULIBRARYS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
     QTUTAULIBRARYS_EXPORT QString removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
     QTUTAULIBRARYS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
@@ -165,5 +166,6 @@ namespace OtoEntryFunctions {
     QTUTAULIBRARYS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
                                                   bool directWriteFallback = true);
 }
+
 
 #endif // OTOENTRY_H

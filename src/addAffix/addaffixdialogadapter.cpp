@@ -9,7 +9,7 @@ AddAffixDialogAdapter::AddAffixDialogAdapter(QObject* parent) : ToolDialogAdapte
 }
 
 
-QString AddAffixDialogAdapter::getWindowTitle() const
+QString AddAffixDialogAdapter::getToolName() const
 {
     return tr("添加别名前/后缀");
 }

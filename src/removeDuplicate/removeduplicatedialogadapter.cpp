@@ -17,13 +17,13 @@ RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : To
     setOptionWidget(new RemoveDuplicateDialogOptionWidget);
 }
 
-void RemoveDuplicateDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
+void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     replaceSaveWidget(rootLayout, new OtoFileSaveWidgetWithSecondFileNameAsDeleted(rootLayout->parentWidget()));
-    ToolDialogAdapter::setupSpecificUIWidgets(rootLayout);
+    ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
 
-bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
+bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
     if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
     {
@@ -46,7 +46,7 @@ bool RemoveDuplicateDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList,
     return false;
 }
 
-QString RemoveDuplicateDialogAdapter::getWindowTitle() const
+QString RemoveDuplicateDialogAdapter::getToolName() const
 {
     return tr("去除重复项");
 }

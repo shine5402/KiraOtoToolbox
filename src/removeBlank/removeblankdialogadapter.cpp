@@ -8,7 +8,7 @@ RemoveBlankDialogAdapter::RemoveBlankDialogAdapter(QObject* parent) : ToolDialog
     setOptionWidget(new RemoveBlankOptionWidget);
 }
 
-QString RemoveBlankDialogAdapter::getWindowTitle() const
+QString RemoveBlankDialogAdapter::getToolName() const
 {
     return tr("清除空白项");
 }

@@ -15,7 +15,7 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 
 }
 
-void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
+void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
     optionWidget->setOptions(ToolOptions{});
@@ -23,48 +23,7 @@ void ToolDialogAdapter::setupSpecificUIWidgets(QLayout* rootLayout)
     replaceOptionWidget(rootLayout, optionWidget);
 }
 
-bool ToolDialogAdapter::doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
-{
-    const auto entryList = loadWidget->getEntryList();
-    OtoEntryList entryListWorking{};
-    OtoEntryList secondSaveList{};
-    auto options = optionWidget->getOptions();
-
-    auto saveOtoFile = [&](const OtoEntryList& entryList, const QString& fileName, const QString& usage) -> bool{
-        QString errorString;
-        auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, nullptr, &errorString);
-        if (!result)
-        {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
-            QMessageBox::critical(dialogParent, tr("保存失败"), [&]() -> QString{
-                                      QString result;
-                                      QTextStream stream(&result);
-                                      stream << tr("在保存 %1 时发生错误。").arg(fileName);
-                                      if (!usage.isEmpty())
-                                      stream << tr("该文件的用途是 %1。").arg(usage);
-                                      stream << tr("遇到的错误是：%1").arg(errorString);
-                                      return result;
-                                  }());
-        }
-        return result;
-    };
-
-    auto result = doWorkAdapter(entryList, entryListWorking, secondSaveList, options, dialogParent);
-    if (result)
-    {
-        if (saveWidget->isSecondFileNameAvailable() && saveWidget->isSecondFileNameUsed()){
-            result = saveOtoFile(secondSaveList, saveWidget->secondFileName(), saveWidget->secondFileNameUsage());
-            if (!result)
-                return false;
-        }
-        result = saveOtoFile(entryListWorking, saveWidget->isSaveToSrc() ? loadWidget->fileName() : saveWidget->fileName(), tr("保存处理结果"));
-    }
-    return result;
-}
-
-bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
+bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
     Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
@@ -76,7 +35,7 @@ bool ToolDialogAdapter::doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryLi
     return false;
 }
 
-QString ToolDialogAdapter::getWindowTitle() const
+QString ToolDialogAdapter::getToolName() const
 {
     return metaObject()->className();
 }

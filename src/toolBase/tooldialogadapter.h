@@ -16,12 +16,10 @@ class ToolDialogAdapter : public QObject
     Q_OBJECT
 public:
     Q_INVOKABLE explicit ToolDialogAdapter(QObject *parent = nullptr);
-    virtual void setupSpecificUIWidgets(QLayout* rootLayout);
-    bool doWork(const OtoFileLoadWidget* loadWidget, const OtoFileSaveWidget* saveWidget,
-                const ToolOptionWidget* optionWidget, QWidget* dialogParent);
-    virtual bool doWorkAdapter(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
+    virtual void replaceUIWidgets(QLayout* rootLayout);
+    virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
                                const ToolOptions& options, QWidget* dialogParent);
-    virtual QString getWindowTitle() const;
+    virtual QString getToolName() const;
 
 protected:
     void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);

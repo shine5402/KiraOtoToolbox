@@ -55,8 +55,7 @@ void ToolDialog::ToolDialog::accept()
     }
 }
 
-
-bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
     OtoEntryList entryListWorking{};
     OtoEntryList secondSaveList{};
@@ -94,4 +93,18 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
         result = saveOtoFileWithErrorInform(entryListWorking, saveWidget->isSaveToSrc() ? srcFileName : saveWidget->fileName(), tr("保存处理结果"));
     }
     return result;
+}
+
+bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+{
+    Q_ASSERT(srcLists.count() == srcFileNames.count());
+    bool success = false;
+    for (int i = 0; i < srcLists.count(); ++i){
+        success &= doWork(srcLists.at(i), srcFileNames.at(i), saveWidget, optionWidget, dialogParent);
+        if (!success)
+        {
+            QMessageBox::critical(dialogParent, tr("处理失败"), tr("文件 %1 （位于第 %2）没有成功被处理，于是进程终止。在其之前的文件已被处理。").arg(srcFileNames.at(i)).arg(i + 1));
+        }
+    }
+    return success;
 }

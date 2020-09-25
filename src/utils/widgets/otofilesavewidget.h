@@ -2,12 +2,13 @@
 #define OTOFILESAVEWIDGET_H
 
 #include <QWidget>
+#include "otofilesavewidgetabstract.h"
 
 namespace Ui {
     class OtoFileSaveWidget;
 }
 
-class OtoFileSaveWidget : public QWidget
+class OtoFileSaveWidget : public OtoFileSaveWidgetAbstract
 {
     Q_OBJECT
 

@@ -28,7 +28,8 @@ private:
     Ui::ToolDialog *ui;
     void reAssignUIWidgets();
     ToolDialogAdapter* adapter;
-    bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidget* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
+    bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
+    bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
 };
 
 #endif // TOOLDIALOG_H

@@ -2,7 +2,7 @@
 #include "ui_otofilesavewidget.h"
 
 OtoFileSaveWidget::OtoFileSaveWidget(QWidget *parent) :
-    QWidget(parent),
+    OtoFileSaveWidgetAbstract(parent),
     ui(new Ui::OtoFileSaveWidget)
 {
     ui->setupUi(this);

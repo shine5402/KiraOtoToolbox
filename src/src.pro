@@ -68,6 +68,7 @@ SOURCES += \
     utils/widgets/otofilemultiplesavewidget.cpp \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
+    utils/widgets/otofilesavewidgetabstract.cpp \
     utils/widgets/stringlistmodifywidget.cpp
 
 
@@ -119,6 +120,7 @@ HEADERS += \
     utils/widgets/otofilemultiplesavewidget.h \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
+    utils/widgets/otofilesavewidgetabstract.h \
     utils/widgets/stringlistmodifywidget.h
 
 

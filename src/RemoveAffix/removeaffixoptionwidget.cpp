@@ -34,7 +34,7 @@ ToolOptions RemoveAffixOptionWidget::getOptions() const
     options.setOption("bottomPitch", QString("%1%2").arg(ui->bottomPitchComboBox->currentText()).arg(ui->bottomPitchSpinBox->value()));
     options.setOption("topPitch", QString("%1%2").arg(ui->topPitchComboBox->currentText()).arg(ui->topPitchSpinBox->value()));
     options.setOption("pitchCaseSensitive",ui->pitchCaseSensitiveCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-    options.setOption("pitchCase", static_cast<int>(ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower));
+    options.setOption("pitchCase", ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
 
     return options;
 }

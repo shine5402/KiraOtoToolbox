@@ -6,13 +6,13 @@ AtLeastOneCheckedButtonGroup::AtLeastOneCheckedButtonGroup(QObject *parent) : QO
 {
     groupInside = new QButtonGroup(this);
     groupInside->setExclusive(false);
-    connect(groupInside, qOverload<int>(&QButtonGroup::buttonClicked), this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonClicked));
+    connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonClicked));
     connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonClicked));
-    connect(groupInside, qOverload<int>(&QButtonGroup::buttonPressed), this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonPressed));
+    connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonPressed));
     connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonPressed), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonPressed));
-    connect(groupInside, qOverload<int>(&QButtonGroup::buttonReleased), this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonReleased));
+    connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonReleased));
     connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonReleased), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonReleased));
-    connect(groupInside, qOverload<int, bool>(&QButtonGroup::buttonToggled), this, qOverload<int, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
+    connect(groupInside, &QButtonGroup::idToggled, this, qOverload<int, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
     connect(groupInside, qOverload<QAbstractButton *, bool>(&QButtonGroup::buttonToggled), this, qOverload<QAbstractButton *, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
     connect(this, qOverload<int, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled), this, &AtLeastOneCheckedButtonGroup::updateEnableState);
 }

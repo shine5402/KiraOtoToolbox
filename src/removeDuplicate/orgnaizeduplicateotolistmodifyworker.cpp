@@ -28,7 +28,7 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
 
     for (int i = 0; i < compareStringList.count(); ++i)
     {
-        compareStringMap.insertMulti(compareStringList.at(i), i);
+        compareStringMap.insert(compareStringList.at(i), i);
     }
         QHash <int, QString> newAlias;
         for (auto key : compareStringMap.uniqueKeys())

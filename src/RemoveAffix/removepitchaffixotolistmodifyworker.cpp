@@ -18,7 +18,7 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         QString removedPitch {};
         auto result = removeFunc(currentOto.alias(), options.getOption("bottomPitch").toString(), options.getOption("topPitch").toString(),
                                                            options.getOption("pitchCaseSensitive", Qt::CaseInsensitive).value<Qt::CaseSensitivity>(),
-                                                           static_cast<OtoEntryFunctions::CharacterCase>(options.getOption("pitchCase").toInt()), &removedPitch);
+                                                           options.getOption("pitchCase").value<OtoEntryFunctions::CharacterCase>(), &removedPitch);
         currentOto.setAlias(result);
         removedStringInfos.append(RemovedStringInfo(affixType, i, removedPitch));
     }

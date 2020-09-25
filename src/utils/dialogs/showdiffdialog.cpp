@@ -80,9 +80,9 @@ void ShowDiffDialog::handleDiffCalcFinished()
     try {
     ui->diffTextEdit->setHtml(watcher->result());
     }
-    catch (std::exception e){
-        QMessageBox::critical(this, tr("错误"),tr("计算差异时出现错误。错误信息为：%1").arg(e.what()));
-        qCritical() << "(Diff Dialog) Exception occured in diff method. what():" << e.what();
+    catch (std::exception* e){
+        QMessageBox::critical(this, tr("错误"),tr("计算差异时出现错误。错误信息为：%1").arg(e->what()));
+        qCritical() << "(Diff Dialog) Exception occured in diff method. what():" << e->what();
     }
 
     catch (...) {

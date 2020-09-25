@@ -21,7 +21,7 @@ ToolOptions RemoveDuplicateDialogOptionWidget::getOptions() const
     options.setOption("maxDuplicateCount", ui->maxSpinBox->value());
     options.setOption("shouldOrganize", ui->organizeCheckBox->isChecked());
     options.setOption("organizeStartFrom1", ui->organizeStartFrom1CheckBox->isChecked());
-    options.setOption("pitchCaseOrganized", static_cast<int>(ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower));
+    options.setOption("pitchCaseOrganized", ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
 
     return options;
 }

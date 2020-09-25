@@ -63,6 +63,9 @@ SOURCES += \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
     utils/widgets/otofileloadwidget.cpp \
+    utils/widgets/otofilemultipleloadotofilelistmodel.cpp \
+    utils/widgets/otofilemultipleloadwidget.cpp \
+    utils/widgets/otofilemultiplesavewidget.cpp \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
     utils/widgets/stringlistmodifywidget.cpp
@@ -111,6 +114,9 @@ HEADERS += \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \
     utils/widgets/otofileloadwidget.h \
+    utils/widgets/otofilemultipleloadotofilelistmodel.h \
+    utils/widgets/otofilemultipleloadwidget.h \
+    utils/widgets/otofilemultiplesavewidget.h \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
     utils/widgets/stringlistmodifywidget.h
@@ -126,6 +132,8 @@ FORMS += \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \
+    utils/widgets/otofilemultipleloadwidget.ui \
+    utils/widgets/otofilemultiplesavewidget.ui \
     utils/widgets/otofilesavewidget.ui \
     utils/widgets/stringlistmodifywidget.ui
 

@@ -41,6 +41,8 @@ QString OtoFileSaveWidget::secondFileName() const
     return ui->secondFileNameEdit->fileName();
 }
 
+
+
 void OtoFileSaveWidget::setSaveToSrc()
 {
     ui->saveToSrcRadioButton->setChecked(true);

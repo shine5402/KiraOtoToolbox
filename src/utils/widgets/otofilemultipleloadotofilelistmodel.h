@@ -24,14 +24,20 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    OtoFileInfo data(int index);
 
     void addData(const QString& fileName, const OtoEntryList& entryList);
     void deleteData(int index);
 
+    void reset();
+    QVector<OtoFileInfo> datas() const;
+
 private:
-    QVector<OtoFileInfo> datas;
+    QVector<OtoFileInfo> m_datas;
     const QStringList headerList = {tr("路径"), tr("oto 条目数")};
     enum Columns{FileName, Count};
+signals:
+    void dataChanged();
 };
 
 #endif // OTOFILEMULTIPLELOADOTOFILELISTMODEL_H

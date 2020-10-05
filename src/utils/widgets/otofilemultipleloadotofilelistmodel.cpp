@@ -24,7 +24,7 @@ int OtoFileMultipleLoadOtoFileListModel::rowCount(const QModelIndex &parent) con
     if (parent.isValid())
         return 0;
 
-    return datas.count();
+    return m_datas.count();
 }
 
 int OtoFileMultipleLoadOtoFileListModel::columnCount(const QModelIndex &parent) const
@@ -42,10 +42,10 @@ QVariant OtoFileMultipleLoadOtoFileListModel::data(const QModelIndex &index, int
 
     if (role == Qt::DisplayRole){
         if (index.column() == Columns::FileName){
-            return datas.at(index.row()).fileName;
+            return m_datas.at(index.row()).fileName;
         }
         if (index.column() == Columns::Count){
-            return datas.at(index.row()).entryList.count();
+            return m_datas.at(index.row()).entryList.count();
         }
     }
 
@@ -53,13 +53,37 @@ QVariant OtoFileMultipleLoadOtoFileListModel::data(const QModelIndex &index, int
     return QVariant();
 }
 
+OtoFileInfo OtoFileMultipleLoadOtoFileListModel::data(int index)
+{
+    return m_datas.at(index);
+}
+
 void OtoFileMultipleLoadOtoFileListModel::addData(const QString& fileName, const OtoEntryList& entryList)
 {
-    datas.append(OtoFileInfo{fileName, entryList});
+    beginInsertRows(QModelIndex{}, rowCount(), rowCount());
+    m_datas.append(OtoFileInfo{fileName, entryList});
+    emit dataChanged();
+    endInsertRows();
 }
 
 void OtoFileMultipleLoadOtoFileListModel::deleteData(int index)
 {
-    datas.removeAt(index);
+    beginRemoveRows(QModelIndex{}, rowCount() - 1, rowCount() - 1);
+    m_datas.removeAt(index);
+    emit dataChanged();
+    endRemoveRows();
+}
+
+void OtoFileMultipleLoadOtoFileListModel::reset()
+{
+    beginResetModel();
+    m_datas.clear();
+    emit dataChanged();
+    endResetModel();
+}
+
+QVector<OtoFileInfo> OtoFileMultipleLoadOtoFileListModel::datas() const
+{
+    return m_datas;
 }
 

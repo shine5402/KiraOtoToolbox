@@ -22,6 +22,7 @@ public:
     QString fileName() const;
     OtoEntryList getEntryList() const;
     bool isEntryListReaded() const;
+    void reset();
 private:
     Ui::OtoFileLoadWidget *ui;
     OtoEntryList entryList = {};
@@ -31,6 +32,7 @@ private slots:
     void showOtoListDialog();
 signals:
     void loaded();
+    void resetted();
 };
 
 #endif // OTOFILELOADWIDGET_H

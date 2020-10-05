@@ -41,7 +41,7 @@ QString ToolDialogAdapter::getToolName() const
 }
 
 
-void ToolDialogAdapter::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent){
+void ToolDialogAdapterHelperFunc::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent){
     auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
     if (oldWidget){
         newWidget->setParent(newParent ? newParent : parentLayout->parentWidget());
@@ -73,12 +73,14 @@ void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidge
     if (optionWidget != newOptionWidget)
         optionWidget = newOptionWidget;
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
+    ToolDialogAdapterHelperFunc::replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
 }
 
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {
-    replaceWidget(rootLayout, "otoSaveWidget", newSaveWidget);
+    auto saveWidgetRootLayout = rootLayout->parentWidget()->findChild<QWidget *>("stackedSaveWidget")->findChild<QWidget *>("singleSave")->layout();
+    //auto children = rootLayout->children();
+    ToolDialogAdapterHelperFunc::replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
 }
 
 bool ToolDialogAdapter::askUserForApplyChanges(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, ToolDialogAdapter::ChangeAskDialogType changeAskDialogType,

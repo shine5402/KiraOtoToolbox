@@ -28,6 +28,8 @@ private:
     int getCurrentRow() const;
     void setCurrentRow(int row);
 
+    void openStepSettings(int index);
+    
 private slots:
     void addStep();
     void removeCurrentStep();

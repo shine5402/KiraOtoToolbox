@@ -25,7 +25,7 @@ void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 
 bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
-    if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+    if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
     {
         auto specificWorker = static_cast<RemoveDuplicateModuleOtoListModifyWorker*>(getWorker());
         if ((!specificWorker->getOrganizeResult().isEmpty()) &&

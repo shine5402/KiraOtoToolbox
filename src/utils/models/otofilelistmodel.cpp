@@ -1,11 +1,11 @@
-#include "otofilemultipleloadotofilelistmodel.h"
+#include "otofilelistmodel.h"
 
-OtoFileMultipleLoadOtoFileListModel::OtoFileMultipleLoadOtoFileListModel(QObject *parent)
+OtoFileListModel::OtoFileListModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 }
 
-QVariant OtoFileMultipleLoadOtoFileListModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant OtoFileListModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
@@ -19,7 +19,7 @@ QVariant OtoFileMultipleLoadOtoFileListModel::headerData(int section, Qt::Orient
     return {};
 }
 
-int OtoFileMultipleLoadOtoFileListModel::rowCount(const QModelIndex &parent) const
+int OtoFileListModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -27,7 +27,7 @@ int OtoFileMultipleLoadOtoFileListModel::rowCount(const QModelIndex &parent) con
     return m_datas.count();
 }
 
-int OtoFileMultipleLoadOtoFileListModel::columnCount(const QModelIndex &parent) const
+int OtoFileListModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -35,7 +35,7 @@ int OtoFileMultipleLoadOtoFileListModel::columnCount(const QModelIndex &parent) 
     return 2;
 }
 
-QVariant OtoFileMultipleLoadOtoFileListModel::data(const QModelIndex &index, int role) const
+QVariant OtoFileListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -53,12 +53,12 @@ QVariant OtoFileMultipleLoadOtoFileListModel::data(const QModelIndex &index, int
     return QVariant();
 }
 
-OtoFileInfo OtoFileMultipleLoadOtoFileListModel::data(int index)
+OtoFileInfo OtoFileListModel::data(int index)
 {
     return m_datas.at(index);
 }
 
-void OtoFileMultipleLoadOtoFileListModel::addData(const QString& fileName, const OtoEntryList& entryList)
+void OtoFileListModel::addData(const QString& fileName, const OtoEntryList& entryList)
 {
     beginInsertRows(QModelIndex{}, rowCount(), rowCount());
     m_datas.append(OtoFileInfo{fileName, entryList});
@@ -66,7 +66,7 @@ void OtoFileMultipleLoadOtoFileListModel::addData(const QString& fileName, const
     endInsertRows();
 }
 
-void OtoFileMultipleLoadOtoFileListModel::deleteData(int index)
+void OtoFileListModel::deleteData(int index)
 {
     beginRemoveRows(QModelIndex{}, rowCount() - 1, rowCount() - 1);
     m_datas.removeAt(index);
@@ -74,7 +74,7 @@ void OtoFileMultipleLoadOtoFileListModel::deleteData(int index)
     endRemoveRows();
 }
 
-void OtoFileMultipleLoadOtoFileListModel::reset()
+void OtoFileListModel::reset()
 {
     beginResetModel();
     m_datas.clear();
@@ -82,7 +82,7 @@ void OtoFileMultipleLoadOtoFileListModel::reset()
     endResetModel();
 }
 
-QVector<OtoFileInfo> OtoFileMultipleLoadOtoFileListModel::datas() const
+QVector<OtoFileInfo> OtoFileListModel::datas() const
 {
     return m_datas;
 }

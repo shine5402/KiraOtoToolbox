@@ -26,13 +26,19 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
 {
     Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
-    if (getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+    if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return askUserForApplyChanges(srcOtoList, resultOtoList,
                                       srcOtoList.count() == resultOtoList.count() ? ValueChangeModel : Diff,
                                       tr("确认更改"),
                                       tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
                                       dialogParent);
     return false;
+}
+
+bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+{
+    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
+    return getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
 }
 
 QString ToolDialogAdapter::getToolName() const

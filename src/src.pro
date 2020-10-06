@@ -62,8 +62,8 @@ SOURCES += \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
+    utils/models/otofilelistmodel.cpp \
     utils/widgets/otofileloadwidget.cpp \
-    utils/widgets/otofilemultipleloadotofilelistmodel.cpp \
     utils/widgets/otofilemultipleloadwidget.cpp \
     utils/widgets/otofilemultiplesavewidget.cpp \
     utils/widgets/otofilenameeditwithbrowse.cpp \
@@ -114,8 +114,8 @@ HEADERS += \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \
+    utils/models/otofilelistmodel.h \
     utils/widgets/otofileloadwidget.h \
-    utils/widgets/otofilemultipleloadotofilelistmodel.h \
     utils/widgets/otofilemultipleloadwidget.h \
     utils/widgets/otofilemultiplesavewidget.h \
     utils/widgets/otofilenameeditwithbrowse.h \

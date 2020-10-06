@@ -11,7 +11,7 @@ OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->otoFileTableView->setModel(model);
-    connect(model, qOverload<>(&OtoFileMultipleLoadOtoFileListModel::dataChanged),
+    connect(model, qOverload<>(&OtoFileListModel::dataChanged),
             this, &OtoFileMultipleLoadWidget::dataChanged);
     connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::appendOtoFile);
     connect(ui->removeButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::removeOtoFile);

@@ -9,12 +9,12 @@ struct OtoFileInfo{
     OtoEntryList entryList;
 };
 
-class OtoFileMultipleLoadOtoFileListModel : public QAbstractTableModel
+class OtoFileListModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit OtoFileMultipleLoadOtoFileListModel(QObject *parent = nullptr);
+    explicit OtoFileListModel(QObject *parent = nullptr);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

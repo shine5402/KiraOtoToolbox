@@ -23,6 +23,8 @@ public:
     virtual void replaceUIWidgets(QLayout* rootLayout);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
                                const ToolOptions& options, QWidget* dialogParent);
+    virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
+                        const ToolOptions& options);
     virtual QString getToolName() const;
 
 protected:

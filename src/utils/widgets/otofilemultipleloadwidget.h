@@ -2,7 +2,7 @@
 #define OTOFILEMULTIPLEOPENWIDGET_H
 
 #include <QWidget>
-#include "otofilemultipleloadotofilelistmodel.h"
+#include "../models/otofilelistmodel.h"
 
 namespace Ui {
     class OtoFileMultipleLoadWidget;
@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::OtoFileMultipleLoadWidget *ui;
     int currentRow();
-    OtoFileMultipleLoadOtoFileListModel* model = new OtoFileMultipleLoadOtoFileListModel;
+    OtoFileListModel* model = new OtoFileListModel;
     void refreshButtonEnableState();
 signals:
     void dataChanged();

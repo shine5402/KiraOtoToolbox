@@ -43,13 +43,14 @@ private:
     Ui::ToolDialog *ui;
     void reAssignUIWidgets();
     ToolDialogAdapter* adapter;
-    bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent, bool disableAdapterInform = false);
+    bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;
     constexpr static auto batchModePageIndex = 1;
     void refreshStackedWidgetSize(QStackedWidget* stackedWidget);
 
     void switchModePrivate(int pageIndex);
+    bool saveOtoFileWithErrorInform(const OtoEntryList& entryList, const QString& fileName, const QString& usage, QWidget* dialogParent);
 };
 
 #endif // TOOLDIALOG_H

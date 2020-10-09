@@ -5,6 +5,10 @@
 #endif
 #include <QMessageBox>
 #include <QTextStream>
+#include "utils/models/otofilelistmodel.h"
+#include "utils/dialogs/tableviewdialog.h"
+#include "utils/models/otofilelistwithpreviousmodel.h"
+#include "utils/misc/misc.h"
 
 ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     QDialog(parent),
@@ -30,7 +34,6 @@ void ToolDialog::reAssignUIWidgets()
     //Use last() to choose the newest widgets.
     ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
     Q_ASSERT(ui->optionWidget);
-    //FIXME:
     ui->otoSaveWidget = ui->rootLayout->parentWidget()
             ->findChild<QWidget*>("stackedSaveWidget")->
             findChild<QWidget*>("singleSave")->
@@ -151,18 +154,70 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
 
 bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
 {
-    //TODO:变成一个窗口？
     Q_ASSERT(srcLists.count() == srcFileNames.count());
-    bool success = true;
+
+    QList<OtoEntryList> results{};
+
+    auto options = optionWidget->getOptions();
+
     for (int i = 0; i < srcLists.count(); ++i){
-        success &= doWork(srcLists.at(i), srcFileNames.at(i), saveWidget, optionWidget, dialogParent);
-        if ((!success) && srcLists.count() > 1)
+        OtoEntryList entryListWorking{};
+        OtoEntryList secondSaveList{};
+        if ((!adapter->doWork(srcLists.at(i), entryListWorking, secondSaveList, options)) && srcLists.count() > 1)
         {
-            QMessageBox::critical(dialogParent, tr("处理失败"), tr("文件 %1 （位于第 %2）没有成功被处理，于是进程终止。在其之前的文件已被处理。").arg(srcFileNames.at(i)).arg(i + 1));
+            QMessageBox::critical(dialogParent, tr("处理失败"), tr("文件 %1 （位于第 %2）没有成功被处理，于是进程终止。所有文件都没有被修改。").arg(srcFileNames.at(i)).arg(i + 1));
             return false;
         }
+        results.append(entryListWorking);
     }
-    return success;
+
+    auto model = new OtoFileListWithPreviousModel(this);
+    for (int i = 0; i < srcLists.count(); ++i){
+        model->addData(srcFileNames.at(i), results.at(i), srcLists.at(i));
+    }
+    auto dialog = new QDialog(this);
+    dialog->setWindowTitle(tr("确认更改"));
+
+    auto rootLayout = new QVBoxLayout(dialog);
+
+    auto label = new QLabel(tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"), dialog);
+    rootLayout->addWidget(label);
+
+    auto contentView = new QTableView(dialog);
+    contentView->setModel(model);
+    contentView->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+    contentView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+    contentView->resizeColumnsToContents();
+    rootLayout->addWidget(contentView);
+
+    auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, dialog);
+    connect(buttonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, dialog, &QDialog::reject);
+    auto showDiffButton = buttonBox->addButton(tr("显示选中的文件的差异"), QDialogButtonBox::ActionRole);
+    connect(showDiffButton, &QPushButton::clicked, [&](){
+        auto currentIndex = contentView->currentIndex().row();
+        auto currentSrc = srcLists.at(currentIndex);
+        auto currentResult = results.at(currentIndex);
+        Misc::showOtoDiffDialog(currentSrc, currentResult,
+                                tr("%1 的差异（位于第 %2 项）").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
+                                tr("以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
+                                dialogParent,
+                                Misc::Determine,
+                                QDialogButtonBox::Ok);
+    });
+    rootLayout->addWidget(buttonBox);
+
+    if (dialog->exec()){
+        for (int i = 0; i < srcLists.count(); ++i){
+            bool success = saveOtoFileWithErrorInform(results.at(i), saveWidget->isSaveToSrc() ? srcFileNames.at(i) : saveWidget->fileName(), tr("保存处理结果"), dialogParent);
+            if (!success){
+                QMessageBox::critical(dialogParent, tr("保存时出现错误"), tr("无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。").arg(srcFileNames.at(i)).arg(i + 1));
+                return false;
+            }
+        }
+        return true;
+    };
+    return false;
 }
 
 void ToolDialog::refreshStackedWidgetSize(QStackedWidget* stackedWidget)

@@ -58,6 +58,8 @@ SOURCES += \
     utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
+    utils/misc/misc.cpp \
+    utils/models/otofilelistwithpreviousmodel.cpp \
     utils/models/otolistmodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
@@ -110,6 +112,8 @@ HEADERS += \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
+    utils/misc/misc.h \
+    utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/atleastonecheckedbuttongroup.h \

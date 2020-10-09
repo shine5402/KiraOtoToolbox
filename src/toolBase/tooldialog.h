@@ -50,7 +50,7 @@ private:
     void refreshStackedWidgetSize(QStackedWidget* stackedWidget);
 
     void switchModePrivate(int pageIndex);
-    bool saveOtoFileWithErrorInform(const OtoEntryList& entryList, const QString& fileName, const QString& usage, QWidget* dialogParent);
+    static bool saveOtoFileWithErrorInform(const OtoEntryList& entryList, const QString& fileName, const QString& usage, QWidget* dialogParent);
 };
 
 #endif // TOOLDIALOG_H

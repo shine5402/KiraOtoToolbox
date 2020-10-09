@@ -11,10 +11,6 @@
 
 //TODO:Test
 
-namespace ToolDialogAdapterHelperFunc {
-    void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
-}
-
 class ToolDialogAdapter : public QObject
 {
     Q_OBJECT
@@ -34,14 +30,10 @@ protected:
     void setWorker(OtoListModifyWorker* value);
     void setOptionWidget(ToolOptionWidget* value);
 
-    enum ChangeAskDialogType{
-        ValueChangeModel, Diff
-    };
 
-    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
-                                       const QString& title, const QString& label, QWidget* dialogParent);
-    static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
-private:
+
+
+    private:
         QPointer<OtoListModifyWorker> worker = nullptr;
     QPointer<ToolOptionWidget> optionWidget = nullptr;
 signals:

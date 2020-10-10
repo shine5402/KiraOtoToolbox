@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "../models/otofilelistmodel.h"
+#include <QItemSelection>
 
 namespace Ui {
     class OtoFileMultipleLoadWidget;
@@ -24,6 +25,7 @@ private slots:
     void showOtoList();
     void appendOtoFile();
     void removeOtoFile();
+    void onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 private:
     Ui::OtoFileMultipleLoadWidget *ui;
     int currentRow();

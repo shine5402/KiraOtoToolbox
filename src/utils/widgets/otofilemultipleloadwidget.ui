@@ -110,7 +110,7 @@
       <item row="1" column="0" colspan="2">
        <widget class="QTableView" name="otoFileTableView">
         <property name="selectionMode">
-         <enum>QAbstractItemView::SingleSelection</enum>
+         <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>

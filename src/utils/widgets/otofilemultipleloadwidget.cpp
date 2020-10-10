@@ -16,6 +16,7 @@ OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
     connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::appendOtoFile);
     connect(ui->removeButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::removeOtoFile);
     connect(ui->showContentButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::showOtoList);
+    connect(ui->otoFileTableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &OtoFileMultipleLoadWidget::onSelectionChanged);
 
     ui->openFileNameEdit->setMultipleMode(true);
 }
@@ -102,9 +103,24 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 void OtoFileMultipleLoadWidget::removeOtoFile()
 {
     if (model->rowCount() > 0){
-        model->deleteData(currentRow());
-        refreshButtonEnableState();
+        QSet<int> selectedRowsSet;
+        for (auto index : ui->otoFileTableView->selectionModel()->selection().indexes()){
+            selectedRowsSet.insert(index.row());
+        }
+        auto selectedRows = selectedRowsSet.values();
+        std::sort(selectedRows.begin(), selectedRows.end(), std::greater<>());
+
+        for (auto i : selectedRows){
+            model->deleteData(i);
+        }
     }
+}
+
+void OtoFileMultipleLoadWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
+{
+    Q_UNUSED(deselected)
+    ui->showContentButton->setEnabled(selected.count() <= 1);
+
 }
 
 int OtoFileMultipleLoadWidget::currentRow()

@@ -44,6 +44,10 @@ public:
     QString* getSelectedFilter() const;
     void setSelectedFilter(QString* value);
 
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+
 private:
     Ui::FileNameEditWithBrowse *ui;
     Purpose purpose = Open;

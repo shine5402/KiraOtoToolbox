@@ -1,6 +1,9 @@
 #include "filenameeditwithbrowse.h"
 #include "ui_filenameeditwithbrowse.h"
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QDropEvent>
 
 FileNameEditWithBrowse::FileNameEditWithBrowse(QWidget *parent) :
     QWidget(parent),
@@ -9,6 +12,8 @@ FileNameEditWithBrowse::FileNameEditWithBrowse(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->browseButton, &QPushButton::clicked, this, &FileNameEditWithBrowse::browse);
+
+    setAcceptDrops(true);
 }
 
 FileNameEditWithBrowse::~FileNameEditWithBrowse()
@@ -71,6 +76,23 @@ QString* FileNameEditWithBrowse::getSelectedFilter() const
 void FileNameEditWithBrowse::setSelectedFilter(QString* value)
 {
     selectedFilter = value;
+}
+
+void FileNameEditWithBrowse::dragEnterEvent(QDragEnterEvent* event)
+{
+    if (event->mimeData()->hasUrls()){
+        event->setDropAction(Qt::LinkAction);
+        event->accept();
+    }
+}
+
+void FileNameEditWithBrowse::dropEvent(QDropEvent* event)
+{
+    if (event->mimeData()->hasUrls()){
+        ui->fileNameEdit->setText(event->mimeData()->urls().value(0).toLocalFile());
+        event->setDropAction(Qt::LinkAction);
+        event->accept();
+    }
 }
 
 QFileDialog::Options FileNameEditWithBrowse::getOptions() const

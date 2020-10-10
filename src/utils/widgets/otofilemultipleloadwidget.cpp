@@ -16,6 +16,8 @@ OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
     connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::appendOtoFile);
     connect(ui->removeButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::removeOtoFile);
     connect(ui->showContentButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::showOtoList);
+
+    ui->openFileNameEdit->setMultipleMode(true);
 }
 
 OtoFileMultipleLoadWidget::~OtoFileMultipleLoadWidget()
@@ -67,29 +69,31 @@ void OtoFileMultipleLoadWidget::showOtoList()
 
 void OtoFileMultipleLoadWidget::appendOtoFile()
 {
-    auto fileName = ui->openFileNameEdit->fileName();
+    auto fileNames = ui->openFileNameEdit->fileNames();
 
-    if (!QFileInfo::exists(fileName)){
+    for (auto fileName : fileNames){
+        if (!QFileInfo::exists(fileName)){
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+            Q_ASSERT(false);
 #endif
-        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));
-        return;
-    }
+            QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件 %1 不存在，请检查后再试。").arg(fileName));
+            return;
+        }
 
-    if (fileNames().contains(fileName))
-    {
+        if (this->fileNames().contains(fileName))
+        {
 #ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
+            Q_ASSERT(false);
 #endif
-        QMessageBox::warning(this, tr("已经读取"), tr("您指定的文件已经被读取过了。"));
-        return;
+            QMessageBox::warning(this, tr("已经读取"), tr("您指定的文件 %1 已经被读取过了。").arg(fileName));
+            return;
+        }
+
+        OtoFileReader reader(fileName);
+        auto entryList = reader.getEntryList();
+
+        model->addData(fileName, entryList);
     }
-
-    OtoFileReader reader(fileName);
-    auto entryList = reader.getEntryList();
-
-    model->addData(fileName, entryList);
 
     ui->openFileNameEdit->setFileName("");
     refreshButtonEnableState();

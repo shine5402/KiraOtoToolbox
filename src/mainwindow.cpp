@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
         auto groupBoxLayout = new QVBoxLayout(groupBox);
         auto tools = toolGroups.values(group);
         std::reverse(tools.begin(), tools.end());
-        for (auto tool : tools)
+        for (const auto& tool : tools)
         {
             auto button = new QPushButton(tool.getName(), this);
             buttonGroup->addButton(button, availableTools.indexOf(tool));
@@ -93,8 +93,7 @@ void MainWindow::showAboutQtDialog()
 #include "chain/chaintooloptionwidget.h"
 void MainWindow::on_debugButton_clicked()
 {
-    auto widget = new ChainToolOptionWidget;
-    widget->show();
+
 }
 
 #endif

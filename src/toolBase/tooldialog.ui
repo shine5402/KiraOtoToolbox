@@ -86,6 +86,9 @@
    </item>
    <item>
     <widget class="QStackedWidget" name="stackedSaveWidget">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -104,11 +107,7 @@
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
+        <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true"/>
        </item>
       </layout>
      </widget>

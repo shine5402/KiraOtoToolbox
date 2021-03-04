@@ -126,6 +126,7 @@ void ToolDialog::refreshOptionWidgetEnableState()
         ui->stackedSaveWidget->setEnabled(state);
     };
     if (isSingleMode()){
+        qDebug() << ui->otoLoadWidget->isEntryListReaded();
         setEnableState(ui->otoLoadWidget->isEntryListReaded());
     }
     else {

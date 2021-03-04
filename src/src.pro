@@ -62,11 +62,6 @@ SOURCES += \
     utils/models/otofilelistwithpreviousmodel.cpp \
     utils/models/otolistmodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
-    utils/preset/preset.cpp \
-    utils/preset/presetcontroller.cpp \
-    utils/preset/presetwidget.cpp \
-    utils/preset/stringlistpreset.cpp \
-    utils/preset/stringlistpresetcontroller.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
     utils/models/otofilelistmodel.cpp \
@@ -121,11 +116,6 @@ HEADERS += \
     utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
     utils/models/otolistshowvaluechangemodel.h \
-    utils/preset/preset.h \
-    utils/preset/presetcontroller.h \
-    utils/preset/presetwidget.h \
-    utils/preset/stringlistpreset.h \
-    utils/preset/stringlistpresetcontroller.h \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \
     utils/models/otofilelistmodel.h \
@@ -146,7 +136,6 @@ FORMS += \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \
-    utils/preset/presetwidget.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \
     utils/widgets/otofilemultipleloadwidget.ui \

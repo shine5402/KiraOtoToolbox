@@ -67,7 +67,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
 
 
     QVariantList dataContents;
-    QList<QFont> fonts;
+    QVector<QFont> fonts;
     auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
     for (int i = 0; i < meta.keyCount(); ++i) {
         auto currentFlag = static_cast<OtoEntry::OtoParameter>(meta.value(i));
@@ -134,7 +134,6 @@ OtoEntry::OtoParameters OtoListShowValueChangeModel::guessChangedParameters(cons
         if (paraChanged)
         {
             changedParameter |= OtoEntry::getParameterFlag(static_cast<OtoEntry::OtoParameterOrder>(para));
-            break;
         }
     }
     return changedParameter;

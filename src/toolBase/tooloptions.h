@@ -15,7 +15,7 @@ public:
     bool removeOption(const QString& key);
     QStringList getOptionKeys() const;
     ToolOptions(const ToolOptions& options);
-    void operator=(const ToolOptions& options);
+    const ToolOptions& operator=(const ToolOptions& options);
     bool operator==(const ToolOptions& rhs) const;
     bool operator!=(const ToolOptions& rhs) const;
     void combine(const ToolOptions& rhs, const QString& prefix = {});

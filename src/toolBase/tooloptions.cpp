@@ -30,10 +30,11 @@ ToolOptions::ToolOptions(const ToolOptions& options): QObject(options.parent())
     this->options = options.options;
 }
 
-void ToolOptions::operator=(const ToolOptions& options)
+const ToolOptions& ToolOptions::operator =(const ToolOptions& options)
 {
     if (options != *this)
         this->options = options.options;
+    return *this;
 }
 
 bool ToolOptions::operator==(const ToolOptions& rhs) const

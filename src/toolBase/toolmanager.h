@@ -28,13 +28,14 @@ public:
     bool operator!=(const Tool& rhs) const{
         return !(*this == rhs);
     }
-    void operator=(const Tool& rhs){
+    const Tool& operator=(const Tool& rhs){
         if (*this != rhs){
             modifyWorker = rhs.modifyWorker;
             dialogAdapter = rhs.dialogAdapter;
             name = rhs.name;
             optionWidget = rhs.optionWidget;
         }
+        return *this;
     }
 
     QPointer<OtoListModifyWorker> getModifyWorker() const{

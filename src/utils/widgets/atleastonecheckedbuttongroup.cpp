@@ -1,6 +1,7 @@
 #include "atleastonecheckedbuttongroup.h"
 #include <QButtonGroup>
 
+//FIXME: not use enabled
 
 AtLeastOneCheckedButtonGroup::AtLeastOneCheckedButtonGroup(QObject *parent) : QObject(parent)
 {

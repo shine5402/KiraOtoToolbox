@@ -55,7 +55,7 @@ void ToolOptions::combine(const ToolOptions& rhs, const QString& prefix)
 void ToolOptions::doCombine(ToolOptions& lhs, const ToolOptions& rhs, const QString& prefix)
 {
     for (auto i = rhs.options.begin(); i != rhs.options.end(); ++i){
-        lhs.options.insertMulti(prefix + i.key(), i.value());
+        lhs.options.insert(prefix + i.key(), i.value());
     }
 }
 

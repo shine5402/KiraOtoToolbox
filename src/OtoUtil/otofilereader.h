@@ -9,7 +9,7 @@
 #include <QFileInfo>
 
 using OtoEntryList = QList<OtoEntry>;
-class QTUTAULIBRARYS_EXPORT OtoFileReader
+class QKIRAUTAUUTILS_EXPORT OtoFileReader
 {
 public:
     OtoFileReader(QString m_fileName, QTextCodec* m_textCodec = QTextCodec::codecForName("Shift-JIS"), bool m_keepInvalid = false);

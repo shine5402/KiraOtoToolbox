@@ -1,9 +1,9 @@
 QT -= gui
 
 TEMPLATE = lib
-DEFINES += QTUTAULIBRARYS_LIBRARY
+DEFINES += QKIRAUTAUUTILS_LIBRARY
 
-TARGET = QtUTAULibrarys
+TARGET = QKiraUTAUUtils
 
 CONFIG += c++17
 
@@ -25,7 +25,7 @@ SOURCES += \
 HEADERS += \
     OtoUtil/otoentry.h \
     OtoUtil/otofilereader.h \
-    QtUTAULibrarys_global.h
+    QKiraUTAUUtils_global.h
 
 # Default rules for deployment.
 unix {

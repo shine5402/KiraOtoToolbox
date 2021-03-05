@@ -142,9 +142,6 @@
         </item>
         <item>
          <widget class="QCheckBox" name="pitchSuffixCheckBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
           <property name="text">
            <string>后缀</string>
           </property>

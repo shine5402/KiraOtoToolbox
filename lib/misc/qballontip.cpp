@@ -56,6 +56,7 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
 
 #if QT_CONFIG(pushbutton)
     QPushButton *closeButton = new QPushButton;
+    closeButton->setFlat(true);
     closeButton->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
     closeButton->setIconSize(QSize(closeButtonSize, closeButtonSize));
     closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);

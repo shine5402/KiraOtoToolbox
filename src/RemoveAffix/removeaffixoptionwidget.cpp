@@ -49,7 +49,7 @@ void RemoveAffixOptionWidget::setOptions(const ToolOptions& options)
 
     ui->ignorePitchSuffixCheckBox->setChecked(options.getOption("removePitchAffix").toBool());
     ui->pitchPrefixCheckBox->setChecked(options.getOption("removePitchPrefix").toBool());
-    ui->pitchSuffixCheckBox->setChecked(options.getOption("removePitchSuffix").toBool());
+    ui->pitchSuffixCheckBox->setChecked(options.getOption("removePitchSuffix", true).toBool());
 
     auto bottomPitch = options.getOption("bottomPitch", "C1").toString();
     auto topPitch = options.getOption("topPitch", "C7").toString();

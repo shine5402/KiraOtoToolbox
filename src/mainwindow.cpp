@@ -90,10 +90,11 @@ void MainWindow::showAboutQtDialog()
 }
 
 #ifndef NDEBUG
-#include "chain/chaintooloptionwidget.h"
+#include "../lib/misc/qballontip.h"
+#include <QStyle>
 void MainWindow::on_debugButton_clicked()
 {
-
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxInformation), "测试", "测试", ui->debugButton, {}, 500);
 }
 
 #endif

@@ -21,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
+    ../lib/misc/qballontip.cpp \
     chain/chaindialogadapter.cpp \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
@@ -76,6 +77,7 @@ SOURCES += \
 
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
+    ../lib/misc/qballontip.h \
     chain/chaindialogadapter.h \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \

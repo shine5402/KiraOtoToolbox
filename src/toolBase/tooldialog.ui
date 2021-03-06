@@ -79,7 +79,7 @@
      </property>
      <layout class="QVBoxLayout" name="optionLayout">
       <item>
-       <widget class="EmptyToolOptionWidget" name="optionWidget" native="true"/>
+       <widget class="ToolOptionWidget" name="optionWidget" native="true"/>
       </item>
      </layout>
     </widget>
@@ -172,12 +172,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>EmptyToolOptionWidget</class>
-   <extends>QWidget</extends>
-   <header>toolBase/tooloptionwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>OtoFileMultipleLoadWidget</class>
    <extends>QWidget</extends>
    <header>utils/widgets/otofilemultipleloadwidget.h</header>
@@ -187,6 +181,12 @@
    <class>OtoFileMultipleSaveWidget</class>
    <extends>QWidget</extends>
    <header>utils/widgets/otofilemultiplesavewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ToolOptionWidget</class>
+   <extends>QWidget</extends>
+   <header>toolBase/tooloptionwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

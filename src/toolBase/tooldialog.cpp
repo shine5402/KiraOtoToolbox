@@ -32,7 +32,7 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
 void ToolDialog::reAssignUIWidgets()
 {
     //Use last() to choose the newest widgets.
-    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<EmptyToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
     Q_ASSERT(ui->optionWidget);
     ui->otoSaveWidget = ui->rootLayout->parentWidget()
             ->findChild<QWidget*>("stackedSaveWidget")->
@@ -128,7 +128,6 @@ void ToolDialog::refreshOptionWidgetEnableState()
         ui->stackedSaveWidget->setEnabled(state);
     };
     if (isSingleMode()){
-        qDebug() << ui->otoLoadWidget->isEntryListReaded();
         setEnableState(ui->otoLoadWidget->isEntryListReaded());
     }
     else {

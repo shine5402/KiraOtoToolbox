@@ -70,18 +70,18 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
     QVector<QFont> fonts;
     auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
     for (int i = 0; i < meta.keyCount(); ++i) {
+        auto changeDoubleShowPrecision = [&](QVariant parameter) -> QVariant{
+            if (parameter.type() == QVariant::Double)
+            {
+                return QString::number(parameter.toDouble(),'f', precision);
+            }
+            return parameter;
+        };
         auto currentFlag = static_cast<OtoEntry::OtoParameter>(meta.value(i));
-        dataContents.append(oldOto.getParameter(currentFlag));
+        dataContents.append(changeDoubleShowPrecision(oldOto.getParameter(currentFlag)));
         fonts.append(QFont{});
         if (changedParameters.testFlag(currentFlag)){
-            dataContents.append([&]() -> QVariant{
-                                    auto parameter = newOto.getParameter(currentFlag);
-                                    if (parameter.type() == QVariant::Double)
-                                    {
-                                        return QString::number(parameter.toDouble(),'f', precision);
-                                    }
-                                    return parameter;
-                                }());
+            dataContents.append(changeDoubleShowPrecision(newOto.getParameter(currentFlag)));
             if ([&]() -> bool {
                     auto doubleEqual = [] (double lhs, double rhs, int precision) -> bool
             {

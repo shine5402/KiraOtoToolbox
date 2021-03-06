@@ -11,13 +11,8 @@ class ToolOptionWidget : public QWidget
 public:
     Q_INVOKABLE explicit ToolOptionWidget(QWidget *parent = nullptr);
 
-    virtual OptionContainer getOptions() const{
-        Q_UNREACHABLE();
-    };
-    virtual void setOptions(const OptionContainer& options){
-        Q_UNUSED(options)
-        Q_UNREACHABLE();
-    };
+    virtual OptionContainer getOptions() const;
+    virtual void setOptions(const OptionContainer& options);
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget

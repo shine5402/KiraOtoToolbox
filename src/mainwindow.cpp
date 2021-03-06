@@ -11,6 +11,8 @@
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QGroupBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
     connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
+    connect(ui->actionDonate, &QAction::triggered, this, &MainWindow::showDonationPage);
+    connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
 
     auto buttonGroup = new QButtonGroup(this);
 
@@ -87,6 +91,16 @@ void MainWindow::showAboutDialog()
 void MainWindow::showAboutQtDialog()
 {
     QMessageBox::aboutQt(this, tr("关于 Qt"));
+}
+
+void MainWindow::showDonationPage()
+{
+    QDesktopServices::openUrl(QUrl{"https://afdian.net/@shine5402"});
+}
+
+void MainWindow::showUpdatePage()
+{
+    QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/releases"});
 }
 
 #ifndef NDEBUG

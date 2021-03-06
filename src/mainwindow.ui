@@ -70,7 +70,10 @@
      <string>帮助(&amp;H)</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionUpdate"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="separator"/>
+    <addaction name="actionDonate"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Help"/>
@@ -88,6 +91,16 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>关于 Qt</string>
+   </property>
+  </action>
+  <action name="actionDonate">
+   <property name="text">
+    <string>捐赠(&amp;D)</string>
+   </property>
+  </action>
+  <action name="actionUpdate">
+   <property name="text">
+    <string>获得更新(&amp;U)</string>
    </property>
   </action>
  </widget>

@@ -5,7 +5,7 @@ OrgnaizeDuplicateOtoListModifyWorker::OrgnaizeDuplicateOtoListModifyWorker(QObje
 
 }
 
-bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     //整理重复项
     Q_UNUSED(secondSaveOtoList)
@@ -28,7 +28,7 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
 
     for (int i = 0; i < compareStringList.count(); ++i)
     {
-        compareStringMap.insertMulti(compareStringList.at(i), i);
+        compareStringMap.insert(compareStringList.at(i), i);
     }
         QHash <int, QString> newAlias;
         for (auto key : compareStringMap.uniqueKeys())

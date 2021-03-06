@@ -18,9 +18,9 @@ RemoveAffixOptionWidget::~RemoveAffixOptionWidget()
     delete ui;
 }
 
-ToolOptions RemoveAffixOptionWidget::getOptions() const
+OptionContainer RemoveAffixOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("removePrefix", ui->specificPrefixCheckBox->isChecked());
     options.setOption("prefixList", ui->prefixListWidget->getData());
 
@@ -34,12 +34,12 @@ ToolOptions RemoveAffixOptionWidget::getOptions() const
     options.setOption("bottomPitch", QString("%1%2").arg(ui->bottomPitchComboBox->currentText()).arg(ui->bottomPitchSpinBox->value()));
     options.setOption("topPitch", QString("%1%2").arg(ui->topPitchComboBox->currentText()).arg(ui->topPitchSpinBox->value()));
     options.setOption("pitchCaseSensitive",ui->pitchCaseSensitiveCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-    options.setOption("pitchCase", static_cast<int>(ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower));
+    options.setOption("pitchCase", ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
 
     return options;
 }
 
-void RemoveAffixOptionWidget::setOptions(const ToolOptions& options)
+void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->specificPrefixCheckBox->setChecked(options.getOption("removePrefix").toBool());
     ui->prefixListWidget->setData(options.getOption("prefixList").toStringList());
@@ -49,7 +49,7 @@ void RemoveAffixOptionWidget::setOptions(const ToolOptions& options)
 
     ui->ignorePitchSuffixCheckBox->setChecked(options.getOption("removePitchAffix").toBool());
     ui->pitchPrefixCheckBox->setChecked(options.getOption("removePitchPrefix").toBool());
-    ui->pitchSuffixCheckBox->setChecked(options.getOption("removePitchSuffix").toBool());
+    ui->pitchSuffixCheckBox->setChecked(options.getOption("removePitchSuffix", true).toBool());
 
     auto bottomPitch = options.getOption("bottomPitch", "C1").toString();
     auto topPitch = options.getOption("topPitch", "C7").toString();

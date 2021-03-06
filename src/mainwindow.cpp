@@ -11,6 +11,8 @@
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QGroupBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
     connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
+    connect(ui->actionDonate, &QAction::triggered, this, &MainWindow::showDonationPage);
+    connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
 
     auto buttonGroup = new QButtonGroup(this);
 
@@ -36,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
         auto groupBoxLayout = new QVBoxLayout(groupBox);
         auto tools = toolGroups.values(group);
         std::reverse(tools.begin(), tools.end());
-        for (auto tool : tools)
+        for (const auto& tool : tools)
         {
             auto button = new QPushButton(tool.getName(), this);
             buttonGroup->addButton(button, availableTools.indexOf(tool));
@@ -78,7 +82,7 @@ void MainWindow::showAboutDialog()
                                                 <h3>本程序使用的开源软件库</h3>
                                                 <ul>
                                                 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
-                                                <li>Qt UTAU Librarys, shine_5402, under LGPL v3</li>
+                                                <li>QKiraUTAUUtils, shine_5402, under LGPL v3</li>
                                                 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
                                                 </ul>
                                                 )").arg(qApp->applicationVersion()));
@@ -89,12 +93,24 @@ void MainWindow::showAboutQtDialog()
     QMessageBox::aboutQt(this, tr("关于 Qt"));
 }
 
+void MainWindow::showDonationPage()
+{
+    QDesktopServices::openUrl(QUrl{"https://afdian.net/@shine5402"});
+}
+
+void MainWindow::showUpdatePage()
+{
+    QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/releases"});
+}
+
 #ifndef NDEBUG
-#include "chain/chaintooloptionwidget.h"
+#include "../lib/misc/qballontip.h"
+#include <QStyle>
 void MainWindow::on_debugButton_clicked()
 {
-    auto widget = new ChainToolOptionWidget;
-    widget->show();
+
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxInformation),
+    "测试", "测试", ui->debugButton, {}, 500);
 }
 
 #endif

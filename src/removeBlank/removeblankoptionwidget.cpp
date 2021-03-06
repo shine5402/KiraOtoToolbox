@@ -16,14 +16,14 @@ RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget* parent) : ToolOptionWi
     layout->addStretch();
 }
 
-ToolOptions RemoveBlankOptionWidget::getOptions() const
+OptionContainer RemoveBlankOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("ignoreRight", ignoreRightCheckBox->isChecked());
     return options;
 }
 
-void RemoveBlankOptionWidget::setOptions(const ToolOptions& options)
+void RemoveBlankOptionWidget::setOptions(const OptionContainer& options)
 {
     ignoreRightCheckBox->setChecked(options.getOption("ignoreRight").toBool());
 }

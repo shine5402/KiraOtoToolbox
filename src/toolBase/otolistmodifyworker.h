@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <otoentry.h>
-#include "tooloptions.h"
+#include "optioncontainer.h"
 
 class OtoListModifyWorker : public QObject
 {
@@ -11,7 +11,7 @@ class OtoListModifyWorker : public QObject
 public:
     Q_INVOKABLE explicit OtoListModifyWorker(QObject *parent = nullptr);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions& options);
+                               const OptionContainer& options);
 };
 
 #endif // OTOPROCESSOR_H

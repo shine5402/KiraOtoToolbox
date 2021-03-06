@@ -18,7 +18,9 @@ public:
     Q_INVOKABLE explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void replaceUIWidgets(QLayout* rootLayout);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions& options, QWidget* dialogParent);
+                               const OptionContainer& options, QWidget* dialogParent);
+    virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
+                        const OptionContainer& options);
     virtual QString getToolName() const;
 
 protected:
@@ -28,16 +30,11 @@ protected:
     void setWorker(OtoListModifyWorker* value);
     void setOptionWidget(ToolOptionWidget* value);
 
-    enum ChangeAskDialogType{
-        ValueChangeModel, Diff
-    };
 
-    static bool askUserForApplyChanges(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, ChangeAskDialogType changeType,
-                                       const QString& title, const QString& label, QWidget* dialogParent);
-    static bool askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
-private:
-    void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent = nullptr);
-    QPointer<OtoListModifyWorker> worker = nullptr;
+
+
+    private:
+        QPointer<OtoListModifyWorker> worker = nullptr;
     QPointer<ToolOptionWidget> optionWidget = nullptr;
 signals:
 

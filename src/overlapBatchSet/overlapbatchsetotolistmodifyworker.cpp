@@ -5,7 +5,7 @@ OverlapBatchSetOtoListModifyWorker::OverlapBatchSetOtoListModifyWorker(QObject* 
 
 }
 
-bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;

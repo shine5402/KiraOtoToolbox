@@ -45,6 +45,18 @@ bool OtoFileLoadWidget::isEntryListReaded() const
     return entryListReaded;
 }
 
+void OtoFileLoadWidget::reset()
+{
+    setFileName("");
+    entryList.clear();
+    entryListReaded = false;
+
+    ui->showOtoListButton->setEnabled(false);
+    ui->countLabel->setText(tr("还未加载原音设定"));
+    ui->loadOtoWidget->setEnabled(true);
+    emit resetted();
+}
+
 void OtoFileLoadWidget::loadOtoFile()
 {
     auto path = ui->openFileNameEdit->fileName();
@@ -53,7 +65,7 @@ void OtoFileLoadWidget::loadOtoFile()
 #ifdef SHINE5402OTOBOX_TEST
         Q_ASSERT(false);
 #endif
-        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));\
+        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));
         return;
     }
 

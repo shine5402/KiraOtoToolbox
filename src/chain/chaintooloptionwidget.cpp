@@ -18,7 +18,7 @@ ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     connect(ui->removeButton, &QPushButton::clicked, this, &ChainToolOptionWidget::removeCurrentStep);
     connect(ui->moveUpButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveUpCurrentStep);
     connect(ui->moveDownButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveDownCurrentStep);
-    connect(ui->adjustSettingsButton, &QPushButton::clicked, this, &ChainToolOptionWidget::openStepSettings);
+    connect(ui->adjustSettingsButton, &QPushButton::clicked, this, qOverload<>(&ChainToolOptionWidget::openStepSettings));
 }
 
 ChainToolOptionWidget::~ChainToolOptionWidget()
@@ -26,14 +26,14 @@ ChainToolOptionWidget::~ChainToolOptionWidget()
     delete ui;
 }
 
-ToolOptions ChainToolOptionWidget::getOptions() const
+OptionContainer ChainToolOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("steps", QVariant::fromValue(stepsModel->getSteps()));
     return options;
 }
 
-void ChainToolOptionWidget::setOptions(const ToolOptions& options)
+void ChainToolOptionWidget::setOptions(const OptionContainer& options)
 {
     stepsModel->setSteps(options.getOption("steps").value<QVector<Tool>>());
 }
@@ -58,6 +58,7 @@ void ChainToolOptionWidget::addStep()
     if (dialog->exec() == QDialog::Accepted)
     {
         stepsModel->addStep(availableTools.at(dialog->currentRow()).makeNewInstance(this, this));
+        openStepSettings(stepsModel->stepCount() - 1);
     }
 }
 
@@ -76,34 +77,39 @@ void ChainToolOptionWidget::moveDownCurrentStep()
     stepsModel->moveDownStep(getCurrentRow());
 }
 
+void ChainToolOptionWidget::openStepSettings(int index)
+{
+    auto dialog = new QDialog(this);
+    dialog->setModal(true);
+    dialog->setWindowTitle(tr("调整“%1”（位于 第 %2 项）的设置")
+                           .arg(stepsModel->getStep(index).getName(),
+                                QString::number(index + 1)));
+
+    auto dialogLayout = new QVBoxLayout(dialog);
+
+    auto groupBox = new QGroupBox(tr("行为调整（设置会自动保存）"), dialog);
+
+    dialogLayout->addWidget(groupBox);
+    dialogLayout->setStretch(0, 1);//让GroupBox的权重变大
+
+    auto groupBoxLayout = new QVBoxLayout(groupBox);
+    groupBoxLayout->addWidget(stepsModel->getStep(index).getOptionWidget());
+    groupBox->setLayout(groupBoxLayout);
+
+    auto buttonBox = new QDialogButtonBox(dialog);
+    buttonBox->setStandardButtons(QDialogButtonBox::Ok);
+    connect(buttonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
+    dialogLayout->addWidget(buttonBox);
+
+    dialog->setLayout(dialogLayout);
+
+    dialog->open();
+}
+
 void ChainToolOptionWidget::openStepSettings()
 {
     if (getCurrentRow() >= 0 && getCurrentRow() < stepsModel->stepCount()){
-        auto dialog = new QDialog(this);
-        dialog->setModal(true);
-        dialog->setWindowTitle(tr("调整“%1”（位于 第 %2 项）的设置")
-                               .arg(stepsModel->getStep(getCurrentRow()).getName(),
-                                    QString::number(getCurrentRow() + 1)));
-
-        auto dialogLayout = new QVBoxLayout(dialog);
-
-        auto groupBox = new QGroupBox(tr("行为调整（设置会自动保存）"), dialog);
-
-        dialogLayout->addWidget(groupBox);
-        dialogLayout->setStretch(0, 1);//让GroupBox的权重变大
-
-        auto groupBoxLayout = new QVBoxLayout(groupBox);
-        groupBoxLayout->addWidget(stepsModel->getStep(getCurrentRow()).getOptionWidget());
-        groupBox->setLayout(groupBoxLayout);
-
-        auto buttonBox = new QDialogButtonBox(dialog);
-        buttonBox->setStandardButtons(QDialogButtonBox::Ok);
-        connect(buttonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
-        dialogLayout->addWidget(buttonBox);
-
-        dialog->setLayout(dialogLayout);
-
-        dialog->open();
+        openStepSettings(getCurrentRow());
     }
 }
 

@@ -46,9 +46,9 @@ OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
     delete ui;
 }
 
-ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
+OptionContainer OverlapBatchSetDialogOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
 
     options.setOption("ifSetOverlapStartWith", ui->setStartWithCheckBox->isChecked());
     options.setOption("overlapStartWith", ui->setStartWithSpinBox->value());
@@ -63,7 +63,7 @@ ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
     return options;
 }
 
-void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions& options)
+void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->setStartWithCheckBox->setChecked(options.getOption("ifSetOverlapStartWith").toBool());
     ui->setStartWithSpinBox->setValue(options.getOption("overlapStartWith").toDouble());
@@ -122,7 +122,7 @@ void OverlapBatchSetDialogOptionWidget::loadPreset()
 #endif
                             QMessageBox::warning(this,tr("有预设读取失败"),tr("预设值为空。出现问题的预设将无法使用。"));
                         }
-                        presetList.append({name, QString::fromUtf8(data).split("\n",QString::SplitBehavior::SkipEmptyParts)});
+                        presetList.append({name, QString::fromUtf8(data).split("\n",Qt::SkipEmptyParts)});
                     }
                     else
                     {
@@ -179,7 +179,7 @@ void OverlapBatchSetDialogOptionWidget::loadStartListFromFile()
         if (file.open(QFile::ReadOnly | QFile::Text))
         {
             auto data = file.readAll();
-            notPresetStartList = QString::fromUtf8(data).split("\n",QString::SkipEmptyParts);
+            notPresetStartList = QString::fromUtf8(data).split("\n",Qt::SkipEmptyParts);
             setWorkingStartList(&notPresetStartList);
             ui->setStartWithListView->setEnabled(true);
         }
@@ -204,7 +204,7 @@ void OverlapBatchSetDialogOptionWidget::getStartListFromUserInput()
     auto result = QInputDialog::getMultiLineText(this, tr("输入开头列表"),tr("请输入要被匹配的开头字符串的列表，一行一个。"),workingStartList->join("\n"),&ok);
     if (ok)
     {
-        notPresetStartList = result.split("\n",QString::SkipEmptyParts);
+        notPresetStartList = result.split("\n",Qt::SkipEmptyParts);
         setWorkingStartList(&notPresetStartList);
     }
 }

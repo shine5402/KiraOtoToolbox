@@ -6,7 +6,9 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.3.1
+VERSION = 0.4.0
+
+RC_ICONS = resources/icon/appIcon.ico
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -21,10 +23,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../lib/diff-match-patch/diff_match_patch.cpp \
+    ../lib/misc/qballontip.cpp \
     chain/chaindialogadapter.cpp \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    notdoanything/notdoanythingdialogadapter.cpp \
+    notdoanything/notdoanythingoptionwidget.cpp \
+    notdoanything/notdoanythingotolistmodifyworker.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
     registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
@@ -48,32 +54,42 @@ SOURCES += \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/toolmanager.cpp \
-    toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
+    utils/misc/misc.cpp \
+    utils/models/otofilelistwithpreviousmodel.cpp \
     utils/models/otolistmodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
     utils/widgets/atleastonecheckedbuttongroup.cpp \
     utils/widgets/filenameeditwithbrowse.cpp \
+    utils/models/otofilelistmodel.cpp \
     utils/widgets/otofileloadwidget.cpp \
+    utils/widgets/otofilemultipleloadwidget.cpp \
+    utils/widgets/otofilemultiplesavewidget.cpp \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
+    utils/widgets/otofilesavewidgetabstract.cpp \
     utils/widgets/stringlistmodifywidget.cpp
 
 
 HEADERS += \
     ../lib/diff-match-patch/diff_match_patch.h \
+    ../lib/misc/qballontip.h \
     chain/chaindialogadapter.h \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    notdoanything/notdoanythingdialogadapter.h \
+    notdoanything/notdoanythingoptionwidget.h \
+    notdoanything/notdoanythingotolistmodifyworker.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
     registerTools.h \
     removeAffix/removeaffixdialogadapter.h \
@@ -96,23 +112,29 @@ HEADERS += \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
+    toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/toolmanager.h \
-    toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/listviewdialog.h \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
+    utils/misc/misc.h \
+    utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
     utils/models/otolistshowvaluechangemodel.h \
     utils/widgets/atleastonecheckedbuttongroup.h \
     utils/widgets/filenameeditwithbrowse.h \
+    utils/models/otofilelistmodel.h \
     utils/widgets/otofileloadwidget.h \
+    utils/widgets/otofilemultipleloadwidget.h \
+    utils/widgets/otofilemultiplesavewidget.h \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
+    utils/widgets/otofilesavewidgetabstract.h \
     utils/widgets/stringlistmodifywidget.h
 
 
@@ -126,6 +148,8 @@ FORMS += \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \
+    utils/widgets/otofilemultipleloadwidget.ui \
+    utils/widgets/otofilemultiplesavewidget.ui \
     utils/widgets/otofilesavewidget.ui \
     utils/widgets/stringlistmodifywidget.ui
 
@@ -138,6 +162,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 include(include.pri)
 
 RESOURCES += \
-    presets/overlap_start_preset/overlap_start_preset.qrc
+    presets/overlap_start_preset/overlap_start_preset.qrc \
+    resources/icon/icon.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG

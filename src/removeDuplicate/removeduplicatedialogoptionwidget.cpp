@@ -13,20 +13,20 @@ RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
     delete ui;
 }
 
-ToolOptions RemoveDuplicateDialogOptionWidget::getOptions() const
+OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
 
     options.combine(ui->affixRemoveWidget->getOptions(), "affixRemove/");
     options.setOption("maxDuplicateCount", ui->maxSpinBox->value());
     options.setOption("shouldOrganize", ui->organizeCheckBox->isChecked());
     options.setOption("organizeStartFrom1", ui->organizeStartFrom1CheckBox->isChecked());
-    options.setOption("pitchCaseOrganized", static_cast<int>(ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower));
+    options.setOption("pitchCaseOrganized", ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
 
     return options;
 }
 
-void RemoveDuplicateDialogOptionWidget::setOptions(const ToolOptions& options)
+void RemoveDuplicateDialogOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->affixRemoveWidget->setOptions(options.extract("affixRemove"));
     ui->maxSpinBox->setValue(options.getOption("maxDuplicateCount").toInt());

@@ -7,6 +7,7 @@
 #include "removeBlank/removeblankdialogadapter.h"
 #include "removeBlank/removeblankotolistmodifyworker.h"
 #include "chain/chaindialogadapter.h"
+#include "notdoanything/notdoanythingdialogadapter.h"
 #include <QCoreApplication>
 
 void registerTools()
@@ -21,6 +22,7 @@ void registerTools()
     manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new AddAffixDialogAdapter);
 
     manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new ChainDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new NotDoAnythingDialogAdapter);
 }
 
 //TODO:合并oto.ini文件

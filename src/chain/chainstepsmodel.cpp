@@ -77,5 +77,7 @@ QVector<Tool> ChainStepsModel::getSteps() const
 
 void ChainStepsModel::setSteps(const QVector<Tool>& value)
 {
+    beginResetModel();
     steps = value;
+    endResetModel();
 }

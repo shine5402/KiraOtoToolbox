@@ -10,8 +10,8 @@ class RemoveBlankOptionWidget : public ToolOptionWidget
     Q_OBJECT
 public:
     Q_INVOKABLE RemoveBlankOptionWidget(QWidget* parent = nullptr);
-    ToolOptions getOptions() const override;
-    void setOptions(const ToolOptions &options) override;
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer &options) override;
 private:
     QCheckBox* ignoreRightCheckBox = nullptr;
 };

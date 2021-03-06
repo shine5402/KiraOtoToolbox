@@ -19,11 +19,16 @@ class FileNameEditWithBrowse : public QWidget
 public:
     enum Purpose{Open, Save};
     Q_ENUM(Purpose);
+
     explicit FileNameEditWithBrowse(QWidget *parent = nullptr);
     ~FileNameEditWithBrowse();
 
     QString fileName() const;
     void setFileName(const QString& value);
+
+    QStringList fileNames() const;
+    void setFileNames(const QStringList& value);
+
     Purpose getPurpose() const;
     void setPurpose(const Purpose& value);
     QString getCaption() const;
@@ -35,7 +40,6 @@ public:
     QString getFilter() const;
     void setFilter(const QString& value);
 
-
     QFileDialog::Options getOptions() const;
     void setOptions(const QFileDialog::Options& value);
 
@@ -44,9 +48,23 @@ public:
     QString* getSelectedFilter() const;
     void setSelectedFilter(QString* value);
 
+    bool isMultipleMode() const;
+    void setMultipleMode(bool multipleMode);
+
+    QString getMultipleModeSeparator() const;
+    void setMultipleModeSeparator(const QString& value);
+
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+
 private:
     Ui::FileNameEditWithBrowse *ui;
     Purpose purpose = Open;
+
+    bool m_multipleMode;
+    QString multipleModeSeparator = "||";
+
     void openFilePathBrowse();
     void saveFilePathBrowse();
 
@@ -56,9 +74,15 @@ private:
     QString* selectedFilter = nullptr;
     QFileDialog::Options options = QFileDialog::Options();
 
+    QString processFileName(const QString& fileName) const;
+
 private slots:
     void browse();
+
+signals:
+    void browseTriggered();
 };
+
 
 class FileNameEditWithOpenBrowse : public FileNameEditWithBrowse{
     Q_OBJECT

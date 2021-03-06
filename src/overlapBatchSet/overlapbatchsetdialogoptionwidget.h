@@ -18,8 +18,8 @@ public:
     Q_INVOKABLE explicit OverlapBatchSetDialogOptionWidget(QWidget *parent = nullptr);
     ~OverlapBatchSetDialogOptionWidget();
 
-    ToolOptions getOptions() const override;
-    void setOptions(const ToolOptions& options) override;
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer& options) override;
 
 private:
     Ui::OverlapBatchSetDialogOptionWidget *ui;

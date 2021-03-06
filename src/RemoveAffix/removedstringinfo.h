@@ -9,7 +9,7 @@ public:
     enum AffixType{Prefix, Suffix};
     RemovedStringInfo(AffixType type, int id, QString value);
     RemovedStringInfo(const RemovedStringInfo& rhs);
-    void operator=(const RemovedStringInfo& rhs);
+    const RemovedStringInfo& operator=(const RemovedStringInfo& rhs);
     bool operator==(const RemovedStringInfo& rhs) const;
     bool operator!=(const RemovedStringInfo& rhs) const;
 

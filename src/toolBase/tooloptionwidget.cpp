@@ -7,13 +7,13 @@ ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 
 }
 
-ToolOptions ToolOptionWidget::getOptions() const
+OptionContainer ToolOptionWidget::getOptions() const
 {
     Q_UNREACHABLE();
-    return ToolOptions{};
+    return OptionContainer{};
 }
 
-void ToolOptionWidget::setOptions(const ToolOptions& options)
+void ToolOptionWidget::setOptions(const OptionContainer& options)
 {
     Q_UNREACHABLE();
     Q_UNUSED(options)
@@ -28,4 +28,14 @@ EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget
     layout->addStretch(1);
     layout->addWidget(label);
     layout->addStretch(1);
+}
+
+OptionContainer EmptyToolOptionWidget::getOptions() const
+{
+    return OptionContainer{};
+}
+
+void EmptyToolOptionWidget::setOptions(const OptionContainer& options)
+{
+    Q_UNUSED(options)
 }

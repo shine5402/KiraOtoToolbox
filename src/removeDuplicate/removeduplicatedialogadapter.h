@@ -10,7 +10,7 @@ class RemoveDuplicateDialogAdapter : public ToolDialogAdapter
 public:
     Q_INVOKABLE explicit RemoveDuplicateDialogAdapter(QObject *parent = nullptr);
     void replaceUIWidgets(QLayout *rootLayout) override;
-    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const ToolOptions& options, QWidget *dialogParent) override;
+    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer& options, QWidget *dialogParent) override;
     QString getToolName() const override;
 };
 

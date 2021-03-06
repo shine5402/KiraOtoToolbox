@@ -9,10 +9,10 @@ namespace Ui {
     class RemoveDuplicateDialogOptionWidget;
 }
 
-class RemoveDuplicateOptions : public ToolOptions {
+class RemoveDuplicateOptions : public OptionContainer {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit RemoveDuplicateOptions(QObject* parent = nullptr) : ToolOptions(parent){};
+    Q_INVOKABLE explicit RemoveDuplicateOptions(QObject* parent = nullptr) : OptionContainer(parent){};
     bool ignoreSpecificSuffix = false;
     QStringList suffixList{};
     bool ignorePitchSuffix = false;
@@ -33,8 +33,8 @@ class RemoveDuplicateDialogOptionWidget : public ToolOptionWidget
 public:
     explicit RemoveDuplicateDialogOptionWidget(QWidget *parent = nullptr);
     ~RemoveDuplicateDialogOptionWidget();
-    ToolOptions getOptions() const override;
-    void setOptions(const ToolOptions& options) override;
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer& options) override;
 private:
     Ui::RemoveDuplicateDialogOptionWidget *ui;
 };

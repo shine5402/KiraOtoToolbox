@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file alias="delete">delete_outline_24px.svg</file>
+        <file alias="save">save_alt_24px.svg</file>
+        <file alias="content_copy">content_copy-24px.svg</file>
+        <file alias="rename">rename.svg</file>
+        <file alias="edit">edit.svg</file>
+        <file alias="undo">undo-24px.svg</file>
+        <file>appIcon.ico</file>
+    </qresource>
+</RCC>

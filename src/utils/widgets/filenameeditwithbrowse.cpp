@@ -1,6 +1,9 @@
 #include "filenameeditwithbrowse.h"
 #include "ui_filenameeditwithbrowse.h"
 #include <QFileDialog>
+#include <QDragEnterEvent>
+#include <QMimeData>
+#include <QDropEvent>
 
 FileNameEditWithBrowse::FileNameEditWithBrowse(QWidget *parent) :
     QWidget(parent),
@@ -9,6 +12,8 @@ FileNameEditWithBrowse::FileNameEditWithBrowse(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->browseButton, &QPushButton::clicked, this, &FileNameEditWithBrowse::browse);
+
+    setAcceptDrops(true);
 }
 
 FileNameEditWithBrowse::~FileNameEditWithBrowse()
@@ -16,19 +21,42 @@ FileNameEditWithBrowse::~FileNameEditWithBrowse()
     delete ui;
 }
 
-QString FileNameEditWithBrowse::fileName() const
+QString FileNameEditWithBrowse::processFileName(const QString& fileName) const
 {
-    auto fileName = ui->fileNameEdit->text();
     const bool isSurroundByDoubleQuotes = fileName.startsWith("\"") && fileName.endsWith("\"");
     const bool isSurroundBySingleQuotes = fileName.startsWith("'") && fileName.endsWith("'");
     if (isSurroundByDoubleQuotes || isSurroundBySingleQuotes)
-        fileName = fileName.mid(1, fileName.count() - 2);
+        return fileName.mid(1, fileName.count() - 2);
+    return fileName;
+}
+
+QString FileNameEditWithBrowse::fileName() const
+{
+    QString fileName;
+    if (!isMultipleMode())
+        fileName = ui->fileNameEdit->text();
+    else
+        fileName = ui->fileNameEdit->text().split(multipleModeSeparator, Qt::SkipEmptyParts).value(0);
+
+    fileName = processFileName(fileName);
     return fileName;
 }
 
 void FileNameEditWithBrowse::setFileName(const QString& value)
 {
     ui->fileNameEdit->setText(value);
+}
+
+QStringList FileNameEditWithBrowse::fileNames() const
+{
+    Q_ASSERT(isMultipleMode());
+
+    return ui->fileNameEdit->text().split(multipleModeSeparator, Qt::SkipEmptyParts);
+}
+
+void FileNameEditWithBrowse::setFileNames(const QStringList& value)
+{
+    ui->fileNameEdit->setText(value.join(multipleModeSeparator));
 }
 
 FileNameEditWithBrowse::Purpose FileNameEditWithBrowse::getPurpose() const
@@ -43,24 +71,38 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
+    if (!isMultipleMode()){
 #ifdef SHINE5402OTOBOX_TEST
-    auto path = QString(":/testOpen");
+    auto fileName = QString(":/testOpen");
 #else
-    auto path = QFileDialog::getOpenFileName(this,caption,dir,filter,selectedFilter,options);
+    auto fileName = QFileDialog::getOpenFileName(this, caption, dir, filter, selectedFilter, options);
 #endif
-    if (!path.isEmpty())
-        ui->fileNameEdit->setText(path);
+    if (!fileName.isEmpty())
+        ui->fileNameEdit->setText(fileName);
+        emit browseTriggered();
+    }
+    else
+    {
+        auto fileNames = QFileDialog::getOpenFileNames(this, caption, dir, filter, selectedFilter, options);
+        if (!fileNames.isEmpty()){
+            ui->fileNameEdit->setText(fileNames.join(multipleModeSeparator));
+            emit browseTriggered();
+        }
+    }
 }
 
 void FileNameEditWithBrowse::saveFilePathBrowse()
 {
+    Q_ASSERT(!isMultipleMode());
 #ifdef SHINE5402OTOBOX_TEST
-    auto path = QString(":/testSave");
+    auto fileName = QString(":/testSave");
 #else
-    auto path = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
+    auto fileName = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
 #endif
-    if (!path.isEmpty())
-        ui->fileNameEdit->setText(path);
+    if (!fileName.isEmpty()){
+        ui->fileNameEdit->setText(fileName);
+        emit browseTriggered();
+    }
 }
 
 QString* FileNameEditWithBrowse::getSelectedFilter() const
@@ -71,6 +113,54 @@ QString* FileNameEditWithBrowse::getSelectedFilter() const
 void FileNameEditWithBrowse::setSelectedFilter(QString* value)
 {
     selectedFilter = value;
+}
+
+void FileNameEditWithBrowse::dragEnterEvent(QDragEnterEvent* event)
+{
+    if (event->mimeData()->hasUrls()){
+        event->setDropAction(Qt::LinkAction);
+        event->accept();
+    }
+}
+
+void FileNameEditWithBrowse::dropEvent(QDropEvent* event)
+{
+    if (event->mimeData()->hasUrls()){
+        if (!isMultipleMode())
+            ui->fileNameEdit->setText(event->mimeData()->urls().value(0).toLocalFile());
+        else
+        {
+            auto urls = event->mimeData()->urls();
+            QStringList fileNames;
+            for (auto url : urls){
+                fileNames.append(url.toLocalFile());
+            }
+            ui->fileNameEdit->setText(fileNames.join(multipleModeSeparator));
+        }
+
+        event->setDropAction(Qt::LinkAction);
+        event->accept();
+    }
+}
+
+QString FileNameEditWithBrowse::getMultipleModeSeparator() const
+{
+    return multipleModeSeparator;
+}
+
+void FileNameEditWithBrowse::setMultipleModeSeparator(const QString& value)
+{
+    multipleModeSeparator = value;
+}
+
+bool FileNameEditWithBrowse::isMultipleMode() const
+{
+    return m_multipleMode;
+}
+
+void FileNameEditWithBrowse::setMultipleMode(bool multipleMode)
+{
+    m_multipleMode = multipleMode;
 }
 
 QFileDialog::Options FileNameEditWithBrowse::getOptions() const

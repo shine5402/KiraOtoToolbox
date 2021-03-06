@@ -23,8 +23,7 @@ public:
 private:
     QButtonGroup* groupInside;
 private slots:
-    void updateEnableState();
-
+    void checkCheckedState(QAbstractButton *button);
 signals:
     void buttonClicked(int id);
     void buttonClicked(QAbstractButton *button);

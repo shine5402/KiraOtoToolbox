@@ -22,6 +22,8 @@ private slots:
     void exit();
     void showAboutDialog();
     void showAboutQtDialog();
+    void showDonationPage();
+    void showUpdatePage();
 #ifndef NDEBUG
     void on_debugButton_clicked();
 #endif

@@ -5,7 +5,7 @@ RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject
 
 }
 
-bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;

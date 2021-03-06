@@ -22,21 +22,16 @@ private:
 
     // OtoFileSaveWidgetAbstract interface
 public:
-    bool isSaveToSrc() const;
-    bool isSaveToCustom() const;
-    QString fileName() const;
-    bool isSecondFileNameUsed() const;
-    QString secondFileName() const;
-    void setSaveToSrc();
-    void setSaveToCustom();
-    void setFileName(const QString& value);
-    void setSecondFileNameUsed(bool value);
-    void setSecondFileName(const QString& value);
     bool isSecondFileNameAvailable() const;
     void setSecondFileNameAvailable(bool value);
     void setSecondFileNameCheckBoxText(const QString& text);
     QString secondFileNameUsage() const;
     void setSecondFileNameUsage(const QString& value);
+
+    // OtoFileSaveWidgetAbstract interface
+public:
+    OptionContainer getOptions() const;
+    void setOptions(const OptionContainer& options);
 };
 
 #endif // OTOFILEMULTIPLESAVEWIDGET_H

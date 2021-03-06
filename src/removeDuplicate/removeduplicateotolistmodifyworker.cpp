@@ -5,7 +5,7 @@ RemoveDuplicateOtoListModifyWorker::RemoveDuplicateOtoListModifyWorker(QObject* 
 
 }
 
-bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     resultOtoList = srcOtoList;
     QStringList compareStringList;

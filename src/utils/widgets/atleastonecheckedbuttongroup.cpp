@@ -39,7 +39,8 @@ QList<QAbstractButton*> AtLeastOneCheckedButtonGroup::buttons() const
 QList<QAbstractButton*> AtLeastOneCheckedButtonGroup::checkedButtons() const
 {
     QList<QAbstractButton*> result;
-    for (auto b : buttons()){
+    const auto buttons_ = buttons();
+    for (auto b : buttons_){
         if (b->isChecked())
             result.append(b);
     }
@@ -64,8 +65,9 @@ int AtLeastOneCheckedButtonGroup::id(QAbstractButton* button) const
 void AtLeastOneCheckedButtonGroup::checkCheckedState(QAbstractButton* button)
 {
     if (checkedButtons().count() < 1){
-        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxWarning), tr("必须至少选择一项"), tr("您应当至少选择一项作为输入。"), button, QCursor::pos(), 3000);
-        button->toggle();
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxWarning),
+    tr("必须至少选择一项"), tr("您应当至少选择一项作为输入。"), button, QCursor::pos(), 3000);
+    button->toggle();
     }
 }
 

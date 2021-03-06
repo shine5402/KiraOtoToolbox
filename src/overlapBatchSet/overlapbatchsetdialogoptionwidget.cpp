@@ -46,9 +46,9 @@ OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
     delete ui;
 }
 
-ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
+OptionContainer OverlapBatchSetDialogOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
 
     options.setOption("ifSetOverlapStartWith", ui->setStartWithCheckBox->isChecked());
     options.setOption("overlapStartWith", ui->setStartWithSpinBox->value());
@@ -63,7 +63,7 @@ ToolOptions OverlapBatchSetDialogOptionWidget::getOptions() const
     return options;
 }
 
-void OverlapBatchSetDialogOptionWidget::setOptions(const ToolOptions& options)
+void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->setStartWithCheckBox->setChecked(options.getOption("ifSetOverlapStartWith").toBool());
     ui->setStartWithSpinBox->setValue(options.getOption("overlapStartWith").toDouble());

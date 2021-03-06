@@ -9,16 +9,16 @@ void OtoListShowValueChangeModel::construct(const OtoEntryList* const oldEntryLi
 }
 
 OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList,
-                                                         OtoEntry::OtoParameters changedParamters, QObject *parent)
+                                                         OtoEntry::OtoParameters changedParamters, int precision, QObject *parent)
     : QAbstractTableModel(parent),
       oldEntryList(oldEntryList), newEntryList(newEntryList),
-      changedParameters(changedParamters)
+      changedParameters(changedParamters), precision(precision)
 {
     construct(oldEntryList, newEntryList);
 }
 
-OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList, QObject* parent): QAbstractTableModel(parent),
-    oldEntryList(oldEntryList), newEntryList(newEntryList)
+OtoListShowValueChangeModel::OtoListShowValueChangeModel(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList, int precision, QObject* parent): QAbstractTableModel(parent),
+    oldEntryList(oldEntryList), newEntryList(newEntryList), precision(precision)
 {
     changedParameters = guessChangedParameters(*oldEntryList, *newEntryList);
     construct(oldEntryList, newEntryList);
@@ -78,21 +78,20 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
                                     auto parameter = newOto.getParameter(currentFlag);
                                     if (parameter.type() == QVariant::Double)
                                     {
-                                        return QString::number(parameter.toDouble(),'f',3);
+                                        return QString::number(parameter.toDouble(),'f', precision);
                                     }
                                     return parameter;
                                 }());
             if ([&]() -> bool {
-                    //因为工具箱假定和保存时oto.ini内是三位小数，此处比较的精度也要相应做修改。
-                    auto doubleEqual = [] (double lhs, double rhs) -> bool
+                    auto doubleEqual = [] (double lhs, double rhs, int precision) -> bool
             {
-                    return std::abs(lhs - rhs) < 1e-3;
+                    return std::abs(lhs - rhs) < (1 / precision * 10);
         };
                     auto oldParameter = oldOto.getParameter(currentFlag);
                     auto newParameter = newOto.getParameter(currentFlag);
                     if (oldParameter.type() == QVariant::Double && newParameter.type() == QVariant::Double)
             {
-                    return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble());
+                    return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble(), precision);
         }
                     return oldParameter != newParameter;
         }()){

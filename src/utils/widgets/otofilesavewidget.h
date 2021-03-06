@@ -20,18 +20,6 @@ public:
     explicit OtoFileSaveWidget(QWidget *parent = nullptr);
     ~OtoFileSaveWidget();
 
-    bool isSaveToSrc() const;
-    bool isSaveToCustom() const;
-    QString fileName() const;
-    bool isSecondFileNameUsed() const;
-    QString secondFileName() const;
-
-    void setSaveToSrc();
-    void setSaveToCustom();
-    void setFileName(const QString& value);
-    void setSecondFileNameUsed(bool value);
-    void setSecondFileName(const QString& value);
-
     bool isSecondFileNameAvailable() const;
     void setSecondFileNameAvailable(bool value);
     void setSecondFileNameCheckBoxText(const QString& text);
@@ -44,6 +32,11 @@ private:
     bool m_secondFileNameAvailable = false;
     void refreshSecondFileNameWidgetVisible();
     QString m_secondFileNameUsage{};
+
+    // OtoFileSaveWidgetAbstract interface
+public:
+    OptionContainer getOptions() const;
+    void setOptions(const OptionContainer& options);
 };
 
 class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget {
@@ -60,3 +53,5 @@ public:
     explicit OtoFileSaveWidgetWithSecondFileNameAsDeleted(QWidget *parent = nullptr);
 };
 #endif // OTOFILESAVEWIDGET_H
+
+//TODO: 要不也改成QVariant存储设置？

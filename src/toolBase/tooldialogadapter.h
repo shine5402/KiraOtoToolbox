@@ -18,9 +18,9 @@ public:
     Q_INVOKABLE explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void replaceUIWidgets(QLayout* rootLayout);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const ToolOptions& options, QWidget* dialogParent);
+                               const OptionContainer& options, QWidget* dialogParent);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                        const ToolOptions& options);
+                        const OptionContainer& options);
     virtual QString getToolName() const;
 
 protected:

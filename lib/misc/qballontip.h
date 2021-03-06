@@ -1,3 +1,9 @@
+//
+// This class is a part of the Qt private implementation, which I seperate it out for this project.
+// Modifications were applied for a more universal use case.
+// shine_5402
+//
+
 /****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
@@ -36,11 +42,6 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-
-//
-// This class is a part of the Qt private implementation, which I seperate it out for this project.
-// Modifications were applied for a more universal use case.
-//
 
 #include <QWidget>
 

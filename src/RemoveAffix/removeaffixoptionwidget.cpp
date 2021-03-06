@@ -18,9 +18,9 @@ RemoveAffixOptionWidget::~RemoveAffixOptionWidget()
     delete ui;
 }
 
-ToolOptions RemoveAffixOptionWidget::getOptions() const
+OptionContainer RemoveAffixOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("removePrefix", ui->specificPrefixCheckBox->isChecked());
     options.setOption("prefixList", ui->prefixListWidget->getData());
 
@@ -39,7 +39,7 @@ ToolOptions RemoveAffixOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveAffixOptionWidget::setOptions(const ToolOptions& options)
+void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->specificPrefixCheckBox->setChecked(options.getOption("removePrefix").toBool());
     ui->prefixListWidget->setData(options.getOption("prefixList").toStringList());

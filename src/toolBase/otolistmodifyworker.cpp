@@ -7,7 +7,7 @@ OtoListModifyWorker::OtoListModifyWorker(QObject *parent) : QObject(parent)
 
 }
 
-bool OtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool OtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(srcOtoList)
     Q_UNUSED(resultOtoList)

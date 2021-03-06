@@ -2,6 +2,7 @@
 #define OTOFILESAVEWIDGETABSTRACT_H
 
 #include <QWidget>
+#include "toolBase/optioncontainer.h"
 
 class OtoFileSaveWidgetAbstract : public QWidget
 {
@@ -9,17 +10,8 @@ class OtoFileSaveWidgetAbstract : public QWidget
 public:
     explicit OtoFileSaveWidgetAbstract(QWidget *parent = nullptr);
 
-    virtual bool isSaveToSrc() const = 0;
-    virtual bool isSaveToCustom() const = 0;
-    virtual QString fileName() const = 0;
-    virtual bool isSecondFileNameUsed() const = 0;
-    virtual QString secondFileName() const = 0;
-
-    virtual void setSaveToSrc() = 0;
-    virtual void setSaveToCustom() = 0;
-    virtual void setFileName(const QString& value) = 0;
-    virtual void setSecondFileNameUsed(bool value) = 0;
-    virtual void setSecondFileName(const QString& value) = 0;
+    virtual OptionContainer getOptions() const = 0;
+    virtual void setOptions(const OptionContainer &options) = 0;
 
     virtual bool isSecondFileNameAvailable() const = 0;
     virtual void setSecondFileNameAvailable(bool value) = 0;
@@ -27,9 +19,6 @@ public:
 
     virtual QString secondFileNameUsage() const = 0;
     virtual void setSecondFileNameUsage(const QString& value) = 0;
-
-signals:
-
 };
 
 #endif // OTOFILESAVEWIDGETABSTRACT_H

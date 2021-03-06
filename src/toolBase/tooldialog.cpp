@@ -63,10 +63,10 @@ void ToolDialog::ToolDialog::accept()
 
     bool success = false;
     if (isSingleMode()){
-        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), ui->otoSaveWidget, ui->optionWidget, this);
+        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), OptionContainer::combine(ui->optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
     }
     else {
-        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(), ui->otoMultipleSaveWidget, ui->optionWidget, this);
+        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(), OptionContainer::combine(ui->optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
     }
 
     if (success){
@@ -93,7 +93,7 @@ void ToolDialog::resetOto()
 
 void ToolDialog::resetOptions()
 {
-    ui->optionWidget->setOptions(ToolOptions{});
+    ui->optionWidget->setOptions(OptionContainer{});
 }
 
 void ToolDialog::buttonBoxClicked(QAbstractButton* button)
@@ -134,37 +134,48 @@ void ToolDialog::refreshOptionWidgetEnableState()
     }
 }
 
-bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent)
 {
     OtoEntryList entryListWorking{};
     OtoEntryList secondSaveList{};
-    auto options = optionWidget->getOptions();
 
-    auto result = adapter->doWork(srcList, entryListWorking, secondSaveList, options, dialogParent);
+    auto saveOptions = options.extract("save/");
+    auto& toolOptions = options;
+
+    auto result = adapter->doWork(srcList, entryListWorking, secondSaveList, toolOptions, dialogParent);
     if (result)
     {
-        if (saveWidget->isSecondFileNameAvailable() && saveWidget->isSecondFileNameUsed()){
-            result = saveOtoFileWithErrorInform(secondSaveList, saveWidget->secondFileName(), saveWidget->secondFileNameUsage(), dialogParent);
+        auto precision = saveOptions.getOption("precision").toInt();
+        auto isSecondFileNameAvailable = saveOptions.getOption("isSecondFileNameAvailable").toBool();
+        auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
+        if (isSecondFileNameAvailable && isSecondFileNameUsed){
+            auto secondFileName = saveOptions.getOption("secondFileName").toString();
+            auto secondFileNameUsage = saveOptions.getOption("secondFileNameUsage").toString();
+            result = saveOtoFileWithErrorInform(secondSaveList, precision, secondFileName, secondFileNameUsage, dialogParent);
             if (!result)
                 return false;
         }
-        result = saveOtoFileWithErrorInform(entryListWorking, saveWidget->isSaveToSrc() ? srcFileName : saveWidget->fileName(), tr("保存处理结果"), dialogParent);
+        auto isSaveToSrc = saveOptions.getOption("isSaveToSrc").toBool();
+        auto fileName = saveOptions.getOption("fileName").toString();
+        result = saveOtoFileWithErrorInform(entryListWorking, precision, isSaveToSrc ? srcFileName : fileName, tr("保存处理结果"), dialogParent);
     }
     return result;
 }
 
-bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OtoFileSaveWidgetAbstract* saveWidget, const ToolOptionWidget* optionWidget, QWidget* dialogParent)
+bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent)
 {
     Q_ASSERT(srcLists.count() == srcFileNames.count());
 
-    QList<OtoEntryList> results{};
+    auto saveOptions = options.extract("save/");
+    auto& toolOptions = options;
 
-    auto options = optionWidget->getOptions();
+    QList<OtoEntryList> results{};
 
     for (int i = 0; i < srcLists.count(); ++i){
         OtoEntryList entryListWorking{};
         OtoEntryList secondSaveList{};
-        if ((!adapter->doWork(srcLists.at(i), entryListWorking, secondSaveList, options)) && srcLists.count() > 1)
+
+        if ((!adapter->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions)) && srcLists.count() > 1)
         {
             QMessageBox::critical(dialogParent, tr("处理失败"), tr("文件 %1 （位于第 %2）没有成功被处理，于是进程终止。所有文件都没有被修改。").arg(srcFileNames.at(i)).arg(i + 1));
             return false;
@@ -195,11 +206,11 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
     connect(buttonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, dialog, &QDialog::reject);
     auto showDiffButton = buttonBox->addButton(tr("显示选中的文件的差异"), QDialogButtonBox::ActionRole);
-    connect(showDiffButton, &QPushButton::clicked, [&](){
+    connect(showDiffButton, &QPushButton::clicked, this, [contentView, results, srcLists, srcFileNames, dialogParent, saveOptions](){
         auto currentIndex = contentView->currentIndex().row();
         auto currentSrc = srcLists.at(currentIndex);
         auto currentResult = results.at(currentIndex);
-        Misc::showOtoDiffDialog(currentSrc, currentResult,
+        Misc::showOtoDiffDialog(currentSrc, currentResult, saveOptions.getOption("precision").toInt(),
                                 tr("%1 的差异（位于第 %2 项）").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
                                 tr("以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
                                 dialogParent,
@@ -210,7 +221,10 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
 
     if (dialog->exec()){
         for (int i = 0; i < srcLists.count(); ++i){
-            bool success = saveOtoFileWithErrorInform(results.at(i), saveWidget->isSaveToSrc() ? srcFileNames.at(i) : saveWidget->fileName(), tr("保存处理结果"), dialogParent);
+            auto decimalAccuracy = saveOptions.getOption("secondFileNameUsage").toInt();
+            auto isSaveToSrc = saveOptions.getOption("isSaveToSrc").toBool();
+            auto fileName = saveOptions.getOption("fileName").toString();
+            bool success = saveOtoFileWithErrorInform(results.at(i), decimalAccuracy, isSaveToSrc ? srcFileNames.at(i) : fileName, tr("保存处理结果"), dialogParent);
             if (!success){
                 QMessageBox::critical(dialogParent, tr("保存时出现错误"), tr("无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。").arg(srcFileNames.at(i)).arg(i + 1));
                 return false;
@@ -264,24 +278,24 @@ void ToolDialog::switchModePrivate(int pageIndex)
     refreshStackedWidgetSize(ui->stackedSaveWidget);
 }
 
-bool ToolDialog::saveOtoFileWithErrorInform(const OtoEntryList& entryList, const QString& fileName, const QString& usage, QWidget* dialogParent)
+bool ToolDialog::saveOtoFileWithErrorInform(const OtoEntryList& entryList, int decimalAccuracy, const QString& fileName, const QString& usage, QWidget* dialogParent)
 {
     QString errorString;
-    auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, nullptr, &errorString);
+    auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, decimalAccuracy, nullptr, &errorString);
     if (!result)
     {
 #ifdef SHINE5402OTOBOX_TEST
         Q_ASSERT(false);
 #endif
         QMessageBox::critical(dialogParent, tr("保存失败"), [&]() -> QString{
-                                  QString result;
-                                  QTextStream stream(&result);
-                                  stream << tr("在保存 %1 时发生错误。").arg(fileName);
-                                  if (!usage.isEmpty())
-                                  stream << tr("该文件的用途是 %1。").arg(usage);
-                                  stream << tr("遇到的错误是：%1").arg(errorString);
-                                  return result;
-                              }());
+            QString result;
+            QTextStream stream(&result);
+            stream << tr("在保存 %1 时发生错误。").arg(fileName);
+            if (!usage.isEmpty())
+                stream << tr("该文件的用途是 %1。").arg(usage);
+            stream << tr("遇到的错误是：%1").arg(errorString);
+            return result;
+        }());
     }
     return result;
 }

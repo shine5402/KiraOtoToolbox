@@ -20,7 +20,9 @@ void Misc::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidg
     }
 }
 
-bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, const QString& title, const QString& label, QWidget* dialogParent, Misc::ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
+bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
+                             const QString& title, const QString& label, QWidget* dialogParent,
+                             Misc::ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
 {
     auto dialog = [&]() -> QDialog* {
 
@@ -30,18 +32,18 @@ bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList&
 
             switch (changeType) {
             case (ValueChangeModel):{
-            auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, dialogParent);
+            auto model = new OtoListShowValueChangeModel(&srcOtoList, &resultOtoList, precision, dialogParent);
             return new TableViewDialog(dialogParent, model, title, label, stdButtons);
 }
             case (Diff):{
-            auto otoList2String = [](const OtoEntryList& list) -> QString{
+            auto otoList2String = [](const OtoEntryList& list, int precision) -> QString{
         QStringList stringList{};
-        for (auto i : list){
-            stringList.append(i.toString());
+        for (const auto& i : list){
+            stringList.append(i.toString(precision));
         }
         return stringList.join("\n");
     };
-            return new ShowDiffDialog(otoList2String(srcOtoList), otoList2String(resultOtoList), title, label, stdButtons, dialogParent);
+            return new ShowDiffDialog(otoList2String(srcOtoList, precision), otoList2String(resultOtoList, precision), title, label, stdButtons, dialogParent);
 }
             case (Determine): Q_UNREACHABLE();
 }

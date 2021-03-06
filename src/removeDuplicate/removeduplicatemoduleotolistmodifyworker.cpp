@@ -11,7 +11,7 @@ RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWork
 
 }
 
-bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList currentResult;

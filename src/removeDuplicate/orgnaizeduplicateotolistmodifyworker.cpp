@@ -5,7 +5,7 @@ OrgnaizeDuplicateOtoListModifyWorker::OrgnaizeDuplicateOtoListModifyWorker(QObje
 
 }
 
-bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     //整理重复项
     Q_UNUSED(secondSaveOtoList)

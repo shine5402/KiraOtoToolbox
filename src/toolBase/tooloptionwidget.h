@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QVariant>
-#include "tooloptions.h"
+#include "optioncontainer.h"
 
 class ToolOptionWidget : public QWidget
 {
@@ -11,8 +11,8 @@ class ToolOptionWidget : public QWidget
 public:
     Q_INVOKABLE explicit ToolOptionWidget(QWidget *parent = nullptr);
 
-    virtual ToolOptions getOptions() const;
-    virtual void setOptions(const ToolOptions& options);
+    virtual OptionContainer getOptions() const;
+    virtual void setOptions(const OptionContainer& options);
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget
@@ -22,5 +22,4 @@ public:
     explicit EmptyToolOptionWidget(QWidget* parent = nullptr);
 };
 
-//TODO:空OptionWidget
 #endif // TOOLOPTIONWIDGET_H

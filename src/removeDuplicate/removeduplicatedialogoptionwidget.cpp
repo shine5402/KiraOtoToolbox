@@ -13,9 +13,9 @@ RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
     delete ui;
 }
 
-ToolOptions RemoveDuplicateDialogOptionWidget::getOptions() const
+OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
 
     options.combine(ui->affixRemoveWidget->getOptions(), "affixRemove/");
     options.setOption("maxDuplicateCount", ui->maxSpinBox->value());
@@ -26,7 +26,7 @@ ToolOptions RemoveDuplicateDialogOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveDuplicateDialogOptionWidget::setOptions(const ToolOptions& options)
+void RemoveDuplicateDialogOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->affixRemoveWidget->setOptions(options.extract("affixRemove"));
     ui->maxSpinBox->setValue(options.getOption("maxDuplicateCount").toInt());

@@ -6,7 +6,7 @@ ChainOtoListModifyWorker::ChainOtoListModifyWorker(QObject* parent) : OtoListMod
 
 }
 
-bool ChainOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool ChainOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList& currentResult = resultOtoList;

@@ -19,23 +19,24 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
-    optionWidget->setOptions(ToolOptions{});
+    optionWidget->setOptions(OptionContainer{});
     optionWidget->setParent(rootLayout->parentWidget());
     replaceOptionWidget(rootLayout, optionWidget);
 }
 
-bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
+bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
+    auto precision = options.getOption("save/precision").toInt();
     if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
-        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList,
+        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
                                       tr("确认更改"),
                                       tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
                                       dialogParent);
     return false;
 }
 
-bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options)
+bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     return getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
@@ -72,7 +73,6 @@ void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidge
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {
     auto saveWidgetRootLayout = rootLayout->parentWidget()->findChild<QWidget *>("stackedSaveWidget")->findChild<QWidget *>("singleSave")->layout();
-    //auto children = rootLayout->children();
     Misc::replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
 }
 

@@ -11,15 +11,15 @@ AddAffixOptionWidget::AddAffixOptionWidget(QWidget *parent) : ToolOptionWidget(p
     setLayout(layout);
 }
 
-ToolOptions AddAffixOptionWidget::getOptions() const
+OptionContainer AddAffixOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("prefix", prefixEdit->text());
     options.setOption("suffix", suffixEdit->text());
     return options;
 }
 
-void AddAffixOptionWidget::setOptions(const ToolOptions& options)
+void AddAffixOptionWidget::setOptions(const OptionContainer& options)
 {
     prefixEdit->setText(options.getOption("prefix").toString());
     suffixEdit->setText(options.getOption("suffix").toString());

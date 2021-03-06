@@ -7,13 +7,13 @@ ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 
 }
 
-ToolOptions ToolOptionWidget::getOptions() const
+OptionContainer ToolOptionWidget::getOptions() const
 {
     Q_UNREACHABLE();
-    return ToolOptions{};
+    return OptionContainer{};
 }
 
-void ToolOptionWidget::setOptions(const ToolOptions& options)
+void ToolOptionWidget::setOptions(const OptionContainer& options)
 {
     Q_UNREACHABLE();
     Q_UNUSED(options)

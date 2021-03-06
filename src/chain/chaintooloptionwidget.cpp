@@ -26,14 +26,14 @@ ChainToolOptionWidget::~ChainToolOptionWidget()
     delete ui;
 }
 
-ToolOptions ChainToolOptionWidget::getOptions() const
+OptionContainer ChainToolOptionWidget::getOptions() const
 {
-    ToolOptions options;
+    OptionContainer options;
     options.setOption("steps", QVariant::fromValue(stepsModel->getSteps()));
     return options;
 }
 
-void ChainToolOptionWidget::setOptions(const ToolOptions& options)
+void ChainToolOptionWidget::setOptions(const OptionContainer& options)
 {
     stepsModel->setSteps(options.getOption("steps").value<QVector<Tool>>());
 }

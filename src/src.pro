@@ -49,11 +49,11 @@ SOURCES += \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/toolmanager.cpp \
-    toolBase/tooloptions.cpp \
     toolBase/tooloptionwidget.cpp \
     utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showdiffdialog.cpp \
@@ -104,11 +104,11 @@ HEADERS += \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
+    toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/toolmanager.h \
-    toolBase/tooloptions.h \
     toolBase/tooloptionwidget.h \
     utils/dialogs/listviewdialog.h \
     utils/dialogs/showdiffdialog.h \

@@ -18,8 +18,8 @@ class ChainToolOptionWidget : public ToolOptionWidget
 public:
     Q_INVOKABLE explicit ChainToolOptionWidget(QWidget *parent = nullptr);
     ~ChainToolOptionWidget();
-    ToolOptions getOptions() const override;
-    void setOptions(const ToolOptions &options) override;
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer &options) override;
 
 private:
     Ui::ChainToolOptionWidget *ui;

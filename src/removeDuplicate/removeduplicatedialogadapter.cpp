@@ -24,13 +24,14 @@ void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
 
-bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const ToolOptions& options, QWidget* dialogParent)
+bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
+    auto precision = options.getOption("save/precision").toInt();
     if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
     {
         auto specificWorker = static_cast<RemoveDuplicateModuleOtoListModifyWorker*>(getWorker());
         if ((!specificWorker->getOrganizeResult().isEmpty()) &&
-                (!Misc::showOtoDiffDialog(srcOtoList, specificWorker->getOrganizeResult(), tr("重复项整理结果"),
+                (!Misc::showOtoDiffDialog(srcOtoList, specificWorker->getOrganizeResult(), precision, tr("重复项整理结果"),
                                          tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
                                          dialogParent,
                                          Misc::ValueChangeModel)))
@@ -39,7 +40,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
                                                                      tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(secondSaveOtoList.count()),
                                                                      dialogParent)))
             return false;
-        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList,
+        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
                                       tr("确认更改"),
                                       tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
                                       dialogParent,

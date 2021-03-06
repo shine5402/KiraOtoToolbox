@@ -7,19 +7,6 @@ ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 
 }
 
-OptionContainer ToolOptionWidget::getOptions() const
-{
-    Q_UNREACHABLE();
-    return OptionContainer{};
-}
-
-void ToolOptionWidget::setOptions(const OptionContainer& options)
-{
-    Q_UNREACHABLE();
-    Q_UNUSED(options)
-    return;
-}
-
 EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);

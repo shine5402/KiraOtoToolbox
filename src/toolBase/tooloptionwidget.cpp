@@ -16,3 +16,13 @@ EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget
     layout->addWidget(label);
     layout->addStretch(1);
 }
+
+OptionContainer EmptyToolOptionWidget::getOptions() const
+{
+    return OptionContainer{};
+}
+
+void EmptyToolOptionWidget::setOptions(const OptionContainer& options)
+{
+    Q_UNUSED(options)
+}

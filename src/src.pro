@@ -26,6 +26,9 @@ SOURCES += \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    notdoanything/notdoanythingdialogadapter.cpp \
+    notdoanything/notdoanythingoptionwidget.cpp \
+    notdoanything/notdoanythingotolistmodifyworker.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
     registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
@@ -82,6 +85,9 @@ HEADERS += \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    notdoanything/notdoanythingdialogadapter.h \
+    notdoanything/notdoanythingoptionwidget.h \
+    notdoanything/notdoanythingotolistmodifyworker.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
     registerTools.h \
     removeAffix/removeaffixdialogadapter.h \

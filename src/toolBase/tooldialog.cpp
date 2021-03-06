@@ -63,6 +63,8 @@ void ToolDialog::ToolDialog::accept()
 
     bool success = false;
     if (isSingleMode()){
+        qDebug() << ui->optionWidget;
+        qDebug() << ui->otoSaveWidget;
         success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), OptionContainer::combine(ui->optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
     }
     else {

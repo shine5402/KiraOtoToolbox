@@ -11,8 +11,13 @@ class ToolOptionWidget : public QWidget
 public:
     Q_INVOKABLE explicit ToolOptionWidget(QWidget *parent = nullptr);
 
-    virtual OptionContainer getOptions() const = 0;
-    virtual void setOptions(const OptionContainer& options) = 0;
+    virtual OptionContainer getOptions() const{
+        Q_UNREACHABLE();
+    };
+    virtual void setOptions(const OptionContainer& options){
+        Q_UNUSED(options)
+        Q_UNREACHABLE();
+    };
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget
@@ -20,6 +25,11 @@ class EmptyToolOptionWidget : public ToolOptionWidget
     Q_OBJECT
 public:
     explicit EmptyToolOptionWidget(QWidget* parent = nullptr);
+
+    // ToolOptionWidget interface
+public:
+    OptionContainer getOptions() const;
+    void setOptions(const OptionContainer& options);
 };
 
 #endif // TOOLOPTIONWIDGET_H

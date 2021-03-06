@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QTextCodec>
 
+constexpr int OTOENTRY_DEFAULT_PRECISION = 3;
+
 /// OtoEntry 定义了一条原音设定条目。
 class QKIRAUTAUUTILS_EXPORT OtoEntry : public QObject
 {
@@ -110,7 +112,7 @@ public:
     OtoEntryError error() const;
     QString errorString() const;
 
-    QString toString() const;
+    QString toString(int precision = OTOENTRY_DEFAULT_PRECISION) const;
 
     Q_INVOKABLE bool isValid() const{
         return m_valid;
@@ -163,7 +165,7 @@ namespace OtoEntryFunctions {
     ///@deprecated
     QKIRAUTAUUTILS_EXPORT int  writeOtoListToFile [[deprecated]] (QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
 
-    QKIRAUTAUUTILS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
+    QKIRAUTAUUTILS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision = OTOENTRY_DEFAULT_PRECISION, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
                                                   bool directWriteFallback = true);
 }
 

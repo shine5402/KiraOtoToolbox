@@ -105,15 +105,15 @@ OtoEntry& OtoEntry::operator=(const OtoEntry& rhs)
     return *this;
 }
 
-QString OtoEntry::toString() const
+QString OtoEntry::toString(int precision) const
 {
     return QString("%1=%2,%3,%4,%5,%6,%7")
             .arg(m_fileName, m_alias)
-            .arg(m_left,0,'f',3)
-            .arg(m_consonant,0,'f',3)
-            .arg(m_right,0,'f',3)
-            .arg(m_preUtterance,0,'f',3)
-            .arg(m_overlap,0,'f',3);
+            .arg(m_left,0,'f',precision)
+            .arg(m_consonant,0,'f',precision)
+            .arg(m_right,0,'f',precision)
+            .arg(m_preUtterance,0,'f',precision)
+            .arg(m_overlap,0,'f',precision);
 }
 
 bool OtoEntry::operator==(const OtoEntry& rhs) const
@@ -455,7 +455,7 @@ QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position)
 
 int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec){
     QStringList otoStringList;
-    for (auto i : entryList)
+    for (const auto& i : entryList)
     {
         otoStringList.append(i.toString());
     }
@@ -463,16 +463,16 @@ int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entry
 }
 
 
-bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, QFileDevice::FileError* error, QString* errorString , QTextCodec* textCodec,
+bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision, QFileDevice::FileError* error, QString* errorString , QTextCodec* textCodec,
                                            bool directWriteFallback){
     QSaveFile file(fileName);
     file.setDirectWriteFallback(directWriteFallback);
     bool successed = false;
     if (file.open(QFile::Text | QFile::WriteOnly)){
         QStringList otoStringList;
-        for (auto i : entryList)
+        for (const auto &i : entryList)
         {
-            otoStringList.append(i.toString());
+            otoStringList.append(i.toString(precision));
         }
         file.write(textCodec->makeEncoder()->fromUnicode(otoStringList.join("\n")));
         successed = file.commit();

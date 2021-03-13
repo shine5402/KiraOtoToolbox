@@ -55,7 +55,7 @@ bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList&
     return dialog->exec();
 }
 
-bool Misc::askUserForSecondSave(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
+bool Misc::askUserWithShowOtoList(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
 {
     auto dialog = new ShowOtoListDialog(&secondSaveData, dialogParent);
     dialog->setLabel(label);

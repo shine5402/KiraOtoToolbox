@@ -36,7 +36,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
                                          dialogParent,
                                          Misc::ValueChangeModel)))
             return false;
-        if ((!secondSaveOtoList.isEmpty()) && (!Misc::askUserForSecondSave(secondSaveOtoList, tr("要被删除的原音设定条目列表"),
+        if ((!secondSaveOtoList.isEmpty()) && (!Misc::askUserWithShowOtoList(secondSaveOtoList, tr("要被删除的原音设定条目列表"),
                                                                      tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(secondSaveOtoList.count()),
                                                                      dialogParent)))
             return false;

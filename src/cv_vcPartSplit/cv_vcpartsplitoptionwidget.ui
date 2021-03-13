@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CV_VCPartSplitOptionWidget</class>
+ <widget class="QWidget" name="CV_VCPartSplitOptionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>803</width>
+    <height>405</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="seeBeginPatternAsCVCheckBox">
+         <property name="text">
+          <string>将以下字符串开头的条目视为CV部</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="StringListModifyWidget" name="seeBeginPatternAsCVContentWidget" native="true"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="seeEndPatternAsCVCheckBox">
+         <property name="text">
+          <string>将以下字符串结尾的条目视为CV部</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="StringListModifyWidget" name="seeEndPatternAsCVContentWidget" native="true"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;别名为空的项会被视为CV部。&lt;/p&gt;&lt;p&gt;如果选中保存选项中的“分离VC部到新文件”，CV部将会保存至一般路径所指向的位置；如果不选中的话，CV部和VC部将保存至同一文件，其中CV在上，VC在下。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>StringListModifyWidget</class>
+   <extends>QWidget</extends>
+   <header>utils/widgets/stringlistmodifywidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>seeBeginPatternAsCVCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>seeBeginPatternAsCVContentWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>171</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

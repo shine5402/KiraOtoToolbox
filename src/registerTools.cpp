@@ -8,6 +8,7 @@
 #include "removeBlank/removeblankotolistmodifyworker.h"
 #include "chain/chaindialogadapter.h"
 #include "notdoanything/notdoanythingdialogadapter.h"
+#include "cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h"
 #include <QCoreApplication>
 
 void registerTools()
@@ -20,6 +21,8 @@ void registerTools()
 
     manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new RemoveAffixDialogAdapter);
     manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new AddAffixDialogAdapter);
+
+    manager->registerTool(QCoreApplication::translate("GLOBAL", "筛选出需要的项"), new CV_VCPartSplitToolDialogAdapter);
 
     manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new ChainDialogAdapter);
     manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new NotDoAnythingDialogAdapter);

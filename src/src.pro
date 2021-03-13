@@ -28,6 +28,9 @@ SOURCES += \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    cv_vcPartDetach/cv_vcpartdetachoptionwidget.cpp \
+    cv_vcPartDetach/cv_vcpartdetachotolistmodifyworker.cpp \
+    cv_vcPartDetach/cv_vcpartdetachtooldialogadapter.cpp \
     notdoanything/notdoanythingdialogadapter.cpp \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
@@ -87,6 +90,9 @@ HEADERS += \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    cv_vcPartDetach/cv_vcpartdetachoptionwidget.h \
+    cv_vcPartDetach/cv_vcpartdetachotolistmodifyworker.h \
+    cv_vcPartDetach/cv_vcpartdetachtooldialogadapter.h \
     notdoanything/notdoanythingdialogadapter.h \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
@@ -141,6 +147,7 @@ HEADERS += \
 FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
+    cv_vcPartDetach/cv_vcpartdetachoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     toolBase/tooldialog.ui \

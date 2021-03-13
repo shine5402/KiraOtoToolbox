@@ -11,8 +11,8 @@ public:
 
     // ToolOptionWidget interface
 public:
-    OptionContainer getOptions() const;
-    void setOptions(const OptionContainer& options);
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer& options) override;
 };
 
 #endif // NOTDOANYTHINGOPTIONWIDGET_H

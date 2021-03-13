@@ -54,4 +54,3 @@ public:
 };
 #endif // OTOFILESAVEWIDGET_H
 
-//TODO: 要不也改成QVariant存储设置？

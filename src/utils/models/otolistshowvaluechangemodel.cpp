@@ -85,7 +85,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
             if ([&]() -> bool {
                     auto doubleEqual = [] (double lhs, double rhs, int precision) -> bool
             {
-                    return std::abs(lhs - rhs) < (1 / precision * 10);
+                    return std::abs(lhs - rhs) < (1 / (precision == 0 ? 1 : precision) * 10);
         };
                     auto oldParameter = oldOto.getParameter(currentFlag);
                     auto newParameter = newOto.getParameter(currentFlag);

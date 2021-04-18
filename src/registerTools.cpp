@@ -14,18 +14,18 @@
 void registerTools()
 {
     auto manager = ToolManager::getManager();
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "去除不需要的项"), new RemoveDuplicateDialogAdapter);
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "去除不需要的项"), new RemoveBlankDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "去除不需要的项"), new RemoveDuplicateDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "去除不需要的项"), new RemoveBlankDialogAdapter);
 
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "批量设置数值"), new OverlapBatchSetDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "批量设置数值"), new OverlapBatchSetDialogAdapter);
 
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new RemoveAffixDialogAdapter);
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "对别名进行操作"), new AddAffixDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "对别名进行操作"), new RemoveAffixDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "对别名进行操作"), new AddAffixDialogAdapter);
 
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "筛选出需要的项"), new CV_VCPartSplitToolDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "筛选出需要的项"), new CV_VCPartSplitToolDialogAdapter);
 
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new ChainDialogAdapter);
-    manager->registerTool(QCoreApplication::translate("GLOBAL", "元操作"), new NotDoAnythingDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "元操作"), new ChainDialogAdapter);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "元操作"), new NotDoAnythingDialogAdapter);
 }
 
 //TODO:合并oto.ini文件

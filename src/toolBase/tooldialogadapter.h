@@ -9,8 +9,6 @@
 #include "toolBase/otolistmodifyworker.h"
 #include <QPointer>
 
-//TODO:Test
-
 class ToolDialogAdapter : public QObject
 {
     Q_OBJECT

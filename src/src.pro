@@ -6,7 +6,7 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.4.0
+VERSION = 0.5.0
 
 RC_ICONS = resources/icon/appIcon.ico
 
@@ -22,12 +22,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../lib/diff-match-patch/diff_match_patch.cpp \
-    ../lib/misc/qballontip.cpp \
     chain/chaindialogadapter.cpp \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    cv_vcPartSplit/cv_vcpartsplitoptionwidget.cpp \
+    cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
+    cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
+    i18n/translation.cpp \
     notdoanything/notdoanythingdialogadapter.cpp \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
@@ -79,14 +81,15 @@ SOURCES += \
     utils/widgets/otofilesavewidgetabstract.cpp \
     utils/widgets/stringlistmodifywidget.cpp
 
-
 HEADERS += \
-    ../lib/diff-match-patch/diff_match_patch.h \
-    ../lib/misc/qballontip.h \
     chain/chaindialogadapter.h \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    cv_vcPartSplit/cv_vcpartsplitoptionwidget.h \
+    cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
+    cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
+    i18n/translation.h \
     notdoanything/notdoanythingdialogadapter.h \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
@@ -122,6 +125,7 @@ HEADERS += \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
+    utils/misc/fplusAdapter.h \
     utils/misc/misc.h \
     utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
@@ -141,6 +145,7 @@ HEADERS += \
 FORMS += \
     RemoveAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
+    cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     toolBase/tooldialog.ui \
@@ -153,16 +158,19 @@ FORMS += \
     utils/widgets/otofilesavewidget.ui \
     utils/widgets/stringlistmodifywidget.ui
 
+include(include.pri)
+include(lib.pri)
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-include(include.pri)
-
 RESOURCES += \
     presets/overlap_start_preset/overlap_start_preset.qrc \
     resources/icon/icon.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
+
+TRANSLATIONS += ../i18n/shine5402ototoolbox_en.ts

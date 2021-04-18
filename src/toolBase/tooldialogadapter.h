@@ -28,9 +28,6 @@ protected:
     void setWorker(OtoListModifyWorker* value);
     void setOptionWidget(ToolOptionWidget* value);
 
-
-
-
     private:
         QPointer<OtoListModifyWorker> worker = nullptr;
     QPointer<ToolOptionWidget> optionWidget = nullptr;

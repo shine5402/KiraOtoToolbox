@@ -4,8 +4,6 @@
 #include <QStyle>
 #include <QApplication>
 
-//FIXME: not use enabled
-
 AtLeastOneCheckedButtonGroup::AtLeastOneCheckedButtonGroup(QObject *parent) : QObject(parent)
 {
     groupInside = new QButtonGroup(this);

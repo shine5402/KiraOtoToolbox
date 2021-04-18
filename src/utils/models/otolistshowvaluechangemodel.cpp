@@ -1,6 +1,7 @@
 #include "otolistshowvaluechangemodel.h"
 #include <QMetaEnum>
 #include <QFont>
+#include <cmath>
 
 void OtoListShowValueChangeModel::construct(const OtoEntryList* const oldEntryList, const OtoEntryList* const newEntryList)
 {
@@ -85,7 +86,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
             if ([&]() -> bool {
                     auto doubleEqual = [] (double lhs, double rhs, int precision) -> bool
             {
-                    return std::abs(lhs - rhs) < (1 / precision * 10);
+                    return std::abs(lhs - rhs) < std::pow(10, -precision);
         };
                     auto oldParameter = oldOto.getParameter(currentFlag);
                     auto newParameter = newOto.getParameter(currentFlag);

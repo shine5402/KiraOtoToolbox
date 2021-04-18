@@ -29,6 +29,7 @@ SOURCES += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.cpp \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
+    i18n/translation.cpp \
     notdoanything/notdoanythingdialogadapter.cpp \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
@@ -88,6 +89,7 @@ HEADERS += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.h \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
+    i18n/translation.h \
     notdoanything/notdoanythingdialogadapter.h \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
@@ -170,3 +172,5 @@ RESOURCES += \
     resources/icon/icon.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
+
+TRANSLATIONS += ../i18n/shine5402ototoolbox_en.ts

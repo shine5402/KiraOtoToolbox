@@ -81,7 +81,7 @@ Tool::Tool(QPointer<ToolDialogAdapter> dialogAdapter, QPointer<OtoListModifyWork
         if (!optionWidget)
         {
             this->optionWidget = dialogAdapter->optionWidget;
-            //Q_ASSERT(this->optionWidget); //As adapater may replace widgets when constructing, this asset has been disabled.
+            Q_ASSERT(this->optionWidget);
         }
     }
 }

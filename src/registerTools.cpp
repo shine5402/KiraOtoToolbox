@@ -11,6 +11,7 @@
 #include "cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h"
 #include <QCoreApplication>
 
+//TODO:重构为临时建立新工具实例
 void registerTools()
 {
     auto manager = ToolManager::getManager();

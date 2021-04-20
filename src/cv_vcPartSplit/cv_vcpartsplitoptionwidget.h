@@ -13,7 +13,7 @@ class CV_VCPartSplitOptionWidget : public ToolOptionWidget
     Q_OBJECT
 
 public:
-    explicit CV_VCPartSplitOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit CV_VCPartSplitOptionWidget(QWidget *parent = nullptr);
     ~CV_VCPartSplitOptionWidget();
 
 private:

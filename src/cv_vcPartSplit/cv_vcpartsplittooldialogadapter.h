@@ -7,7 +7,7 @@ class CV_VCPartSplitToolDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    explicit CV_VCPartSplitToolDialogAdapter(QObject *parent = nullptr);
+    Q_INVOKABLE explicit CV_VCPartSplitToolDialogAdapter(QObject *parent = nullptr);
 
     // ToolDialogAdapter interface
 public:

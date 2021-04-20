@@ -1202,37 +1202,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="216"/>
         <source>以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。</source>
-        <translation type="unfinished"></translation>
+        <translation>These are changes that will be applied to %1 （at %2). Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="230"/>
         <source>保存时出现错误</source>
-        <translation type="unfinished"></translation>
+        <translation>Error occured while saving</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="230"/>
         <source>无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。</source>
-        <translation type="unfinished"></translation>
+        <translation>As %1 (at %2) can not be saved, the process is stopped. Files before it has been saved.</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="291"/>
         <source>保存失败</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to save</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="294"/>
         <source>在保存 %1 时发生错误。</source>
-        <translation type="unfinished"></translation>
+        <translation>Error occured when saving %1.</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="296"/>
         <source>该文件的用途是 %1。</source>
-        <translation type="unfinished"></translation>
+        <translation>The file is meant to be used for %1.</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="297"/>
         <source>遇到的错误是：%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Error information: %1</translation>
     </message>
 </context>
 <context>
@@ -1240,22 +1240,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="60"/>
         <source>文件未加载</source>
-        <translation type="unfinished"></translation>
+        <translation>File is not loaded</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="60"/>
         <source>您还没有加载oto.ini文件。请加载后重试。</source>
-        <translation type="unfinished"></translation>
+        <translation>No oto files has been loaded. Please load them and retry.</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="76"/>
         <source>操作成功完成</source>
-        <translation type="unfinished"></translation>
+        <translation>Processes are completed successfully</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialog.cpp" line="76"/>
         <source>操作成功完成。</source>
-        <translation type="unfinished"></translation>
+        <translation>Processes are completed successfully.</translation>
     </message>
 </context>
 <context>
@@ -1263,12 +1263,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/toolBase/tooldialogadapter.cpp" line="33"/>
         <source>确认更改</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirm modifications</translation>
     </message>
     <message>
         <location filename="../src/toolBase/tooldialogadapter.cpp" line="34"/>
         <source>以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。</source>
-        <translation type="unfinished"></translation>
+        <translation>These are changes that will be applied to oto data. Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</translation>
     </message>
 </context>
 </TS>

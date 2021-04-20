@@ -93,8 +93,8 @@ void ToolDialog::resetOto()
 
 void ToolDialog::resetOptions()
 {
-    ui->optionWidget->setOptions(OptionContainer{});
-    ui->otoSaveWidget->setOptions(OptionContainer{});
+    ui->optionWidget->setOptions({});
+    ui->otoSaveWidget->setOptions({});
 }
 
 void ToolDialog::buttonBoxClicked(QAbstractButton* button)

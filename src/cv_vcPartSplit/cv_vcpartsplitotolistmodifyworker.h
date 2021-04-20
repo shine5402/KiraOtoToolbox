@@ -7,7 +7,7 @@ class CV_VCPartSplitOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    explicit CV_VCPartSplitOtoListModifyWorker(QObject *parent = nullptr);
+    Q_INVOKABLE explicit CV_VCPartSplitOtoListModifyWorker(QObject *parent = nullptr);
 
     // OtoListModifyWorker interface
 public:

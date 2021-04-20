@@ -6,6 +6,7 @@
 CV_VCPartSplitToolDialogAdapter::CV_VCPartSplitToolDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {
     setWorker(new CV_VCPartSplitOtoListModifyWorker(this));
+    setOptionWidget(new CV_VCPartSplitOptionWidget);
 }
 
 void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
@@ -14,9 +15,7 @@ void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     saveWidget->setSecondFileNameCheckBoxText("分离VC部到新文件：");
     saveWidget->setSecondFileNameUsage("保存分离出来的VC部");
     replaceSaveWidget(rootLayout, saveWidget);
-    auto optionWidget = new CV_VCPartSplitOptionWidget;
-    optionWidget->setOptions(OptionContainer{});
-    replaceOptionWidget(rootLayout, optionWidget);
+    ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
 
 QString CV_VCPartSplitToolDialogAdapter::getToolName() const

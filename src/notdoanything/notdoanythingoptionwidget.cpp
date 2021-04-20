@@ -15,7 +15,7 @@ NotDoAnythingOptionWidget::NotDoAnythingOptionWidget(QWidget *parent) : ToolOpti
 
 OptionContainer NotDoAnythingOptionWidget::getOptions() const
 {
-    return OptionContainer{};
+    return {};
 }
 
 void NotDoAnythingOptionWidget::setOptions(const OptionContainer& options)

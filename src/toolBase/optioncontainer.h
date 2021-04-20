@@ -9,7 +9,8 @@ class OptionContainer : public QObject {
     Q_OBJECT
 
 public:
-    explicit OptionContainer(QObject* parent = nullptr) : QObject(parent){};
+    OptionContainer():QObject(nullptr){};
+    explicit OptionContainer(QObject* parent) : QObject(parent){};
     QVariant getOption(const QString& key, const QVariant& defaultValue = {}, bool* matched = nullptr) const;
     void setOption(const QString& key, const QVariant& value, bool* replaced = nullptr);
     bool removeOption(const QString& key);

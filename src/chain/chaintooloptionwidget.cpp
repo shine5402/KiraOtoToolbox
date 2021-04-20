@@ -5,6 +5,8 @@
 #include <QDialogButtonBox>
 #include <QGroupBox>
 #include "toolBase/toolmanager.h"
+#include <fplus/fplus.hpp>
+#include "utils/misc/fplusAdapter.h"
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -30,12 +32,13 @@ OptionContainer ChainToolOptionWidget::getOptions() const
 {
     OptionContainer options;
     options.setOption("steps", QVariant::fromValue(stepsModel->getSteps()));
+
     return options;
 }
 
 void ChainToolOptionWidget::setOptions(const OptionContainer& options)
 {
-    stepsModel->setSteps(options.getOption("steps").value<QVector<Tool>>());
+    stepsModel->setSteps(options.getOption("steps").value<QVector<ChainElement>>());
 }
 
 int ChainToolOptionWidget::getCurrentRow() const
@@ -52,12 +55,15 @@ void ChainToolOptionWidget::setCurrentRow(int row)
 
 void ChainToolOptionWidget::addStep()
 {
-    auto availableTools = ToolManager::getManager()->getTools();
+    auto registeredTools = ToolManager::getManager()->getTools();
+    auto availableTools = fplus::transform([](Tool tool)->ChainElement{
+            return {*tool.getDialogAdapter()->metaObject(), *tool.getModifyWorker()->metaObject(), *tool.getOptionWidget()->metaObject(), {}};
+    }, registeredTools);
     auto model = new ChainStepsModel(availableTools, this);
     auto dialog = new ListViewDialog(this, model, tr("选择一个工具"), tr("从下面的可用工具中选择一个作为操作文件的新步骤。"), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     if (dialog->exec() == QDialog::Accepted)
     {
-        stepsModel->addStep(availableTools.at(dialog->currentRow()).makeNewInstance(this, this));
+        stepsModel->addStep(availableTools.at(dialog->currentRow()));
         openStepSettings(stepsModel->stepCount() - 1);
     }
 }
@@ -79,10 +85,16 @@ void ChainToolOptionWidget::moveDownCurrentStep()
 
 void ChainToolOptionWidget::openStepSettings(int index)
 {
+    Q_ASSERT(!pendingStepSetting.ptrDialog);
+    if (pendingStepSetting.ptrDialog)
+    {
+        return;
+    }
+
     auto dialog = new QDialog(this);
     dialog->setModal(true);
     dialog->setWindowTitle(tr("调整“%1”（位于 第 %2 项）的设置")
-                           .arg(stepsModel->getStep(index).getName(),
+                           .arg(stepsModel->getStep(index).toolName(),
                                 QString::number(index + 1)));
 
     auto dialogLayout = new QVBoxLayout(dialog);
@@ -90,10 +102,14 @@ void ChainToolOptionWidget::openStepSettings(int index)
     auto groupBox = new QGroupBox(tr("行为调整（设置会自动保存）"), dialog);
 
     dialogLayout->addWidget(groupBox);
-    dialogLayout->setStretch(0, 1);//让GroupBox的权重变大
+    constexpr auto GROUPBOX_INDEX = 0;
+    constexpr auto GROUPBOX_STRETCH = 1;
+    dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH);//让GroupBox的权重变大
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
-    groupBoxLayout->addWidget(stepsModel->getStep(index).getOptionWidget());
+    auto optionWidget = qobject_cast<ToolOptionWidget *>(stepsModel->getStep(index).toolOptionWidgetMetaObj.newInstance(Q_ARG(QWidget*, this)));
+    optionWidget->setOptions(stepsModel->getStep(index).options);
+    groupBoxLayout->addWidget(optionWidget);
     groupBox->setLayout(groupBoxLayout);
 
     auto buttonBox = new QDialogButtonBox(dialog);
@@ -103,7 +119,14 @@ void ChainToolOptionWidget::openStepSettings(int index)
 
     dialog->setLayout(dialogLayout);
 
+    dialog->setAttribute(Qt::WA_DeleteOnClose, false);//As we will need its member's info later.
+
+    connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
+
     dialog->open();
+    pendingStepSetting.ptrOptionWidget = optionWidget;
+    pendingStepSetting.ptrDialog = dialog;
+    pendingStepSetting.index = index;
 }
 
 void ChainToolOptionWidget::openStepSettings()
@@ -111,5 +134,14 @@ void ChainToolOptionWidget::openStepSettings()
     if (getCurrentRow() >= 0 && getCurrentRow() < stepsModel->stepCount()){
         openStepSettings(getCurrentRow());
     }
+}
+
+void ChainToolOptionWidget::handleStepSettingsDone(int result)
+{
+    if (result == QDialog::Accepted){
+        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrOptionWidget->getOptions());
+    }
+    pendingStepSetting.ptrDialog->deleteLater();
+    pendingStepSetting = {};
 }
 

@@ -2,14 +2,14 @@
 #define CHAINSTEPSMODEL_H
 
 #include <QAbstractListModel>
-#include "toolBase/toolmanager.h"
+#include "chainelement.h"
 
 class ChainStepsModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit ChainStepsModel(const QVector<Tool>& steps = {}, QObject *parent = nullptr);
+    explicit ChainStepsModel(const QVector<ChainElement>& steps = {}, QObject *parent = nullptr);
 
     // Basic functionality:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -17,20 +17,22 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     int stepCount() const;
-    void addStep(const Tool& step);
+    void addStep(const ChainElement& step);
     void removeStep(int index);
     void moveUpStep(int index);
     void moveDownStep(int index);
-    const Tool& getStep(int index) const;
+    const ChainElement& getStep(int index) const;
+    void setStep(int index, const ChainElement& value);
+    void setStepOptions(int index, const OptionContainer& value);
 
-    QVector<Tool> getSteps() const;
+    QVector<ChainElement> getSteps() const;
 
-    void setSteps(const QVector<Tool>& value);
+    void setSteps(const QVector<ChainElement>& value);
 
 public slots:
 
 private:
-    QVector<Tool> steps;
+    QVector<ChainElement> steps;
 };
 
 #endif // CHAINSTEPSMODEL_H

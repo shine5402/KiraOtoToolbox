@@ -14,8 +14,8 @@
 
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new RemoveDuplicateModuleOtoListModifyWorker(this));
-    setOptionWidget(new RemoveDuplicateDialogOptionWidget);
+    setWorkerMetaObj(RemoveDuplicateModuleOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(RemoveDuplicateDialogOptionWidget::staticMetaObject);
 }
 
 void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
@@ -29,7 +29,7 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
     auto precision = options.getOption("save/precision").toInt();
     if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
     {
-        auto specificWorker = static_cast<RemoveDuplicateModuleOtoListModifyWorker*>(getWorker());
+        auto specificWorker = new RemoveDuplicateModuleOtoListModifyWorker(this);
         if ((!specificWorker->getOrganizeResult().isEmpty()) &&
                 (!Misc::showOtoDiffDialog(srcOtoList, specificWorker->getOrganizeResult(), precision, tr("重复项整理结果"),
                                          tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),

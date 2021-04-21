@@ -4,8 +4,8 @@
 
 NotDoAnythingDialogAdapter::NotDoAnythingDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new NotDoAnythingOtoListModifyWorker(this));
-    setOptionWidget(new NotDoAnythingOptionWidget);
+    setWorkerMetaObj(NotDoAnythingOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(NotDoAnythingOptionWidget::staticMetaObject);
 }
 
 QString NotDoAnythingDialogAdapter::getToolName() const

@@ -6,62 +6,68 @@
 #include "toolBase/otolistmodifyworker.h"
 #include <QPointer>
 
-class Tool{
-public:
+struct Tool{
     Tool() = default;
-    Tool(QPointer<ToolDialogAdapter> dialogAdapter, QPointer<OtoListModifyWorker> modifyWorker = nullptr,
-         QPointer<ToolOptionWidget> optionWidget = nullptr, const QString& name = nullptr);
+    Tool(QMetaObject toolAdapterMetaObj) : toolAdapterMetaObj(toolAdapterMetaObj){}
 
-    Tool(const Tool& other){
-        modifyWorker = other.modifyWorker;
-        dialogAdapter = other.dialogAdapter;
-        name = other.name;
-        optionWidget = other.optionWidget;
+    QMetaObject toolAdapterMetaObj;
+
+    bool operator==(const Tool& rhs) const {
+        return rhs.toolName() == toolName();
     }
-    ~Tool(){}
-    bool operator==(const Tool& rhs) const{
-        return modifyWorker == rhs.modifyWorker &&
-                dialogAdapter == rhs.dialogAdapter &&
-                name == rhs.name &&
-                optionWidget == rhs.optionWidget;
-    }
-    bool operator!=(const Tool& rhs) const{
+    bool operator!=(const Tool& rhs){
         return !(*this == rhs);
     }
-    const Tool& operator=(const Tool& rhs){
-        if (*this != rhs){
-            modifyWorker = rhs.modifyWorker;
-            dialogAdapter = rhs.dialogAdapter;
-            name = rhs.name;
-            optionWidget = rhs.optionWidget;
+    QString toolName() const {
+        if (auto adapter = std::unique_ptr<ToolDialogAdapter>(
+                    qobject_cast<ToolDialogAdapter *>(
+                        toolAdapterMetaObj.newInstance()))){
+            return adapter->getToolName();
         }
-        return *this;
+        return {};
     }
 
-    QPointer<OtoListModifyWorker> getModifyWorker() const{
-        return modifyWorker;
+    std::unique_ptr<ToolDialogAdapter> getAdapterInstance() const{
+        return std::unique_ptr<ToolDialogAdapter>(getAdapterInstance(nullptr));
     }
 
-    QPointer<ToolDialogAdapter> getDialogAdapter() const{
-        return dialogAdapter;
+    ToolDialogAdapter* getAdapterInstance(QObject* parent) const{
+        return qobject_cast<ToolDialogAdapter *>(
+                    toolAdapterMetaObj.newInstance(Q_ARG(QObject*, parent)));
     }
 
-    QString getName() const{
-        return name;
+    std::unique_ptr<OtoListModifyWorker> getWorkerInstance() const{
+        return std::unique_ptr<OtoListModifyWorker>(getWorkerInstance(nullptr));
     }
 
-    QPointer<ToolOptionWidget> getOptionWidget() const{
-        return optionWidget;
+    OtoListModifyWorker* getWorkerInstance(QObject* parent) const{
+        if (auto adapter = getAdapterInstance()){
+            return qobject_cast<OtoListModifyWorker *>(
+                        adapter->getWorkerMetaObj().newInstance(Q_ARG(QObject*, parent)));
+        }
+        return {};
     }
-    Tool makeNewInstance(QObject* parent = nullptr, QWidget* optionWidgetParent = nullptr, const QString& nameModifier = {"%1"}) const;
-private:
-    QPointer<OtoListModifyWorker> modifyWorker;
-    QPointer<ToolDialogAdapter> dialogAdapter;
-    QPointer<ToolOptionWidget> optionWidget;
-    QString name;
+
+    ToolOptionWidget* getToolOptionWidgetInstance(QWidget* parent) const{
+        if (auto adapter = getAdapterInstance()){
+            return qobject_cast<ToolOptionWidget *>(adapter->getOptionWidgetMetaObj().newInstance(Q_ARG(QWidget*, parent)));
+        }
+        return {};
+    }
+};
+
+struct ToolWithOptions
+{
+   Tool tool;
+   OptionContainer options;
+
+   QString toolName() const{
+      return tool.toolName();
+   }
 };
 
 Q_DECLARE_METATYPE(Tool)
+Q_DECLARE_METATYPE(ToolWithOptions)
 
 class ToolManager : public QObject
 {
@@ -70,8 +76,6 @@ class ToolManager : public QObject
 public:
     static ToolManager* getManager();
 
-    void registerTool( const QString& group, ToolDialogAdapter* dialogAdapter, OtoListModifyWorker* modifyWorker = nullptr, ToolOptionWidget* optionWidget = nullptr,
-                      QString name = {});
     void registerTool(const QString& group, const Tool& tool);
     void unRegisterTool(int i);
     void unRegisterTool(const Tool& tool);

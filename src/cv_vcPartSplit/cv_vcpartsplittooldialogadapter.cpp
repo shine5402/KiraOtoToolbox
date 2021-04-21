@@ -5,8 +5,8 @@
 
 CV_VCPartSplitToolDialogAdapter::CV_VCPartSplitToolDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new CV_VCPartSplitOtoListModifyWorker(this));
-    setOptionWidget(new CV_VCPartSplitOptionWidget);
+    setWorkerMetaObj(CV_VCPartSplitOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(CV_VCPartSplitOptionWidget::staticMetaObject);
 }
 
 void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
@@ -25,7 +25,6 @@ QString CV_VCPartSplitToolDialogAdapter::getToolName() const
 
 bool CV_VCPartSplitToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
-    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     auto precision = options.getOption("save/precision").toInt();
     auto isSecondFileNameUsed = options.getOption("save/isSecondFileNameUsed").toBool();
     if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options)){

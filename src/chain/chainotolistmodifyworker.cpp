@@ -18,10 +18,7 @@ bool ChainOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryLi
 
     for (const auto& step : steps){
         auto stepOption = step.options;
-        success |= std::unique_ptr<OtoListModifyWorker>(
-                    qobject_cast<OtoListModifyWorker *>(
-                        step.toolModifyWorkerMetaObj.newInstance()
-                        ))->doWork(lastResult, currentResult, secondSaveOtoList, stepOption);
+        success |= step.tool.getWorkerInstance()->doWork(lastResult, currentResult, secondSaveOtoList, stepOption);
 
         lastResult = std::move(currentResult);
         currentResult = {};

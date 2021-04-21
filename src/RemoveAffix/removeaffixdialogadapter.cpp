@@ -4,12 +4,11 @@
 
 RemoveAffixDialogAdapter::RemoveAffixDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new RemoveAffixOtoListModifyWorker(this));
-    setOptionWidget(new RemoveAffixOptionWidget);
+    setWorkerMetaObj(RemoveAffixOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(RemoveAffixOptionWidget::staticMetaObject);
 }
 
 QString RemoveAffixDialogAdapter::getToolName() const
 {
     return tr("去除别名前/后缀");
 }
-

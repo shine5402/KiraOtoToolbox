@@ -57,7 +57,7 @@ void ChainToolOptionWidget::addStep()
 {
     auto registeredTools = ToolManager::getManager()->getTools();
     auto availableTools = fplus::transform([](Tool tool)->ChainElement{
-            return {*tool.getDialogAdapter()->metaObject(), *tool.getModifyWorker()->metaObject(), *tool.getOptionWidget()->metaObject(), {}};
+            return {tool, {}};
     }, registeredTools);
     auto model = new ChainStepsModel(availableTools, this);
     auto dialog = new ListViewDialog(this, model, tr("选择一个工具"), tr("从下面的可用工具中选择一个作为操作文件的新步骤。"), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -107,7 +107,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH);//让GroupBox的权重变大
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
-    auto optionWidget = qobject_cast<ToolOptionWidget *>(stepsModel->getStep(index).toolOptionWidgetMetaObj.newInstance(Q_ARG(QWidget*, this)));
+    auto optionWidget = stepsModel->getStep(index).tool.getToolOptionWidgetInstance(this);
     optionWidget->setOptions(stepsModel->getStep(index).options);
     groupBoxLayout->addWidget(optionWidget);
     groupBox->setLayout(groupBoxLayout);

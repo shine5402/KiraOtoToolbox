@@ -1,5 +1,6 @@
 #include "chainotolistmodifyworker.h"
 #include "toolBase/toolmanager.h"
+#include "chainelement.h"
 
 ChainOtoListModifyWorker::ChainOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
 {
@@ -13,11 +14,11 @@ bool ChainOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryLi
 
     bool success = false;
 
-    auto steps = options.getOption("steps").value<QVector<Tool>>();
+    auto steps = options.getOption("steps").value<QVector<ChainElement>>();
 
-    for (auto step : steps){
-        auto stepOption = step.getOptionWidget()->getOptions();
-        success |= step.getModifyWorker()->doWork(lastResult, currentResult, secondSaveOtoList, stepOption);
+    for (const auto& step : steps){
+        auto stepOption = step.options;
+        success |= step.tool.getWorkerInstance()->doWork(lastResult, currentResult, secondSaveOtoList, stepOption);
 
         lastResult = std::move(currentResult);
         currentResult = {};

@@ -7,8 +7,8 @@
 
 OverlapBatchSetDialogAdapter::OverlapBatchSetDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new OverlapBatchSetOtoListModifyWorker(this));
-    setOptionWidget(new OverlapBatchSetDialogOptionWidget);
+    setWorkerMetaObj(OverlapBatchSetOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(OverlapBatchSetDialogOptionWidget::staticMetaObject);
 }
 
 QString OverlapBatchSetDialogAdapter::getToolName() const

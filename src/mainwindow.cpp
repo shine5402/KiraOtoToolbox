@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
         std::reverse(tools.begin(), tools.end());
         for (const auto& tool : tools)
         {
-            auto button = new QPushButton(tool.getName(), this);
+            auto button = new QPushButton(tool.toolName(), this);
             buttonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
         auto tools = ToolManager::getManager()->getTools();
-        (new ToolDialog(tools.at(buttonGroup->id(button)).getDialogAdapter(), this))->open();
+        (new ToolDialog(tools.at(buttonGroup->id(button)).getAdapterInstance(this), this))->open();
     });
 }
 

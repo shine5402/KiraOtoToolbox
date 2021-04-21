@@ -99,10 +99,10 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
                 if (!fonts.isEmpty())
                     fonts.last().setItalic(true);
                 auto bold = []() -> QFont{
-                        QFont font{};
-                        font.setBold(true);
-                        return font;
-            }();
+                    QFont font{};
+                    font.setBold(true);
+                    return font;
+                }();
                 fonts.append(bold);
             }
             else
@@ -157,4 +157,5 @@ void OtoListShowValueChangeModel::refreshHeaderList()
             headerList.append(QString("新的%1").arg(currentName));
     }
 }
+
 

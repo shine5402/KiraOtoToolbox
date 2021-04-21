@@ -98,6 +98,9 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 
     ui->openFileNameEdit->setFileName("");
     refreshButtonEnableState();
+
+    constexpr auto COLUMN_OTO_FILENAME = 0;
+    ui->otoFileTableView->resizeColumnToContents(COLUMN_OTO_FILENAME);
 }
 
 void OtoFileMultipleLoadWidget::removeOtoFile()

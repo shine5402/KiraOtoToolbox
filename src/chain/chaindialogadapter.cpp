@@ -4,8 +4,8 @@
 
 ChainDialogAdapter::ChainDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new ChainOtoListModifyWorker(this));
-    setOptionWidget(new ChainToolOptionWidget);
+    setWorkerMetaObj(ChainOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(ChainToolOptionWidget::staticMetaObject);
 }
 
 QString ChainDialogAdapter::getToolName() const

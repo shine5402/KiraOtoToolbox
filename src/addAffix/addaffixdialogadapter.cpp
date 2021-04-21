@@ -4,8 +4,8 @@
 
 AddAffixDialogAdapter::AddAffixDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new AddAffixOtoListModifyWorker(this));
-    setOptionWidget(new AddAffixOptionWidget);
+    setWorkerMetaObj(AddAffixOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(AddAffixOptionWidget::staticMetaObject);
 }
 
 

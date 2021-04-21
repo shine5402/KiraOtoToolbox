@@ -18,15 +18,13 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 
 void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
-    Q_ASSERT_X(optionWidget, "setupSpecificUIWidgets", "OptionWidget is not set.");
-    optionWidget->setOptions(OptionContainer{});
-    optionWidget->setParent(rootLayout->parentWidget());
+    Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
+    auto optionWidget = qobject_cast<ToolOptionWidget *>(optionWidgetMetaObj.newInstance(Q_ARG(QWidget*, rootLayout->parentWidget())));
     replaceOptionWidget(rootLayout, optionWidget);
 }
 
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
-    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
     auto precision = options.getOption("save/precision").toInt();
     if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
@@ -38,34 +36,44 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
-    Q_ASSERT_X(getWorker(), "doWorkAdapter", "Worker is not set.");
-    return getWorker()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
+    auto worker = qobject_cast<OtoListModifyWorker *>(workerMetaObj.newInstance(Q_ARG(QObject*, this)));
+    return worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
 }
 
 QString ToolDialogAdapter::getToolName() const
 {
-    return metaObject()->className();
+    return {};
 }
 
-void ToolDialogAdapter::setOptionWidget(ToolOptionWidget* value)
+std::unique_ptr<OtoListModifyWorker> ToolDialogAdapter::getWorkerInstance() const
 {
-    optionWidget = value;
+    return std::unique_ptr<OtoListModifyWorker>(qobject_cast<OtoListModifyWorker*>(workerMetaObj.newInstance()));
 }
 
-OtoListModifyWorker* ToolDialogAdapter::getWorker() const
+void ToolDialogAdapter::setWorkerMetaObj(const QMetaObject& value)
 {
-    return worker;
+    workerMetaObj = value;
 }
 
-void ToolDialogAdapter::setWorker(OtoListModifyWorker* value)
+QMetaObject ToolDialogAdapter::getWorkerMetaObj() const
 {
-    worker = value;
+    return workerMetaObj;
 }
+
+QMetaObject ToolDialogAdapter::getOptionWidgetMetaObj() const
+{
+    return optionWidgetMetaObj;
+}
+
+void ToolDialogAdapter::setOptionWidgetMetaObj(const QMetaObject& value)
+{
+    optionWidgetMetaObj = value;
+}
+
 
 void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
 {
-    if (optionWidget != newOptionWidget)
-        optionWidget = newOptionWidget;
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
     Misc::replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
 }

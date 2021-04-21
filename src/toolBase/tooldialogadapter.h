@@ -21,22 +21,20 @@ public:
                         const OptionContainer& options);
     virtual QString getToolName() const;
 
+    QMetaObject getOptionWidgetMetaObj() const;
+    QMetaObject getWorkerMetaObj() const;
+
 protected:
-    void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
-    void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
-    OtoListModifyWorker* getWorker() const;
-    void setWorker(OtoListModifyWorker* value);
-    void setOptionWidget(ToolOptionWidget* value);
+    static void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
+    static void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
+    void setOptionWidgetMetaObj(const QMetaObject& value);
+    void setWorkerMetaObj(const QMetaObject& value);
+private:
+    QMetaObject optionWidgetMetaObj;
+    QMetaObject workerMetaObj;
+    std::unique_ptr<OtoListModifyWorker> getWorkerInstance() const;
 
-
-
-
-    private:
-        QPointer<OtoListModifyWorker> worker = nullptr;
-    QPointer<ToolOptionWidget> optionWidget = nullptr;
 signals:
-
-    friend class Tool;
 };
 
 #endif // TOOLDIALOGADAPTER_H

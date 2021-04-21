@@ -18,6 +18,7 @@ class ChainToolOptionWidget : public ToolOptionWidget
 public:
     Q_INVOKABLE explicit ChainToolOptionWidget(QWidget *parent = nullptr);
     ~ChainToolOptionWidget();
+
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer &options) override;
 
@@ -29,6 +30,12 @@ private:
     void setCurrentRow(int row);
 
     void openStepSettings(int index);
+    struct stepSettingsDialogInfo{
+        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrOptionWidget(nullptr), index(-1){};
+        QDialog* ptrDialog;
+        ToolOptionWidget* ptrOptionWidget;
+        int index;
+    } pendingStepSetting;
     
 private slots:
     void addStep();
@@ -36,6 +43,7 @@ private slots:
     void moveUpCurrentStep();
     void moveDownCurrentStep();
     void openStepSettings();
+    void handleStepSettingsDone(int result);
 
 };
 

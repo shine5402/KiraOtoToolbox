@@ -31,7 +31,7 @@ class RemoveDuplicateDialogOptionWidget : public ToolOptionWidget
     Q_OBJECT
 
 public:
-    explicit RemoveDuplicateDialogOptionWidget(QWidget *parent = nullptr);
+    Q_INVOKABLE explicit RemoveDuplicateDialogOptionWidget(QWidget *parent = nullptr);
     ~RemoveDuplicateDialogOptionWidget();
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;

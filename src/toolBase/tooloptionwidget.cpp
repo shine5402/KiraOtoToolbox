@@ -10,7 +10,7 @@ ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 OptionContainer ToolOptionWidget::getOptions() const
 {
     Q_UNREACHABLE();
-    return OptionContainer{};
+    return {};
 }
 
 void ToolOptionWidget::setOptions(const OptionContainer& options)
@@ -32,7 +32,7 @@ EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget
 
 OptionContainer EmptyToolOptionWidget::getOptions() const
 {
-    return OptionContainer{};
+    return {};
 }
 
 void EmptyToolOptionWidget::setOptions(const OptionContainer& options)

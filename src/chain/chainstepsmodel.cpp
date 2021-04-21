@@ -1,6 +1,7 @@
 #include "chainstepsmodel.h"
+#include "toolBase/tooldialogadapter.h"
 
-ChainStepsModel::ChainStepsModel(const QVector<Tool>& steps, QObject *parent)
+ChainStepsModel::ChainStepsModel(const QVector<ChainElement>& steps, QObject *parent)
     : QAbstractListModel(parent), steps(steps)
 {
 }
@@ -22,8 +23,9 @@ QVariant ChainStepsModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::DisplayRole)
     {
-        if (index.row() < steps.count())
-            return steps.at(index.row()).getName();
+        if (index.row() < steps.count()){
+            return steps.at(index.row()).toolName();
+        }
     }
     return QVariant();
 }
@@ -33,7 +35,7 @@ int ChainStepsModel::stepCount() const
     return steps.count();
 }
 
-void ChainStepsModel::addStep(const Tool& step)
+void ChainStepsModel::addStep(const ChainElement& step)
 {
     beginInsertRows(QModelIndex{}, steps.count(), steps.count());
     steps.append(step);
@@ -65,17 +67,27 @@ void ChainStepsModel::moveDownStep(int index)
     }
 }
 
-const Tool& ChainStepsModel::getStep(int index) const
+const ChainElement& ChainStepsModel::getStep(int index) const
 {
     return steps.at(index);
 }
 
-QVector<Tool> ChainStepsModel::getSteps() const
+void ChainStepsModel::setStep(int index, const ChainElement& value)
+{
+    steps[index] = value;
+}
+
+void ChainStepsModel::setStepOptions(int index, const OptionContainer& value)
+{
+    steps[index].options = value;
+}
+
+QVector<ChainElement> ChainStepsModel::getSteps() const
 {
     return steps;
 }
 
-void ChainStepsModel::setSteps(const QVector<Tool>& value)
+void ChainStepsModel::setSteps(const QVector<ChainElement>& value)
 {
     beginResetModel();
     steps = value;

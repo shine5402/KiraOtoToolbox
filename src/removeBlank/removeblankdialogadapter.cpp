@@ -4,11 +4,12 @@
 
 RemoveBlankDialogAdapter::RemoveBlankDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
-    setWorker(new RemoveBlankOtoListModifyWorker(this));
-    setOptionWidget(new RemoveBlankOptionWidget);
+    setWorkerMetaObj(RemoveBlankOtoListModifyWorker::staticMetaObject);
+    setOptionWidgetMetaObj(RemoveBlankOptionWidget::staticMetaObject);
 }
 
 QString RemoveBlankDialogAdapter::getToolName() const
 {
     return tr("清除空白项");
 }
+

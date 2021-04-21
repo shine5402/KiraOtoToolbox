@@ -6,7 +6,7 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.5.0
+VERSION = 0.5.1
 
 RC_ICONS = resources/icon/appIcon.ico
 
@@ -83,6 +83,7 @@ SOURCES += \
 
 HEADERS += \
     chain/chaindialogadapter.h \
+    chain/chainelement.h \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \

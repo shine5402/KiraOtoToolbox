@@ -20,6 +20,7 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
     auto optionWidget = qobject_cast<ToolOptionWidget *>(optionWidgetMetaObj.newInstance(Q_ARG(QWidget*, rootLayout->parentWidget())));
+    optionWidget->setOptions({});
     replaceOptionWidget(rootLayout, optionWidget);
 }
 

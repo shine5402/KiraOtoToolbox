@@ -61,8 +61,7 @@ void ShowDiffDialog::startDiffCalc()
 
     auto future = QtConcurrent::run([&]() -> QString { //returns diff's prettyHtml
         diff_match_patch dmp;
-        dmp.Diff_Timeout = 0.0f;
-        auto diff = dmp.diff_main(source, result, false);
+        auto diff = dmp.diff_lineMode(source, result, std::numeric_limits<clock_t>::max());
         return dmp.diff_prettyHtml(diff);
     });
     futureSynchronizer.addFuture(future);

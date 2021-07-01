@@ -63,9 +63,10 @@ QStringList OtoFileMultipleLoadWidget::fileNames() const
 
 void OtoFileMultipleLoadWidget::showOtoList()
 {
-    auto currentList = model->data(currentRow()).entryList;
-    auto dialog = new ShowOtoListDialog(&currentList, this);
+    auto currentList = new OtoEntryList(model->data(currentRow()).entryList);
+    auto dialog = new ShowOtoListDialog(currentList, this);
     dialog->open();
+    connect(dialog, &QObject::destroyed, [currentList](){delete currentList;});
 }
 
 void OtoFileMultipleLoadWidget::appendOtoFile()

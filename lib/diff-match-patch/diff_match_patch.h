@@ -222,7 +222,7 @@ class diff_match_patch {
    * @param deadline Time when the diff should be complete by.
    * @return Linked List of Diff objects.
    */
- private:
+ public:
   QList<Diff> diff_lineMode(QString text1, QString text2, clock_t deadline);
 
   /**

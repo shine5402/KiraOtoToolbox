@@ -21,6 +21,7 @@ ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     connect(ui->moveUpButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveUpCurrentStep);
     connect(ui->moveDownButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveDownCurrentStep);
     connect(ui->adjustSettingsButton, &QPushButton::clicked, this, qOverload<>(&ChainToolOptionWidget::openStepSettings));
+    connect(ui->toolListView, &QListView::doubleClicked, this, qOverload<>(&ChainToolOptionWidget::openStepSettings));
 }
 
 ChainToolOptionWidget::~ChainToolOptionWidget()
@@ -61,6 +62,7 @@ void ChainToolOptionWidget::addStep()
     }, registeredTools);
     auto model = new ChainStepsModel(availableTools, this);
     auto dialog = new ListViewDialog(this, model, tr("选择一个工具"), tr("从下面的可用工具中选择一个作为操作文件的新步骤。"), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    dialog->setDoubleClickAsAccept(true);
     if (dialog->exec() == QDialog::Accepted)
     {
         stepsModel->addStep(availableTools.at(dialog->currentRow()));

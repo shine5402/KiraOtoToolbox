@@ -21,6 +21,8 @@ ListViewDialog::ListViewDialog(QWidget* parent, QAbstractListModel* model, const
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
+    connect(listView, &QListView::doubleClicked, this, &ListViewDialog::dealDblClick);
+
     setLayout(layout);
 }
 
@@ -62,7 +64,7 @@ QList<int> ListViewDialog::selectedRows() const
 {
     QList<int> result;
     for (auto i : listView->selectionModel()->selectedIndexes()){
-        result.append(i.row());
+        result.append(i.isValid() ? i.row() : -1);
     }
     return result;
 }
@@ -85,4 +87,20 @@ void ListViewDialog::setSelectionBehavior(QAbstractItemView::SelectionBehavior b
 QAbstractItemView::SelectionBehavior ListViewDialog::selectionBehaviour() const
 {
     return listView->selectionBehavior();
+}
+
+bool ListViewDialog::ifDoubleClickAsAccept() const
+{
+    return doubleClickAsAccept;
+}
+
+void ListViewDialog::setDoubleClickAsAccept(bool value)
+{
+    doubleClickAsAccept = value;
+}
+
+void ListViewDialog::dealDblClick()
+{
+    if (doubleClickAsAccept)
+        accept();
 }

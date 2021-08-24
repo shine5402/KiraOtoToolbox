@@ -25,11 +25,19 @@ public:
 
     void setSelectionBehavior(QAbstractItemView::SelectionBehavior behavior);
     QAbstractItemView::SelectionBehavior selectionBehaviour() const;
+
+    bool ifDoubleClickAsAccept() const;
+    void setDoubleClickAsAccept(bool value);
+
 protected:
     QAbstractListModel* model = nullptr;
     QLabel* label = new QLabel(this);
     QListView* listView = new QListView(this);
     QDialogButtonBox* buttonBox = new QDialogButtonBox(this);
+    bool doubleClickAsAccept = false;
+
+private slots:
+    void dealDblClick();
 };
 
 #endif // LISTVIEWDIALOG_H

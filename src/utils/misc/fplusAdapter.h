@@ -2,8 +2,11 @@
 #define FPLUSADAPTER_H
 #include <QList>
 #include <fplus/fplus.hpp>
+#include <QJsonArray>
+#include <QVariantList>
 
 // This file contains some utils that adapt Qt's container to FunctionalPlus.
+// To use, include it with fplus, or just replace fplus with this file.
 // It only contains needed adapters to solve the problem I found, so it is very incomplete.
 
 namespace fplus {
@@ -29,9 +32,14 @@ namespace fplus {
     namespace internal {
         template<class T> struct has_order<QVector<T>> : public std::true_type{};
         template<class T> struct has_order<QList<T>> : public std::true_type{};
+        template<> struct has_order<QJsonArray> : public std::true_type{};
+        template<> struct has_order<QVariantList> : public std::true_type{};
 
+        //same_container_new_type, used for construct a new container of same type.
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QVector<T>, NewT, SizeOffset>{typedef class QVector<NewT> type;};
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QList<T>, NewT, SizeOffset>{typedef class QList<NewT> type;};
+        template<class NewT, int SizeOffset> struct same_cont_new_t<QVariantList, NewT, SizeOffset>{typedef class QList<NewT> type;};
+        template<class NewT, int SizeOffset> struct same_cont_new_t<QJsonArray, NewT, SizeOffset>{typedef class QList<NewT> type;};
     }
 
 }

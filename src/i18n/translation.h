@@ -11,10 +11,16 @@ class Translation : public QObject
 public:
     explicit Translation(QLocale locale, QStringList translationFilenames, QString author, QObject *parent = nullptr);
 
+    QJsonDocument toJsonDoc() const;
+    static Translation fromJsonDoc(const QJsonDocument& jsonDoc);
+
+    void install() const;
 private:
     QLocale locale;
     QStringList translationFilenames;
     QString author;
+
+    static QList<QTranslator*> installedTranslators;
 };
 
 #endif // TRANSLATION_H

@@ -1,4 +1,4 @@
-#include "registerTools.h"
+#include "initFuncs.h"
 #include "removeDuplicate/removeduplicatedialogadapter.h"
 #include "overlapBatchSet/overlapbatchsetdialogadapter.h"
 #include "removeAffix/removeaffixdialogadapter.h"

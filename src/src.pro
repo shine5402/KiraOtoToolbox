@@ -30,11 +30,12 @@ SOURCES += \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
     i18n/translation.cpp \
+    i18n/translationmanager.cpp \
+    initFuncs.cpp \
     notdoanything/notdoanythingdialogadapter.cpp \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
-    registerTools.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
     removeAffix/removeaffixoptionwidget.cpp \
     removeAffix/removeaffixotolistmodifyworker.cpp \
@@ -91,11 +92,12 @@ HEADERS += \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
     i18n/translation.h \
+    i18n/translationmanager.h \
+    initFuncs.h \
     notdoanything/notdoanythingdialogadapter.h \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
-    registerTools.h \
     removeAffix/removeaffixdialogadapter.h \
     removeAffix/removeaffixoptionwidget.h \
     removeAffix/removeaffixotolistmodifyworker.h \

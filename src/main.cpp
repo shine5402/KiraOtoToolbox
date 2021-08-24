@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include "registerTools.h"
+#include "initFuncs.h"
 
 int main(int argc, char *argv[])
 {

@@ -56,6 +56,9 @@ SOURCES += \
     removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    setAlias/setaliasotolistmodifyworker.cpp \
+    setAlias/setaliastooldialogadapter.cpp \
+    setAlias/setaliastooloptionwidget.cpp \
     toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
     toolBase/tooldialog.cpp \
@@ -116,6 +119,9 @@ HEADERS += \
     removeDuplicate/removeduplicatedialogoptionwidget.h \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
+    setAlias/setaliasotolistmodifyworker.h \
+    setAlias/setaliastooldialogadapter.h \
+    setAlias/setaliastooloptionwidget.h \
     toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
     toolBase/tooldialog.h \
@@ -149,6 +155,7 @@ FORMS += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
+    setAlias/setaliastooloptionwidget.ui \
     toolBase/tooldialog.ui \
     removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \

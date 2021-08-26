@@ -9,6 +9,7 @@
 #include "chain/chaindialogadapter.h"
 #include "notdoanything/notdoanythingdialogadapter.h"
 #include "cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h"
+#include "setAlias/setaliastooldialogadapter.h"
 #include <QCoreApplication>
 
 void registerTools()
@@ -21,6 +22,7 @@ void registerTools()
 
     manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "对别名进行操作"), RemoveAffixDialogAdapter::staticMetaObject);
     manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "对别名进行操作"), AddAffixDialogAdapter::staticMetaObject);
+    manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "对别名进行操作"), SetAliasToolDialogAdapter::staticMetaObject);
 
     manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "筛选出需要的项"), CV_VCPartSplitToolDialogAdapter::staticMetaObject);
 

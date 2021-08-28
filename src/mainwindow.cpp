@@ -68,6 +68,11 @@ void MainWindow::exit()
 
 void MainWindow::showAboutDialog()
 {
+#ifdef VERSION_BETA
+    auto versionStr = qApp->applicationVersion() + " (BETA)";
+#else
+    auto versionStr = qApp->applicationVersion();
+#endif
     QMessageBox::about(this, tr("关于"), tr(
 R"(<h2>shine_5402 的 oto 工具箱</h2>
 
@@ -88,7 +93,7 @@ R"(<h2>shine_5402 的 oto 工具箱</h2>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>
 )"
-).arg(qApp->applicationVersion()));
+).arg(versionStr));
 }
 
 void MainWindow::showAboutQtDialog()

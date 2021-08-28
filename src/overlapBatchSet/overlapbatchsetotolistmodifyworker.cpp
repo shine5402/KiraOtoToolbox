@@ -17,7 +17,8 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
         for (int i = 0; i < resultOtoList.count(); ++i)
         {
             auto entry = resultOtoList.at(i);
-            for (auto s : options.getOption("startWithPatternList").toStringList())
+            auto patternList = options.getOption("startWithPatternList").toStringList();
+            for (const auto &s : std::as_const(patternList))
             {
                 if (entry.alias().startsWith(s) || (options.getOption("ifMatchStartOto").toBool() && entry.alias().startsWith("- " + s)))
                 {

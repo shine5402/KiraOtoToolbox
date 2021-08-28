@@ -63,7 +63,8 @@ int ListViewDialog::currentRow() const
 QList<int> ListViewDialog::selectedRows() const
 {
     QList<int> result;
-    for (auto i : listView->selectionModel()->selectedIndexes()){
+    auto selectedIndexes = listView->selectionModel()->selectedIndexes();
+    for (auto i : std::as_const(selectedIndexes)){
         result.append(i.isValid() ? i.row() : -1);
     }
     return result;

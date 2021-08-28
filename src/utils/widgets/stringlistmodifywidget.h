@@ -25,6 +25,7 @@ private:
 private slots:
     void addRow();
     void deleteCurrentRow();
+    void openMultiLineEdit();
 };
 
 #endif // STRINGLISTMODIFYWIDGET_H

@@ -12,6 +12,7 @@ StringListModifyWidget::StringListModifyWidget(QWidget *parent) :
     ui->listView->setModel(model);
     connect(ui->addButton, &QPushButton::clicked, this, &StringListModifyWidget::addRow);
     connect(ui->deleteButton, &QPushButton::clicked, this, &StringListModifyWidget::deleteCurrentRow);
+    connect(ui->multiLineEditButton, &QPushButton::clicked, this, &StringListModifyWidget::openMultiLineEdit);
 }
 
 StringListModifyWidget::~StringListModifyWidget()
@@ -50,4 +51,14 @@ void StringListModifyWidget::addRow()
 void StringListModifyWidget::deleteCurrentRow()
 {
     model->removeRow(ui->listView->currentIndex().row());
+}
+
+void StringListModifyWidget::openMultiLineEdit()
+{
+    bool ok = false;
+    auto result = QInputDialog::getMultiLineText(this, tr("输入数据"), tr("请输入要应用于列表里的数据，一行一个。"), getData().join("\n"), &ok);
+    if (ok)
+    {
+        setData(result.split("\n",Qt::SkipEmptyParts));
+    }
 }

@@ -31,7 +31,8 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
         compareStringMap.insert(compareStringList.at(i), i);
     }
     QHash <int, QString> newAlias;
-    for (const auto& key : compareStringMap.uniqueKeys())
+    auto stringListUnique = compareStringMap.uniqueKeys();
+    for (const auto& key : std::as_const(stringListUnique))
     {
         auto values = compareStringMap.values(key);
         std::sort(values.begin(), values.end());
@@ -43,8 +44,9 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
                             (i > 0 ? QString::number((options.getOption("organizeStartFrom1").toBool() ? i : i + 1)) : ""));
         }
     }
-    for (const auto& currentID : newAlias.keys())
+    for (auto it = newAlias.keyBegin(); it != newAlias.keyEnd(); ++it)
     {
+        auto& currentID = *it;
         auto currentEntry = resultOtoList.at(currentID);
         currentEntry.setAlias(newAlias.value(currentID));
         resultOtoList.replace(currentID, currentEntry);

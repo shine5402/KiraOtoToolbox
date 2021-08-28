@@ -12,10 +12,6 @@ class OtoFileSaveWidget : public OtoFileSaveWidgetAbstract
 {
     Q_OBJECT
 
-#ifdef SHINE5402OTOBOX_TEST
-    friend class UtilWidgetsTest;
-#endif
-
 public:
     explicit OtoFileSaveWidget(QWidget *parent = nullptr);
     ~OtoFileSaveWidget();

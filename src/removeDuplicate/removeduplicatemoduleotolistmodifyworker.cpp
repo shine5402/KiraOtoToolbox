@@ -63,14 +63,15 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
 
     //重新删除重复项
     OtoEntryList toBeRemovedOtoList;
-    for (auto i : removeDuplicateWorker.getRemovedIDs())
+    auto removedID = removeDuplicateWorker.getRemovedIDs();
+    for (auto i : std::as_const(removedID))
     {
         toBeRemovedOtoList.append(currentResult.at(i));
     }
 
     secondSaveOtoList = toBeRemovedOtoList;
 
-    for (auto i : toBeRemovedOtoList){
+    for (const auto& i : std::as_const(toBeRemovedOtoList)){
         currentResult.removeOne(i);
     }
 

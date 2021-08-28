@@ -11,9 +11,6 @@ namespace Ui {
 class StringListModifyWidget : public QWidget
 {
     Q_OBJECT
-#ifdef SHINE5402OTOBOX_TEST
-    friend class UtilWidgetsTest;
-#endif
 public:
     explicit StringListModifyWidget(QWidget *parent = nullptr);
     ~StringListModifyWidget();
@@ -28,6 +25,7 @@ private:
 private slots:
     void addRow();
     void deleteCurrentRow();
+    void openMultiLineEdit();
 };
 
 #endif // STRINGLISTMODIFYWIDGET_H

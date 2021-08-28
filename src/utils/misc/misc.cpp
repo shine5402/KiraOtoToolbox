@@ -49,9 +49,6 @@ bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList&
 }
             return nullptr;
 }();
-#ifdef SHINE5402OTOBOX_TEST
-    QTimer::singleShot(0, dialog, &QDialog::accept);
-#endif
     return dialog->exec();
 }
 
@@ -61,8 +58,5 @@ bool Misc::askUserWithShowOtoList(const OtoEntryList& secondSaveData, const QStr
     dialog->setLabel(label);
     dialog->setWindowTitle(title);
     dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-#ifdef SHINE5402OTOBOX_TEST
-    QTimer::singleShot(0, dialog, &QDialog::accept);
-#endif
     return dialog->exec();
 }

@@ -61,7 +61,8 @@ bool SetAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
     }
 
     QHash <int, QString> newAlias;
-    for (const auto& key : compareStringMap.uniqueKeys())
+    auto uniqueKeys = compareStringMap.uniqueKeys();
+    for (const auto& key : std::as_const(uniqueKeys))
     {
         auto values = compareStringMap.values(key);
         std::sort(values.begin(), values.end());

@@ -4,9 +4,6 @@
 #include "utils/dialogs/showotolistdialog.h"
 #include "utils/dialogs/tableviewdialog.h"
 #include <QMessageBox>
-#ifdef SHINE5402OTOBOX_TEST
-#include <QTimer>
-#endif
 #include "removeAffix/removeaffixotolistmodifyworker.h"
 #include "orgnaizeduplicateotolistmodifyworker.h"
 #include "removeduplicatemoduleotolistmodifyworker.h"

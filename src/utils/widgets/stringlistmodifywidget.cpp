@@ -34,20 +34,11 @@ void StringListModifyWidget::addRow()
 
 
     bool ok;
-#ifdef SHINE5402OTOBOX_TEST
-    auto str = QString("TestAdd");
-    ok = true;
-#endif
-#ifndef SHINE5402OTOBOX_TEST
     auto str = QInputDialog::getText(this, tr("输入新值"), tr("输入要添加到列表的新字符串"), QLineEdit::Normal, {}, &ok);
-#endif
     if (ok)
     {
         if (str.isEmpty())
         {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
             QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。列表不会做出更改。"));
             return;
         }

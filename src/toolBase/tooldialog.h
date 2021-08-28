@@ -16,10 +16,6 @@ class ToolDialog : public QDialog
 {
     Q_OBJECT
 
-#ifdef SHINE5402OTOBOX_TEST
-    friend class RemoveDuplicateTest;
-#endif
-
 public:
     explicit ToolDialog(ToolDialogAdapter* adapter, QWidget *parent = nullptr);
     ~ToolDialog();

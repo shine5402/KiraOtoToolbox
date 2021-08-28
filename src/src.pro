@@ -178,7 +178,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     presets/overlap_start_preset/overlap_start_preset.qrc \
-    resources/icon/icon.qrc
+    resources/icon/icon.qrc \
+    resources/splashscr/splashscr.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
 

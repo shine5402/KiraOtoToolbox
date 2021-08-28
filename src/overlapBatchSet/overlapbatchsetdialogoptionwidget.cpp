@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <utils/misc/fplusAdapter.h>
 
 OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -43,4 +44,28 @@ void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& option
     ui->OneThirdCheckBox->setChecked(options.getOption("makeOneThird").toBool());
 }
 
+QJsonObject OverlapBatchSetDialogOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
 
+    jsonObj.insert("ifSetOverlapStartWith", options.getOption("ifSetOverlapStartWith").toBool());
+    jsonObj.insert("overlapStartWith", options.getOption("overlapStartWith").toDouble());
+    jsonObj.insert("startWithPatternList", QJsonArray::fromStringList(options.getOption("startWithPatternList").toStringList()));
+    jsonObj.insert("ifMatchStartOto", options.getOption("ifMatchStartOto").toBool());
+    jsonObj.insert("makeOneThird", options.getOption("makeOneThird").toBool());
+
+    return jsonObj;
+}
+
+OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+
+    options.setOption("ifSetOverlapStartWith", json.value("ifSetOverlapStartWith").toBool());
+    options.setOption("overlapStartWith", json.value("overlapStartWith").toDouble());
+    options.setOption("startWithPatternList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeBeginPatternAsCVContent").toArray().toVariantList())));
+    options.setOption("ifMatchStartOto", json.value("ifMatchStartOto").toBool());
+    options.setOption("makeOneThird", json.value("makeOneThird").toBool());
+
+    return options;
+}

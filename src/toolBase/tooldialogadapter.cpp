@@ -24,6 +24,7 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     replaceOptionWidget(rootLayout, optionWidget);
 }
 
+//Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();

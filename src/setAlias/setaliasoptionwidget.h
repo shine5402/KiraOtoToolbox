@@ -1,5 +1,5 @@
-#ifndef SETALIASTOOLOPTIONWIDGET_H
-#define SETALIASTOOLOPTIONWIDGET_H
+#ifndef SETALIASOPTIONWIDGET_H
+#define SETALIASOPTIONWIDGET_H
 
 #include <toolBase/tooloptionwidget.h>
 
@@ -7,13 +7,13 @@ namespace Ui {
     class SetAliasToolOptionWidget;
 }
 
-class SetAliasToolOptionWidget : public ToolOptionWidget
+class SetAliasOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
 
 public:
-    Q_INVOKABLE explicit SetAliasToolOptionWidget(QWidget *parent = nullptr);
-    ~SetAliasToolOptionWidget();
+    Q_INVOKABLE explicit SetAliasOptionWidget(QWidget *parent = nullptr);
+    ~SetAliasOptionWidget();
 
 private:
     Ui::SetAliasToolOptionWidget *ui;
@@ -24,4 +24,4 @@ public:
     void setOptions(const OptionContainer& options) override;
 };
 
-#endif // SETALIASTOOLOPTIONWIDGET_H
+#endif // SETALIASOPTIONWIDGET_H

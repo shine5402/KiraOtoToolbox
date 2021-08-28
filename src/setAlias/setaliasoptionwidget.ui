@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SetAliasToolOptionWidget</class>
- <widget class="QWidget" name="SetAliasToolOptionWidget">
+ <class>SetAliasOptionWidget</class>
+ <widget class="QWidget" name="SetAliasOptionWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

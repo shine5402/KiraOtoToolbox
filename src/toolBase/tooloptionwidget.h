@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QVariant>
 #include "optioncontainer.h"
+#include <QJsonObject>
 
 class ToolOptionWidget : public QWidget
 {
@@ -13,6 +14,12 @@ public:
 
     virtual OptionContainer getOptions() const;
     virtual void setOptions(const OptionContainer& options);
+
+    virtual QJsonObject getOptionsJson() const;
+    virtual void setOptionsJson(const QJsonObject& json);
+
+    virtual QJsonObject optionsToJson(const OptionContainer& options) const;
+    virtual OptionContainer jsonToOptions(const QJsonObject& json) const;
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget
@@ -23,8 +30,11 @@ public:
 
     // ToolOptionWidget interface
 public:
-    OptionContainer getOptions() const;
-    void setOptions(const OptionContainer& options);
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer& options) override;
+
+    QJsonObject getOptionsJson() const override;
+    void setOptionsJson(const QJsonObject& json) override;
 };
 
 #endif // TOOLOPTIONWIDGET_H

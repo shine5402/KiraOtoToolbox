@@ -17,7 +17,28 @@ void ToolOptionWidget::setOptions(const OptionContainer& options)
 {
     Q_UNREACHABLE();
     Q_UNUSED(options)
-    return;
+}
+
+QJsonObject ToolOptionWidget::getOptionsJson() const
+{
+    return optionsToJson(getOptions());
+}
+
+void ToolOptionWidget::setOptionsJson(const QJsonObject& json)
+{
+    setOptions(jsonToOptions(json));
+}
+
+QJsonObject ToolOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    Q_UNREACHABLE();
+    Q_UNUSED(options);
+}
+
+OptionContainer ToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    Q_UNREACHABLE();
+    Q_UNUSED(json);
 }
 
 EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
@@ -38,4 +59,15 @@ OptionContainer EmptyToolOptionWidget::getOptions() const
 void EmptyToolOptionWidget::setOptions(const OptionContainer& options)
 {
     Q_UNUSED(options)
+}
+
+
+QJsonObject EmptyToolOptionWidget::getOptionsJson() const
+{
+    return {};
+}
+
+void EmptyToolOptionWidget::setOptionsJson(const QJsonObject& json)
+{
+    Q_UNUSED(json)
 }

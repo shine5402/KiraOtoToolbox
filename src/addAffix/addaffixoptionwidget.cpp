@@ -24,3 +24,23 @@ void AddAffixOptionWidget::setOptions(const OptionContainer& options)
     prefixEdit->setText(options.getOption("prefix").toString());
     suffixEdit->setText(options.getOption("suffix").toString());
 }
+
+
+
+QJsonObject AddAffixOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
+
+    jsonObj.insert("prefix", options.getOption("prefix").toString());
+    jsonObj.insert("suffix", options.getOption("suffix").toString());
+
+    return jsonObj;
+}
+
+OptionContainer AddAffixOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+    options.setOption("prefix", json.value("prefix"));
+    options.getOption("suffix", json.value("suffix"));
+    return options;
+}

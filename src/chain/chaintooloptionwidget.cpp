@@ -7,6 +7,11 @@
 #include "toolBase/toolmanager.h"
 #include <fplus/fplus.hpp>
 #include "utils/misc/fplusAdapter.h"
+#include <QJsonArray>
+#include <toolBase/tooldialogadapter.h>
+#include <QMessageBox>
+#include "chaininvaliddialogadapter.h"
+#include <toolBase/tooloptionwidget.h>
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -40,6 +45,61 @@ OptionContainer ChainToolOptionWidget::getOptions() const
 void ChainToolOptionWidget::setOptions(const OptionContainer& options)
 {
     stepsModel->setSteps(options.getOption("steps").value<QVector<ChainElement>>());
+}
+
+QJsonObject ChainToolOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonArray jsonArray;
+    auto steps = options.getOption("steps").value<QVector<ChainElement>>();
+    for (const auto& step: std::as_const(steps)){
+        QJsonObject stepJsonObj;
+        stepJsonObj.insert("stepAdapterClassName", step.tool.toolAdapterMetaObj.className());
+        stepJsonObj.insert("options", std::unique_ptr<ToolOptionWidget>(step.tool.getToolOptionWidgetInstance(nullptr))->optionsToJson(step.options));
+        jsonArray.append(stepJsonObj);
+    }
+    return {{"steps", jsonArray}};
+}
+
+OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    auto registeredTools = ToolManager::getManager()->getTools();
+    QHash<QString, int> knownToolMap;//className to registerId
+    for (auto i = 0; i < registeredTools.count(); ++i){
+        knownToolMap.insert(registeredTools.at(i).toolAdapterMetaObj.className(), i);
+    }
+
+    auto stepsJsonArray = json.value("steps").toArray();
+    QVector<ChainElement> steps;
+    for (const auto& stepJson : std::as_const(stepsJsonArray)){
+        auto obj = stepJson.toObject();
+        auto className = obj.value("stepAdapterClassName").toString();
+
+        //If invalid tool in preset exists here
+        if (className == "ChainInvalidDialogAdapter")
+        {
+            auto originalOptionsJson = obj.value("options").toObject();
+            auto originalClassName = obj.value("originalClassName").toString();
+            //These two insert would act like replace. And if it still not exists, we would convert it to invalid below.
+            obj.insert("className", originalClassName);
+            obj.insert("options", originalOptionsJson);
+        }
+
+        //If there is an unknown tool
+        if (!knownToolMap.contains(className)){
+            OptionContainer options;
+            options.setOption("originalClassName", className);
+            options.setOption("options", obj.value("options").toObject());
+            steps.append({ChainInvalidDialogAdapter::staticMetaObject, {}});
+            continue;
+        }
+
+        auto tool = registeredTools.at(knownToolMap.value(className));
+        auto options = std::unique_ptr<ToolOptionWidget>(tool.getToolOptionWidgetInstance(nullptr))->jsonToOptions(obj.value("options").toObject());
+        steps.append({tool.toolAdapterMetaObj, options});
+    }
+    OptionContainer options;
+    options.setOption("steps", QVariant::fromValue(steps));
+    return options;
 }
 
 int ChainToolOptionWidget::getCurrentRow() const

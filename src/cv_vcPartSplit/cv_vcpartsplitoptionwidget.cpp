@@ -1,5 +1,7 @@
 #include "cv_vcpartsplitoptionwidget.h"
 #include "ui_cv_vcpartsplitoptionwidget.h"
+#include <QJsonArray>
+#include <utils/misc/fplusAdapter.h>
 
 CV_VCPartSplitOptionWidget::CV_VCPartSplitOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -29,4 +31,25 @@ void CV_VCPartSplitOptionWidget::setOptions(const OptionContainer& options)
     ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent", QStringList{"-","・"}).toStringList());
     ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV", true).toBool());
     ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent", QStringList{"-","L"}).toStringList());
+}
+
+
+QJsonObject CV_VCPartSplitOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("isSeeBeginPatternAsCV", options.getOption("isSeeBeginPatternAsCV").toBool());
+    jsonObj.insert("seeBeginPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeBeginPatternAsCVContent").toStringList()));
+    jsonObj.insert("isSeeEndPatternAsCV", options.getOption("isSeeEndPatternAsCV").toBool());
+    jsonObj.insert("seeEndPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeEndPatternAsCVContent").toStringList()));
+    return jsonObj;
+}
+
+OptionContainer CV_VCPartSplitOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+    options.setOption("isSeeBeginPatternAsCV", json.value("isSeeBeginPatternAsCV").toBool());
+    options.setOption("seeBeginPatternAsCVContent", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeBeginPatternAsCVContent").toArray().toVariantList())));
+    options.setOption("isSeeEndPatternAsCV", json.value("isSeeEndPatternAsCV").toBool());
+    options.setOption("seeEndPatternAsCVContent", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeEndPatternAsCVContent").toArray().toVariantList())));
+    return options;
 }

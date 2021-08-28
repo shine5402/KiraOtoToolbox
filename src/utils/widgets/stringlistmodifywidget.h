@@ -11,9 +11,6 @@ namespace Ui {
 class StringListModifyWidget : public QWidget
 {
     Q_OBJECT
-#ifdef SHINE5402OTOBOX_TEST
-    friend class UtilWidgetsTest;
-#endif
 public:
     explicit StringListModifyWidget(QWidget *parent = nullptr);
     ~StringListModifyWidget();

@@ -1,8 +1,5 @@
 #include "tooldialog.h"
 #include "ui_tooldialog.h"
-#ifdef SHINE5402OTOBOX_TEST
-#include <QTimer>
-#endif
 #include <QMessageBox>
 #include <QTextStream>
 #include "utils/models/otofilelistmodel.h"
@@ -70,9 +67,7 @@ void ToolDialog::ToolDialog::accept()
     }
 
     if (success){
-#ifndef SHINE5402OTOBOX_TEST
         QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
-#endif
         QDialog::accept();
     }
 }
@@ -284,9 +279,6 @@ bool ToolDialog::saveOtoFileWithErrorInform(const OtoEntryList& entryList, int d
     auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, decimalAccuracy, nullptr, &errorString);
     if (!result)
     {
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
         QMessageBox::critical(dialogParent, tr("保存失败"), [&]() -> QString{
             QString result;
             QTextStream stream(&result);

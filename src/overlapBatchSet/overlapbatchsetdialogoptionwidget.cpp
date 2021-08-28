@@ -105,9 +105,6 @@ void OverlapBatchSetDialogOptionWidget::loadPreset()
                     auto path = obj.value("path").toString();
                     if (name.isEmpty() || path.isEmpty())
                     {
-#ifdef SHINE5402OTOBOX_TEST
-                        Q_ASSERT(false);
-#endif
                         QMessageBox::warning(this,tr("有预设读取失败"),tr("预设描述值至少有一项为空。出现问题的预设将无法使用。"));
                         continue;
                     }
@@ -117,18 +114,12 @@ void OverlapBatchSetDialogOptionWidget::loadPreset()
                         auto data = file.readAll();
                         if (data.isEmpty())
                         {
-#ifdef SHINE5402OTOBOX_TEST
-                            Q_ASSERT(false);
-#endif
                             QMessageBox::warning(this,tr("有预设读取失败"),tr("预设值为空。出现问题的预设将无法使用。"));
                         }
                         presetList.append({name, QString::fromUtf8(data).split("\n",Qt::SkipEmptyParts)});
                     }
                     else
                     {
-#ifdef SHINE5402OTOBOX_TEST
-                        Q_ASSERT(false);
-#endif
                         QMessageBox::warning(this,tr("有预设读取失败"),tr("读取预设"));
                     }
                     //presetList.append({obj.value("name")})
@@ -136,25 +127,16 @@ void OverlapBatchSetDialogOptionWidget::loadPreset()
             }
             else
             {
-#ifdef SHINE5402OTOBOX_TEST
-                Q_ASSERT(false);
-#endif
                 QMessageBox::warning(this, tr("预设清单读取失败"),tr("解析预设清单时出现错误：根元素不是Array。预设将不可用。"));
             }
         }
         else
         {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
             QMessageBox::warning(this, tr("预设清单读取失败"),tr("解析预设清单时出现错误，错误说明为 %1。预设将不可用。").arg(error.errorString()));
         }
     }
     else
     {
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
         QMessageBox::warning(this, tr("预设清单读取失败"),tr("程序无法打开预设清单文件，预设将不可用。"));
     }
 }
@@ -184,9 +166,6 @@ void OverlapBatchSetDialogOptionWidget::loadStartListFromFile()
             ui->setStartWithListView->setEnabled(true);
         }
         else {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
             QMessageBox::critical(this,tr("读取失败"),tr("无法打开指定的文件。"));
 
         }

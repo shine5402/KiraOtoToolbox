@@ -5,10 +5,6 @@
 #include <otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
 
-#ifdef SHINE5402OTOBOX_TEST
-#include <QTimer>
-#endif
-
 //TODO: 编码检测
 
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
@@ -62,9 +58,6 @@ void OtoFileLoadWidget::loadOtoFile()
     auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
-#ifdef SHINE5402OTOBOX_TEST
-        Q_ASSERT(false);
-#endif
         QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));
         return;
     }
@@ -84,8 +77,5 @@ void OtoFileLoadWidget::loadOtoFile()
 void OtoFileLoadWidget::showOtoListDialog()
 {
     auto dialog = new ShowOtoListDialog(&entryList ,this);
-#ifdef SHINE5402OTOBOX_TEST
-        QTimer::singleShot(0, dialog, &ShowOtoListDialog::accept);
-#endif
     dialog->open();
 }

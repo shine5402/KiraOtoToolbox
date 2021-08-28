@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>file2Test/normalData.ini</file>
-        <file>file2Test/needOrganizedData.ini</file>
-        <file>file2Test/withPitchSuffixData.ini</file>
-        <file>file2Test/withSpecificSuffixData.ini</file>
-    </qresource>
-</RCC>

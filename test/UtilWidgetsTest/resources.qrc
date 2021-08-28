@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>file2Test/testLoad.ini</file>
-    </qresource>
-</RCC>

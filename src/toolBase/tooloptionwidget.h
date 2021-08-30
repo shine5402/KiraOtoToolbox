@@ -12,16 +12,16 @@ class ToolOptionWidget : public QWidget
 public:
     Q_INVOKABLE explicit ToolOptionWidget(QWidget *parent = nullptr);
 
-    virtual OptionContainer getOptions() const;
-    virtual void setOptions(const OptionContainer& options);
+    virtual OptionContainer getOptions() const;//required
+    virtual void setOptions(const OptionContainer& options);//required
 
     virtual QJsonObject getOptionsJson() const;
     virtual void setOptionsJson(const QJsonObject& json);
 
-    virtual QJsonObject optionsToJson(const OptionContainer& options) const;
-    virtual OptionContainer jsonToOptions(const QJsonObject& json) const;
+    virtual QJsonObject optionsToJson(const OptionContainer& options) const;//required
+    virtual OptionContainer jsonToOptions(const QJsonObject& json) const;//required
 
-    virtual int optionJsonVersion() const;
+    virtual int optionJsonVersion() const;//required
     virtual QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const;
 };
 

@@ -35,3 +35,28 @@ void SetAliasOptionWidget::setOptions(const OptionContainer& options)
     ui->removeStrRegexCheckBox->setChecked(options.getOption("strShouldRemoveIsRegex").toBool());
     ui->emptyOnlyCheckBox->setChecked(options.getOption("onlyForEmpty").toBool());
 }
+
+
+QJsonObject SetAliasOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("renamingRule", options.getOption("renamingRule").toString());
+    jsonObj.insert("cutHeadCount", options.getOption("cutHeadCount").toInt());
+    jsonObj.insert("cutTailCount", options.getOption("cutTailCount").toInt());
+    jsonObj.insert("strShouldRemove", options.getOption("strShouldRemove").toString());
+    jsonObj.insert("strShouldRemoveIsRegex", options.getOption("strShouldRemoveIsRegex").toBool());
+    jsonObj.insert("onlyForEmpty", options.getOption("onlyForEmpty").toBool());
+    return jsonObj;
+}
+
+OptionContainer SetAliasOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+    options.setOption("renamingRule", json.value("renamingRule").toString());
+    options.setOption("cutHeadCount", json.value("cutHeadCount").toInt());
+    options.setOption("cutTailCount", json.value("cutTailCount").toInt());
+    options.setOption("strShouldRemove", json.value("strShouldRemove").toString());
+    options.setOption("strShouldRemoveIsRegex", json.value("strShouldRemoveIsRegex").toBool());
+    options.setOption("onlyForEmpty", json.value("onlyForEmpty").toBool());
+    return options;
+}

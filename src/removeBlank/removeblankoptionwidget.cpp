@@ -27,3 +27,18 @@ void RemoveBlankOptionWidget::setOptions(const OptionContainer& options)
 {
     ignoreRightCheckBox->setChecked(options.getOption("ignoreRight").toBool());
 }
+
+
+QJsonObject RemoveBlankOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("ignoreRight", options.getOption("ignoreRight").toBool());
+    return jsonObj;
+}
+
+OptionContainer RemoveBlankOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+    options.setOption("ignoreRight", json.value("ignoreRight").toBool());
+    return options;
+}

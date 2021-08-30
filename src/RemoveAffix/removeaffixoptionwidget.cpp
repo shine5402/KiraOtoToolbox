@@ -2,6 +2,8 @@
 #include "ui_removeaffixoptionwidget.h"
 #include "utils/widgets/atleastonecheckedbuttongroup.h"
 #include <otoentry.h>
+#include <QJsonArray>
+#include <utils/misc/fplusAdapter.h>
 
 RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -63,3 +65,36 @@ void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
     ui->pitchCaseComboBox->setCurrentIndex(options.getOption("pitchCase").toInt());
 }
 
+QJsonObject RemoveAffixOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("removePrefix", options.getOption("removePrefix").toBool());
+    jsonObj.insert("prefixList", QJsonArray::fromStringList(options.getOption("prefixList").toStringList()));
+    jsonObj.insert("removeSuffix", options.getOption("removeSuffix").toBool());
+    jsonObj.insert("suffixList", QJsonArray::fromStringList(options.getOption("suffixList").toStringList()));
+    jsonObj.insert("removePitchAffix", options.getOption("removePitchAffix").toBool());
+    jsonObj.insert("removePitchPrefix", options.getOption("removePitchPrefix").toBool());
+    jsonObj.insert("removePitchSuffix", options.getOption("removePitchSuffix").toBool());
+    jsonObj.insert("bottomPitch", options.getOption("bottomPitch").toString());
+    jsonObj.insert("topPitch", options.getOption("topPitch").toString());
+    jsonObj.insert("pitchCaseSensitive", options.getOption("pitchCaseSensitive").value<Qt::CaseSensitivity>());
+    jsonObj.insert("pitchCase", options.getOption("pitchCase").toInt());
+    return jsonObj;
+}
+
+OptionContainer RemoveAffixOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    OptionContainer options;
+    options.setOption("removePrefix", json.value("removePrefix").toBool());
+    options.setOption("prefixList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("prefixList").toArray().toVariantList())));
+    options.setOption("removeSuffix", json.value("removeSuffix").toBool());
+    options.setOption("suffixList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("suffixList").toArray().toVariantList())));
+    options.setOption("removePitchAffix", json.value("removePitchAffix").toBool());
+    options.setOption("removePitchPrefix", json.value("removePitchPrefix").toBool());
+    options.setOption("removePitchSuffix", json.value("removePitchSuffix").toBool());
+    options.setOption("bottomPitch", json.value("bottomPitch").toString());
+    options.setOption("topPitch", json.value("topPitch").toString());
+    options.setOption("pitchCaseSensitive", json.value("pitchCaseSensitive").toInt());
+    options.setOption("pitchCase", json.value("pitchCase").toInt());
+    return options;
+}

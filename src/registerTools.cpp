@@ -29,6 +29,3 @@ void registerTools()
     manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "元操作"), ChainDialogAdapter::staticMetaObject);
     manager->registerTool(QCoreApplication::translate("TOOL_TYPE", "元操作"), NotDoAnythingDialogAdapter::staticMetaObject);
 }
-
-//TODO:合并oto.ini文件
-//TODO:别名替换/按规则复制

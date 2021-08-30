@@ -69,3 +69,8 @@ OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObje
 
     return options;
 }
+
+int OverlapBatchSetDialogOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

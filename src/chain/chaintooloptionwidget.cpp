@@ -102,6 +102,11 @@ OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject& json) co
     return options;
 }
 
+int ChainToolOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}
+
 int ChainToolOptionWidget::getCurrentRow() const
 {
     return ui->toolListView->selectionModel()->currentIndex().row();

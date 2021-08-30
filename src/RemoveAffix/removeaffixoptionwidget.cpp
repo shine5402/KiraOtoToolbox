@@ -98,3 +98,8 @@ OptionContainer RemoveAffixOptionWidget::jsonToOptions(const QJsonObject& json) 
     options.setOption("pitchCase", json.value("pitchCase").toInt());
     return options;
 }
+
+int RemoveAffixOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

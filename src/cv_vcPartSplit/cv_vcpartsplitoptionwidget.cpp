@@ -53,3 +53,8 @@ OptionContainer CV_VCPartSplitOptionWidget::jsonToOptions(const QJsonObject& jso
     options.setOption("seeEndPatternAsCVContent", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeEndPatternAsCVContent").toArray().toVariantList())));
     return options;
 }
+
+int CV_VCPartSplitOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

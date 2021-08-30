@@ -44,3 +44,9 @@ OptionContainer AddAffixOptionWidget::jsonToOptions(const QJsonObject& json) con
     options.getOption("suffix", json.value("suffix"));
     return options;
 }
+
+
+int AddAffixOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

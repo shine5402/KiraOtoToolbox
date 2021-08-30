@@ -20,6 +20,9 @@ public:
 
     virtual QJsonObject optionsToJson(const OptionContainer& options) const;
     virtual OptionContainer jsonToOptions(const QJsonObject& json) const;
+
+    virtual int optionJsonVersion() const;
+    virtual QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const;
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget

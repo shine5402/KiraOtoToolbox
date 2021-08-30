@@ -34,3 +34,8 @@ OptionContainer NotDoAnythingOptionWidget::jsonToOptions(const QJsonObject& json
     Q_UNUSED(json)
     return {};
 }
+
+int NotDoAnythingOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

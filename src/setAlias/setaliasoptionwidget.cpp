@@ -60,3 +60,8 @@ OptionContainer SetAliasOptionWidget::jsonToOptions(const QJsonObject& json) con
     options.setOption("onlyForEmpty", json.value("onlyForEmpty").toBool());
     return options;
 }
+
+int SetAliasOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

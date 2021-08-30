@@ -42,3 +42,8 @@ OptionContainer RemoveBlankOptionWidget::jsonToOptions(const QJsonObject& json) 
     options.setOption("ignoreRight", json.value("ignoreRight").toBool());
     return options;
 }
+
+int RemoveBlankOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

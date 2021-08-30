@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
     connect(ui->actionDonate, &QAction::triggered, this, &MainWindow::showDonationPage);
     connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
+    connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
 
     auto buttonGroup = new QButtonGroup(this);
 
@@ -82,7 +83,7 @@ R"(<h2>shine_5402 的 oto 工具箱</h2>
 <p>Copyright 2020 <a href="https://shine5402.top/about-me">shine_5402</a></p>
 <p>版本 %1</p>
 <h3>关于</h3>
-<p>一个个人自用向的操作UTAU用声音资料库的原音设定文件oto.ini的工具箱</p>
+<p>一个操作UTAU用声音资料库的原音设定文件oto.ini的工具箱</p>
 <h3>许可</h3>
 <p>本程序是自由软件：你可以在遵守由自由软件基金会发布的GNU通用公共许可证版本3（或者更新的版本）的情况下重新分发和/或修改本程序。</p>
 <p>本程序的发布旨在能够派上用场，但是<span style="font-weight: bold;">并不对此作出任何担保</span>；乃至也没有对<span style="font-weight: bold;">适销性</span>或<span style="font-weight: bold;">特定用途适用性</span>的默示担保。参见GNU通用公共许可证来获得更多细节。</p>
@@ -112,6 +113,11 @@ void MainWindow::showDonationPage()
 void MainWindow::showUpdatePage()
 {
     QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/releases"});
+}
+
+void MainWindow::showFeedbackPage()
+{
+    QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
 }
 
 #ifndef NDEBUG

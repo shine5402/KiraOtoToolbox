@@ -25,7 +25,7 @@ private slots:
     void showDonationPage();
     void showUpdatePage();
 #ifndef NDEBUG
-    void on_debugButton_clicked();
+    void debugFunction();
 #endif
 };
 #ifndef NDEBUG

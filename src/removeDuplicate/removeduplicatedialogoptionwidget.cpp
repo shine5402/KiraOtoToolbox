@@ -57,3 +57,8 @@ OptionContainer RemoveDuplicateDialogOptionWidget::jsonToOptions(const QJsonObje
     options.setOption("pitchCaseOrganized", json.value("pitchCaseOrganized").toInt());
     return options;
 }
+
+int RemoveDuplicateDialogOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

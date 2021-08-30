@@ -16,6 +16,7 @@ public:
 
     QJsonObject optionsToJson(const OptionContainer& options) const override;
     OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    int optionJsonVersion() const override;
 };
 
 #endif // NOTDOANYTHINGOPTIONWIDGET_H

@@ -41,6 +41,17 @@ OptionContainer ToolOptionWidget::jsonToOptions(const QJsonObject& json) const
     Q_UNUSED(json);
 }
 
+int ToolOptionWidget::optionJsonVersion() const
+{
+    Q_UNREACHABLE();
+}
+
+QJsonObject ToolOptionWidget::updateOptionJsonFrom(int version, const QJsonObject& json) const
+{
+    Q_UNUSED(version);
+    return json;
+}
+
 EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);
@@ -70,4 +81,9 @@ QJsonObject EmptyToolOptionWidget::getOptionsJson() const
 void EmptyToolOptionWidget::setOptionsJson(const QJsonObject& json)
 {
     Q_UNUSED(json)
+}
+
+int EmptyToolOptionWidget::optionJsonVersion() const
+{
+    return 1;
 }

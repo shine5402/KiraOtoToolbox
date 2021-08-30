@@ -54,8 +54,8 @@ SOURCES += \
     removeBlank/removeblankotolistmodifyworker.cpp \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
-    removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
+    removeDuplicate/removeduplicateoptionwidget.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
     setAlias/setaliasdialogadapter.cpp \
     setAlias/setaliasoptionwidget.cpp \
@@ -117,8 +117,8 @@ HEADERS += \
     removeBlank/removeblankotolistmodifyworker.h \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
     removeDuplicate/removeduplicatedialogadapter.h \
-    removeDuplicate/removeduplicatedialogoptionwidget.h \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
+    removeDuplicate/removeduplicateoptionwidget.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
     setAlias/setaliasdialogadapter.h \
     setAlias/setaliasoptionwidget.h \
@@ -156,9 +156,9 @@ FORMS += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
+    removeDuplicate/removeduplicateoptionwidget.ui \
     setAlias/setaliasoptionwidget.ui \
     toolBase/tooldialog.ui \
-    removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \

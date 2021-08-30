@@ -1,19 +1,19 @@
-#include "removeduplicatedialogoptionwidget.h"
-#include "ui_removeduplicatedialogoptionwidget.h"
+#include "removeduplicateoptionwidget.h"
+#include "ui_removeduplicateoptionwidget.h"
 
-RemoveDuplicateDialogOptionWidget::RemoveDuplicateDialogOptionWidget(QWidget *parent) :
+RemoveDuplicateOptionWidget::RemoveDuplicateOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
-    ui(new Ui::RemoveDuplicateDialogOptionWidget)
+    ui(new Ui::RemoveDuplicateOptionWidget)
 {
     ui->setupUi(this);
 }
 
-RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
+RemoveDuplicateOptionWidget::~RemoveDuplicateOptionWidget()
 {
     delete ui;
 }
 
-OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
+OptionContainer RemoveDuplicateOptionWidget::getOptions() const
 {
     OptionContainer options;
 
@@ -26,7 +26,7 @@ OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveDuplicateDialogOptionWidget::setOptions(const OptionContainer& options)
+void RemoveDuplicateOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->affixRemoveWidget->setOptions(options.extract("affixRemove"));
     ui->maxSpinBox->setValue(options.getOption("maxDuplicateCount").toInt());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RemoveDuplicateDialogOptionWidget</class>
- <widget class="QWidget" name="RemoveDuplicateDialogOptionWidget">
+ <class>RemoveDuplicateOptionWidget</class>
+ <widget class="QWidget" name="RemoveDuplicateOptionWidget">
   <property name="enabled">
    <bool>true</bool>
   </property>

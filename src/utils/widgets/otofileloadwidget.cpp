@@ -5,8 +5,6 @@
 #include <otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
 
-//TODO: 编码检测
-
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OtoFileLoadWidget)

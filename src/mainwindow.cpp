@@ -73,7 +73,7 @@ void MainWindow::exit()
 void MainWindow::showAboutDialog()
 {
 #ifdef VERSION_BETA
-    auto versionStr = qApp->applicationVersion() + " (BETA)";
+    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">您使用的是测试版工具，请<b>注意风险和备份</b>。出现问题请使用Github Issues进行反馈，十分感谢。";
 #else
     auto versionStr = qApp->applicationVersion();
 #endif

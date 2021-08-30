@@ -1,19 +1,19 @@
-#include "removeduplicatedialogoptionwidget.h"
-#include "ui_removeduplicatedialogoptionwidget.h"
+#include "removeduplicateoptionwidget.h"
+#include "ui_removeduplicateoptionwidget.h"
 
-RemoveDuplicateDialogOptionWidget::RemoveDuplicateDialogOptionWidget(QWidget *parent) :
+RemoveDuplicateOptionWidget::RemoveDuplicateOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
-    ui(new Ui::RemoveDuplicateDialogOptionWidget)
+    ui(new Ui::RemoveDuplicateOptionWidget)
 {
     ui->setupUi(this);
 }
 
-RemoveDuplicateDialogOptionWidget::~RemoveDuplicateDialogOptionWidget()
+RemoveDuplicateOptionWidget::~RemoveDuplicateOptionWidget()
 {
     delete ui;
 }
 
-OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
+OptionContainer RemoveDuplicateOptionWidget::getOptions() const
 {
     OptionContainer options;
 
@@ -26,7 +26,7 @@ OptionContainer RemoveDuplicateDialogOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveDuplicateDialogOptionWidget::setOptions(const OptionContainer& options)
+void RemoveDuplicateOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->affixRemoveWidget->setOptions(options.extract("affixRemove"));
     ui->maxSpinBox->setValue(options.getOption("maxDuplicateCount").toInt());
@@ -36,7 +36,7 @@ void RemoveDuplicateDialogOptionWidget::setOptions(const OptionContainer& option
 }
 
 
-QJsonObject RemoveDuplicateDialogOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject RemoveDuplicateOptionWidget::optionsToJson(const OptionContainer& options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("affixRemove_", ui->affixRemoveWidget->optionsToJson(options.extract("affixRemove")));
@@ -47,7 +47,7 @@ QJsonObject RemoveDuplicateDialogOptionWidget::optionsToJson(const OptionContain
     return jsonObj;
 }
 
-OptionContainer RemoveDuplicateDialogOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer RemoveDuplicateOptionWidget::jsonToOptions(const QJsonObject& json) const
 {
     OptionContainer options;
     options.combine(ui->affixRemoveWidget->jsonToOptions(json.value("affixRemove_").toObject()), "affixRemove/");
@@ -58,7 +58,7 @@ OptionContainer RemoveDuplicateDialogOptionWidget::jsonToOptions(const QJsonObje
     return options;
 }
 
-int RemoveDuplicateDialogOptionWidget::optionJsonVersion() const
+int RemoveDuplicateOptionWidget::optionJsonVersion() const
 {
     return 1;
 }

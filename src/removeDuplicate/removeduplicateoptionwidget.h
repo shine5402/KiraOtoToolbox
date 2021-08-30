@@ -6,17 +6,16 @@
 #include "toolBase/tooloptionwidget.h"
 
 namespace Ui {
-    class RemoveDuplicateDialogOptionWidget;
+    class RemoveDuplicateOptionWidget;
 }
 
-class RemoveDuplicateDialogOptionWidget : public ToolOptionWidget
+class RemoveDuplicateOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
 
 public:
-    Q_INVOKABLE explicit RemoveDuplicateDialogOptionWidget(QWidget *parent = nullptr);
-    ~RemoveDuplicateDialogOptionWidget();
-
+    Q_INVOKABLE explicit RemoveDuplicateOptionWidget(QWidget *parent = nullptr);
+    ~RemoveDuplicateOptionWidget();
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;
 
@@ -25,7 +24,7 @@ public:
     int optionJsonVersion() const override;
 
 private:
-    Ui::RemoveDuplicateDialogOptionWidget *ui;
+    Ui::RemoveDuplicateOptionWidget *ui;
 };
 
 #endif // REMOVEDUPLICATEDIALOGOPTIONWIDGET_H

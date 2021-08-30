@@ -4,7 +4,7 @@
 #include <toolBase/tooloptionwidget.h>
 
 namespace Ui {
-    class SetAliasToolOptionWidget;
+    class SetAliasOptionWidget;
 }
 
 class SetAliasOptionWidget : public ToolOptionWidget
@@ -16,7 +16,7 @@ public:
     ~SetAliasOptionWidget();
 
 private:
-    Ui::SetAliasToolOptionWidget *ui;
+    Ui::SetAliasOptionWidget *ui;
 
     // ToolOptionWidget interface
 public:

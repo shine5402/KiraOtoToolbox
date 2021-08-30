@@ -1,5 +1,5 @@
 #include "removeduplicatedialogadapter.h"
-#include "removeduplicatedialogoptionwidget.h"
+#include "removeduplicateoptionwidget.h"
 #include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
 #include "utils/dialogs/tableviewdialog.h"
@@ -12,7 +12,7 @@
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorkerMetaObj(RemoveDuplicateModuleOtoListModifyWorker::staticMetaObject);
-    setOptionWidgetMetaObj(RemoveDuplicateDialogOptionWidget::staticMetaObject);
+    setOptionWidgetMetaObj(RemoveDuplicateOptionWidget::staticMetaObject);
 }
 
 void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)

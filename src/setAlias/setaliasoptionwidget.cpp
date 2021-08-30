@@ -1,9 +1,9 @@
 #include "setaliasoptionwidget.h"
-#include "ui_setaliastooloptionwidget.h"
+#include "ui_setaliasoptionwidget.h"
 
 SetAliasOptionWidget::SetAliasOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
-    ui(new Ui::SetAliasToolOptionWidget)
+    ui(new Ui::SetAliasOptionWidget)
 {
     ui->setupUi(this);
 }

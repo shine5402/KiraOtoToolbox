@@ -4,19 +4,19 @@
 #include <toolBase/tooloptionwidget.h>
 
 namespace Ui {
-    class SetAliasToolOptionWidget;
+    class SetAliasOptionWidget;
 }
 
-class SetAliasToolOptionWidget : public ToolOptionWidget
+class SetAliasOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
 
 public:
-    Q_INVOKABLE explicit SetAliasToolOptionWidget(QWidget *parent = nullptr);
-    ~SetAliasToolOptionWidget();
+    Q_INVOKABLE explicit SetAliasOptionWidget(QWidget *parent = nullptr);
+    ~SetAliasOptionWidget();
 
 private:
-    Ui::SetAliasToolOptionWidget *ui;
+    Ui::SetAliasOptionWidget *ui;
 
     // ToolOptionWidget interface
 public:

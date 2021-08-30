@@ -1,20 +1,20 @@
-#include "setaliastooloptionwidget.h"
-#include "ui_setaliastooloptionwidget.h"
+#include "setaliasoptionwidget.h"
+#include "ui_setaliasoptionwidget.h"
 
-SetAliasToolOptionWidget::SetAliasToolOptionWidget(QWidget *parent) :
+SetAliasOptionWidget::SetAliasOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
-    ui(new Ui::SetAliasToolOptionWidget)
+    ui(new Ui::SetAliasOptionWidget)
 {
     ui->setupUi(this);
 }
 
-SetAliasToolOptionWidget::~SetAliasToolOptionWidget()
+SetAliasOptionWidget::~SetAliasOptionWidget()
 {
     delete ui;
 }
 
 
-OptionContainer SetAliasToolOptionWidget::getOptions() const
+OptionContainer SetAliasOptionWidget::getOptions() const
 {
     OptionContainer options;
     options.setOption("renamingRule", ui->ruleLineEdit->text());
@@ -26,7 +26,7 @@ OptionContainer SetAliasToolOptionWidget::getOptions() const
     return options;
 }
 
-void SetAliasToolOptionWidget::setOptions(const OptionContainer& options)
+void SetAliasOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->ruleLineEdit->setText(options.getOption("renamingRule").toString());
     ui->headCutSpinBox->setValue(options.getOption("cutHeadCount").toInt());

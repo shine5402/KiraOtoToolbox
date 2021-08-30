@@ -19,8 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 #ifdef NDEBUG
-    ui->debugButton->setVisible(false);
+    ui->actionDebug->setVisible(false);
+#else
+    connect(ui->actionDebug, &QAction::triggered, this, &MainWindow::debugFunction);
 #endif
 
     connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
@@ -46,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
             buttonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
-        ui->centralLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
+        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
     }
 
     connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
@@ -112,13 +115,8 @@ void MainWindow::showUpdatePage()
 }
 
 #ifndef NDEBUG
-#include "../lib/misc/qballontip.h"
-#include <QStyle>
-void MainWindow::on_debugButton_clicked()
+void MainWindow::debugFunction()
 {
 
-    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxInformation),
-    "测试", "测试", ui->debugButton, {}, 500);
 }
-
 #endif

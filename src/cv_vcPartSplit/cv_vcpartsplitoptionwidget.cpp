@@ -48,9 +48,9 @@ OptionContainer CV_VCPartSplitOptionWidget::jsonToOptions(const QJsonObject& jso
 {
     OptionContainer options;
     options.setOption("isSeeBeginPatternAsCV", json.value("isSeeBeginPatternAsCV").toBool());
-    options.setOption("seeBeginPatternAsCVContent", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeBeginPatternAsCVContent").toArray().toVariantList())));
+    options.setOption("seeBeginPatternAsCVContent", getStringListFromJSONObject(json, "seeBeginPatternAsCVContent"));
     options.setOption("isSeeEndPatternAsCV", json.value("isSeeEndPatternAsCV").toBool());
-    options.setOption("seeEndPatternAsCVContent", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeEndPatternAsCVContent").toArray().toVariantList())));
+    options.setOption("seeEndPatternAsCVContent", getStringListFromJSONObject(json, "seeEndPatternAsCVContent"));
     return options;
 }
 

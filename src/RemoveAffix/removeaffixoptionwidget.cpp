@@ -86,9 +86,9 @@ OptionContainer RemoveAffixOptionWidget::jsonToOptions(const QJsonObject& json) 
 {
     OptionContainer options;
     options.setOption("removePrefix", json.value("removePrefix").toBool());
-    options.setOption("prefixList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("prefixList").toArray().toVariantList())));
+    options.setOption("prefixList", getStringListFromJSONObject(json, "prefixList"));
     options.setOption("removeSuffix", json.value("removeSuffix").toBool());
-    options.setOption("suffixList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("suffixList").toArray().toVariantList())));
+    options.setOption("suffixList", getStringListFromJSONObject(json, "suffixList"));
     options.setOption("removePitchAffix", json.value("removePitchAffix").toBool());
     options.setOption("removePitchPrefix", json.value("removePitchPrefix").toBool());
     options.setOption("removePitchSuffix", json.value("removePitchSuffix").toBool());

@@ -41,4 +41,6 @@ public:
     virtual int optionJsonVersion() const override;
 };
 
+#define getStringListFromJSONObject(jsonObj, key) QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, jsonObj.value(key).toArray().toVariantList()))
+
 #endif // TOOLOPTIONWIDGET_H

@@ -63,7 +63,7 @@ OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObje
 
     options.setOption("ifSetOverlapStartWith", json.value("ifSetOverlapStartWith").toBool());
     options.setOption("overlapStartWith", json.value("overlapStartWith").toDouble());
-    options.setOption("startWithPatternList", QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, json.value("seeBeginPatternAsCVContent").toArray().toVariantList())));
+    options.setOption("startWithPatternList", getStringListFromJSONObject(json, "seeBeginPatternAsCVContent"));
     options.setOption("ifMatchStartOto", json.value("ifMatchStartOto").toBool());
     options.setOption("makeOneThird", json.value("makeOneThird").toBool());
 

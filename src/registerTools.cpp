@@ -13,7 +13,7 @@
 #include <QCoreApplication>
 
 #define REGISTER_TOOL(type, adapter_class) \
-    ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
+    ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject, adapter_class::TOOL_NAME)
 
 //TODO:Speed up this by using marco
 void registerTools()

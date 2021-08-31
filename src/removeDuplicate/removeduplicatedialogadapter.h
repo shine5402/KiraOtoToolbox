@@ -11,7 +11,7 @@ public:
     Q_INVOKABLE explicit RemoveDuplicateDialogAdapter(QObject *parent = nullptr);
     void replaceUIWidgets(QLayout *rootLayout) override;
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer& options, QWidget *dialogParent) override;
-    DEFINE_TOOL_NAME("去除重复项")
+    DEFINE_TOOL_NAME("去除与整理重复项")
 };
 
 #endif // REMOVEDUPLICATEDIALOGADAPTER_H

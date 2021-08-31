@@ -1,4 +1,4 @@
-A copy of lupdate tool from Qt's code (5.15.2), under GPL-3.0.
+A modified copy of lupdate tool from Qt's code (5.15.2), under GPL-3.0.
 I modify this tool as I'm using some custom marcos, whose paramters need to be translated too.
 Though lupdate.exe in Qt 6 toolchain has ability to use clang to parse, which provide functionality to take marco into thought, it still can not recognize a marco from include. It's kind of ugly to modify the pattern to use the custom macros (like DEFINE_TOOL_NAME(QT_TRANSLATE_NOOP("TOOL_NAME", tool_name))), so I just modify this tool.
 This branch would take these marco to into thought:

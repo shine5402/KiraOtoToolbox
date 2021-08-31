@@ -10,7 +10,7 @@ class OverlapBatchSetDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit OverlapBatchSetDialogAdapter(QObject *parent = nullptr);
-    QString getToolName() const override;
+    DEFINE_TOOL_NAME("批量修改Overlap")
 };
 
 #endif // OVERLAPBATCHSETDIALOGADAPTER_H

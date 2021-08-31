@@ -8,7 +8,7 @@ class NotDoAnythingDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit NotDoAnythingDialogAdapter(QObject *parent = nullptr);
-    QString getToolName() const override;
+    DEFINE_TOOL_NAME("什么都不做")
 };
 
 #endif // NOTDOANYTHINGDIALOGADAPTER_H

@@ -45,8 +45,3 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
     }
     return false;
 }
-
-QString RemoveDuplicateDialogAdapter::getToolName() const
-{
-    return tr("去除重复项");
-}

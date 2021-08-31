@@ -5,6 +5,7 @@
 #include "toolBase/tooldialogadapter.h"
 #include "toolBase/otolistmodifyworker.h"
 #include <QPointer>
+
 struct Tool{
     Tool() = default;
     Tool(QMetaObject toolAdapterMetaObj) : toolAdapterMetaObj(toolAdapterMetaObj){}
@@ -12,13 +13,19 @@ struct Tool{
     QMetaObject toolAdapterMetaObj;
 
     bool operator==(const Tool& rhs) const {
-        return toolAdapterMetaObj.className() == rhs.toolAdapterMetaObj.className();
+        return rhs.toolName() == toolName();
     }
     bool operator!=(const Tool& rhs){
         return !(*this == rhs);
     }
-
-    QString toolName() const;
+    QString toolName() const {
+        if (auto adapter = std::unique_ptr<ToolDialogAdapter>(
+                    qobject_cast<ToolDialogAdapter *>(
+                        toolAdapterMetaObj.newInstance()))){
+            return adapter->getToolName();
+        }
+        return {};
+    }
 
     std::unique_ptr<ToolDialogAdapter> getAdapterInstance() const{
         return std::unique_ptr<ToolDialogAdapter>(getAdapterInstance(nullptr));
@@ -70,11 +77,8 @@ public:
     static ToolManager* getManager();
 
     void registerTool(const QString& group, const Tool& tool);
-    void registerTool(const QString& group, const Tool& tool, QString toolName);//For a compile time cache
     void unRegisterTool(int i);
     void unRegisterTool(const Tool& tool);
-
-    bool contains(const Tool& tool) const;
 
     QVector<Tool> getTools() const;
 
@@ -82,14 +86,11 @@ public:
 
     QStringList getToolGroupNamesInRegisterOrder() const;//用来保持注册顺序
 
-    QString getToolName(const Tool& tool) const;//For a compile time cache
-
 private:
     static ToolManager* manager;
     QVector<Tool> tools;
     QMultiHash<QString, Tool> toolGroups;
     QStringList toolGroupNames;
-    QHash<QString, QString> toolNameCache;//For a compile time cache
 };
 
 #endif // TOOLMANAGER_H

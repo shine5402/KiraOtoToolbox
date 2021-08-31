@@ -7,8 +7,3 @@ NotDoAnythingDialogAdapter::NotDoAnythingDialogAdapter(QObject *parent) : ToolDi
     setWorkerMetaObj(NotDoAnythingOtoListModifyWorker::staticMetaObject);
     setOptionWidgetMetaObj(NotDoAnythingOptionWidget::staticMetaObject);
 }
-
-QString NotDoAnythingDialogAdapter::getToolName() const
-{
-    return tr("什么都不做");
-}

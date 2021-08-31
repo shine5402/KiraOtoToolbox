@@ -45,6 +45,7 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 
 QString ToolDialogAdapter::getToolName() const
 {
+    Q_UNREACHABLE();
     return {};
 }
 

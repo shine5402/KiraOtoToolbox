@@ -8,7 +8,7 @@ class SetAliasDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE SetAliasDialogAdapter(QObject *parent = nullptr);
-    QString getToolName() const override;
+    DEFINE_TOOL_NAME("设置别名")
 };
 
 #endif // SETALIASDIALOGADAPTER_H

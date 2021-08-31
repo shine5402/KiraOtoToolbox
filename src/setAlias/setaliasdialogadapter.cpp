@@ -7,8 +7,3 @@ SetAliasDialogAdapter::SetAliasDialogAdapter(QObject *parent) : ToolDialogAdapte
     setWorkerMetaObj(SetAliasOtoListModifyWorker::staticMetaObject);
     setOptionWidgetMetaObj(SetAliasOptionWidget::staticMetaObject);
 }
-
-QString SetAliasDialogAdapter::getToolName() const
-{
-    return tr("设置别名");
-}

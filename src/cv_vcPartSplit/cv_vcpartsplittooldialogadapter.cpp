@@ -18,11 +18,6 @@ void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
 
-QString CV_VCPartSplitToolDialogAdapter::getToolName() const
-{
-    return tr("分离CV/VC部");
-}
-
 bool CV_VCPartSplitToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();

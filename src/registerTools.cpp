@@ -15,7 +15,6 @@
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
 
-//TODO:Speed up this by using marco
 void registerTools()
 {
     REGISTER_TOOL("去除不需要的项", RemoveDuplicateDialogAdapter);
@@ -23,6 +22,7 @@ void registerTools()
     REGISTER_TOOL("批量设置数值", OverlapBatchSetDialogAdapter);
     REGISTER_TOOL("对别名进行操作", RemoveAffixDialogAdapter);
     REGISTER_TOOL("对别名进行操作", AddAffixDialogAdapter);
+    REGISTER_TOOL("对别名进行操作", SetAliasDialogAdapter);
     REGISTER_TOOL("筛选出需要的项", CV_VCPartSplitToolDialogAdapter);
     REGISTER_TOOL("元操作", ChainDialogAdapter);
     REGISTER_TOOL("元操作", NotDoAnythingDialogAdapter);

@@ -63,6 +63,7 @@ SOURCES += \
     setAlias/setaliasotolistmodifyworker.cpp \
     toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
+    toolBase/presetwidgetcontainer.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/toolmanager.cpp \
@@ -127,6 +128,7 @@ HEADERS += \
     setAlias/setaliasotolistmodifyworker.h \
     toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
+    toolBase/presetwidgetcontainer.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/toolmanager.h \
@@ -160,6 +162,7 @@ FORMS += \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     removeDuplicate/removeduplicateoptionwidget.ui \
     setAlias/setaliasoptionwidget.ui \
+    toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \

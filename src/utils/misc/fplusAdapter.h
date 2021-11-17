@@ -34,6 +34,15 @@ namespace fplus {
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QList<T>, NewT, SizeOffset>{typedef class QList<NewT> type;};
     }
 
+    template <typename T>
+    T get_just_or_default(const maybe<T>& maybe){
+        return maybe.is_just() ? maybe.unsafe_get_just() : T{};
+    }
+
+    template <typename T>
+    T get_just_or_default(const maybe<T>& maybe, const T& default_value){
+        return maybe.is_just() ? maybe.unsafe_get_just() : default_value;
+    }
 }
 
 #endif // FPLUSADAPTER_H

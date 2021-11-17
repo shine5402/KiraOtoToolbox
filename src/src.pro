@@ -63,6 +63,7 @@ SOURCES += \
     setAlias/setaliasotolistmodifyworker.cpp \
     toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
+    toolBase/presetmanager.cpp \
     toolBase/presetwidgetcontainer.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
@@ -128,6 +129,7 @@ HEADERS += \
     setAlias/setaliasotolistmodifyworker.h \
     toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
+    toolBase/presetmanager.h \
     toolBase/presetwidgetcontainer.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \

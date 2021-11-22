@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QCoreApplication>
+#include "tooloptionwidget.h"
 
 PresetManager* PresetManager::instance = nullptr;
 
@@ -51,8 +52,8 @@ bool PresetManager::exist(const QString& targetName, const Preset& preset) const
 bool PresetManager::isBuiltIn(const QString& targetName, const QString& name) const
 {
     auto inBuiltIn = !fplus::keep_if(std::bind(presetNameEqual, _1, name), builtInPresets.value(targetName)).empty();
-
-    return inBuiltIn;
+    auto isDefault = name == QCoreApplication::translate("PresetManager", "默认");
+    return inBuiltIn || isDefault;
 }
 
 bool PresetManager::isBuiltIn(const QString& targetName, const Preset& preset) const
@@ -77,6 +78,14 @@ bool PresetManager::removePresetForTarget(const QString& targetName, const QStri
     return true;
 }
 
+bool PresetManager::replacePresetForTareget(const QString& targetName, const QString& name, const Preset& value)
+{
+    if (!exist(targetName, name) || isBuiltIn(targetName, name))
+        return false;
+    userPresets.find(targetName)->replace(fplus::find_first_idx_by(std::bind(presetNameEqual, _1, name), userPresets.value(targetName)).unsafe_get_just(), value);
+    return true;
+}
+
 PresetManager::PresetManager()
 {
     loadPresets();
@@ -93,12 +102,7 @@ QHash<QString, QVector<Preset>> parsePresetJson(const QByteArray& jsonContent){
         QVector<Preset> presetsForTarget;
         for (const auto& presetVal : presetArray){
             auto presetObj = presetVal.toObject();
-            Preset preset;
-            preset.name = presetObj.value("name").toString();
-            preset.version = presetObj.value("version").toInt();
-            preset.lastModified = QDateTime::fromString(presetObj.value("lastModified").toString(), Qt::ISODate);
-            preset.content = presetObj.value("content").toObject();
-            presetsForTarget.append(preset);
+            presetsForTarget.append(Preset::fromJson(presetObj));
         }
         result.insert(targetName, presetsForTarget);
     }
@@ -150,12 +154,7 @@ void PresetManager::savePresets()
         }, it.value());
         QJsonArray presetArray;
         for (const auto& i : currUserPresets){
-            QJsonObject presetObj;
-            presetObj.insert("name", i.name);
-            presetObj.insert("version", i.version);
-            presetObj.insert("lastModified", i.lastModified.toString(Qt::ISODate));
-            presetObj.insert("content", i.content);
-            presetArray.append(presetObj);
+            presetArray.append(i.toJson());
         }
         QJsonObject currObj;
         currObj.insert("targetName", it.key());
@@ -165,4 +164,46 @@ void PresetManager::savePresets()
     if(configFile.write(QJsonDocument{root}.toJson()) == -1){
         throw ErrorWhenWritePresetFile{};
     }
+}
+
+Preset::Preset(QString name, QJsonObject content, int version, QDateTime lastModified):
+    name(std::move(name)), content(std::move(content)), lastModified(std::move(lastModified))
+{
+    this->version = version;
+}
+
+Preset::Preset(const QJsonObject& json)
+{
+    *this = fromJson(json);
+}
+
+void Preset::updateMeta(ToolOptionWidget* optionWidget)
+{
+    version = optionWidget->optionJsonVersion();
+    lastModified = QDateTime::currentDateTime();
+}
+
+QJsonObject Preset::getJson(const Preset& preset)
+{
+    QJsonObject presetObj;
+    presetObj.insert("name", preset.name);
+    presetObj.insert("version", preset.version);
+    presetObj.insert("lastModified", preset.lastModified.toString(Qt::ISODate));
+    presetObj.insert("content", preset.content);
+    return presetObj;
+}
+
+QJsonObject Preset::toJson() const
+{
+    return getJson(*this);
+}
+
+Preset Preset::fromJson(const QJsonObject& json)
+{
+    Preset preset;
+    preset.name = json.value("name").toString();
+    preset.version = json.value("version").toInt();
+    preset.lastModified = QDateTime::fromString(json.value("lastModified").toString(), Qt::ISODate);
+    preset.content = json.value("content").toObject();
+    return preset;
 }

@@ -4,14 +4,24 @@
 #include <QString>
 #include <QJsonObject>
 
+class ToolOptionWidget;
+
 struct Preset
 {
     QString name;
     QJsonObject content;
-    int version;
+    int version = -1;
     QDateTime lastModified;
 
+    Preset(){};
+    Preset(QString name, QJsonObject content, int version, QDateTime lastModified);
+    Preset(const QJsonObject& json);
+
     bool isBuiltIn() const;
+    void updateMeta(ToolOptionWidget* optionWidget);
+    static QJsonObject getJson(const Preset& preset);
+    QJsonObject toJson() const;
+    static Preset fromJson(const QJsonObject& json);
 };
 
 class PresetManager
@@ -27,6 +37,7 @@ public:
     bool isBuiltIn(const QString& targetName, const Preset& preset) const;
     bool appendPresetForTarget(const QString& targetName, const Preset& preset);
     bool removePresetForTarget(const QString& targetName, const QString& name);
+    bool replacePresetForTareget(const QString& targetName, const QString& name, const Preset& value);
 
     class AppDataCannotWrite : std::runtime_error {
     public:

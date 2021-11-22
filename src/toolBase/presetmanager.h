@@ -17,7 +17,6 @@ struct Preset
     Preset(QString name, QJsonObject content, int version, QDateTime lastModified);
     Preset(const QJsonObject& json);
 
-    bool isBuiltIn() const;
     void updateMeta(ToolOptionWidget* optionWidget);
     static QJsonObject getJson(const Preset& preset);
     QJsonObject toJson() const;

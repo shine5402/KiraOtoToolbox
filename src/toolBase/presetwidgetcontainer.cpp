@@ -8,7 +8,6 @@
 #include <QFileDialog>
 #include <QJsonDocument>
 
-//TODO:name restriction
 namespace {
     const auto dirtyFlag = QStringLiteral("[*] ");
 
@@ -117,6 +116,15 @@ void PresetWidgetContainer::renamePreset()
     }
 }
 
+void PresetWidgetContainer::doSavePreset()
+{
+    auto preset = getCurrentPreset();
+    preset.content = optionWidget_->getOptionsJson();
+    preset.updateMeta(optionWidget_);
+    PresetManager::getManager()->replacePreset(targetName(), preset);
+    setCurrentDirty(false);
+}
+
 void PresetWidgetContainer::savePreset()
 {
     if (!currentDirty){
@@ -125,12 +133,8 @@ void PresetWidgetContainer::savePreset()
     }
     if (!checkCurrentPresetBuiltIn())
         return;
-    auto preset = getCurrentPreset();
-    preset.content = optionWidget_->getOptionsJson();
-    preset.updateMeta(optionWidget_);
-    PresetManager::getManager()->replacePreset(targetName(), preset);
-    setCurrentDirty(false);
-    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(preset.name), this, QCursor::pos(), 3000);
+    doSavePreset();
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(getCurrentPreset().name), this, QCursor::pos(), 3000);
 }
 
 void PresetWidgetContainer::addPreset()
@@ -156,7 +160,7 @@ void PresetWidgetContainer::addPreset()
 
 void PresetWidgetContainer::deletePreset()
 {
-    if (getCurrentPreset().isBuiltIn())
+    if (PresetManager::getManager()->isBuiltIn(targetName(), getCurrentPreset()))
     {
         QMessageBox::critical(this, {}, tr("内置预设无法被删除。"));
         return;
@@ -173,6 +177,8 @@ void PresetWidgetContainer::deletePreset()
 void PresetWidgetContainer::importPreset()
 {
     auto fileName = QFileDialog::getOpenFileName(this, tr("选择要导入的预设描述文件"), {}, tr("预设描述文件 (*.json);;所有文件 (*.*)"));
+    if (fileName.isEmpty())
+        return;
     QFile file{fileName};
     if (!file.open(QFile::Text | QFile::ReadOnly)){
         QMessageBox::critical(this, {}, tr("无法打开预设文件。"));
@@ -207,12 +213,22 @@ void PresetWidgetContainer::importPreset()
 
 void PresetWidgetContainer::exportPreset()
 {
-    if (getCurrentPreset().isBuiltIn())
+    if (PresetManager::getManager()->isBuiltIn(targetName(), getCurrentPreset()))
     {
-        QMessageBox::warning(this, {}, tr("内置预设无法被导出，请切换到用户预设再导出。"));
+        QMessageBox::critical(this, {}, tr("内置预设无法被导出，请切换到用户预设再导出。"));
         return;
     }
+    if (currentDirty)
+    {
+        auto reply = QMessageBox::warning(this, {}, tr("当前工作设置没有被保存到当前预设中，请问要在导出前保存到预设吗？\n如果不保存的话，导出的将会是预设中的内容，而不是工作设置。"), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if (reply == QMessageBox::Yes)
+            doSavePreset();
+        if (reply == QMessageBox::Cancel)
+            return;
+    }
     auto fileName = QFileDialog::getSaveFileName(this, tr("要把预设描述文件保存到……"), {}, tr("预设描述文件 (*.json)"));
+    if (fileName.isEmpty())
+        return;
     QFile file{fileName};
     if (!file.open(QFile::Text | QFile::WriteOnly)){
         QMessageBox::critical(this, {}, tr("无法打开预设文件。"));

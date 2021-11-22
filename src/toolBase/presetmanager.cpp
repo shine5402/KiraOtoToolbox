@@ -24,7 +24,7 @@ PresetManager* PresetManager::getManager()
     return instance;
 }
 
-QVector<Preset> PresetManager::presetsForTarget(const QString& targetName) const
+QVector<Preset> PresetManager::presets(const QString& targetName) const
 {
     QVector<Preset> result;
     //Add default
@@ -61,28 +61,31 @@ bool PresetManager::isBuiltIn(const QString& targetName, const Preset& preset) c
     return isBuiltIn(targetName, preset.name);
 }
 
-bool PresetManager::appendPresetForTarget(const QString& targetName, const Preset& preset)
+bool PresetManager::appendPreset(const QString& targetName, const Preset& preset)
 {
     if (exist(targetName, preset))
         return false;
     userPresets.find(targetName).value().append(preset);
+    savePresets();
     return true;
 }
 
-bool PresetManager::removePresetForTarget(const QString& targetName, const QString& name)
+bool PresetManager::removePreset(const QString& targetName, const QString& name)
 {
     if (!exist(targetName, name) || isBuiltIn(targetName, name))
         return false;
     //As we check the existance of the element, we should be fine with a direct unsafe_get_just, or there must be a bug.
     userPresets.find(targetName)->remove(fplus::find_first_idx_by(std::bind(presetNameEqual, _1, name), userPresets.value(targetName)).unsafe_get_just());
+    savePresets();
     return true;
 }
 
-bool PresetManager::replacePresetForTareget(const QString& targetName, const QString& name, const Preset& value)
+bool PresetManager::replacePreset(const QString& targetName, const QString& name, const Preset& value)
 {
     if (!exist(targetName, name) || isBuiltIn(targetName, name))
         return false;
     userPresets.find(targetName)->replace(fplus::find_first_idx_by(std::bind(presetNameEqual, _1, name), userPresets.value(targetName)).unsafe_get_just(), value);
+    savePresets();
     return true;
 }
 

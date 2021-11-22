@@ -83,7 +83,7 @@ void PresetWidgetContainer::renamePreset()
         auto originalName = preset.name;
         preset.name = newName;
         preset.updateMeta(optionWidget);
-        PresetManager::getManager()->replacePresetForTareget(targetName(), originalName, preset);
+        PresetManager::getManager()->replacePresetForTarget(targetName(), originalName, preset);
     }
 }
 
@@ -98,7 +98,7 @@ void PresetWidgetContainer::savePreset()
     auto preset = getCurrentPreset();
     preset.content = optionWidget->getOptionsJson();
     preset.updateMeta(optionWidget);
-    PresetManager::getManager()->replacePresetForTareget(targetName(), preset.name, preset);
+    PresetManager::getManager()->replacePresetForTarget(targetName(), preset.name, preset);
     setCurrentDirty(false);
 }
 

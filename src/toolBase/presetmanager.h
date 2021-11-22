@@ -29,15 +29,15 @@ class PresetManager
 public:
     static PresetManager* getManager();
 
-    QVector<Preset> presetsForTarget(const QString& targetName) const;
+    QVector<Preset> presets(const QString& targetName) const;
 
     bool exist(const QString& targetName, const QString& name) const;
     bool exist(const QString& targetName, const Preset& preset) const;
     bool isBuiltIn(const QString& targetName, const QString& name) const;
     bool isBuiltIn(const QString& targetName, const Preset& preset) const;
-    bool appendPresetForTarget(const QString& targetName, const Preset& preset);
-    bool removePresetForTarget(const QString& targetName, const QString& name);
-    bool replacePresetForTareget(const QString& targetName, const QString& name, const Preset& value);
+    bool appendPreset(const QString& targetName, const Preset& preset);
+    bool removePreset(const QString& targetName, const QString& name);
+    bool replacePreset(const QString& targetName, const QString& name, const Preset& value);
 
     class AppDataCannotWrite : std::runtime_error {
     public:

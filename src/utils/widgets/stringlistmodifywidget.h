@@ -22,10 +22,14 @@ private:
     Ui::StringListModifyWidget *ui;
 
     QStringListModel* model = new QStringListModel();
+
 private slots:
     void addRow();
     void deleteCurrentRow();
     void openMultiLineEdit();
+
+signals:
+    void dataModified();
 };
 
 #endif // STRINGLISTMODIFYWIDGET_H

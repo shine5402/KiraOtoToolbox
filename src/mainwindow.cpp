@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
     }
 
-    connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
+    connect(buttonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
         auto tools = ToolManager::getManager()->getTools();
         (new ToolDialog(tools.at(buttonGroup->id(button)).getAdapterInstance(this), this))->open();
     });

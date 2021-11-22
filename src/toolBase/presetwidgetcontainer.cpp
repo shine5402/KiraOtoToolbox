@@ -8,6 +8,8 @@
 #include <QFileDialog>
 #include <QJsonDocument>
 
+//TODO:name restriction
+
 static QString getNameInDirtyState(QString text, bool dirty){
     const auto dirtyFlag = QStringLiteral("[*] ");
     auto isTextDirty = text.startsWith(dirtyFlag);
@@ -35,8 +37,11 @@ PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMeta
 
     reloadComboBoxItems();
 
-    connect(ui->presetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::resetComboBoxDirtyState);
-    connect(ui->presetComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::resetToPreset);
+    connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), [this]{
+        doResetToPreset();
+        resetComboBoxDirtyState();
+    });
+    //connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::resetToPreset);
     connect(ui->resetButton, &QToolButton::clicked, this, &PresetWidgetContainer::resetToPreset);
     connect(ui->renameButton, &QToolButton::clicked, this, &PresetWidgetContainer::renamePreset);
     connect(ui->saveButton, &QToolButton::clicked, this, &PresetWidgetContainer::savePreset);
@@ -60,6 +65,11 @@ ToolOptionWidget* PresetWidgetContainer::optionWidget() const
     return optionWidget_;
 }
 
+void PresetWidgetContainer::doResetToPreset()
+{
+    optionWidget_->setOptionsJson(getCurrentPreset().content);
+}
+
 void PresetWidgetContainer::resetToPreset()
 {
     if (currentDirty)
@@ -68,7 +78,7 @@ void PresetWidgetContainer::resetToPreset()
         if (reply == QMessageBox::No)
             return;
     }
-    optionWidget_->setOptionsJson(getCurrentPreset().content);
+    doResetToPreset();
 }
 
 void PresetWidgetContainer::renamePreset()
@@ -96,7 +106,7 @@ void PresetWidgetContainer::renamePreset()
 void PresetWidgetContainer::savePreset()
 {
     if (!currentDirty){
-        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("无需保存"), tr("当前设置和预设内设置一致，不需要进行保存操作。"), this);
+        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("无需保存"), tr("当前设置和预设内设置一致，不需要进行保存操作。"), this, QCursor::pos(), 3000);
         return;
     }
     if (!checkCurrentPresetBuiltIn())
@@ -106,7 +116,7 @@ void PresetWidgetContainer::savePreset()
     preset.updateMeta(optionWidget_);
     PresetManager::getManager()->replacePreset(targetName(), preset.name, preset);
     setCurrentDirty(false);
-    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(preset.name), this);
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(preset.name), this, QCursor::pos(), 3000);
 }
 
 void PresetWidgetContainer::addPreset()
@@ -127,6 +137,11 @@ void PresetWidgetContainer::addPreset()
 
 void PresetWidgetContainer::deletePreset()
 {
+    if (getCurrentPreset().isBuiltIn())
+    {
+        QMessageBox::critical(this, {}, tr("内置预设无法被删除。"));
+        return;
+    }
     auto reply = QMessageBox::question(this, tr("删除预设"), tr("确定要删除预设%1吗？").arg(getCurrentPreset().name));
     if (reply == QMessageBox::Yes)
     {

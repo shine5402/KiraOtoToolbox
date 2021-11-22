@@ -46,6 +46,7 @@ private:
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;
     bool checkCurrentPresetBuiltIn();//Would warn user about check result
+    void doResetToPreset();
 };
 
 #endif // PRESETWIDGETCONTAINER_H

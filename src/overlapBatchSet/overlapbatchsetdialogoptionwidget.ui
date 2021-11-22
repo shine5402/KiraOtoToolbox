@@ -90,7 +90,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="OneThirdCheckBox">
+    <widget class="QCheckBox" name="oneThirdCheckBox">
      <property name="text">
       <string>将上述操作影响范围之外的Ovl三分之一化</string>
      </property>

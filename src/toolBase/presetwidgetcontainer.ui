@@ -183,8 +183,8 @@
         <string>导入预设</string>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../resources/icon/icons8-import-48.png</normaloff>../resources/icon/icons8-import-48.png</iconset>
+        <iconset resource="../resources/icon/icon.qrc">
+         <normaloff>:/icon/import</normaloff>:/icon/import</iconset>
        </property>
        <property name="iconSize">
         <size>

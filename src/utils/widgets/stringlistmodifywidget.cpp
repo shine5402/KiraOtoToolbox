@@ -28,12 +28,11 @@ QStringList StringListModifyWidget::getData() const
 void StringListModifyWidget::setData(const QStringList& value)
 {
     model->setStringList(value);
+    emit dataModified();
 }
 
 void StringListModifyWidget::addRow()
 {
-
-
     bool ok;
     auto str = QInputDialog::getText(this, tr("输入新值"), tr("输入要添加到列表的新字符串"), QLineEdit::Normal, {}, &ok);
     if (ok)
@@ -45,12 +44,14 @@ void StringListModifyWidget::addRow()
         }
         model->insertRow(model->rowCount());
         model->setData(model->index(model->rowCount() - 1), str);
+        emit dataModified();
     }
 }
 
 void StringListModifyWidget::deleteCurrentRow()
 {
     model->removeRow(ui->listView->currentIndex().row());
+    emit dataModified();
 }
 
 void StringListModifyWidget::openMultiLineEdit()
@@ -60,5 +61,6 @@ void StringListModifyWidget::openMultiLineEdit()
     if (ok)
     {
         setData(result.split("\n",Qt::SkipEmptyParts));
+        emit dataModified();
     }
 }

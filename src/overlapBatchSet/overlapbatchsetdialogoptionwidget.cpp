@@ -7,12 +7,19 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <utils/misc/fplusAdapter.h>
+#include <QSpinBox>
 
 OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
     ui(new Ui::OverlapBatchSetDialogOptionWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->setStartWithCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->setStartWithSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->oneThirdCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->matchStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->setStartWithListWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 
@@ -29,7 +36,7 @@ OptionContainer OverlapBatchSetDialogOptionWidget::getOptions() const
     options.setOption("overlapStartWith", ui->setStartWithSpinBox->value());
     options.setOption("startWithPatternList", ui->setStartWithListWidget->getData());
     options.setOption("ifMatchStartOto", ui->matchStartOtoCheckBox->isChecked());
-    options.setOption("makeOneThird", ui->OneThirdCheckBox->isChecked());
+    options.setOption("makeOneThird", ui->oneThirdCheckBox->isChecked());
     return options;
 }
 
@@ -41,7 +48,7 @@ void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& option
     ui->setStartWithListWidget->setData(options.getOption("startWithPatternList").toStringList());
 
     ui->matchStartOtoCheckBox->setChecked(options.getOption("ifMatchStartOto").toBool());
-    ui->OneThirdCheckBox->setChecked(options.getOption("makeOneThird").toBool());
+    ui->oneThirdCheckBox->setChecked(options.getOption("makeOneThird").toBool());
 }
 
 QJsonObject OverlapBatchSetDialogOptionWidget::optionsToJson(const OptionContainer& options) const
@@ -63,7 +70,7 @@ OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObje
 
     options.setOption("ifSetOverlapStartWith", json.value("ifSetOverlapStartWith").toBool());
     options.setOption("overlapStartWith", json.value("overlapStartWith").toDouble());
-    options.setOption("startWithPatternList", getStringListFromJSONObject(json, "seeBeginPatternAsCVContent"));
+    options.setOption("startWithPatternList", getStringListFromJSONObject(json, "startWithPatternList"));
     options.setOption("ifMatchStartOto", json.value("ifMatchStartOto").toBool());
     options.setOption("makeOneThird", json.value("makeOneThird").toBool());
 

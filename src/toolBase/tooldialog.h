@@ -37,8 +37,9 @@ private slots:
     void refreshOptionWidgetEnableState();
 private:
     Ui::ToolDialog *ui;
-    void reAssignUIWidgets();
+    void reAssignWidgetHandles();
     ToolDialogAdapter* adapter;
+    ToolOptionWidget* optionWidget;
     bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
     bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;

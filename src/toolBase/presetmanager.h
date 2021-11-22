@@ -10,7 +10,7 @@ struct Preset
 {
     QString name;
     QJsonObject content;
-    int version = -1;
+    int version = 0;
     QDateTime lastModified;
 
     Preset(){};

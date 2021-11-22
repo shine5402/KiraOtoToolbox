@@ -6,6 +6,7 @@
 #include "utils/dialogs/tableviewdialog.h"
 #include "utils/models/otofilelistwithpreviousmodel.h"
 #include "utils/misc/misc.h"
+#include "presetwidgetcontainer.h"
 
 ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     QDialog(parent),
@@ -17,7 +18,9 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoLoadWidget, &OtoFileLoadWidget::resetted, this, &ToolDialog::refreshOptionWidgetEnableState);
     connect(ui->otoMultipleLoadWidget, &OtoFileMultipleLoadWidget::dataChanged, this, &ToolDialog::refreshOptionWidgetEnableState);
     adapter->replaceUIWidgets(ui->rootLayout);
-    reAssignUIWidgets();
+
+    reAssignWidgetHandles();
+
     setWindowTitle(adapter->getToolName());
     refreshStackedWidgetSize(ui->stackedLoadWidget);
     refreshStackedWidgetSize(ui->stackedSaveWidget);
@@ -26,11 +29,12 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->switchLoadModeButton, &QPushButton::clicked, this, &ToolDialog::toggleMode);
 }
 
-void ToolDialog::reAssignUIWidgets()
+void ToolDialog::reAssignWidgetHandles()
 {
     //Use last() to choose the newest widgets.
-    ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
-    Q_ASSERT(ui->optionWidget);
+    //ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
+    optionWidget = ui->optionLayout->parentWidget()->findChildren<PresetWidgetContainer*>(QString(), Qt::FindDirectChildrenOnly).last()->optionWidget();
+    //TODO: may change to a individual handle later
     ui->otoSaveWidget = ui->rootLayout->parentWidget()
             ->findChild<QWidget*>("stackedSaveWidget")->
             findChild<QWidget*>("singleSave")->
@@ -46,7 +50,7 @@ ToolDialog::~ToolDialog()
 void ToolDialog::otoFileLoaded()
 {
     ui->optionGroupBox->setEnabled(true);
-    Q_ASSERT(ui->optionWidget->isEnabled());
+    Q_ASSERT(optionWidget->isEnabled());
     ui->otoSaveWidget->setEnabled(true);
 }
 
@@ -60,10 +64,10 @@ void ToolDialog::ToolDialog::accept()
 
     bool success = false;
     if (isSingleMode()){
-        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), OptionContainer::combine(ui->optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
     }
     else {
-        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(), OptionContainer::combine(ui->optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(), OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
     }
 
     if (success){
@@ -88,7 +92,7 @@ void ToolDialog::resetOto()
 
 void ToolDialog::resetOptions()
 {
-    ui->optionWidget->setOptions({});
+    optionWidget->setOptions({});
     ui->otoSaveWidget->setOptions({});
 }
 

@@ -32,6 +32,35 @@ namespace fplus {
 
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QVector<T>, NewT, SizeOffset>{typedef class QVector<NewT> type;};
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QList<T>, NewT, SizeOffset>{typedef class QList<NewT> type;};
+
+        template<typename T>
+        struct can_self_assign<QVector<T>>
+        {
+            using type = std::integral_constant<bool, true>;
+        };
+        template<typename T>
+        struct can_self_assign<QList<T>>
+        {
+            using type = std::integral_constant<bool, true>;
+        };
+
+        //It seems that fplus want to reuse a rvalue const QVector<T>...
+        template <typename T>
+        struct can_reuse<const QVector<T>>
+        {
+            using dContainer = typename std::decay<QVector<T>>::type;
+            using can_assign = can_self_assign_t<typename dContainer::value_type>;
+            using cannot_reuse = std::integral_constant<bool, true>;
+            using value = reuse_container_bool_t<bool, can_assign::value && !cannot_reuse::value>;
+        };
+        template <typename T>
+        struct can_reuse<const QList<T>>
+        {
+            using dContainer = typename std::decay<QVector<T>>::type;
+            using can_assign = can_self_assign_t<typename dContainer::value_type>;
+            using cannot_reuse = std::integral_constant<bool, true>;
+            using value = reuse_container_bool_t<bool, can_assign::value && !cannot_reuse::value>;
+        };
     }
 
     template <typename T>

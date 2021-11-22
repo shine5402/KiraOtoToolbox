@@ -6,7 +6,6 @@
 #include "optioncontainer.h"
 #include <QJsonObject>
 
-//TODO:Add a signal to inform user have edited settings
 class ToolOptionWidget : public QWidget
 {
     Q_OBJECT

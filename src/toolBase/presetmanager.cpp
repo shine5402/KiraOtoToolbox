@@ -65,6 +65,8 @@ bool PresetManager::appendPreset(const QString& targetName, const Preset& preset
 {
     if (exist(targetName, preset))
         return false;
+    if (!userPresets.contains(targetName))
+        userPresets.insert(targetName, {});
     userPresets.find(targetName).value().append(preset);
     savePresets();
     return true;

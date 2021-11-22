@@ -18,6 +18,8 @@ public:
     explicit PresetWidgetContainer(const QMetaObject& optionWidgetMetaObj, QWidget *parent = nullptr);
     ~PresetWidgetContainer();
 
+    ToolOptionWidget* optionWidget() const;
+
 private slots:
     void resetToPreset();
     void renamePreset();
@@ -32,7 +34,7 @@ private:
     QString targetName() const;
     Ui::PresetWidgetContainer *ui;
     const QMetaObject& optionWidgetMetaObj;
-    ToolOptionWidget* optionWidget;
+    ToolOptionWidget* optionWidget_;
 
     void reloadComboBoxItems();
 

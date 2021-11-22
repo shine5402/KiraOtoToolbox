@@ -37,6 +37,7 @@ public:
     bool isBuiltIn(const QString& targetName, const Preset& preset) const;
     bool appendPreset(const QString& targetName, const Preset& preset);
     bool removePreset(const QString& targetName, const QString& name);
+    bool replacePreset(const QString& targetName, const Preset& value);//or update
     bool replacePreset(const QString& targetName, const QString& name, const Preset& value);
 
     class AppDataCannotWrite : std::runtime_error {
@@ -53,6 +54,7 @@ public:
     public:
         ErrorWhenWritePresetFile() : std::runtime_error("Error occured when writing to preset file"){};
     };
+
 private:
     PresetManager();
     QHash<QString, QVector<Preset>> builtInPresets;

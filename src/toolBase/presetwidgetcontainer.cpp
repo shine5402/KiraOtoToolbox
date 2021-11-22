@@ -9,15 +9,24 @@
 #include <QJsonDocument>
 
 //TODO:name restriction
-
-static QString getNameInDirtyState(QString text, bool dirty){
+namespace {
     const auto dirtyFlag = QStringLiteral("[*] ");
-    auto isTextDirty = text.startsWith(dirtyFlag);
-    if (dirty && !isTextDirty)
-        text = dirtyFlag + text;
-    if (!dirty && isTextDirty)
-        text.remove(0, dirtyFlag.size());
-    return text;
+
+    bool isNameDirty(const QString& name){
+       return name.startsWith(dirtyFlag);
+    }
+
+    QString getNameInDirtyState(QString name, bool dirty){
+        if (dirty && !isNameDirty(name))
+            name = dirtyFlag + name;
+        if (!dirty && isNameDirty(name))
+            name.remove(0, dirtyFlag.size());
+        return name;
+    }
+
+    bool isNameValid(const QString& name){
+        return !(name == QCoreApplication::translate("PresetManager", "默认") || name.startsWith(dirtyFlag));
+    }
 }
 
 PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMetaObj, QWidget *parent) :
@@ -93,11 +102,16 @@ void PresetWidgetContainer::renamePreset()
 
     auto preset = getCurrentPreset();
     bool ok = false;
-    auto newName = QInputDialog::getText(this, tr("重命名"), tr("为预设指定新名称："), QLineEdit::Normal, preset.name, &ok);
-    if (ok && !newName.isEmpty())
+    auto name = QInputDialog::getText(this, tr("重命名"), tr("为预设指定新名称："), QLineEdit::Normal, preset.name, &ok);
+    if (ok && !name.isEmpty())
     {
+        if (!isNameValid(name))
+        {
+            QMessageBox::critical(this, {}, tr("您输入的名称无效，请更换一个名称重试。"));
+            return;
+        }
         auto originalName = preset.name;
-        preset.name = newName;
+        preset.name = name;
         preset.updateMeta(optionWidget_);
         PresetManager::getManager()->replacePreset(targetName(), originalName, preset);
     }
@@ -114,7 +128,7 @@ void PresetWidgetContainer::savePreset()
     auto preset = getCurrentPreset();
     preset.content = optionWidget_->getOptionsJson();
     preset.updateMeta(optionWidget_);
-    PresetManager::getManager()->replacePreset(targetName(), preset.name, preset);
+    PresetManager::getManager()->replacePreset(targetName(), preset);
     setCurrentDirty(false);
     QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(preset.name), this, QCursor::pos(), 3000);
 }
@@ -125,6 +139,11 @@ void PresetWidgetContainer::addPreset()
     auto name = QInputDialog::getText(this, tr("添加预设"), tr("为新预设指定名称："), QLineEdit::Normal, {}, &ok);
     if (ok && !name.isEmpty())
     {
+        if (!isNameValid(name))
+        {
+            QMessageBox::critical(this, {}, tr("您输入的名称无效，请更换一个名称重试。"));
+            return;
+        }
         Preset preset;
         preset.content = optionWidget_->getOptionsJson();
         preset.name = name;
@@ -163,6 +182,24 @@ void PresetWidgetContainer::importPreset()
         QMessageBox::critical(this, {}, tr("预设文件中没有有效的内容。"));
     }
     auto preset = Preset::fromJson(content.object());
+
+    if (!isNameValid(preset.name))
+    {
+        QMessageBox::critical(this, {}, tr("预设文件中的预设名“%1”无效，无法导入。").arg(preset.name));
+    }
+    if (PresetManager::getManager()->exist(targetName(), preset))
+    {
+        auto reply = QMessageBox::warning(this, {}, tr("已经存在一个同名预设“%1”。要替换这个预设吗？").arg(preset.name), QMessageBox::Yes | QMessageBox::No);
+        if (reply == QMessageBox::No)
+            return;
+        if (reply == QMessageBox::Yes)
+        {
+            PresetManager::getManager()->replacePreset(targetName(), preset);
+            ui->presetComboBox->setCurrentText(preset.name);
+            return;
+        }
+    }
+
     PresetManager::getManager()->appendPreset(targetName(), preset);
     reloadComboBoxItems();
     ui->presetComboBox->setCurrentText(preset.name);
@@ -170,6 +207,11 @@ void PresetWidgetContainer::importPreset()
 
 void PresetWidgetContainer::exportPreset()
 {
+    if (getCurrentPreset().isBuiltIn())
+    {
+        QMessageBox::warning(this, {}, tr("内置预设无法被导出，请切换到用户预设再导出。"));
+        return;
+    }
     auto fileName = QFileDialog::getSaveFileName(this, tr("要把预设描述文件保存到……"), {}, tr("预设描述文件 (*.json)"));
     QFile file{fileName};
     if (!file.open(QFile::Text | QFile::WriteOnly)){

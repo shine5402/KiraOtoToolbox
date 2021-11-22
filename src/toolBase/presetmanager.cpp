@@ -82,6 +82,11 @@ bool PresetManager::removePreset(const QString& targetName, const QString& name)
     return true;
 }
 
+bool PresetManager::replacePreset(const QString& targetName, const Preset& value)
+{
+    return replacePreset(targetName, value.name, value);
+}
+
 bool PresetManager::replacePreset(const QString& targetName, const QString& name, const Preset& value)
 {
     if (!exist(targetName, name) || isBuiltIn(targetName, name))
@@ -212,3 +217,4 @@ Preset Preset::fromJson(const QJsonObject& json)
     preset.content = json.value("content").toObject();
     return preset;
 }
+

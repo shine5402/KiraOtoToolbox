@@ -43,6 +43,10 @@ PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMeta
     connect(ui->deleteButton, &QToolButton::clicked, this, &PresetWidgetContainer::deletePreset);
     connect(ui->importButton, &QToolButton::clicked, this, &PresetWidgetContainer::importPreset);
     connect(ui->exportButton, &QToolButton::clicked, this, &PresetWidgetContainer::exportPreset);
+
+    connect(optionWidget, &ToolOptionWidget::userSettingsChanged, [this](){
+        setCurrentDirty(true);
+    });
 }
 
 PresetWidgetContainer::~PresetWidgetContainer()

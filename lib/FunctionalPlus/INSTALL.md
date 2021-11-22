@@ -35,21 +35,11 @@ see [FetchContent](#way-3-using-cmake-314-fetchcontent) or
 Unit Tests are available from a separate CMakeLists.txt file. Building the
 tests requires [doctest](https://github.com/onqtam/doctest).
 
-First, install the required locales:
-````bash
-sudo locale-gen ru_RU
-sudo locale-gen ru_RU.UTF-8
-sudo locale-gen el_GR
-sudo locale-gen el_GR.UTF-8
-sudo localedef -c -i ru_RU -f CP1251 ru_RU.CP1251
-sudo localedef -c -i el_GR -f CP1253 el_GR.CP1253
-````
-
-Then, install doctest:
+Install doctest:
 ```bash
-git clone https://github.com/onqtam/doctest
+git clone --depth=1 --branch=2.4.3 https://github.com/onqtam/doctest
 cmake -S doctest -B doctest/build -DDOCTEST_WITH_TESTS=OFF -DDOCTEST_WITH_MAIN_IN_STATIC_LIB=OFF
-cmake --build doctest/build
+cmake --build doctest/build -j 4
 sudo cmake --install doctest/build
 ```
 
@@ -57,7 +47,7 @@ Then, compile & run the tests
 ````bash
 git clone https://github.com/Dobiasd/FunctionalPlus
 cmake -S FunctionalPlus/test -B FunctionalPlus/build
-cmake --build FunctionalPlus/build
+cmake --build FunctionalPlus/build -j 4
 (cd FunctionalPlus/build; ctest)
 ````
 
@@ -65,7 +55,7 @@ As an alternative, doctest global installation can be skipped by installing to
 a local prefix:
 
 ````bash
-git clone https://github.com/onqtam/doctest
+git clone --depth=1 --branch=2.4.3 https://github.com/onqtam/doctest
 cmake -S doctest -B doctest/build -DDOCTEST_WITH_TESTS=OFF -DDOCTEST_WITH_MAIN_IN_STATIC_LIB=OFF
 cmake --build doctest/build
 cmake --install doctest/build --prefix doctest
@@ -164,7 +154,7 @@ Just add a *conanfile.txt* with FunctionalPlus as a requirement and chose the ge
 
 ```
 [requires]
-functionalplus/0.2.13-p0
+functionalplus/0.2.16-p0
 
 [generators]
 cmake

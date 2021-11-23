@@ -32,10 +32,10 @@ OptionContainer CV_VCPartSplitOptionWidget::getOptions() const
 
 void CV_VCPartSplitOptionWidget::setOptions(const OptionContainer& options)
 {
-    ui->seeBeginPatternAsCVCheckBox->setChecked(options.getOption("isSeeBeginPatternAsCV", true).toBool());
-    ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent", QStringList{"-","・"}).toStringList());
-    ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV", true).toBool());
-    ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent", QStringList{"-","L"}).toStringList());
+    ui->seeBeginPatternAsCVCheckBox->setChecked(options.getOption("isSeeBeginPatternAsCV").toBool());
+    ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent").toStringList());
+    ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV").toBool());
+    ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent").toStringList());
 }
 
 

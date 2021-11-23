@@ -8,6 +8,11 @@ CV_VCPartSplitOptionWidget::CV_VCPartSplitOptionWidget(QWidget *parent) :
     ui(new Ui::CV_VCPartSplitOptionWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->seeBeginPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeBeginPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeEndPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeEndPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 CV_VCPartSplitOptionWidget::~CV_VCPartSplitOptionWidget()
@@ -27,10 +32,10 @@ OptionContainer CV_VCPartSplitOptionWidget::getOptions() const
 
 void CV_VCPartSplitOptionWidget::setOptions(const OptionContainer& options)
 {
-    ui->seeBeginPatternAsCVCheckBox->setChecked(options.getOption("isSeeBeginPatternAsCV", true).toBool());
-    ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent", QStringList{"-","・"}).toStringList());
-    ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV", true).toBool());
-    ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent", QStringList{"-","L"}).toStringList());
+    ui->seeBeginPatternAsCVCheckBox->setChecked(options.getOption("isSeeBeginPatternAsCV").toBool());
+    ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent").toStringList());
+    ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV").toBool());
+    ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent").toStringList());
 }
 
 

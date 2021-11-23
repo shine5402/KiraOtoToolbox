@@ -6,7 +6,7 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.6.0
+VERSION = 0.7.0
 DEFINES += VERSION_BETA
 
 RC_ICONS = resources/icon/appIcon.ico
@@ -184,8 +184,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    presets/overlap_start_preset/overlap_start_preset.qrc \
     resources/icon/icon.qrc \
+    resources/presets/built-in_presets.qrc \
     resources/splashscr/splashscr.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG

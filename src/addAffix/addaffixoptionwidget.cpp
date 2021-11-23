@@ -9,6 +9,9 @@ AddAffixOptionWidget::AddAffixOptionWidget(QWidget *parent) : ToolOptionWidget(p
     layout->addRow(tr("前缀："), prefixEdit);
     layout->addRow(tr("后缀："), suffixEdit);
     setLayout(layout);
+
+    connect(prefixEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
+    connect(suffixEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 OptionContainer AddAffixOptionWidget::getOptions() const

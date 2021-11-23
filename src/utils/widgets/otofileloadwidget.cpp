@@ -2,7 +2,7 @@
 #include "ui_otofileloadwidget.h"
 
 #include <QMessageBox>
-#include <otofilereader.h>
+#include <OtoUtil/otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
 
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :

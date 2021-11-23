@@ -80,7 +80,7 @@ void MainWindow::showAboutDialog()
     QMessageBox::about(this, tr("关于"), tr(
 R"(<h2>shine_5402 的 oto 工具箱</h2>
 
-<p>Copyright 2020 <a href="https://shine5402.top/about-me">shine_5402</a></p>
+<p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
 <p>版本 %1</p>
 <h3>关于</h3>
 <p>一个操作UTAU用声音资料库的原音设定文件oto.ini的工具箱</p>
@@ -96,6 +96,8 @@ R"(<h2>shine_5402 的 oto 工具箱</h2>
 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>
+
+<p>本程序使用了来自<a href="https://icons8.com">icons8</a>的图标。</p>
 )"
 ).arg(versionStr));
 }

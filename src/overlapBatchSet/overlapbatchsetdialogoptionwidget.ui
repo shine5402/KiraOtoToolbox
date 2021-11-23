@@ -144,6 +144,9 @@
         </item>
         <item>
          <widget class="QDoubleSpinBox" name="oneSecondWhenTooSmallSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="decimals">
            <number>3</number>
           </property>
@@ -214,6 +217,22 @@
     <hint type="destinationlabel">
      <x>163</x>
      <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>oneSecondWhenTooSmallCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>oneSecondWhenTooSmallSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>772</x>
+     <y>427</y>
     </hint>
    </hints>
   </connection>

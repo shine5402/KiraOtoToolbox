@@ -134,6 +134,7 @@ void combinePresetMap(QHash<QString, QVector<Preset>>& dst, const QHash<QString,
 void PresetManager::loadPresets()
 {
     //Load built-in
+    //TODO: make built-in presets have i18n support
     QFile builtInPresetFile(BUILTIN_PRESET_FILE_PATH);
     if (builtInPresetFile.open(QFile::Text | QFile::ReadOnly)){
         builtInPresets = parsePresetJson(builtInPresetFile.readAll());

@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "chaininvaliddialogadapter.h"
 #include <toolBase/tooloptionwidget.h>
+#include <toolBase/presetwidgetcontainer.h>
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -178,9 +179,9 @@ void ChainToolOptionWidget::openStepSettings(int index)
     dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH);//让GroupBox的权重变大
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
-    auto optionWidget = stepsModel->getStep(index).tool.getToolOptionWidgetInstance(this);
-    optionWidget->setOptions(stepsModel->getStep(index).options);
-    groupBoxLayout->addWidget(optionWidget);
+    auto optionWidgetMetaObj = stepsModel->getStep(index).tool.getToolOptionWidgetMetaObj();
+    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, groupBox);
+    groupBoxLayout->addWidget(presetContainer);
     groupBox->setLayout(groupBoxLayout);
 
     auto buttonBox = new QDialogButtonBox(dialog);
@@ -195,7 +196,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
 
     dialog->open();
-    pendingStepSetting.ptrOptionWidget = optionWidget;
+    pendingStepSetting.ptrOptionWidget = presetContainer->optionWidget();
     pendingStepSetting.ptrDialog = dialog;
     pendingStepSetting.index = index;
 }

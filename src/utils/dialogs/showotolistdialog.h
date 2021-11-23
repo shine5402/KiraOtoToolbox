@@ -2,7 +2,7 @@
 #define SHOWOTOLISTDIALOG_H
 
 #include <QDialog>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 #include "../models/otolistmodel.h"
 #include "tableviewdialog.h"
 #include <QDialogButtonBox>

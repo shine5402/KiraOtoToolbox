@@ -2,7 +2,7 @@
 #define TOOLDIALOG_H
 
 #include <QDialog>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 #include "toolBase/tooldialogadapter.h"
 
 class QAbstractButton;

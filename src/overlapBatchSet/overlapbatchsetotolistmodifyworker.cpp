@@ -38,10 +38,7 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             if (!matched.contains(i))
             {
                 auto entry = resultOtoList.at(i);
-                auto result = entry.preUtterance() / 3;
-                if (options.getOption("oneSecondWhenTooSmall").toBool() || result < options.getOption("oneSecondWhenTooSmallValue").toDouble())
-                    result = entry.preUtterance() / 2;
-                entry.setOverlap(result);
+                entry.setOverlap(entry.preUtterance() / 3);
                 resultOtoList.replace(i, entry);
             }
         }

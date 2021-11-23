@@ -2,7 +2,7 @@
 #define OTOFILELOADWIDGET_H
 
 #include <QWidget>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 
 namespace Ui {
     class OtoFileLoadWidget;

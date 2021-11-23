@@ -2,7 +2,7 @@
 #define OTOFILELISTDIFFMODEL_H
 
 #include <QAbstractTableModel>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 
 struct OtoFileInfoWithPrevious{
     QString fileName;

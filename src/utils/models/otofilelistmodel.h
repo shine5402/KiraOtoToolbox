@@ -2,7 +2,7 @@
 #define OTOFILEMULTIPLELOADOTOFILELISTMODEL_H
 
 #include <QAbstractTableModel>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 
 struct OtoFileInfo{
     QString fileName;

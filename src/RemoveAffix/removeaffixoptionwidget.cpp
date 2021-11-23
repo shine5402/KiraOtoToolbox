@@ -1,7 +1,7 @@
 #include "removeaffixoptionwidget.h"
 #include "ui_removeaffixoptionwidget.h"
 #include "utils/widgets/atleastonecheckedbuttongroup.h"
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 #include <QJsonArray>
 #include <utils/misc/fplusAdapter.h>
 

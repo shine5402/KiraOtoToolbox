@@ -87,5 +87,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>seeEndPatternAsCVCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>seeEndPatternAsCVContentWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

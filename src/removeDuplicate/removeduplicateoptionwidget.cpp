@@ -6,6 +6,12 @@ RemoveDuplicateOptionWidget::RemoveDuplicateOptionWidget(QWidget *parent) :
     ui(new Ui::RemoveDuplicateOptionWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->maxSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->affixRemoveWidget, &ToolOptionWidget::userSettingsChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->organizeCaseComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->organizeCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->organizeStartFrom1CheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 RemoveDuplicateOptionWidget::~RemoveDuplicateOptionWidget()

@@ -54,6 +54,10 @@ struct Tool{
         }
         return {};
     }
+
+    QMetaObject getToolOptionWidgetMetaObj() const{
+        return getAdapterInstance()->getOptionWidgetMetaObj();
+    }
 };
 
 struct ToolWithOptions

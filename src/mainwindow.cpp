@@ -55,7 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(buttonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
         auto tools = ToolManager::getManager()->getTools();
-        (new ToolDialog(tools.at(buttonGroup->id(button)).getAdapterInstance(this), this))->open();
+        auto dialog = new ToolDialog(tools.at(buttonGroup->id(button)).getAdapterInstance(this), this);
+        dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+        dialog->open();
     });
 }
 

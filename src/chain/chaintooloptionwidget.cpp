@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "chaininvaliddialogadapter.h"
 #include <toolBase/tooloptionwidget.h>
+#include <toolBase/presetwidgetcontainer.h>
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),
@@ -132,22 +133,26 @@ void ChainToolOptionWidget::addStep()
     {
         stepsModel->addStep(availableTools.at(dialog->currentRow()));
         openStepSettings(stepsModel->stepCount() - 1);
+        emit userSettingsChanged();
     }
 }
 
 void ChainToolOptionWidget::removeCurrentStep()
 {
     stepsModel->removeStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::moveUpCurrentStep()
 {
     stepsModel->moveUpStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::moveDownCurrentStep()
 {
     stepsModel->moveDownStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::openStepSettings(int index)
@@ -174,9 +179,12 @@ void ChainToolOptionWidget::openStepSettings(int index)
     dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH);//让GroupBox的权重变大
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
-    auto optionWidget = stepsModel->getStep(index).tool.getToolOptionWidgetInstance(this);
-    optionWidget->setOptions(stepsModel->getStep(index).options);
-    groupBoxLayout->addWidget(optionWidget);
+    auto optionWidgetMetaObj = stepsModel->getStep(index).tool.getToolOptionWidgetMetaObj();
+    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, groupBox);
+    auto options = stepsModel->getStep(index).options;
+    if (!options.isEmpty())
+        presetContainer->setWorkingOptions(options);
+    groupBoxLayout->addWidget(presetContainer);
     groupBox->setLayout(groupBoxLayout);
 
     auto buttonBox = new QDialogButtonBox(dialog);
@@ -191,7 +199,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
 
     dialog->open();
-    pendingStepSetting.ptrOptionWidget = optionWidget;
+    pendingStepSetting.ptrPresetContainer = presetContainer;
     pendingStepSetting.ptrDialog = dialog;
     pendingStepSetting.index = index;
 }
@@ -206,7 +214,8 @@ void ChainToolOptionWidget::openStepSettings()
 void ChainToolOptionWidget::handleStepSettingsDone(int result)
 {
     if (result == QDialog::Accepted){
-        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrOptionWidget->getOptions());
+        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrPresetContainer->optionWidget()->getOptions());
+        emit userSettingsChanged();
     }
     pendingStepSetting.ptrDialog->deleteLater();
     pendingStepSetting = {};

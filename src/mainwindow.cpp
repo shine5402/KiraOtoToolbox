@@ -59,6 +59,11 @@ MainWindow::MainWindow(QWidget *parent)
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->open();
     });
+
+    setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion()));
+#ifdef VERSION_BETA
+    setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -80,7 +85,7 @@ void MainWindow::showAboutDialog()
     auto versionStr = qApp->applicationVersion();
 #endif
     QMessageBox::about(this, tr("关于"), tr(
-R"(<h2>shine_5402 的 oto 工具箱</h2>
+R"(<h2>KiraOtoToolbox</h2>
 
 <p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
 <p>版本 %1</p>

@@ -4,7 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
-TARGET = Shine5402OtoToolBox
+TARGET = KiraOtoToolbox
 
 VERSION = 0.7.0
 DEFINES += VERSION_BETA
@@ -174,7 +174,6 @@ FORMS += \
     utils/widgets/otofilesavewidget.ui \
     utils/widgets/stringlistmodifywidget.ui
 
-include(include.pri)
 include(lib.pri)
 
 
@@ -190,4 +189,4 @@ RESOURCES += \
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
 
-TRANSLATIONS += ../i18n/shine5402ototoolbox_en.ts
+TRANSLATIONS += ../i18n/kiraototoolbox_en.ts

@@ -2,7 +2,7 @@
 #define OTOLISTSHOWCHANGEMODEL_H
 
 #include <QAbstractTableModel>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 
 class OtoListShowValueChangeModel : public QAbstractTableModel
 {

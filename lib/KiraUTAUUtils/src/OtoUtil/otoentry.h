@@ -29,6 +29,7 @@ public:
              QObject *parent = nullptr);
     explicit OtoEntry(const QString& otoString);
     OtoEntry(const OtoEntry& other);
+    OtoEntry(){};
 
     OtoEntry& operator=(const OtoEntry& rhs);
 

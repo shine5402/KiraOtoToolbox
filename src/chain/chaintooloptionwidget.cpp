@@ -181,6 +181,9 @@ void ChainToolOptionWidget::openStepSettings(int index)
     auto groupBoxLayout = new QVBoxLayout(groupBox);
     auto optionWidgetMetaObj = stepsModel->getStep(index).tool.getToolOptionWidgetMetaObj();
     auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, groupBox);
+    auto options = stepsModel->getStep(index).options;
+    if (!options.isEmpty())
+        presetContainer->setWorkingOptions(options);
     groupBoxLayout->addWidget(presetContainer);
     groupBox->setLayout(groupBoxLayout);
 
@@ -196,7 +199,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
 
     dialog->open();
-    pendingStepSetting.ptrOptionWidget = presetContainer->optionWidget();
+    pendingStepSetting.ptrPresetContainer = presetContainer;
     pendingStepSetting.ptrDialog = dialog;
     pendingStepSetting.index = index;
 }
@@ -211,7 +214,7 @@ void ChainToolOptionWidget::openStepSettings()
 void ChainToolOptionWidget::handleStepSettingsDone(int result)
 {
     if (result == QDialog::Accepted){
-        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrOptionWidget->getOptions());
+        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrPresetContainer->optionWidget()->getOptions());
         emit userSettingsChanged();
     }
     pendingStepSetting.ptrDialog->deleteLater();

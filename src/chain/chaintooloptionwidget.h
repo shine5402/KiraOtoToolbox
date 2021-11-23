@@ -2,10 +2,10 @@
 #define CHAINTOOLOPTIONWIDGET_H
 
 #include <QWidget>
-#include "toolBase/toolmanager.h"
 #include "toolBase/tooloptionwidget.h"
 
 class ChainStepsModel;
+class PresetWidgetContainer;
 
 namespace Ui {
     class ChainToolOptionWidget;
@@ -35,9 +35,9 @@ private:
 
     void openStepSettings(int index);
     struct stepSettingsDialogInfo{
-        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrOptionWidget(nullptr), index(-1){};
+        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrPresetContainer(nullptr), index(-1){};
         QDialog* ptrDialog;
-        ToolOptionWidget* ptrOptionWidget;
+        PresetWidgetContainer* ptrPresetContainer;
         int index;
     } pendingStepSetting;
     

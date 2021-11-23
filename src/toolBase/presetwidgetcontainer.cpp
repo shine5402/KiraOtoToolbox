@@ -69,6 +69,12 @@ ToolOptionWidget* PresetWidgetContainer::optionWidget() const
     return optionWidget_;
 }
 
+void PresetWidgetContainer::setWorkingOptions(OptionContainer options)
+{
+    optionWidget()->setOptions(options);
+    setCurrentDirty(true);
+}
+
 void PresetWidgetContainer::doResetToPreset()
 {
     optionWidget_->setOptionsJson(getCurrentPreset().content);
@@ -77,7 +83,7 @@ void PresetWidgetContainer::doResetToPreset()
 
 void PresetWidgetContainer::resetToPreset()
 {
-    if (currentDirty)
+    if (currentDirty())
     {
         auto reply = QMessageBox::question(this, {}, tr("确认要重置当前设置到预设内容吗？"));
         if (reply == QMessageBox::No)
@@ -88,7 +94,7 @@ void PresetWidgetContainer::resetToPreset()
 
 void PresetWidgetContainer::renamePreset()
 {
-    if (currentDirty)
+    if (currentDirty())
     {
         QMessageBox::critical(this, {}, tr("当前设置和预设中的设置不同，请保存当前设置或重置为预设内设置后再进行重命名。"));
         return;
@@ -124,7 +130,7 @@ void PresetWidgetContainer::doSavePreset()
 
 void PresetWidgetContainer::savePreset()
 {
-    if (!currentDirty){
+    if (!currentDirty()){
         QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("无需保存"), tr("当前设置和预设内设置一致，不需要进行保存操作。"), this, QCursor::pos(), 3000);
         return;
     }
@@ -215,7 +221,7 @@ void PresetWidgetContainer::exportPreset()
         QMessageBox::critical(this, {}, tr("内置预设无法被导出，请切换到用户预设再导出。"));
         return;
     }
-    if (currentDirty)
+    if (currentDirty())
     {
         auto reply = QMessageBox::warning(this, {}, tr("当前工作设置没有被保存到当前预设中，请问要在导出前保存到预设吗？\n如果不保存的话，导出的将会是预设中的内容，而不是工作设置。"), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         if (reply == QMessageBox::Yes)
@@ -242,6 +248,7 @@ void PresetWidgetContainer::resetComboBoxDirtyState()
     for (auto i = 0; i < ui->presetComboBox->count(); ++i){
         setComboBoxItemTextDirtyState(i, false);
     }
+    //As we determine dirty state by text in combobox's currenttext, we implicitly change current dirty to false here.
 }
 
 QString PresetWidgetContainer::targetName() const
@@ -261,15 +268,14 @@ void PresetWidgetContainer::reloadComboBoxItems()
     //ui->presetComboBox->setCurrentText(currPreset.name);
 }
 
-void PresetWidgetContainer::setCurrentDirty(bool value)
+bool PresetWidgetContainer::currentDirty()
 {
-    currentDirty = value;
-    refreshComboBoxForDirtyState();
+    return isNameDirty(ui->presetComboBox->currentText());
 }
 
-void PresetWidgetContainer::refreshComboBoxForDirtyState()
+void PresetWidgetContainer::setCurrentDirty(bool value)
 {
-    setComboBoxItemTextDirtyState(ui->presetComboBox->currentIndex(), currentDirty);
+    setComboBoxItemTextDirtyState(ui->presetComboBox->currentIndex(), value);
 }
 
 void PresetWidgetContainer::setComboBoxItemTextDirtyState(int id, bool dirty)

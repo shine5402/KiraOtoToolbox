@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "presetmanager.h"
+#include "optioncontainer.h"
 
 namespace Ui {
     class PresetWidgetContainer;
@@ -19,6 +20,9 @@ public:
     ~PresetWidgetContainer();
 
     ToolOptionWidget* optionWidget() const;
+
+    //This function would override working options, and make state dirty. Used by chain tool.
+    void setWorkingOptions(OptionContainer options);
 
 private slots:
     void resetToPreset();
@@ -39,9 +43,8 @@ private:
 
     void reloadComboBoxItems();
 
-    bool currentDirty = false;
+    bool currentDirty();
     void setCurrentDirty(bool value);
-    void refreshComboBoxForDirtyState();
     void setComboBoxItemTextDirtyState(int id, bool dirty);
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;

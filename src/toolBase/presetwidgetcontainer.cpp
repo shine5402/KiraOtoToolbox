@@ -45,11 +45,7 @@ PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMeta
 
     reloadComboBoxItems();
 
-    connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), [this]{
-        doResetToPreset();
-        resetComboBoxDirtyState();
-    });
-    //connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::resetToPreset);
+    connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::doResetToPreset);
     connect(ui->resetButton, &QToolButton::clicked, this, &PresetWidgetContainer::resetToPreset);
     connect(ui->renameButton, &QToolButton::clicked, this, &PresetWidgetContainer::renamePreset);
     connect(ui->saveButton, &QToolButton::clicked, this, &PresetWidgetContainer::savePreset);
@@ -76,6 +72,7 @@ ToolOptionWidget* PresetWidgetContainer::optionWidget() const
 void PresetWidgetContainer::doResetToPreset()
 {
     optionWidget_->setOptionsJson(getCurrentPreset().content);
+    resetComboBoxDirtyState();
 }
 
 void PresetWidgetContainer::resetToPreset()

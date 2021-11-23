@@ -29,6 +29,7 @@ private slots:
     void importPreset();
     void exportPreset();
     void resetComboBoxDirtyState();
+    void doResetToPreset();
 
 private:
     QString targetName() const;
@@ -42,11 +43,9 @@ private:
     void setCurrentDirty(bool value);
     void refreshComboBoxForDirtyState();
     void setComboBoxItemTextDirtyState(int id, bool dirty);
-
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;
     bool checkCurrentPresetBuiltIn();//Would warn user about check result
-    void doResetToPreset();
     void doSavePreset();
 };
 

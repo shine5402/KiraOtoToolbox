@@ -157,7 +157,7 @@ HEADERS += \
 
 
 FORMS += \
-    RemoveAffix/removeaffixoptionwidget.ui \
+    removeAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \
     mainwindow.ui \

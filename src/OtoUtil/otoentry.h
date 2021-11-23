@@ -1,15 +1,13 @@
 #ifndef OTOENTRY_H
 #define OTOENTRY_H
 
-#include "../QKiraUTAUUtils_global.h"
 #include <QObject>
 #include <QFile>
 #include <QTextCodec>
 
 constexpr int OTOENTRY_DEFAULT_PRECISION = 3;
 
-/// OtoEntry 定义了一条原音设定条目。
-class QKIRAUTAUUTILS_EXPORT OtoEntry : public QObject
+class OtoEntry : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged);
@@ -68,18 +66,8 @@ public:
 
     static const int OtoParameterCount;
 
-    /*!
-    @brief 该条条目的文件名属性。
-    fileName 告知UTAU引擎时应该在哪个文件中寻找对应原音块。
-    这个文件名相对于oto.ini所在的文件夹。
-    @see void setFileName(const QString& value)
-    */
     QString fileName() const;
 
-    /*!
-    @brief 设置该条条目的文件名属性。
-    @see QString fileName() const
-    */
     void setFileName(const QString& value);
 
     QString alias() const;
@@ -115,7 +103,7 @@ public:
     QString toString(int precision = OTOENTRY_DEFAULT_PRECISION) const;
 
     Q_INVOKABLE bool isValid() const{
-        return m_valid;
+        return valid_;
     }
 
     bool operator==(const OtoEntry& rhs) const;
@@ -131,41 +119,39 @@ signals:
     void overlapChanged();
 
 private:
-    QString m_fileName {};
-    QString m_alias {};
-    double m_left {};
-    double m_consonant {};
-    double m_right {};
-    double m_preUtterance {};
-    double m_overlap {};
+    QString fileName_ {};
+    QString alias_ {};
+    double left_ {};
+    double consonant_ {};
+    double right_ {};
+    double preUtterance_ {};
+    double overlap_ {};
 
     OtoEntryError m_error{UnknownError};
     void setError(OtoEntryError error);
-    bool m_valid = false;
+    bool valid_ = false;
 
     void setValid(bool valid);
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 
-using OtoEntryList = QList<OtoEntry>;
+using OtoEntryList = QVector<OtoEntry>;
 
 namespace OtoEntryFunctions {
-    Q_NAMESPACE_EXPORT(QKIRAUTAUUTILS_EXPORT)
     enum CharacterCase{
         Upper, Lower
     };
-    Q_ENUM_NS(CharacterCase)
 
-    QKIRAUTAUUTILS_EXPORT QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
-    QKIRAUTAUUTILS_EXPORT QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
-    QKIRAUTAUUTILS_EXPORT QString removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
-    QKIRAUTAUUTILS_EXPORT QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
-    QKIRAUTAUUTILS_EXPORT QString removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
-    QKIRAUTAUUTILS_EXPORT QString getDigitSuffix(const QString& string, int* position = nullptr);
+    QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
+    QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
+    QString removePitchPrefix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);
+    QString removeSuffix(QString string, const QString& suffix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
+    QString removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
+    QString getDigitSuffix(const QString& string, int* position = nullptr);
     ///@deprecated
-    QKIRAUTAUUTILS_EXPORT int  writeOtoListToFile [[deprecated]] (QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
+    int  writeOtoListToFile [[deprecated]] (QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
 
-    QKIRAUTAUUTILS_EXPORT bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision = OTOENTRY_DEFAULT_PRECISION, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
+    bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision = OTOENTRY_DEFAULT_PRECISION, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
                                                   bool directWriteFallback = true);
 }
 

@@ -13,9 +13,9 @@ OtoEntry::OtoEntry(QString fileName,
                    double preUtterance,
                    double overlap,
                    QObject *parent)
-    : QObject(parent), m_fileName(std::move(fileName)), m_alias(std::move(alias)),
-      m_left(left), m_consonant(consonant),m_right(right),
-      m_preUtterance(preUtterance),m_overlap(overlap),m_valid(true)
+    : QObject(parent), fileName_(std::move(fileName)), alias_(std::move(alias)),
+      left_(left), consonant_(consonant),right_(right),
+      preUtterance_(preUtterance),overlap_(overlap),valid_(true)
 {
 
 }
@@ -75,32 +75,32 @@ OtoEntry::OtoEntry(const QString& otoString)
 
 OtoEntry::OtoEntry(const OtoEntry& other) : QObject(other.parent())
 {
-    m_fileName = other.m_fileName;
-    m_alias = other.m_alias;
-    m_left = other.m_left;
-    m_consonant = other.m_consonant;
-    m_right = other.m_right;
-    m_preUtterance = other.m_preUtterance;
-    m_overlap = other.m_overlap;
+    fileName_ = other.fileName_;
+    alias_ = other.alias_;
+    left_ = other.left_;
+    consonant_ = other.consonant_;
+    right_ = other.right_;
+    preUtterance_ = other.preUtterance_;
+    overlap_ = other.overlap_;
 
     m_error = other.m_error;
-    m_valid = other.m_valid;
+    valid_ = other.valid_;
 }
 
 OtoEntry& OtoEntry::operator=(const OtoEntry& rhs)
 {
     if (*this != rhs)
     {
-        m_fileName = rhs.m_fileName;
-        m_alias = rhs.m_alias;
-        m_left = rhs.m_left;
-        m_consonant = rhs.m_consonant;
-        m_right = rhs.m_right;
-        m_preUtterance = rhs.m_preUtterance;
-        m_overlap = rhs.m_overlap;
+        fileName_ = rhs.fileName_;
+        alias_ = rhs.alias_;
+        left_ = rhs.left_;
+        consonant_ = rhs.consonant_;
+        right_ = rhs.right_;
+        preUtterance_ = rhs.preUtterance_;
+        overlap_ = rhs.overlap_;
 
         m_error = rhs.m_error;
-        m_valid = rhs.m_valid;
+        valid_ = rhs.valid_;
     }
     return *this;
 }
@@ -108,12 +108,12 @@ OtoEntry& OtoEntry::operator=(const OtoEntry& rhs)
 QString OtoEntry::toString(int precision) const
 {
     return QString("%1=%2,%3,%4,%5,%6,%7")
-            .arg(m_fileName, m_alias)
-            .arg(m_left,0,'f',precision)
-            .arg(m_consonant,0,'f',precision)
-            .arg(m_right,0,'f',precision)
-            .arg(m_preUtterance,0,'f',precision)
-            .arg(m_overlap,0,'f',precision);
+            .arg(fileName_, alias_)
+            .arg(left_,0,'f',precision)
+            .arg(consonant_,0,'f',precision)
+            .arg(right_,0,'f',precision)
+            .arg(preUtterance_,0,'f',precision)
+            .arg(overlap_,0,'f',precision);
 }
 
 bool OtoEntry::operator==(const OtoEntry& rhs) const
@@ -137,71 +137,71 @@ void OtoEntry::setError(OtoEntry::OtoEntryError error)
 
 void OtoEntry::setValid(bool valid)
 {
-    m_valid = valid;
+    valid_ = valid;
 }
 
 QString OtoEntry::fileName() const
 {
-    return m_fileName;
+    return fileName_;
 }
 
 QString OtoEntry::alias() const
 {
-    return m_alias;
+    return alias_;
 }
 
 double OtoEntry::left() const
 {
-    return m_left;
+    return left_;
 }
 
 void OtoEntry::setLeft(double value)
 {
-    m_left = value;
+    left_ = value;
     emit leftChanged();
 }
 
 double OtoEntry::consonant() const
 {
-    return m_consonant;
+    return consonant_;
 }
 
 void OtoEntry::setConsonant(double value)
 {
-    m_consonant = value;
+    consonant_ = value;
     emit consonantChanged();
 }
 
 double OtoEntry::right() const
 {
-    return m_right;
+    return right_;
 }
 
 void OtoEntry::setRight(double value)
 {
-    m_right = value;
+    right_ = value;
     emit rightChanged();
 }
 
 double OtoEntry::preUtterance() const
 {
-    return m_preUtterance;
+    return preUtterance_;
 }
 
 void OtoEntry::setPreUtterance(double value)
 {
-    m_preUtterance = value;
+    preUtterance_ = value;
     emit preUtteranceChanged();
 }
 
 double OtoEntry::overlap() const
 {
-    return m_overlap;
+    return overlap_;
 }
 
 void OtoEntry::setOverlap(double value)
 {
-    m_overlap = value;
+    overlap_ = value;
     emit overlapChanged();
 }
 
@@ -313,13 +313,13 @@ QString OtoEntry::errorString() const
 
 void OtoEntry::setAlias(const QString& value)
 {
-    m_alias = value;
+    alias_ = value;
     emit aliasChanged();
 }
 
 void OtoEntry::setFileName(const QString& value)
 {
-    m_fileName = value;
+    fileName_ = value;
     emit fileNameChanged();
 }
 

@@ -5,14 +5,14 @@
 #include "otoentry.h"
 #include <QTextCodec>
 #include <QList>
+#include <QVector>
 #include <QDateTime>
 #include <QFileInfo>
 
-using OtoEntryList = QList<OtoEntry>;
-class QKIRAUTAUUTILS_EXPORT OtoFileReader
+class OtoFileReader
 {
 public:
-    OtoFileReader(QString m_fileName, QTextCodec* m_textCodec = QTextCodec::codecForName("Shift-JIS"), bool m_keepInvalid = false);
+    OtoFileReader(QString fileName, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"), bool keepInvalid = false);
 
     OtoEntryList getEntryList() const;
 
@@ -27,12 +27,12 @@ public:
     bool keepInvalid() const;
 
 private:
-    QString m_fileName{};
-    QFileInfo m_fileInfo;
-    QTextCodec* m_textCodec;
-    bool m_keepInvalid;
-    mutable QDateTime m_lastModifiedOnRead;
-    mutable OtoEntryList m_entryListCache;
+    QString fileName_{};
+    QFileInfo fileInfo_;
+    QTextCodec* textCodec_;
+    bool keepInvalid_;
+    mutable QDateTime lastModifiedOnRead_;
+    mutable OtoEntryList entryListCache_;
 
     bool cacheValid() const;
 };

@@ -19,13 +19,13 @@ class OtoEntry : public QObject
     Q_PROPERTY(double overlap READ overlap WRITE setOverlap NOTIFY overlapChanged);
 
 public:
-    OtoEntry(QString m_fileName,
-             QString m_alias,
-             double m_left,
-             double m_consonant,
-             double m_right,
-             double m_preUtterance,
-             double m_overlap,
+    OtoEntry(QString fileName,
+             QString alias,
+             double left,
+             double consonant,
+             double right,
+             double preUtterance,
+             double overlap,
              QObject *parent = nullptr);
     explicit OtoEntry(const QString& otoString);
     OtoEntry(const OtoEntry& other);

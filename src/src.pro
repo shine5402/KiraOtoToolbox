@@ -6,8 +6,8 @@ CONFIG += c++17
 
 TARGET = Shine5402OtoToolBox
 
-VERSION = 0.6.0
-# DEFINES += VERSION_BETA
+VERSION = 0.7.0
+DEFINES += VERSION_BETA
 
 RC_ICONS = resources/icon/appIcon.ico
 

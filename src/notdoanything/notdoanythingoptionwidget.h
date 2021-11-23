@@ -2,7 +2,7 @@
 #define NOTDOANYTHINGOPTIONWIDGET_H
 
 #include <toolBase/tooloptionwidget.h>
-
+//TODO:migrate with emptyoptionwidget?
 class NotDoAnythingOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT

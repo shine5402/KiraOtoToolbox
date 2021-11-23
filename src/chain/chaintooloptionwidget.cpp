@@ -132,22 +132,26 @@ void ChainToolOptionWidget::addStep()
     {
         stepsModel->addStep(availableTools.at(dialog->currentRow()));
         openStepSettings(stepsModel->stepCount() - 1);
+        emit userSettingsChanged();
     }
 }
 
 void ChainToolOptionWidget::removeCurrentStep()
 {
     stepsModel->removeStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::moveUpCurrentStep()
 {
     stepsModel->moveUpStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::moveDownCurrentStep()
 {
     stepsModel->moveDownStep(getCurrentRow());
+    emit userSettingsChanged();
 }
 
 void ChainToolOptionWidget::openStepSettings(int index)
@@ -207,6 +211,7 @@ void ChainToolOptionWidget::handleStepSettingsDone(int result)
 {
     if (result == QDialog::Accepted){
         stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrOptionWidget->getOptions());
+        emit userSettingsChanged();
     }
     pendingStepSetting.ptrDialog->deleteLater();
     pendingStepSetting = {};

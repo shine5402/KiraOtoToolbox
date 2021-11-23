@@ -6,6 +6,16 @@ SetAliasOptionWidget::SetAliasOptionWidget(QWidget *parent) :
     ui(new Ui::SetAliasOptionWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->emptyOnlyCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->headCutSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeStrLineEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->emptyOnlyCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->headCutSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeStrLineEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeStrRegexCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->ruleLineEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->tailCutSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
 }
 
 SetAliasOptionWidget::~SetAliasOptionWidget()

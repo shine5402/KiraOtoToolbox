@@ -184,7 +184,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    presets/overlap_start_preset/overlap_start_preset.qrc \
     resources/icon/icon.qrc \
     resources/splashscr/splashscr.qrc
 

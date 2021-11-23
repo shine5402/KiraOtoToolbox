@@ -18,17 +18,12 @@ void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
 
-QString CV_VCPartSplitToolDialogAdapter::getToolName() const
-{
-    return tr("分离CV/VC部");
-}
-
 bool CV_VCPartSplitToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
     auto isSecondFileNameUsed = options.getOption("save/isSecondFileNameUsed").toBool();
     if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options)){
-        if (!(isSecondFileNameUsed && Misc::askUserWithShowOtoList(secondSaveOtoList, tr("分离出的VC部"), tr("以下 %1 条原音设定条目将会被保存至您所指定的位置。").arg(secondSaveOtoList.count()), dialogParent)))
+        if (isSecondFileNameUsed && !(Misc::askUserWithShowOtoList(secondSaveOtoList, tr("分离出的VC部"), tr("以下 %1 条原音设定条目将会被保存至您所指定的位置。").arg(secondSaveOtoList.count()), dialogParent)))
         {
             return false;
         }

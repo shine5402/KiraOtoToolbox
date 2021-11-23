@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
+    <width>511</width>
     <height>126</height>
    </rect>
   </property>
@@ -32,6 +32,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
+      <widget class="QPushButton" name="multiLineEditButton">
+       <property name="text">
+        <string>多行编辑</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -43,6 +50,16 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>&lt;span style=&quot;color: grey&quot;&gt;双击项即可修改值&lt;/span&gt;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="addButton">

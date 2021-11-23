@@ -7,9 +7,3 @@ AddAffixDialogAdapter::AddAffixDialogAdapter(QObject* parent) : ToolDialogAdapte
     setWorkerMetaObj(AddAffixOtoListModifyWorker::staticMetaObject);
     setOptionWidgetMetaObj(AddAffixOptionWidget::staticMetaObject);
 }
-
-
-QString AddAffixDialogAdapter::getToolName() const
-{
-    return tr("添加别名前/后缀");
-}

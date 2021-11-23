@@ -10,8 +10,3 @@ OverlapBatchSetDialogAdapter::OverlapBatchSetDialogAdapter(QObject* parent) : To
     setWorkerMetaObj(OverlapBatchSetOtoListModifyWorker::staticMetaObject);
     setOptionWidgetMetaObj(OverlapBatchSetDialogOptionWidget::staticMetaObject);
 }
-
-QString OverlapBatchSetDialogAdapter::getToolName() const
-{
-    return tr("批量修改Overlap");
-}

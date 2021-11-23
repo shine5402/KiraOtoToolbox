@@ -2,10 +2,10 @@
 #define CHAINTOOLOPTIONWIDGET_H
 
 #include <QWidget>
-#include "toolBase/toolmanager.h"
 #include "toolBase/tooloptionwidget.h"
 
 class ChainStepsModel;
+class PresetWidgetContainer;
 
 namespace Ui {
     class ChainToolOptionWidget;
@@ -22,6 +22,10 @@ public:
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer &options) override;
 
+    QJsonObject optionsToJson(const OptionContainer& options) const override;
+    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    int optionJsonVersion() const override;
+
 private:
     Ui::ChainToolOptionWidget *ui;
     ChainStepsModel* stepsModel;
@@ -31,9 +35,9 @@ private:
 
     void openStepSettings(int index);
     struct stepSettingsDialogInfo{
-        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrOptionWidget(nullptr), index(-1){};
+        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrPresetContainer(nullptr), index(-1){};
         QDialog* ptrDialog;
-        ToolOptionWidget* ptrOptionWidget;
+        PresetWidgetContainer* ptrPresetContainer;
         int index;
     } pendingStepSetting;
     

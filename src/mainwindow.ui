@@ -7,46 +7,76 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>544</height>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>shine_5402 的 oto 工具箱</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="centralLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="debugButton">
-      <property name="text">
-       <string>Debug 测试按钮</string>
-      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>800</width>
+         <height>601</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>242</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="toolLayout"/>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>241</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>
@@ -56,7 +86,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -64,14 +94,17 @@
      <string>文件(&amp;F)</string>
     </property>
     <addaction name="actionExit"/>
+    <addaction name="actionDebug"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
      <string>帮助(&amp;H)</string>
     </property>
     <addaction name="actionAbout"/>
-    <addaction name="actionUpdate"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="separator"/>
+    <addaction name="actionUpdate"/>
+    <addaction name="actionSend_feedback"/>
     <addaction name="separator"/>
     <addaction name="actionDonate"/>
    </widget>
@@ -80,12 +113,12 @@
   </widget>
   <action name="actionExit">
    <property name="text">
-    <string>退出(&amp;E)</string>
+    <string>退出</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>关于(&amp;A)</string>
+    <string>关于</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
@@ -95,12 +128,22 @@
   </action>
   <action name="actionDonate">
    <property name="text">
-    <string>捐赠(&amp;D)</string>
+    <string>捐赠</string>
    </property>
   </action>
   <action name="actionUpdate">
    <property name="text">
-    <string>获得更新(&amp;U)</string>
+    <string>获得更新</string>
+   </property>
+  </action>
+  <action name="actionDebug">
+   <property name="text">
+    <string>Debug</string>
+   </property>
+  </action>
+  <action name="actionSend_feedback">
+   <property name="text">
+    <string>提交反馈</string>
    </property>
   </action>
  </widget>

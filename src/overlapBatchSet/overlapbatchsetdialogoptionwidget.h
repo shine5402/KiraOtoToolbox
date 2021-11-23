@@ -21,26 +21,12 @@ public:
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;
 
+    QJsonObject optionsToJson(const OptionContainer& options) const override;
+    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    int optionJsonVersion() const override;
+
 private:
     Ui::OverlapBatchSetDialogOptionWidget *ui;
-    void loadPreset();
-    struct preset{
-        QString name;
-        QStringList content;
-    };
-    QVector<preset> presetList;
-    const QStringList* workingStartList = &emptyStringList;
-    const static QStringList emptyStringList;
-    QStringList notPresetStartList;
-    QStringListModel startListModel;
-
-    void setWorkingStartList(const QStringList* list);
-private slots:
-    void switchPreset(int index);
-    void clearWorkingStartList();
-    void loadStartListFromFile();
-    void switchToUsePreset();
-    void getStartListFromUserInput();
 };
 
 #endif // OVERLAPBATCHSETDIALOGOPTIONWIDGET_H

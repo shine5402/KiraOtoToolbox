@@ -1,11 +1,12 @@
 <RCC>
     <qresource prefix="/icon">
-        <file alias="delete">delete_outline_24px.svg</file>
-        <file alias="save">save_alt_24px.svg</file>
-        <file alias="content_copy">content_copy-24px.svg</file>
-        <file alias="rename">rename.svg</file>
-        <file alias="edit">edit.svg</file>
-        <file alias="undo">undo-24px.svg</file>
         <file>appIcon.ico</file>
+        <file alias="add">icons8-add-48.png</file>
+        <file alias="export">icons8-export-48.png</file>
+        <file alias="import">icons8-import-48.png</file>
+        <file alias="remove">icons8-remove-48.png</file>
+        <file alias="rename">icons8-rename-48.png</file>
+        <file alias="reset">icons8-reset-48.png</file>
+        <file alias="save">icons8-save-48.png</file>
     </qresource>
 </RCC>

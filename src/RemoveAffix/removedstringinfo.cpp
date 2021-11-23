@@ -12,7 +12,7 @@ RemovedStringInfo::RemovedStringInfo(const RemovedStringInfo& rhs)
     m_value = rhs.value();
 }
 
-const RemovedStringInfo& RemovedStringInfo::operator =(const RemovedStringInfo& rhs)
+const RemovedStringInfo& RemovedStringInfo::operator=(const RemovedStringInfo& rhs)
 {
     if (rhs != *this)
     {

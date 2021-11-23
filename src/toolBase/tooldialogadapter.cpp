@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
+#include "presetwidgetcontainer.h"
 
 
 ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
@@ -19,10 +20,12 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
-    auto optionWidget = qobject_cast<ToolOptionWidget *>(optionWidgetMetaObj.newInstance(Q_ARG(QWidget*, rootLayout->parentWidget())));
-    replaceOptionWidget(rootLayout, optionWidget);
+    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
+    auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
+    Misc::replaceWidget(optionLayout, "presetContainer", presetContainer, rootLayout->parentWidget());
 }
 
+//Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
@@ -43,6 +46,7 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 
 QString ToolDialogAdapter::getToolName() const
 {
+    Q_UNREACHABLE();
     return {};
 }
 
@@ -72,11 +76,11 @@ void ToolDialogAdapter::setOptionWidgetMetaObj(const QMetaObject& value)
 }
 
 
-void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
-{
-    auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    Misc::replaceWidget(optionLayout, "optionWidget", newOptionWidget, rootLayout->parentWidget());
-}
+//void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
+//{
+//    auto presetContianer = qobject_cast<PresetWidgetContainer*>(rootLayout->parentWidget()->findChild<QWidget*>("presetContainer"));
+//    Misc::replaceWidget(presetContianer->layout(), "optionWidget", newOptionWidget, rootLayout->parentWidget());
+//}
 
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {

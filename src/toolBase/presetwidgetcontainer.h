@@ -34,7 +34,7 @@ private slots:
 private:
     QString targetName() const;
     Ui::PresetWidgetContainer *ui;
-    const QMetaObject& optionWidgetMetaObj;
+    QMetaObject optionWidgetMetaObj;
     ToolOptionWidget* optionWidget_;
 
     void reloadComboBoxItems();

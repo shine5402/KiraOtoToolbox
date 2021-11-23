@@ -2,7 +2,7 @@
 #define OVERLAPBATCHSETDIALOGOPTIONWIDGET_H
 
 #include <QWidget>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 #include "toolBase/tooloptionwidget.h"
 #include <QStringListModel>
 

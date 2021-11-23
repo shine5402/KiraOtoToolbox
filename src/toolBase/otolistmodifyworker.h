@@ -2,7 +2,7 @@
 #define OTOPROCESSOR_H
 
 #include <QObject>
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 #include "optioncontainer.h"
 
 class OtoListModifyWorker : public QObject

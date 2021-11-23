@@ -1,5 +1,5 @@
 #include "optioncontainer.h"
-#include <OtoUtil/otoentry.h>
+#include <otoentry.h>
 
 QVariant OptionContainer::getOption(const QString& key, const QVariant& defaultValue, bool* matched) const
 {

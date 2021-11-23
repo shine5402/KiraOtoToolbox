@@ -76,9 +76,7 @@
                     "ifSetOverlapStartWith": false,
                     "makeOneThird": true,
                     "overlapStartWith": -5,
-                    "startWithPatternList": [],
-                    "oneSecondWhenTooSmall": true,
-                    "oneSecondWhenTooSmallValue": 15
+                    "startWithPatternList": []
                 },
                 "lastModified": "2021-11-23T11:43:48",
                 "name": "三分之一化",
@@ -89,8 +87,6 @@
                     "ifMatchStartOto": true,
                     "ifSetOverlapStartWith": true,
                     "makeOneThird": true,
-                    "oneSecondWhenTooSmall": true,
-                    "oneSecondWhenTooSmallValue": 15,
                     "overlapStartWith": 0,
                     "startWithPatternList": [
                         "ち",
@@ -187,8 +183,6 @@
                     "ifMatchStartOto": true,
                     "ifSetOverlapStartWith": true,
                     "makeOneThird": true,
-                    "oneSecondWhenTooSmall": true,
-                    "oneSecondWhenTooSmallValue": 15,
                     "overlapStartWith": 0,
                     "startWithPatternList": [
                         "t",
@@ -212,8 +206,6 @@
                     "ifMatchStartOto": false,
                     "ifSetOverlapStartWith": true,
                     "makeOneThird": true,
-                    "oneSecondWhenTooSmall": true,
-                    "oneSecondWhenTooSmallValue": 15,
                     "overlapStartWith": -5,
                     "startWithPatternList": [
                         "ち",
@@ -310,8 +302,6 @@
                     "ifMatchStartOto": true,
                     "ifSetOverlapStartWith": true,
                     "makeOneThird": true,
-                    "oneSecondWhenTooSmall": true,
-                    "oneSecondWhenTooSmallValue": 15,
                     "overlapStartWith": -5,
                     "startWithPatternList": [
                         "t",
@@ -379,8 +369,6 @@
                             "ifMatchStartOto": true,
                             "ifSetOverlapStartWith": true,
                             "makeOneThird": true,
-                            "oneSecondWhenTooSmall": true,
-                            "oneSecondWhenTooSmallValue": 15,
                             "overlapStartWith": 0,
                             "startWithPatternList": [
                                 "ち",

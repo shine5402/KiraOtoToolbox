@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>file2test/emptyFile.ini</file>
-        <file>file2test/errorData.ini</file>
-        <file>file2test/normalData.ini</file>
-        <file>file2test/normalData_UTF-8.ini</file>
-    </qresource>
-</RCC>

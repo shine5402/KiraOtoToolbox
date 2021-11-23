@@ -31,7 +31,7 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-CONFIG(debug, debug|release) {
-     mac: TARGET = $$join(TARGET,,,_debug)
-     win32: TARGET = $$join(TARGET,,,d)
-}
+#CONFIG(debug, debug|release) {
+#     mac: TARGET = $$join(TARGET,,,_debug)
+#     win32: TARGET = $$join(TARGET,,,d)
+#}

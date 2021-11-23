@@ -136,11 +136,12 @@ private:
 Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 
 using OtoEntryList = QVector<OtoEntry>;
-
 namespace OtoEntryFunctions {
+    Q_NAMESPACE
     enum CharacterCase{
         Upper, Lower
     };
+    Q_ENUM_NS(CharacterCase)
 
     QStringList getPitchStringRange(const QString& bottomPitch, const QString& topPitch, CharacterCase characterCase = Upper);
     QString removePitchSuffix(QString alias, const QString& bottomPitch, const QString& topPitch, Qt::CaseSensitivity cs = Qt::CaseInsensitive, CharacterCase pitchRangeCharacterCase = CharacterCase::Upper, QString* pitchRemoved = nullptr);

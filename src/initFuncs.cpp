@@ -17,13 +17,13 @@
 
 void registerTools()
 {
-    REGISTER_TOOL("去除不需要的项", RemoveDuplicateDialogAdapter);
-    REGISTER_TOOL("去除不需要的项", RemoveBlankDialogAdapter);
-    REGISTER_TOOL("批量设置数值", OverlapBatchSetDialogAdapter);
-    REGISTER_TOOL("对别名进行操作", RemoveAffixDialogAdapter);
-    REGISTER_TOOL("对别名进行操作", AddAffixDialogAdapter);
-    REGISTER_TOOL("对别名进行操作", SetAliasDialogAdapter);
-    REGISTER_TOOL("筛选出需要的项", CV_VCPartSplitToolDialogAdapter);
-    REGISTER_TOOL("元操作", ChainDialogAdapter);
-    REGISTER_TOOL("元操作", NotDoAnythingDialogAdapter);
+    REGISTER_TOOL("Remove unneeded items", RemoveDuplicateDialogAdapter);
+    REGISTER_TOOL("Remove unneeded items", RemoveBlankDialogAdapter);
+    REGISTER_TOOL("Set values in batch", OverlapBatchSetDialogAdapter);
+    REGISTER_TOOL("Manipulate aliases", RemoveAffixDialogAdapter);
+    REGISTER_TOOL("Manipulate aliases", AddAffixDialogAdapter);
+    REGISTER_TOOL("Manipulate aliases", SetAliasDialogAdapter);
+    REGISTER_TOOL("Filter what you need", CV_VCPartSplitToolDialogAdapter);
+    REGISTER_TOOL("Meta actions", ChainDialogAdapter);
+    REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);
 }

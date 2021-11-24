@@ -79,7 +79,7 @@
      </property>
      <layout class="QVBoxLayout" name="optionLayout">
       <item>
-       <widget class="ToolOptionWidget" name="optionWidget" native="true"/>
+       <widget class="QWidget" name="presetWidgetContainer" native="true"/>
       </item>
      </layout>
     </widget>
@@ -181,12 +181,6 @@
    <class>OtoFileMultipleSaveWidget</class>
    <extends>QWidget</extends>
    <header>utils/widgets/otofilemultiplesavewidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ToolOptionWidget</class>
-   <extends>QWidget</extends>
-   <header>toolBase/tooloptionwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

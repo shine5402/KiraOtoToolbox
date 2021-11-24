@@ -9,11 +9,11 @@ class CV_VCPartSplitToolDialogAdapter : public ToolDialogAdapter
 public:
     Q_INVOKABLE explicit CV_VCPartSplitToolDialogAdapter(QObject *parent = nullptr);
 
-    // ToolDialogAdapter interface
-public:
     void replaceUIWidgets(QLayout* rootLayout) override;
-    QString getToolName() const override;
-    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent) override;
+    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent) override;
+
+    DEFINE_TOOL_NAME("分离CV/VC部")
 };
 
 #endif // CV_VCPARTSPLITTOOLDIALOGADAPTER_H

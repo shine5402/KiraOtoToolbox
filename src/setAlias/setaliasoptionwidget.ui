@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SetAliasOptionWidget</class>
+ <widget class="QWidget" name="SetAliasOptionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>723</width>
+    <height>302</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="verticalSpacing">
+      <number>8</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="ruleLabel">
+       <property name="text">
+        <string>更名到：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="headCutLabel">
+       <property name="text">
+        <string>从头删除多少字符</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="tailCutLabel">
+       <property name="text">
+        <string>从尾删除多少字符</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="removeStrLabel">
+       <property name="text">
+        <string>删除指定字符串</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="removeStrLineEdit"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QCheckBox" name="removeStrRegexCheckBox">
+       <property name="text">
+        <string>正则匹配</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLineEdit" name="ruleLineEdit"/>
+     </item>
+     <item row="4" column="0" colspan="3">
+      <widget class="QCheckBox" name="emptyOnlyCheckBox">
+       <property name="text">
+        <string>只应用于原本无别名的项</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QSpinBox" name="headCutSpinBox"/>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QSpinBox" name="tailCutSpinBox"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>12</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;margin-bottom:18px&quot;&gt;&lt;span style=&quot; font-size:medium; font-weight:600;&quot;&gt;“更名到”规则说明：&lt;/span&gt;&lt;/p&gt;&lt;p&gt;%s = 原有的数字后缀，使用该项会在%a中去除它&lt;/p&gt;&lt;p&gt;%a = 原有的别名&lt;/p&gt;&lt;p&gt;%f = 对应的文件名（不包括扩展名）&lt;/p&gt;&lt;p&gt;%r = 重复别名自动编号（更名规则后）&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

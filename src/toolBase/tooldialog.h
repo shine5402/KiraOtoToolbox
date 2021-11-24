@@ -2,11 +2,12 @@
 #define TOOLDIALOG_H
 
 #include <QDialog>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 #include "toolBase/tooldialogadapter.h"
 
 class QAbstractButton;
 class QStackedWidget;
+class PresetWidgetContainer;
 
 namespace Ui {
     class ToolDialog;
@@ -15,10 +16,6 @@ namespace Ui {
 class ToolDialog : public QDialog
 {
     Q_OBJECT
-
-#ifdef SHINE5402OTOBOX_TEST
-    friend class RemoveDuplicateTest;
-#endif
 
 public:
     explicit ToolDialog(ToolDialogAdapter* adapter, QWidget *parent = nullptr);
@@ -41,8 +38,10 @@ private slots:
     void refreshOptionWidgetEnableState();
 private:
     Ui::ToolDialog *ui;
-    void reAssignUIWidgets();
+    void reAssignWidgetHandles();
     ToolDialogAdapter* adapter;
+    ToolOptionWidget* optionWidget;
+    PresetWidgetContainer* presetWidgetContainer;
     bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
     bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;

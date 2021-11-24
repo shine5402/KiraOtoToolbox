@@ -7,7 +7,7 @@ class RemoveAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE RemoveAffixDialogAdapter(QObject* parent = nullptr);
-    QString getToolName() const override;
+    DEFINE_TOOL_NAME("去除别名前/后缀")
 };
 
 #endif // REMOVEAFFIXDIALOGADAPTER_H

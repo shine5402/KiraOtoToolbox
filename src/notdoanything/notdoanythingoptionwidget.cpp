@@ -22,3 +22,20 @@ void NotDoAnythingOptionWidget::setOptions(const OptionContainer& options)
 {
     Q_UNUSED(options);
 }
+
+QJsonObject NotDoAnythingOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    Q_UNUSED(options)
+    return {};
+}
+
+OptionContainer NotDoAnythingOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    Q_UNUSED(json)
+    return {};
+}
+
+int NotDoAnythingOptionWidget::optionJsonVersion() const
+{
+    return 1;
+}

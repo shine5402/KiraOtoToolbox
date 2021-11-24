@@ -4,9 +4,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
-TARGET = Shine5402OtoToolBox
+TARGET = KiraOtoToolbox
 
-VERSION = 0.5.1
+VERSION = 0.7.0
+DEFINES += VERSION_BETA
 
 RC_ICONS = resources/icon/appIcon.ico
 
@@ -23,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     chain/chaindialogadapter.cpp \
+    chain/chaininvaliddialogadapter.cpp \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
@@ -54,11 +56,16 @@ SOURCES += \
     removeBlank/removeblankotolistmodifyworker.cpp \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.cpp \
     removeDuplicate/removeduplicatedialogadapter.cpp \
-    removeDuplicate/removeduplicatedialogoptionwidget.cpp \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
+    removeDuplicate/removeduplicateoptionwidget.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    setAlias/setaliasdialogadapter.cpp \
+    setAlias/setaliasoptionwidget.cpp \
+    setAlias/setaliasotolistmodifyworker.cpp \
     toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
+    toolBase/presetmanager.cpp \
+    toolBase/presetwidgetcontainer.cpp \
     toolBase/tooldialog.cpp \
     toolBase/tooldialogadapter.cpp \
     toolBase/toolmanager.cpp \
@@ -85,6 +92,7 @@ SOURCES += \
 HEADERS += \
     chain/chaindialogadapter.h \
     chain/chainelement.h \
+    chain/chaininvaliddialogadapter.h \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
@@ -115,11 +123,16 @@ HEADERS += \
     removeBlank/removeblankotolistmodifyworker.h \
     removeDuplicate/orgnaizeduplicateotolistmodifyworker.h \
     removeDuplicate/removeduplicatedialogadapter.h \
-    removeDuplicate/removeduplicatedialogoptionwidget.h \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
+    removeDuplicate/removeduplicateoptionwidget.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
+    setAlias/setaliasdialogadapter.h \
+    setAlias/setaliasoptionwidget.h \
+    setAlias/setaliasotolistmodifyworker.h \
     toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
+    toolBase/presetmanager.h \
+    toolBase/presetwidgetcontainer.h \
     toolBase/tooldialog.h \
     toolBase/tooldialogadapter.h \
     toolBase/toolmanager.h \
@@ -146,13 +159,15 @@ HEADERS += \
 
 
 FORMS += \
-    RemoveAffix/removeaffixoptionwidget.ui \
+    removeAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
+    removeDuplicate/removeduplicateoptionwidget.ui \
+    setAlias/setaliasoptionwidget.ui \
+    toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \
-    removeDuplicate/removeduplicatedialogoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \
@@ -161,7 +176,6 @@ FORMS += \
     utils/widgets/otofilesavewidget.ui \
     utils/widgets/stringlistmodifywidget.ui
 
-include(include.pri)
 include(lib.pri)
 
 
@@ -171,9 +185,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    presets/overlap_start_preset/overlap_start_preset.qrc \
-    resources/icon/icon.qrc
+    resources/icon/icon.qrc \
+    resources/presets/built-in_presets.qrc \
+    resources/splashscr/splashscr.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
 
-TRANSLATIONS += ../i18n/shine5402ototoolbox_en.ts
+TRANSLATIONS += ../i18n/kiraototoolbox_en.ts

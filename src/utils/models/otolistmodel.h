@@ -2,7 +2,7 @@
 #define OTOLISTMODEL_H
 
 #include <QAbstractTableModel>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 
 class OtoListModel : public QAbstractTableModel
 {

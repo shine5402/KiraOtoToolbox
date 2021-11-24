@@ -72,11 +72,7 @@ void FileNameEditWithBrowse::setPurpose(const Purpose& value)
 void FileNameEditWithBrowse::openFilePathBrowse()
 {
     if (!isMultipleMode()){
-#ifdef SHINE5402OTOBOX_TEST
-    auto fileName = QString(":/testOpen");
-#else
     auto fileName = QFileDialog::getOpenFileName(this, caption, dir, filter, selectedFilter, options);
-#endif
     if (!fileName.isEmpty())
         ui->fileNameEdit->setText(fileName);
         emit browseTriggered();
@@ -94,11 +90,7 @@ void FileNameEditWithBrowse::openFilePathBrowse()
 void FileNameEditWithBrowse::saveFilePathBrowse()
 {
     Q_ASSERT(!isMultipleMode());
-#ifdef SHINE5402OTOBOX_TEST
-    auto fileName = QString(":/testSave");
-#else
     auto fileName = QFileDialog::getSaveFileName(this, caption, dir, filter, selectedFilter, options);
-#endif
     if (!fileName.isEmpty()){
         ui->fileNameEdit->setText(fileName);
         emit browseTriggered();

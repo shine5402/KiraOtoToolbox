@@ -2,7 +2,7 @@
 #define OTOFILELOADWIDGET_H
 
 #include <QWidget>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 
 namespace Ui {
     class OtoFileLoadWidget;
@@ -11,9 +11,7 @@ namespace Ui {
 class OtoFileLoadWidget : public QWidget
 {
     Q_OBJECT
-#ifdef SHINE5402OTOBOX_TEST
-    friend class UtilWidgetsTest;
-#endif
+
 public:
     explicit OtoFileLoadWidget(QWidget *parent = nullptr);
     ~OtoFileLoadWidget();

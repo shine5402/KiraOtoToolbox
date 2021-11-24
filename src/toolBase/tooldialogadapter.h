@@ -25,7 +25,6 @@ public:
     QMetaObject getWorkerMetaObj() const;
 
 protected:
-    static void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
     static void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
     void setOptionWidgetMetaObj(const QMetaObject& value);
     void setWorkerMetaObj(const QMetaObject& value);
@@ -36,5 +35,13 @@ private:
 
 signals:
 };
+
+#include <QCoreApplication>
+#define DEFINE_TOOL_NAME(name) \
+    static constexpr auto TOOL_NAME = name;\
+    QString getToolName() const override{\
+    return QCoreApplication::translate("TOOL_NAME", name);\
+    }\
+
 
 #endif // TOOLDIALOGADAPTER_H

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLayout>
 #include <QtCore/QtCore>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 #include <QDialogButtonBox>
 
 namespace Misc {

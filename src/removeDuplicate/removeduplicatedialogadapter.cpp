@@ -1,12 +1,9 @@
 #include "removeduplicatedialogadapter.h"
-#include "removeduplicatedialogoptionwidget.h"
+#include "removeduplicateoptionwidget.h"
 #include "utils/models/otolistshowvaluechangemodel.h"
 #include "utils/dialogs/showotolistdialog.h"
 #include "utils/dialogs/tableviewdialog.h"
 #include <QMessageBox>
-#ifdef SHINE5402OTOBOX_TEST
-#include <QTimer>
-#endif
 #include "removeAffix/removeaffixotolistmodifyworker.h"
 #include "orgnaizeduplicateotolistmodifyworker.h"
 #include "removeduplicatemoduleotolistmodifyworker.h"
@@ -15,7 +12,7 @@
 RemoveDuplicateDialogAdapter::RemoveDuplicateDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
 {
     setWorkerMetaObj(RemoveDuplicateModuleOtoListModifyWorker::staticMetaObject);
-    setOptionWidgetMetaObj(RemoveDuplicateDialogOptionWidget::staticMetaObject);
+    setOptionWidgetMetaObj(RemoveDuplicateOptionWidget::staticMetaObject);
 }
 
 void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
@@ -47,9 +44,4 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
                                        Misc::Diff);
     }
     return false;
-}
-
-QString RemoveDuplicateDialogAdapter::getToolName() const
-{
-    return tr("去除重复项");
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>858</width>
-    <height>411</height>
+    <height>443</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -70,70 +70,14 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QWidget" name="widget" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="leftMargin">
-          <number>11</number>
-         </property>
-         <property name="rightMargin">
-          <number>11</number>
-         </property>
-         <item>
-          <widget class="QRadioButton" name="setStartWithPresetRadioButton">
-           <property name="text">
-            <string>加载预设</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="setStartWithPresetComboBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="setStartWithLoadFromFileRadioButton">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;从文件加载要匹配的“开头”字符串列表。&lt;/p&gt;&lt;p&gt;文件编码需要是UTF-8。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text">
-            <string>从文件加载</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="setStartWithBrowseButton">
-           <property name="text">
-            <string>浏览</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="setStartWithInputRadioButton">
-           <property name="text">
-            <string>自定义</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="setStartWithInputButton">
-           <property name="text">
-            <string>输入</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <widget class="StringListModifyWidget" name="setStartWithListWidget" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
        </widget>
-      </item>
-      <item>
-       <widget class="QListView" name="setStartWithListView"/>
       </item>
       <item>
        <widget class="QCheckBox" name="matchStartOtoCheckBox">
@@ -146,14 +90,86 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="OneThirdCheckBox">
+    <widget class="QCheckBox" name="oneThirdCheckBox">
      <property name="text">
       <string>将上述操作影响范围之外的Ovl三分之一化</string>
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="oneSecondWhenTooSmallCheckbox">
+          <property name="text">
+           <string>结果小于该值时进行二分之一化</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="oneSecondWhenTooSmallSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>99999.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>StringListModifyWidget</class>
+   <extends>QWidget</extends>
+   <header>utils/widgets/stringlistmodifywidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -185,6 +201,38 @@
     <hint type="destinationlabel">
      <x>766</x>
      <y>15</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>oneThirdCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>387</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>163</x>
+     <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>oneSecondWhenTooSmallCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>oneSecondWhenTooSmallSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>772</x>
+     <y>427</y>
     </hint>
    </hints>
   </connection>

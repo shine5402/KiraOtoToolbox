@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         build_config:
+          - { version: 11 }
           - { version: 10 }
           - { version: 9 }
           - { version: 8 }
@@ -20,7 +21,7 @@ jobs:
       options: -v /usr/local:/host_usr_local
     name: "gcc-${{ matrix.build_config.version }}"
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Setup
         run: |
           echo "/host_usr_local/bin" >> $GITHUB_PATH
@@ -36,6 +37,8 @@ jobs:
     strategy:
       matrix:
         build_config:
+          - { version: 13 }
+          - { version: 12 }
           - { version: 11 }
           - { version: 10 }
           - { version: 9 }
@@ -52,7 +55,7 @@ jobs:
       CC: clang-${{ matrix.build_config.version }}${{ matrix.build_config.suffix }}
       CXX: clang++-${{ matrix.build_config.version }}${{ matrix.build_config.suffix }}
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Setup
         run: |
           echo "/host_usr_local/bin" >> $GITHUB_PATH
@@ -61,6 +64,9 @@ jobs:
         run: |
           if [ "${{ matrix.build_config.version }}" -le "6" ]; then
             script/ci_setup_libcxx.sh ${{ matrix.build_config.version }}
+          fi
+          if [ "${{ matrix.build_config.version }}" -ge "12" ]; then
+            apt-get install -y --no-install-recommends libunwind-${{ matrix.build_config.version }}-dev;
           fi
           echo "CXXFLAGS=-stdlib=libc++" >> $GITHUB_ENV
       - name: Setup Dependencies
@@ -76,7 +82,7 @@ jobs:
       CC: clang
       CXX: clang++
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Setup
         run: script/ci_setup_dependencies.sh
       - name: Build
@@ -92,7 +98,7 @@ jobs:
           - 2016
     name: "Windows ${{ matrix.msvc_version }} MSVC"
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Setup
         shell: bash

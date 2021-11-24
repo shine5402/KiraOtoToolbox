@@ -3,7 +3,7 @@
 
 #include "../dialogs/showotolistdialog.h"
 #include <QMessageBox>
-#include <otofilereader.h>
+#include <OtoUtil/otofilereader.h>
 
 OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
     QWidget(parent),
@@ -75,18 +75,12 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 
     for (auto fileName : fileNames){
         if (!QFileInfo::exists(fileName)){
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
             QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件 %1 不存在，请检查后再试。").arg(fileName));
             return;
         }
 
         if (this->fileNames().contains(fileName))
         {
-#ifdef SHINE5402OTOBOX_TEST
-            Q_ASSERT(false);
-#endif
             QMessageBox::warning(this, tr("已经读取"), tr("您指定的文件 %1 已经被读取过了。").arg(fileName));
             return;
         }

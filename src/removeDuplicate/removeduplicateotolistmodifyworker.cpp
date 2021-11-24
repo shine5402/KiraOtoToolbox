@@ -17,7 +17,7 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     QStringList digitSuffixList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
-        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
+        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i), nullptr, options.getOption("considerNegativeSuffix").toBool());
         digitSuffixList.append(suffix);
         compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
     }
@@ -33,7 +33,8 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     if (options.getOption("maxDuplicateCount").toInt() != 0) {
 
         removedIDs.clear();
-        for (auto key : compareStringMap.uniqueKeys())
+        auto uniqueKeys = compareStringMap.uniqueKeys();
+        for (const auto &key : std::as_const(uniqueKeys))
         {
             if (compareStringMap.count(key) > options.getOption("maxDuplicateCount").toInt())
             {
@@ -44,14 +45,14 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
         }
         std::sort(removedIDs.begin(), removedIDs.end());
         OtoEntryList toBeRemovedOtoList;
-        for (auto i : removedIDs)
+        for (auto i : std::as_const(removedIDs))
         {
             toBeRemovedOtoList.append(resultOtoList.at(i));
         }
 
         secondSaveOtoList = toBeRemovedOtoList;
 
-        for (auto i : toBeRemovedOtoList){
+        for (const auto &i : std::as_const(toBeRemovedOtoList)){
             resultOtoList.removeOne(i);
         }
     }

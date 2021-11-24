@@ -88,12 +88,12 @@
    </property>
    <widget class="QMenu" name="menu_Preference">
     <property name="title">
-     <string>选项(&amp;P)</string>
+     <string>&amp;Preference</string>
     </property>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
-     <string>帮助(&amp;H)</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
@@ -113,22 +113,22 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>关于</string>
+    <string>About</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
    <property name="text">
-    <string>关于 Qt</string>
+    <string>About Qt</string>
    </property>
   </action>
   <action name="actionDonate">
    <property name="text">
-    <string>捐赠</string>
+    <string>Donate</string>
    </property>
   </action>
   <action name="actionUpdate">
    <property name="text">
-    <string>获得更新</string>
+    <string>Get update</string>
    </property>
   </action>
   <action name="actionDebug">
@@ -138,7 +138,7 @@
   </action>
   <action name="actionSend_feedback">
    <property name="text">
-    <string>提交反馈</string>
+    <string>Provide feedback</string>
    </property>
   </action>
  </widget>

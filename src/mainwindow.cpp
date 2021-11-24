@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
     for (int groupID = 0; groupID < groups.count(); ++groupID){
         auto group = groups.at(groupID);
-        auto groupBox = new QGroupBox(group.isEmpty() ? tr("未分类") : group, this);
+        auto groupBox = new QGroupBox(group.isEmpty() ? tr("Uncategorized") : group, this);
         auto groupBoxLayout = new QVBoxLayout(groupBox);
         auto tools = toolGroups.values(group);
         std::reverse(tools.begin(), tools.end());
@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
             buttonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
-        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 表示在第一个spacer后面
+        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 stands for behind first spacer in ui layout
     }
 
     connect(buttonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
@@ -73,7 +73,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     }
     auto setLangActionChecked = [i18nMenu](const Translation& translation){
-        for (auto action : i18nMenu->actions()){
+        auto actions = i18nMenu->actions();
+        for (auto action : qAsConst(actions)){
             auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
             action->setChecked(currTr == translation);
         }
@@ -89,9 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
     setLangActionChecked(Translation::getCurrentInstalled());
 
     //set window titie
-    setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion()));
+    setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
 #ifdef VERSION_BETA
-    setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
+    setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
 #endif
 }
 
@@ -104,23 +105,30 @@ MainWindow::~MainWindow()
 void MainWindow::showAboutDialog()
 {
 #ifdef VERSION_BETA
-    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">您使用的是测试版工具，请<b>注意风险和备份</b>。出现问题请使用Github Issues进行反馈，十分感谢。";
+    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occur, please provide feedback on Github Issues.";
 #else
     auto versionStr = qApp->applicationVersion();
 #endif
-    QMessageBox::about(this, tr("关于"), tr(
+    QMessageBox::about(this, tr("About"), tr(
                            R"(<h2>KiraOtoToolbox</h2>
 
 <p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
-<p>版本 %1</p>
-<h3>关于</h3>
-<p>一个操作UTAU用声音资料库的原音设定文件oto.ini的工具箱</p>
-<h3>许可</h3>
-<p>本程序是自由软件：你可以在遵守由自由软件基金会发布的GNU通用公共许可证版本3（或者更新的版本）的情况下重新分发和/或修改本程序。</p>
-<p>本程序的发布旨在能够派上用场，但是<span style="font-weight: bold;">并不对此作出任何担保</span>；乃至也没有对<span style="font-weight: bold;">适销性</span>或<span style="font-weight: bold;">特定用途适用性</span>的默示担保。参见GNU通用公共许可证来获得更多细节。</p>
-<p>在得到本程序的同时，您应该也收到了一份GNU通用公共许可证的副本。如果没有，请查阅<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>。</p>
+<p>Version %1</p>
+<h3>About</h3>
+<p>A toolbox for manipulating "oto.ini", the voicebank labeling format for UTAU.</p>
+<h3>License</h3>
+<p> This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
 
-<h3>本程序使用的开源软件库</h3>
+<h3>3rd party librarays used by this project</h3>
 <ul>
 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
 <li>KiraUTAUUtils, shine_5402, under LGPL v3</li>
@@ -128,14 +136,14 @@ void MainWindow::showAboutDialog()
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>
 
-<p>本程序使用了来自<a href="https://icons8.com">icons8</a>的图标。</p>
+<p>Some icons are provided by <a href="https://icons8.com">icons8</a></p>
 )"
 ).arg(versionStr));
 }
 
 void MainWindow::showAboutQtDialog()
 {
-    QMessageBox::aboutQt(this, tr("关于 Qt"));
+    QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 void MainWindow::showDonationPage()

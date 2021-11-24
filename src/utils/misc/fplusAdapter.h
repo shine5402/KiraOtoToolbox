@@ -40,7 +40,7 @@ namespace fplus {
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QVector<T>, NewT, SizeOffset>{typedef class QVector<NewT> type;};
         template<class T, class NewT, int SizeOffset> struct same_cont_new_t<QList<T>, NewT, SizeOffset>{typedef class QList<NewT> type;};
         template<class NewT, int SizeOffset> struct same_cont_new_t<QVariantList, NewT, SizeOffset>{typedef class QList<NewT> type;};
-        template<class NewT, int SizeOffset> struct same_cont_new_t<QJsonArray, NewT, SizeOffset>{typedef class QList<NewT> type;};
+        template<class NewT, int SizeOffset> struct same_cont_new_t<QJsonArray, NewT, SizeOffset>{typedef class QVector<NewT> type;};
 
         template<typename T>
         struct can_self_assign<QVector<T>>

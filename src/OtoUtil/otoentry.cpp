@@ -433,7 +433,7 @@ QString OtoEntryFunctions::removePrefix(QString string, const QString& prefix, Q
     return string;
 }
 
-QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position)
+QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position, bool considerNegative)
 {
     QString result{};
     for (int current = string.count() - 1; current >= 0; --current)
@@ -443,9 +443,13 @@ QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position)
         }
         else
         {
+            if (considerNegative && --current >= 0 && string.at(current) == '-')
+            {
+                result.prepend(string.at(current));
+            }
             if (position)
             {
-                *position = current != string.count() - 1 ? current + 1 : -1;
+                *position = (current != string.count() - 1) ? current + 1 : -1;
             }
             break;
         }

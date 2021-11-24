@@ -99,7 +99,7 @@ R"(<h2>KiraOtoToolbox</h2>
 <h3>本程序使用的开源软件库</h3>
 <ul>
 <li>Qt, The Qt Company Ltd, under LGPL v3.</li>
-<li>QKiraUTAUUtils, shine_5402, under LGPL v3</li>
+<li>KiraUTAUUtils, shine_5402, under LGPL v3</li>
 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>

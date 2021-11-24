@@ -443,9 +443,10 @@ QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position, 
         }
         else
         {
-            if (considerNegative && --current >= 0 && string.at(current) == '-')
+            if (considerNegative && current >= 0 && string.at(current) == '-')
             {
                 result.prepend(string.at(current));
+                current -= 1;
             }
             if (position)
             {

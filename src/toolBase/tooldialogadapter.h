@@ -25,7 +25,6 @@ public:
     QMetaObject getWorkerMetaObj() const;
 
 protected:
-    //static void replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget);
     static void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
     void setOptionWidgetMetaObj(const QMetaObject& value);
     void setWorkerMetaObj(const QMetaObject& value);

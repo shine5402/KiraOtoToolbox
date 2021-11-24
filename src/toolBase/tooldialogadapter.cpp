@@ -20,9 +20,9 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
-    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
+    auto presetWidgetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    Misc::replaceWidget(optionLayout, "presetContainer", presetContainer, rootLayout->parentWidget());
+    Misc::replaceWidget(optionLayout, "presetWidgetContainer", presetWidgetContainer, rootLayout->parentWidget());
 }
 
 //Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
@@ -74,13 +74,6 @@ void ToolDialogAdapter::setOptionWidgetMetaObj(const QMetaObject& value)
 {
     optionWidgetMetaObj = value;
 }
-
-
-//void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
-//{
-//    auto presetContianer = qobject_cast<PresetWidgetContainer*>(rootLayout->parentWidget()->findChild<QWidget*>("presetContainer"));
-//    Misc::replaceWidget(presetContianer->layout(), "optionWidget", newOptionWidget, rootLayout->parentWidget());
-//}
 
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {

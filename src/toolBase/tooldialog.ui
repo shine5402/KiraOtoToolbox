@@ -79,7 +79,7 @@
      </property>
      <layout class="QVBoxLayout" name="optionLayout">
       <item>
-       <widget class="QWidget" name="presetContainer" native="true"/>
+       <widget class="QWidget" name="presetWidgetContainer" native="true"/>
       </item>
      </layout>
     </widget>

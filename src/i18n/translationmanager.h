@@ -8,7 +8,8 @@ public:
     static TranslationManager* getManager();
 
     QVector<Translation> getTranslations() const;
-    Translation getTranslationFor(QLocale locale) const;
+    Translation getTranslation(int i) const;
+    Translation getTranslationFor(const QLocale& locale) const;
     int getCurrentInstalledTranslationID() const;
 
 private:

@@ -13,6 +13,7 @@
 #include <QGroupBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include "i18n/translationmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,19 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-#ifdef NDEBUG
-    ui->actionDebug->setVisible(false);
-#else
-    connect(ui->actionDebug, &QAction::triggered, this, &MainWindow::debugFunction);
-#endif
-
-    connect(ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
     connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
     connect(ui->actionDonate, &QAction::triggered, this, &MainWindow::showDonationPage);
     connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
     connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
 
+    //Create tool selector ui
     auto buttonGroup = new QButtonGroup(this);
 
     auto availableTools = ToolManager::getManager()->getTools();
@@ -60,6 +55,40 @@ MainWindow::MainWindow(QWidget *parent)
         dialog->open();
     });
 
+    //create language menu
+    auto translations = TranslationManager::getManager()->getTranslations();
+    auto i18nMenu = new QMenu(tr("Language"), this);
+    auto defaultLang = new QAction("English, built-in");
+    defaultLang->setData(-1);
+    defaultLang->setCheckable(true);
+    i18nMenu->addAction(defaultLang);
+
+    for (auto i = 0; i < translations.count(); ++i)
+    {
+        auto l = translations.at(i);
+        auto langAction = new QAction(QLatin1String("%1, by %2").arg(l.locale().bcp47Name(), l.author()));
+        langAction->setData(i);
+        langAction->setCheckable(true);
+        i18nMenu->addAction(langAction);
+
+    }
+    auto setLangActionChecked = [i18nMenu](const Translation& translation){
+        for (auto action : i18nMenu->actions()){
+            auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
+            action->setChecked(currTr == translation);
+        }
+    };
+    connect(i18nMenu, &QMenu::triggered, [setLangActionChecked](QAction* action){
+        auto translation = TranslationManager::getManager()->getTranslation(action->data().toInt());
+        translation.install();
+        setLangActionChecked(translation);
+    });
+    ui->menu_Preference->addMenu(i18nMenu);
+
+    TranslationManager::getManager()->getTranslationFor(QLocale::system()).install();
+    setLangActionChecked(Translation::getCurrentInstalled());
+
+    //set window titie
     setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion()));
 #ifdef VERSION_BETA
     setWindowTitle(tr("%1 版本 %2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
@@ -72,11 +101,6 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::exit()
-{
-    qApp->exit();
-}
-
 void MainWindow::showAboutDialog()
 {
 #ifdef VERSION_BETA
@@ -85,7 +109,7 @@ void MainWindow::showAboutDialog()
     auto versionStr = qApp->applicationVersion();
 #endif
     QMessageBox::about(this, tr("关于"), tr(
-R"(<h2>KiraOtoToolbox</h2>
+                           R"(<h2>KiraOtoToolbox</h2>
 
 <p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
 <p>版本 %1</p>

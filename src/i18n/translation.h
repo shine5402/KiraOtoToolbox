@@ -5,11 +5,10 @@
 #include <QLocale>
 #include <QTranslator>
 
-class Translation : public QObject
+class Translation
 {
-    Q_OBJECT
 public:
-    Translation(QLocale locale, QStringList translationFilenames, QString author, QObject *parent = nullptr);
+    Translation(QLocale locale, QStringList translationFilenames, QString author);
     Translation();
 
     QJsonObject toJson() const;
@@ -27,20 +26,19 @@ public:
     QString author() const;
     void setAuthor(const QString& value);
 
-    QString getIDString() const;
-
-    static QString getCurrentInstalledTranslationIDString();
+    static Translation getCurrentInstalled();
 
     bool isValid() const;
+
+    bool operator==(const Translation& other) const;
 
 private:
     QLocale locale_;
     QStringList translationFilenames_;
     QString author_;
-    bool valid = false;
 
     static QList<QTranslator*> installedTranslators;
-    static QString currentInstalledTranslationIDString;
+    static Translation currentInstalled;
 };
 
 #endif // TRANSLATION_H

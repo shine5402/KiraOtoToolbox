@@ -36,9 +36,17 @@ QVector<Translation> TranslationManager::getTranslations() const
     return translations;
 }
 
-Translation TranslationManager::getTranslationFor(QLocale locale) const
+Translation TranslationManager::getTranslation(int i) const
 {
-    return fplus::get_just_or_default(fplus::find_first_by([locale](const Translation& translation)->bool{
+    if (i == -1)
+        return {};
+    return translations.at(i);
+}
+
+
+Translation TranslationManager::getTranslationFor(const QLocale& locale) const
+{
+    return fplus::get_just_or_default(fplus::find_first_by([&locale](const Translation& translation)->bool{
         return translation.locale() == locale;
     }, translations));
 }
@@ -46,7 +54,7 @@ Translation TranslationManager::getTranslationFor(QLocale locale) const
 int TranslationManager::getCurrentInstalledTranslationID() const
 {
     auto result = fplus::find_first_idx_by([](const Translation& elem)->bool{
-        return elem.getIDString() == Translation::getCurrentInstalledTranslationIDString();
+        return elem == Translation::getCurrentInstalled();
     }, translations);
     return result.is_just() ? result.unsafe_get_just() : -1;
 }

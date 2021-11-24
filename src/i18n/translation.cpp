@@ -6,10 +6,10 @@
 #include "utils/misc/fplusAdapter.h"
 #include <QApplication>
 
-Translation::Translation(QLocale locale, QStringList translationFilenames, QString author, QObject *parent)
-    : QObject(parent), locale(locale), translationFilenames(translationFilenames), author(author)
+Translation::Translation(QLocale locale, QStringList translationFilenames, QString author)
+    :locale_(locale), translationFilenames_(translationFilenames), author_(author)
 {
-    valid = true;
+
 }
 
 Translation::Translation()
@@ -18,13 +18,14 @@ Translation::Translation()
 }
 
 QList<QTranslator*> Translation::installedTranslators;
+Translation Translation::currentInstalled;
 
 QJsonObject Translation::toJson() const
 {
     QJsonObject root;
-    root.insert("locale", locale.bcp47Name());
-    root.insert("translationFilenames", QJsonArray::fromStringList(translationFilenames));
-    root.insert("author", author);
+    root.insert("locale", locale_.bcp47Name());
+    root.insert("translationFilenames", QJsonArray::fromStringList(translationFilenames_));
+    root.insert("author", author_);
     return root;
 }
 
@@ -45,65 +46,69 @@ Translation Translation::fromJson(const QJsonObject& json)
 void Translation::install() const
 {
     uninstall();
+    if (!isValid())
+        return;
 
-    for (const auto &fileName : std::as_const(translationFilenames)){
+    for (const auto &fileName : std::as_const(translationFilenames_)){
         auto translator = new QTranslator(qApp);
         translator->load(fileName);
         qApp->installTranslator(translator);
         installedTranslators.append(translator);
-        currentInstalledTranslationIDString = getIDString();
+        currentInstalled = *this;
     }
 }
 
 void Translation::uninstall()
 {
-    currentInstalledTranslationIDString.clear();
+    currentInstalled = {};
     for (auto translator : std::as_const(installedTranslators)){
         qApp->removeTranslator(translator);
     }
 }
 
-QLocale Translation::getLocale() const
+QLocale Translation::locale() const
 {
-    return locale;
+    return locale_;
 }
 
 void Translation::setLocale(const QLocale& value)
 {
-    locale = value;
+    locale_ = value;
 }
 
-QStringList Translation::getTranslationFilenames() const
+QStringList Translation::translationFilenames() const
 {
-    return translationFilenames;
+    return translationFilenames_;
 }
 
 void Translation::setTranslationFilenames(const QStringList& value)
 {
-    translationFilenames = value;
+    translationFilenames_ = value;
 }
 
-QString Translation::getAuthor() const
+QString Translation::author() const
 {
-    return author;
+    return author_;
 }
 
 void Translation::setAuthor(const QString& value)
 {
-    author = value;
+    author_ = value;
 }
 
-QString Translation::getIDString() const
+Translation Translation::getCurrentInstalled()
 {
-    return locale.name() + "_" + author;
-}
-
-QString Translation::getCurrentInstalledTranslationIDString()
-{
-    return currentInstalledTranslationIDString;
+    return currentInstalled;
 }
 
 bool Translation::isValid() const
 {
-    return valid;
+    return translationFilenames_.isEmpty() || author_.isEmpty();
+}
+
+bool Translation::operator==(const Translation& other) const
+{
+    if (!isValid() && !other.isValid())
+        return false;
+    return locale_ == other.locale_ && translationFilenames_ == other.translationFilenames_ && author_ == other.author_;
 }

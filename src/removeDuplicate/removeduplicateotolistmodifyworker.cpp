@@ -17,7 +17,7 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     QStringList digitSuffixList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
-        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
+        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i), nullptr, options.getOption("considerNegativeSuffix").toBool());
         digitSuffixList.append(suffix);
         compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
     }

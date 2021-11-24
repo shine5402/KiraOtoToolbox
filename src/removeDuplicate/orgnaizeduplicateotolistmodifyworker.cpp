@@ -19,12 +19,12 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
     QStringList digitSuffixList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
-        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
+        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i), nullptr, options.getOption("considerNegativeSuffix").toBool());
         digitSuffixList.append(suffix);
         compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
     }
 
-    QMultiHash<QString, int> compareStringMap;
+    QMultiHash<QString, int> compareStringMap;//alias, rawID
 
     for (int i = 0; i < compareStringList.count(); ++i)
     {
@@ -34,8 +34,21 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
     auto stringListUnique = compareStringMap.uniqueKeys();
     for (const auto& key : std::as_const(stringListUnique))
     {
-        auto values = compareStringMap.values(key);
-        std::sort(values.begin(), values.end());
+        auto values = compareStringMap.values(key);//rawIDs
+        std::sort(values.begin(), values.end(), [&](int lhs, int rhs){
+            if (options.getOption("respectOriginalNumberOrder").toBool())
+            {
+                bool lhs_ok = false, rhs_ok = false;
+                auto lhs_original = digitSuffixList.at(lhs).toInt(&lhs_ok);
+                auto rhs_original = digitSuffixList.at(rhs).toInt(&rhs_ok);
+                if (!lhs_ok)
+                    return false;
+                if (!rhs_ok)
+                    return true;
+                return lhs_original < rhs_original;
+            }
+            return lhs < rhs;
+        });
 
         for (int i = 0; i < values.count(); ++i)
         {

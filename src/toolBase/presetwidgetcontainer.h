@@ -21,8 +21,9 @@ public:
 
     ToolOptionWidget* optionWidget() const;
 
-    //This function would override working options, and make state dirty. Used by chain tool.
+    ///This function would override working options, and make state dirty.
     void setWorkingOptions(OptionContainer options);
+    void reset();
 
 private slots:
     void resetToPreset();

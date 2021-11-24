@@ -75,6 +75,12 @@ void PresetWidgetContainer::setWorkingOptions(OptionContainer options)
     setCurrentDirty(true);
 }
 
+void PresetWidgetContainer::reset()
+{
+    ui->presetComboBox->setCurrentIndex(0);
+    doResetToPreset();
+}
+
 void PresetWidgetContainer::doResetToPreset()
 {
     optionWidget_->setOptionsJson(getCurrentPreset().content);

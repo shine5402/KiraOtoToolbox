@@ -33,7 +33,8 @@ void ToolDialog::reAssignWidgetHandles()
 {
     //Use last() to choose the newest widgets.
     //ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
-    optionWidget = ui->optionLayout->parentWidget()->findChildren<PresetWidgetContainer*>(QString(), Qt::FindDirectChildrenOnly).last()->optionWidget();
+    presetWidgetContainer = ui->optionLayout->parentWidget()->findChildren<PresetWidgetContainer*>(QString(), Qt::FindDirectChildrenOnly).last();
+    optionWidget = presetWidgetContainer->optionWidget();
     //TODO: may change to a individual handle later
     ui->otoSaveWidget = ui->rootLayout->parentWidget()
             ->findChild<QWidget*>("stackedSaveWidget")->
@@ -92,7 +93,8 @@ void ToolDialog::resetOto()
 
 void ToolDialog::resetOptions()
 {
-    optionWidget->setOptions({});
+    //optionWidget->setOptions({});
+    presetWidgetContainer->reset();
     ui->otoSaveWidget->setOptions({});
 }
 

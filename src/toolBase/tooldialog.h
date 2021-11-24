@@ -7,6 +7,7 @@
 
 class QAbstractButton;
 class QStackedWidget;
+class PresetWidgetContainer;
 
 namespace Ui {
     class ToolDialog;
@@ -40,6 +41,7 @@ private:
     void reAssignWidgetHandles();
     ToolDialogAdapter* adapter;
     ToolOptionWidget* optionWidget;
+    PresetWidgetContainer* presetWidgetContainer;
     bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
     bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;

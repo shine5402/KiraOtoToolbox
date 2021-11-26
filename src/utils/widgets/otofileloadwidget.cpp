@@ -51,6 +51,22 @@ void OtoFileLoadWidget::reset()
     emit resetted();
 }
 
+void OtoFileLoadWidget::pretendLoaded(const QString& fileName, const OtoEntryList& entryList)
+{
+    ui->openFileNameEdit->setFileName(fileName);
+    this->entryList = entryList;
+    entryListReaded = true;
+    setUpLoadedUI();
+}
+
+void OtoFileLoadWidget::setUpLoadedUI()
+{
+    ui->showOtoListButton->setEnabled(true);
+
+    ui->countLabel->setText(tr("%1 oto entries has been loaded.").arg(entryList.count()));
+    ui->loadOtoWidget->setDisabled(true);
+}
+
 void OtoFileLoadWidget::loadOtoFile()
 {
     auto path = ui->openFileNameEdit->fileName();
@@ -63,11 +79,7 @@ void OtoFileLoadWidget::loadOtoFile()
     OtoFileReader reader(path);
     entryList = reader.getEntryList();
     entryListReaded = true;
-
-    ui->showOtoListButton->setEnabled(true);
-
-    ui->countLabel->setText(tr("%1 oto entries has been loaded.").arg(entryList.count()));
-    ui->loadOtoWidget->setDisabled(true);
+    setUpLoadedUI();
 
     emit loaded();
 }

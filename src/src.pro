@@ -34,6 +34,9 @@ SOURCES += \
     i18n/translation.cpp \
     i18n/translationmanager.cpp \
     initFuncs.cpp \
+    mergeOto/mergeotodialogadapter.cpp \
+    mergeOto/mergeotooptionwidget.cpp \
+    mergeOto/mergeotootolistmodifyworker.cpp \
     notdoanything/notdoanythingdialogadapter.cpp \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
@@ -102,6 +105,9 @@ HEADERS += \
     i18n/translation.h \
     i18n/translationmanager.h \
     initFuncs.h \
+    mergeOto/mergeotodialogadapter.h \
+    mergeOto/mergeotooptionwidget.h \
+    mergeOto/mergeotootolistmodifyworker.h \
     notdoanything/notdoanythingdialogadapter.h \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
@@ -159,6 +165,7 @@ HEADERS += \
 
 
 FORMS += \
+    mergeOto/mergeotooptionwidget.ui \
     removeAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \

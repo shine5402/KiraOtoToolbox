@@ -10,6 +10,7 @@
 #include "notdoanything/notdoanythingdialogadapter.h"
 #include "cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h"
 #include "setAlias/setaliasdialogadapter.h"
+#include "mergeOto/mergeotodialogadapter.h"
 #include <QCoreApplication>
 
 #define REGISTER_TOOL(type, adapter_class) \
@@ -24,6 +25,7 @@ void registerTools()
     REGISTER_TOOL("Manipulate aliases", AddAffixDialogAdapter);
     REGISTER_TOOL("Manipulate aliases", SetAliasDialogAdapter);
     REGISTER_TOOL("Filter what you need", CV_VCPartSplitToolDialogAdapter);
+    REGISTER_TOOL("Misc", MergeOtoDialogAdapter);
     REGISTER_TOOL("Meta actions", ChainDialogAdapter);
     REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);
 }

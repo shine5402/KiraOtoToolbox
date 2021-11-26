@@ -135,8 +135,10 @@ private:
     void setValid(bool valid);
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
+Q_DECLARE_METATYPE(OtoEntry)
 
 using OtoEntryList = QVector<OtoEntry>;
+Q_DECLARE_METATYPE(QVector<OtoEntry>)
 namespace OtoEntryFunctions {
     Q_NAMESPACE
     enum CharacterCase{

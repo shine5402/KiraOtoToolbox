@@ -21,10 +21,15 @@ public:
     OtoEntryList getEntryList() const;
     bool isEntryListReaded() const;
     void reset();
+
+    void pretendLoaded(const QString& fileName, const OtoEntryList& entryList);
 private:
     Ui::OtoFileLoadWidget *ui;
     OtoEntryList entryList = {};
     bool entryListReaded = false;
+
+
+    void setUpLoadedUI();
 private slots:
     void loadOtoFile();
     void showOtoListDialog();

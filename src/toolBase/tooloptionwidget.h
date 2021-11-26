@@ -25,7 +25,7 @@ public:
     virtual QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const;
 
 signals:
-    void userSettingsChanged();//FIXME: implement this
+    void userSettingsChanged();//required
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget

@@ -167,13 +167,13 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.ui" line="111"/>
-        <location filename="../../src/mainwindow.cpp" line="149"/>
+        <location filename="../../src/mainwindow.cpp" line="163"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.ui" line="116"/>
-        <location filename="../../src/mainwindow.cpp" line="183"/>
+        <location filename="../../src/mainwindow.cpp" line="197"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
@@ -193,7 +193,7 @@
         <translation>提供反馈</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="111"/>
+        <location filename="../../src/mainwindow.cpp" line="125"/>
         <source>Uncategorized</source>
         <translation>未分类</translation>
     </message>
@@ -202,13 +202,18 @@
         <translation type="vanished">语言</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="40"/>
-        <location filename="../../src/mainwindow.cpp" line="42"/>
+        <location filename="../../src/mainwindow.cpp" line="41"/>
+        <location filename="../../src/mainwindow.cpp" line="43"/>
         <source>%1 ver.%2</source>
         <translation>%1 版本 %2</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="149"/>
+        <location filename="../../src/mainwindow.cpp" line="159"/>
+        <source> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;You are using a test build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.</source>
+        <translation> (BETA) &lt;/p&gt;&lt;p style=\&quot;color:orange\&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.cpp" line="163"/>
         <source>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
 
 &lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
@@ -260,6 +265,48 @@
     </message>
 </context>
 <context>
+    <name>MergeOtoOptionWidget</name>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="17"/>
+        <source>Load the other file to merge</source>
+        <translation>加载要合并入的另一个文件</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="47"/>
+        <source>When alias conflict occurs, do:</source>
+        <translation>当别名冲突发生时，进行：</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="67"/>
+        <source>Replace</source>
+        <translation>替换</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="80"/>
+        <source>Skip</source>
+        <translation>跳过</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="90"/>
+        <source>Keep all</source>
+        <translation>保留全部</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="102"/>
+        <source>Please notice that the file&apos;s name and content will not be saved into preset. Reseting or switching presets will clear load state above.</source>
+        <translation>请注意文件名和文件内容不会被保存在预设中。重置到预设或者切换预设会重置上面的打开状态。</translation>
+    </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="112"/>
+        <source>If source file contains entries with same alias, &quot;Replace&quot; only replace the first one.
+If the other file contains entries with same alias, &quot;Replace&quot; will take the last one to replace.
+All input alias will be maintained as original by this tool. Use &quot;Remove and organize duplicated entries&quot; if you need.</source>
+        <translation>如果源文件包含多个别名相同的项，“替换”只会替换其中的第一项。
+如果要合并入的文件包含多个别名相同的项，“替换”会使用最后一项。
+本工具不会改变任何输入的别名。有需要的话，可以尝试一下“移除与整理重复项”工具。</translation>
+    </message>
+</context>
+<context>
     <name>NotDoAnythingOptionWidget</name>
     <message>
         <location filename="../../src/notdoanything/notdoanythingoptionwidget.cpp" line="9"/>
@@ -303,43 +350,42 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
 <context>
     <name>OtoFileLoadWidget</name>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="29"/>
         <source>Load source data</source>
-        <translation>加载源数据</translation>
+        <translation type="vanished">加载源数据</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="35"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="17"/>
         <source>Specify the location of &quot;oto.ini&quot;</source>
         <translation>指定oto.ini的位置</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="74"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="56"/>
         <source>Load</source>
         <translation>加载</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="86"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="68"/>
         <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="49"/>
         <source>Oto data has not been loaded</source>
         <translation>还未加载原音设定</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="109"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.ui" line="91"/>
         <source>Show</source>
         <translation>查看列表</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="59"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="75"/>
         <source>File not exists</source>
         <translation>文件不存在</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="59"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="75"/>
         <source>The file &quot;%1&quot; not exists. Please check and try again.</source>
         <translation>您指定的文件 %1 不存在，请检查后再试。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="69"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="66"/>
         <source>%1 oto entries has been loaded.</source>
         <translation>共加载了 %1 条原音设定。</translation>
     </message>
@@ -351,27 +397,26 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
 <context>
     <name>OtoFileMultipleLoadWidget</name>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="29"/>
         <source>Load source data</source>
-        <translation>加载源数据</translation>
+        <translation type="vanished">加载源数据</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="35"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="17"/>
         <source>Loaded &quot;oto.ini&quot;s:</source>
         <translation>已打开的 oto.ini 文件列表：</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="52"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="98"/>
         <source>Load new</source>
         <translation>加载并追加</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="71"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="42"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="88"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="59"/>
         <source>Show</source>
         <translation>查看列表</translation>
     </message>
@@ -399,17 +444,16 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
 <context>
     <name>OtoFileMultipleSaveWidget</name>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="29"/>
         <source>Saving options</source>
-        <translation>保存选项</translation>
+        <translation type="vanished">保存选项</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="41"/>
+        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="23"/>
         <source>Only &quot;save to source file&quot; is supported in batch mode. Extra save path functionality is also disabled.</source>
         <translation>多文件批量模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="53"/>
+        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="35"/>
         <source>Decimal precision when saving</source>
         <translation>保存时的小数精度</translation>
     </message>
@@ -440,32 +484,31 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
 <context>
     <name>OtoFileSaveWidget</name>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="29"/>
         <source>Saving options</source>
-        <translation>保存选项</translation>
+        <translation type="vanished">保存选项</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="37"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="19"/>
         <source>Save to</source>
         <translation>保存到</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="44"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="26"/>
         <source>source file</source>
         <translation>源文件</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="57"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="39"/>
         <source>specified location</source>
         <translation>指定路径</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="97"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="79"/>
         <source>Save modified entries to</source>
         <translation>保存时的小数精度</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="122"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="104"/>
         <source>Decimal precision when saving</source>
         <translation>保存时的小数精度</translation>
     </message>
@@ -1229,35 +1272,53 @@ If not, original preset content other than working setting will be saved.</sourc
         <source>Set alias</source>
         <translation>设置别名</translation>
     </message>
+    <message>
+        <location filename="../../src/mergeOto/mergeotodialogadapter.h" line="11"/>
+        <source>Merge oto</source>
+        <translation>合并 oto</translation>
+    </message>
 </context>
 <context>
     <name>TOOL_TYPE</name>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="20"/>
-        <location filename="../../src/initFuncs.cpp" line="21"/>
         <source>Remove unneeded entries</source>
-        <translation>去除不需要的项</translation>
+        <translation type="vanished">去除不需要的项</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="22"/>
         <source>Set values in batch</source>
-        <translation>批量设置数值</translation>
+        <translation type="vanished">批量设置数值</translation>
     </message>
     <message>
+        <source>Manipulate aliases</source>
+        <translation type="vanished">对别名进行操作</translation>
+    </message>
+    <message>
+        <source>Filter what you need</source>
+        <translation type="vanished">筛选出需要的项</translation>
+    </message>
+    <message>
+        <location filename="../../src/initFuncs.cpp" line="21"/>
+        <location filename="../../src/initFuncs.cpp" line="22"/>
         <location filename="../../src/initFuncs.cpp" line="23"/>
         <location filename="../../src/initFuncs.cpp" line="24"/>
-        <location filename="../../src/initFuncs.cpp" line="25"/>
-        <source>Manipulate aliases</source>
-        <translation>对别名进行操作</translation>
+        <source>Entry operations</source>
+        <translation>对项做操作</translation>
     </message>
     <message>
         <location filename="../../src/initFuncs.cpp" line="26"/>
-        <source>Filter what you need</source>
-        <translation>筛选出需要的项</translation>
+        <source>Value operations</source>
+        <translation>对数值做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="27"/>
         <location filename="../../src/initFuncs.cpp" line="28"/>
+        <location filename="../../src/initFuncs.cpp" line="29"/>
+        <location filename="../../src/initFuncs.cpp" line="30"/>
+        <source>Alias operations</source>
+        <translation>对别名做操作</translation>
+    </message>
+    <message>
+        <location filename="../../src/initFuncs.cpp" line="32"/>
+        <location filename="../../src/initFuncs.cpp" line="33"/>
         <source>Meta actions</source>
         <translation>元操作</translation>
     </message>
@@ -1265,17 +1326,27 @@ If not, original preset content other than working setting will be saved.</sourc
 <context>
     <name>ToolDialog</name>
     <message>
-        <location filename="../../src/toolBase/tooldialog.ui" line="78"/>
+        <location filename="../../src/toolBase/tooldialog.ui" line="17"/>
+        <source>Load source data</source>
+        <translation>加载源数据</translation>
+    </message>
+    <message>
+        <location filename="../../src/toolBase/tooldialog.ui" line="102"/>
         <source>Processing options</source>
         <translation>行为设定</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.ui" line="140"/>
+        <location filename="../../src/toolBase/tooldialog.ui" line="114"/>
+        <source>Saving options</source>
+        <translation>保存选项</translation>
+    </message>
+    <message>
+        <location filename="../../src/toolBase/tooldialog.ui" line="188"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch between &lt;span style=&quot; font-weight:600;&quot;&gt;single file&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;batch (multiple file) &lt;/span&gt;mode. Current open state will be cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在&lt;span style=&quot; font-weight:600;&quot;&gt;单文件模式&lt;/span&gt;和&lt;span style=&quot; font-weight:600;&quot;&gt;批处理（多文件）&lt;/span&gt;模式之间切换，切换将会清除之前的打开状态。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.ui" line="143"/>
+        <location filename="../../src/toolBase/tooldialog.ui" line="191"/>
         <source>Switch open mode</source>
         <translation>切换打开模式</translation>
     </message>

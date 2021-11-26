@@ -4,12 +4,12 @@ ShowOtoListDialog::ShowOtoListDialog(const OtoEntryList* entryList, QWidget *par
     TableViewDialog(parent), entryList(entryList)
 {
     if (!entryList){
-       setLabel(tr("传入的原音设定列表指针为空指针。"));
+       setLabel("Error: Empty pointer.");
        return;
     }
     model = new OtoListModel(entryList, this);
     tableView->setModel(model);
-    setLabel(tr("共有 %1 条原音设定。").arg(entryList->count()));
+    setLabel(tr("There are %1 oto entries.").arg(entryList->count()));
 }
 
 

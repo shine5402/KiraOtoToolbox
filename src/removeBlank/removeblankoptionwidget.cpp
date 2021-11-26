@@ -5,8 +5,8 @@
 
 RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
 {
-    ignoreRightCheckBox = new QCheckBox(tr("忽略负的右值"), this);
-    ignoreRightCheckBox->setToolTip(tr("当除了右之外的数值为0时，而右为负值时，将这条原音设定条目视为空。"));
+    ignoreRightCheckBox = new QCheckBox(tr("Ignore negative right value"), this);
+    ignoreRightCheckBox->setToolTip(tr("When all value other than right beging 0, see this oto entry as empty."));
     ignoreRightCheckBox->setCheckable(true);
     ignoreRightCheckBox->setChecked(false);
 

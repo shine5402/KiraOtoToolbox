@@ -6,12 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
-    <height>107</height>
+    <width>688</width>
+    <height>134</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -29,13 +26,22 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="saveOptionGroupBox">
      <property name="title">
-      <string>保存设置</string>
+      <string>Save options</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
-         <string>多文件批量模式下只支持保存到源文件，且额外路径保存无法使用。</string>
+         <string>Only &quot;save to source file&quot; is supported in batch mode. Extra save path functionality is also disabled.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -44,7 +50,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>保存时的小数精度</string>
+           <string>Decimal precision when saving</string>
           </property>
          </widget>
         </item>

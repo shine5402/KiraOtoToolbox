@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>803</width>
+    <width>889</width>
     <height>405</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
        <item>
         <widget class="QCheckBox" name="seeBeginPatternAsCVCheckBox">
          <property name="text">
-          <string>将以下字符串开头的条目视为CV部</string>
+          <string>See entries with alias beginning with these text as CV part</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -35,7 +35,7 @@
        <item>
         <widget class="QCheckBox" name="seeEndPatternAsCVCheckBox">
          <property name="text">
-          <string>将以下字符串结尾的条目视为CV部</string>
+          <string>See entries with alias ending with these text as VC part</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -52,7 +52,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;别名为空的项会被视为CV部。&lt;/p&gt;&lt;p&gt;如果选中保存选项中的“分离VC部到新文件”，CV部将会保存至一般路径所指向的位置；如果不选中的话，CV部和VC部将保存至同一文件，其中CV在上，VC在下。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entries with emtpy alias will be seen as CV part.&lt;/p&gt;&lt;p&gt;CV part and VC part will be saved in same file with CV on top and VC on bottom if you not checking &amp;quot;Extract VC part to&amp;quot;. If you do check, only CV part will be keeped in normal save location (the first line). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

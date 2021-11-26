@@ -105,7 +105,7 @@ MainWindow::~MainWindow()
 void MainWindow::showAboutDialog()
 {
 #ifdef VERSION_BETA
-    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occur, please provide feedback on Github Issues.";
+    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occured, please provide feedback on Github Issues.";
 #else
     auto versionStr = qApp->applicationVersion();
 #endif
@@ -136,7 +136,7 @@ void MainWindow::showAboutDialog()
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>
 
-<p>Some icons are provided by <a href="https://icons8.com">icons8</a></p>
+<p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>
 )"
 ).arg(versionStr));
 }

@@ -190,5 +190,3 @@ RESOURCES += \
     resources/splashscr/splashscr.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
-
-TRANSLATIONS += ../i18n/kiraototoolbox_en.ts

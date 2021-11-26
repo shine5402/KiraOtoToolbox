@@ -84,6 +84,6 @@ OtoFileSaveWidgetWithSecondFileName::OtoFileSaveWidgetWithSecondFileName(QWidget
 
 OtoFileSaveWidgetWithSecondFileNameAsDeleted::OtoFileSaveWidgetWithSecondFileNameAsDeleted(QWidget* parent) : OtoFileSaveWidgetWithSecondFileName(parent)
 {
-    setSecondFileNameCheckBoxText(tr("保存被删除的项到："));
-    setSecondFileNameUsage(tr("保存被删除的项"));
+    setSecondFileNameCheckBoxText(tr("Save deleted entries to:"));
+    setSecondFileNameUsage(tr("Save deleted entries"));
 }

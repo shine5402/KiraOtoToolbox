@@ -56,7 +56,7 @@ EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget
 {
     auto layout = new QVBoxLayout(this);
     setLayout(layout);
-    auto label = new QLabel(tr("该操作没有配置项。"), this);
+    auto label = new QLabel(tr("There is nothing to configure."), this);
     layout->addStretch(1);
     layout->addWidget(label);
     layout->addStretch(1);

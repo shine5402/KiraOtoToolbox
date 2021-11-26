@@ -6,7 +6,9 @@
 #include "../lib/diff-match-patch/diff_match_patch.h"
 #include <QMessageBox>
 
-ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& title, const QString& message, QDialogButtonBox::StandardButtons standardButtons, QWidget *parent) :
+ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& title,
+                               const QString& message, QDialogButtonBox::StandardButtons standardButtons,
+                               QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ShowDiffDialog),
     source(std::move(source)), result(std::move(result))
@@ -51,11 +53,11 @@ int ShowDiffDialog::exec()
 void ShowDiffDialog::startDiffCalc()
 {
     if (source.isEmpty() || result.isEmpty()){
-        ui->diffTextEdit->setText(tr("源和结果中有一项为空。差异无需计算。"));
+        ui->diffTextEdit->setText(tr("Either source or result is empty. No need for diff."));
         return;
     }
     if (source == result){
-        ui->diffTextEdit->setText(tr("源和结果相同。差异无需计算。"));
+        ui->diffTextEdit->setText(tr("Source and result is same. No need for diff."));
         return;
     }
 
@@ -70,22 +72,22 @@ void ShowDiffDialog::startDiffCalc()
     connect(watcher, &QFutureWatcher<QString>::finished, this, &ShowDiffDialog::handleDiffCalcFinished);
     watcher->setFuture(future);
 
-    ui->diffProgressLabel->setText(tr("正在计算差异……"));
+    ui->diffProgressLabel->setText(tr("Calculating differences..."));
 }
 
 void ShowDiffDialog::handleDiffCalcFinished()
 {
-    ui->diffProgressLabel->setText(tr("差异计算完成。"));
+    ui->diffProgressLabel->setText(tr("Diff calculation is completed."));
     try {
     ui->diffTextEdit->setHtml(watcher->result());
     }
     catch (std::exception* e){
-        QMessageBox::critical(this, tr("错误"),tr("计算差异时出现错误。错误信息为：%1").arg(e->what()));
+        QMessageBox::critical(this, {}, tr("Error occured when calculating difference. Error info: %1").arg(e->what()));
         qCritical() << "(Diff Dialog) Exception occured in diff method. what():" << e->what();
     }
 
     catch (...) {
-        QMessageBox::critical(this, tr("错误"),tr("计算差异时出现错误。"));
+        QMessageBox::critical(this, {}, tr("Error occured when calculating difference."));
         qCritical() << "(Diff Dialog) Exception occured in diff method.";
     }
 

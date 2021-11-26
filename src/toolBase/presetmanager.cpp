@@ -28,7 +28,7 @@ QVector<Preset> PresetManager::presets(const QString& targetName) const
 {
     QVector<Preset> result;
     //Add default
-    result.append({QCoreApplication::translate("PresetManager", "默认"), {}, {}, {}});
+    result.append({QCoreApplication::translate("PresetManager", "Default"), {}, {}, {}});
 
     result.append(builtInPresets.value(targetName));
     result.append(userPresets.value(targetName));
@@ -52,7 +52,7 @@ bool PresetManager::exist(const QString& targetName, const Preset& preset) const
 bool PresetManager::isBuiltIn(const QString& targetName, const QString& name) const
 {
     auto inBuiltIn = !fplus::keep_if(std::bind(presetNameEqual, _1, name), builtInPresets.value(targetName)).empty();
-    auto isDefault = name == QCoreApplication::translate("PresetManager", "默认");
+    auto isDefault = name == QCoreApplication::translate("PresetManager", "Default");
     return inBuiltIn || isDefault;
 }
 

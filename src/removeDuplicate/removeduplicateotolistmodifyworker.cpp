@@ -28,8 +28,7 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     {
         compareStringMap.insert(compareStringList.at(i), i);
     }
-    //删除重复项
-    //检查重复并确认待删除项
+
     if (options.getOption("maxDuplicateCount").toInt() != 0) {
 
         removedIDs.clear();

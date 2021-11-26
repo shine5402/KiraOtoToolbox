@@ -33,13 +33,13 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
         updateResult();
     }
 
-    //为之后加回被忽略词缀做准备
+    //Prepare for add affix later
     auto beforeRemoveDuplicate = lastResult;
 
     RemoveDuplicateOtoListModifyWorker removeDuplicateWorker;
     success |= removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
 
-    //将词缀加回
+    //Add affix back
     auto specificRemovedInfos = removeAffixWorker.getSpecificWorker()->getRemovedStringInfos();
     auto pitchRemovedInfos = removeAffixWorker.getPitchWorker()->getRemovedStringInfos();
     for (auto& i : (pitchRemovedInfos + specificRemovedInfos)){
@@ -61,7 +61,7 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     updateResult();
     currentResult = beforeRemoveDuplicate;
 
-    //重新删除重复项
+    //Remove duplicated entries
     OtoEntryList toBeRemovedOtoList;
     auto removedID = removeDuplicateWorker.getRemovedIDs();
     for (auto i : std::as_const(removedID))

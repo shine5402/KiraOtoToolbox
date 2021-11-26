@@ -28,18 +28,18 @@ bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEnt
     {
         auto specificWorker = new RemoveDuplicateModuleOtoListModifyWorker(this);
         if ((!specificWorker->getOrganizeResult().isEmpty()) &&
-                (!Misc::showOtoDiffDialog(srcOtoList, specificWorker->getOrganizeResult(), precision, tr("重复项整理结果"),
-                                         tr("以下特别标出的原音设定的别名将会被重命名，其中多余的重复项将根据您的设置在下一步被删除。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                (!Misc::showOtoDiffDialog(srcOtoList, specificWorker->getOrganizeResult(), precision, tr("Result of removing duplicate entries"),
+                                         tr("The emphasized entries will be renamed, in which unneeded ones will be removed in next step. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                          dialogParent,
                                          Misc::ValueChangeModel)))
             return false;
-        if ((!secondSaveOtoList.isEmpty()) && (!Misc::askUserWithShowOtoList(secondSaveOtoList, tr("要被删除的原音设定条目列表"),
-                                                                     tr("以下 %1 条原音设定条目将会被删除，或是被保存到您指定的文件中。点击“确定”来确认此修改，点击“取消”以取消本次操作。").arg(secondSaveOtoList.count()),
+        if ((!secondSaveOtoList.isEmpty()) && (!Misc::askUserWithShowOtoList(secondSaveOtoList, tr("Oto entries to remove"),
+                                                                     tr("These %1 oto entries will be removed, or be saved to the specified file. Click \"OK\" to confirm, \"Cancel\" to discard these changes.").arg(secondSaveOtoList.count()),
                                                                      dialogParent)))
             return false;
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                      tr("确认更改"),
-                                      tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                                      tr("Confirm changes"),
+                                      tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                       dialogParent,
                                        Misc::Diff);
     }

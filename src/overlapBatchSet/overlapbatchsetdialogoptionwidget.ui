@@ -28,7 +28,7 @@
      <item>
       <widget class="QCheckBox" name="setStartWithCheckBox">
        <property name="text">
-        <string>开头为以下内容之一时，将Ovl设置为</string>
+        <string>Set Ovl as this, when its alias beginning with these</string>
        </property>
       </widget>
      </item>
@@ -82,7 +82,7 @@
       <item>
        <widget class="QCheckBox" name="matchStartOtoCheckBox">
         <property name="text">
-         <string>同时也匹配开头是“- ”+上述内容的别名</string>
+         <string>Also match aliases beginning &quot;- &quot; + these pattern</string>
         </property>
        </widget>
       </item>
@@ -92,7 +92,7 @@
    <item>
     <widget class="QCheckBox" name="oneThirdCheckBox">
      <property name="text">
-      <string>将上述操作影响范围之外的Ovl三分之一化</string>
+      <string>Set Ovl as 1/3 for entries not included above</string>
      </property>
     </widget>
    </item>
@@ -125,7 +125,7 @@
         <item>
          <widget class="QCheckBox" name="oneSecondWhenTooSmallCheckbox">
           <property name="text">
-           <string>结果小于该值时进行二分之一化</string>
+           <string>... but set as 1/2 when result is smaller than</string>
           </property>
          </widget>
         </item>

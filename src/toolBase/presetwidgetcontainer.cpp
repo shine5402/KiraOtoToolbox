@@ -24,7 +24,7 @@ namespace {
     }
 
     bool isNameValid(const QString& name){
-        return !(name == QCoreApplication::translate("PresetManager", "默认") || name.startsWith(dirtyFlag));
+        return !(name == QCoreApplication::translate("PresetManager", "Default") || name.startsWith(dirtyFlag));
     }
 }
 
@@ -45,7 +45,8 @@ PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMeta
 
     reloadComboBoxItems();
 
-    connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &PresetWidgetContainer::doResetToPreset);
+    connect(ui->presetComboBox, qOverload<int>(&QComboBox::currentIndexChanged),
+            this, &PresetWidgetContainer::doResetToPreset);
     connect(ui->resetButton, &QToolButton::clicked, this, &PresetWidgetContainer::resetToPreset);
     connect(ui->renameButton, &QToolButton::clicked, this, &PresetWidgetContainer::renamePreset);
     connect(ui->saveButton, &QToolButton::clicked, this, &PresetWidgetContainer::savePreset);
@@ -91,7 +92,7 @@ void PresetWidgetContainer::resetToPreset()
 {
     if (currentDirty())
     {
-        auto reply = QMessageBox::question(this, {}, tr("确认要重置当前设置到预设内容吗？"));
+        auto reply = QMessageBox::question(this, {}, tr("Confirm reset working settings to preset?"));
         if (reply == QMessageBox::No)
             return;
     }
@@ -102,20 +103,20 @@ void PresetWidgetContainer::renamePreset()
 {
     if (currentDirty())
     {
-        QMessageBox::critical(this, {}, tr("当前设置和预设中的设置不同，请保存当前设置或重置为预设内设置后再进行重命名。"));
+        QMessageBox::critical(this, {}, tr("Woring settings is changed from preset. Please save or reset first."));
         return;
     }
-    if (!checkCurrentPresetBuiltIn())
+    if (!checkCurrentPresetBuiltInForUserModify())
         return;
 
     auto preset = getCurrentPreset();
     bool ok = false;
-    auto name = QInputDialog::getText(this, tr("重命名"), tr("为预设指定新名称："), QLineEdit::Normal, preset.name, &ok);
+    auto name = QInputDialog::getText(this, tr("Rename"), tr("Specify new name for preset:"), QLineEdit::Normal, preset.name, &ok);
     if (ok && !name.isEmpty())
     {
         if (!isNameValid(name))
         {
-            QMessageBox::critical(this, {}, tr("您输入的名称无效，请更换一个名称重试。"));
+            QMessageBox::critical(this, {}, tr("The given name is invalid. Please retry with a different one."));
             return;
         }
         auto originalName = preset.name;
@@ -137,24 +138,26 @@ void PresetWidgetContainer::doSavePreset()
 void PresetWidgetContainer::savePreset()
 {
     if (!currentDirty()){
-        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("无需保存"), tr("当前设置和预设内设置一致，不需要进行保存操作。"), this, QCursor::pos(), 3000);
+        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation),
+                                 tr("No need to save"), tr("Current working setting is same with preset."), this, QCursor::pos(), 3000);
         return;
     }
-    if (!checkCurrentPresetBuiltIn())
+    if (!checkCurrentPresetBuiltInForUserModify())
         return;
     doSavePreset();
-    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation), tr("保存完毕"), tr("已经将工作设置保存到预设“%1”中。").arg(getCurrentPreset().name), this, QCursor::pos(), 3000);
+    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation),
+                             tr("Save complete"), tr("Current working setting is saved to \"%1\".").arg(getCurrentPreset().name), this, QCursor::pos(), 3000);
 }
 
 void PresetWidgetContainer::addPreset()
 {
     bool ok = false;
-    auto name = QInputDialog::getText(this, tr("添加预设"), tr("为新预设指定名称："), QLineEdit::Normal, {}, &ok);
+    auto name = QInputDialog::getText(this, tr("Add preset"), tr("Specify name for new preset:"), QLineEdit::Normal, {}, &ok);
     if (ok && !name.isEmpty())
     {
         if (!isNameValid(name))
         {
-            QMessageBox::critical(this, {}, tr("您输入的名称无效，请更换一个名称重试。"));
+            QMessageBox::critical(this, {}, tr("The given name is invalid. Please retry with a different one."));
             return;
         }
         Preset preset;
@@ -171,10 +174,10 @@ void PresetWidgetContainer::deletePreset()
 {
     if (PresetManager::getManager()->isBuiltIn(targetName(), getCurrentPreset()))
     {
-        QMessageBox::critical(this, {}, tr("内置预设无法被删除。"));
+        QMessageBox::critical(this, {}, tr("Built-in preset can't be removed."));
         return;
     }
-    auto reply = QMessageBox::question(this, tr("删除预设"), tr("确定要删除预设%1吗？").arg(getCurrentPreset().name));
+    auto reply = QMessageBox::question(this, tr("Delete preset"), tr("Relly want to remove preset %1?").arg(getCurrentPreset().name));
     if (reply == QMessageBox::Yes)
     {
         PresetManager::getManager()->removePreset(targetName(), getCurrentPreset().name);
@@ -185,26 +188,27 @@ void PresetWidgetContainer::deletePreset()
 
 void PresetWidgetContainer::importPreset()
 {
-    auto fileName = QFileDialog::getOpenFileName(this, tr("选择要导入的预设描述文件"), {}, tr("预设描述文件 (*.json);;所有文件 (*.*)"));
+    auto fileName = QFileDialog::getOpenFileName(this, tr("Choose a preset file to import"), {},
+                                                 tr("Preset description file (*.json);;All files (*.*)"));
     if (fileName.isEmpty())
         return;
     QFile file{fileName};
     if (!file.open(QFile::Text | QFile::ReadOnly)){
-        QMessageBox::critical(this, {}, tr("无法打开预设文件。"));
+        QMessageBox::critical(this, {}, tr("Can't open the preset file."));
     }
     auto content = QJsonDocument::fromJson(file.readAll());
     if (content.isNull() || content.isEmpty() || !content.isObject()){
-        QMessageBox::critical(this, {}, tr("预设文件中没有有效的内容。"));
+        QMessageBox::critical(this, {}, tr("The given preset file contains no valid content."));
     }
     auto preset = Preset::fromJson(content.object());
 
     if (!isNameValid(preset.name))
     {
-        QMessageBox::critical(this, {}, tr("预设文件中的预设名“%1”无效，无法导入。").arg(preset.name));
+        QMessageBox::critical(this, {}, tr("Preset file contains invalid preset name\"%1\", so it can not be imported.").arg(preset.name));
     }
     if (PresetManager::getManager()->exist(targetName(), preset))
     {
-        auto reply = QMessageBox::warning(this, {}, tr("已经存在一个同名预设“%1”。要替换这个预设吗？").arg(preset.name), QMessageBox::Yes | QMessageBox::No);
+        auto reply = QMessageBox::warning(this, {}, tr("Name \"%1\" already exists. Replace it?").arg(preset.name), QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::No)
             return;
         if (reply == QMessageBox::Yes)
@@ -224,26 +228,28 @@ void PresetWidgetContainer::exportPreset()
 {
     if (PresetManager::getManager()->isBuiltIn(targetName(), getCurrentPreset()))
     {
-        QMessageBox::critical(this, {}, tr("内置预设无法被导出，请切换到用户预设再导出。"));
+        QMessageBox::critical(this, {}, tr("Built-in presets can't be exported. Please turn it into user preset and try again."));
         return;
     }
     if (currentDirty())
     {
-        auto reply = QMessageBox::warning(this, {}, tr("当前工作设置没有被保存到当前预设中，请问要在导出前保存到预设吗？\n如果不保存的话，导出的将会是预设中的内容，而不是工作设置。"), QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        auto reply = QMessageBox::warning(this, {}, tr("Current working setting has not been saved. Save it into current preset before proceeding?\n"
+"If not, original preset content other than working setting will be saved."),
+                                          QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         if (reply == QMessageBox::Yes)
             doSavePreset();
         if (reply == QMessageBox::Cancel)
             return;
     }
-    auto fileName = QFileDialog::getSaveFileName(this, tr("要把预设描述文件保存到……"), {}, tr("预设描述文件 (*.json)"));
+    auto fileName = QFileDialog::getSaveFileName(this, tr("Save preset description file to..."), {}, tr("Preset description file (*.json)"));
     if (fileName.isEmpty())
         return;
     QFile file{fileName};
     if (!file.open(QFile::Text | QFile::WriteOnly)){
-        QMessageBox::critical(this, {}, tr("无法打开预设文件。"));
+        QMessageBox::critical(this, {}, tr("Can't open preset file."));
     }
     if (file.write(QJsonDocument(getCurrentPreset().toJson()).toJson()) == -1){
-        QMessageBox::critical(this, {}, tr("写入文件时出现问题。"));
+        QMessageBox::critical(this, {}, tr("Error occured when writing the file."));
     }
 }
 
@@ -269,7 +275,7 @@ void PresetWidgetContainer::reloadComboBoxItems()
     //Get presets and put their name into combobox
     ui->presetComboBox->addItems(fplus::transform([this](const Preset& preset)->QString{
         //So for built-in presets, it will show like "Preset 1 [Built-in]"
-        return tr("%1%2").arg(preset.name).arg(PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr("[内置]") : "");
+        return tr("%1%2").arg(preset.name, PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]") : "");
     }, PresetManager::getManager()->presets(targetName())).toList());
     //ui->presetComboBox->setCurrentText(currPreset.name);
 }
@@ -307,11 +313,11 @@ bool PresetWidgetContainer::isCurrentPresetBuiltIn() const
     return PresetManager::getManager()->isBuiltIn(targetName(), getCurrentPreset());
 }
 
-bool PresetWidgetContainer::checkCurrentPresetBuiltIn()
+bool PresetWidgetContainer::checkCurrentPresetBuiltInForUserModify()
 {
     if (isCurrentPresetBuiltIn())
     {
-        QMessageBox::critical(this, {}, tr("内置预设无法被修改，请保存为用户预设后再做修改。"));
+        QMessageBox::critical(this, {}, tr("Built-in presets can't be modified. Please turn it into user preset and try again."));
         return false;
     }
     return true;

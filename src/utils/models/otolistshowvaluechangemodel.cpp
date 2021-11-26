@@ -142,9 +142,9 @@ OtoEntry::OtoParameters OtoListShowValueChangeModel::guessChangedParameters(cons
 void OtoListShowValueChangeModel::refreshHeaderList()
 {
     const QHash<OtoEntry::OtoParameter, QString> parameterName = {
-        {OtoEntry::FileName, tr("文件名")}, {OtoEntry::Alias, tr("别名")}, {OtoEntry::Left, tr("左")},
-        {OtoEntry::Consonant, tr("固定范围")}, {OtoEntry::Right, tr("右")}, {OtoEntry::PreUtterance, tr("先行发声")},
-        {OtoEntry::Overlap, tr("重叠")}
+        {OtoEntry::FileName, tr("Filename")}, {OtoEntry::Alias, tr("Alias")}, {OtoEntry::Left, tr("Left")},
+        {OtoEntry::Consonant, tr("Const field")}, {OtoEntry::Right, tr("Right")}, {OtoEntry::PreUtterance, tr("Preutterance")},
+        {OtoEntry::Overlap, tr("Overlap")}
     };
 
     headerList.clear();
@@ -154,7 +154,7 @@ void OtoListShowValueChangeModel::refreshHeaderList()
         const auto currentName = parameterName.value(static_cast<OtoEntry::OtoParameter>(meta.value(i)));
         headerList.append(currentName);
         if (changedParameters.testFlag(static_cast<OtoEntry::OtoParameter>(meta.value(i))))
-            headerList.append(QString("新的%1").arg(currentName));
+            headerList.append(QString("New %1").arg(currentName));
     }
 }
 

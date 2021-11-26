@@ -12,8 +12,8 @@ CV_VCPartSplitToolDialogAdapter::CV_VCPartSplitToolDialogAdapter(QObject *parent
 void CV_VCPartSplitToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     auto saveWidget = new OtoFileSaveWidgetWithSecondFileName;
-    saveWidget->setSecondFileNameCheckBoxText("分离VC部到新文件：");
-    saveWidget->setSecondFileNameUsage("保存分离出来的VC部");
+    saveWidget->setSecondFileNameCheckBoxText("Extract VC part to: ");
+    saveWidget->setSecondFileNameUsage("Save the VC part extracted");
     replaceSaveWidget(rootLayout, saveWidget);
     ToolDialogAdapter::replaceUIWidgets(rootLayout);
 }
@@ -23,13 +23,13 @@ bool CV_VCPartSplitToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, Oto
     auto precision = options.getOption("save/precision").toInt();
     auto isSecondFileNameUsed = options.getOption("save/isSecondFileNameUsed").toBool();
     if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options)){
-        if (isSecondFileNameUsed && !(Misc::askUserWithShowOtoList(secondSaveOtoList, tr("分离出的VC部"), tr("以下 %1 条原音设定条目将会被保存至您所指定的位置。").arg(secondSaveOtoList.count()), dialogParent)))
+        if (isSecondFileNameUsed && !(Misc::askUserWithShowOtoList(secondSaveOtoList, tr("VC part extracted"), tr("These %1 oto entries will be save to location specified.").arg(secondSaveOtoList.count()), dialogParent)))
         {
             return false;
         }
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                      tr("确认更改"),
-                                      tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                                      tr("Confirm changes"),
+                                      tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                       dialogParent, Misc::Diff);
     }
     return false;

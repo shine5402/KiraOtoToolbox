@@ -17,8 +17,8 @@
 
 void registerTools()
 {
-    REGISTER_TOOL("Remove unneeded items", RemoveDuplicateDialogAdapter);
-    REGISTER_TOOL("Remove unneeded items", RemoveBlankDialogAdapter);
+    REGISTER_TOOL("Remove unneeded entries", RemoveDuplicateDialogAdapter);
+    REGISTER_TOOL("Remove unneeded entries", RemoveBlankDialogAdapter);
     REGISTER_TOOL("Set values in batch", OverlapBatchSetDialogAdapter);
     REGISTER_TOOL("Manipulate aliases", RemoveAffixDialogAdapter);
     REGISTER_TOOL("Manipulate aliases", AddAffixDialogAdapter);

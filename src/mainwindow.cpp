@@ -156,7 +156,7 @@ MainWindow::~MainWindow()
 void MainWindow::showAboutDialog()
 {
 #ifdef VERSION_BETA
-    auto versionStr = qApp->applicationVersion() + " (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occured, please provide feedback on Github Issues.";
+    auto versionStr = qApp->applicationVersion() + tr(" (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occured, please provide feedback on Github Issues.");
 #else
     auto versionStr = qApp->applicationVersion();
 #endif

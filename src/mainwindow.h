@@ -7,6 +7,10 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class Translation;
+class QButtonGroup;
+class QGroupBox;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -15,11 +19,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void createToolSelectorUI();
+
 private:
     Ui::MainWindow *ui;
+    QMenu* i18nMenu = nullptr;
+    QVector<QObject*> toolButtonsLayoutResources;
 
+    void createI18nMenu();
+    void setLangActionChecked(const Translation& translation);
+    void saveUserLocaleSetting(QLocale locale);
+    QLocale getLocaleUserSetting() const;
 private slots:
-    void exit();
     void showAboutDialog();
     void showAboutQtDialog();
     void showDonationPage();
@@ -28,6 +39,10 @@ private slots:
 #ifndef NDEBUG
     void debugFunction();
 #endif
+
+    // QWidget interface
+protected:
+    void changeEvent(QEvent*) override;
 };
 #ifndef NDEBUG
 

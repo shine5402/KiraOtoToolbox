@@ -7,11 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>723</width>
-    <height>302</height>
+    <height>373</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -22,28 +19,28 @@
      <item row="0" column="0">
       <widget class="QLabel" name="ruleLabel">
        <property name="text">
-        <string>更名到：</string>
+        <string>Rename to:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="headCutLabel">
        <property name="text">
-        <string>从头删除多少字符</string>
+        <string>Delete length from start</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="tailCutLabel">
        <property name="text">
-        <string>从尾删除多少字符</string>
+        <string>Delete length from end</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="removeStrLabel">
        <property name="text">
-        <string>删除指定字符串</string>
+        <string>Remove specific string</string>
        </property>
       </widget>
      </item>
@@ -53,7 +50,7 @@
      <item row="3" column="2">
       <widget class="QCheckBox" name="removeStrRegexCheckBox">
        <property name="text">
-        <string>正则匹配</string>
+        <string>Use regex</string>
        </property>
       </widget>
      </item>
@@ -63,7 +60,7 @@
      <item row="4" column="0" colspan="3">
       <widget class="QCheckBox" name="emptyOnlyCheckBox">
        <property name="text">
-        <string>只应用于原本无别名的项</string>
+        <string>Only apply to entries with empty alias</string>
        </property>
       </widget>
      </item>
@@ -94,7 +91,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;margin-bottom:18px&quot;&gt;&lt;span style=&quot; font-size:medium; font-weight:600;&quot;&gt;“更名到”规则说明：&lt;/span&gt;&lt;/p&gt;&lt;p&gt;%s = 原有的数字后缀，使用该项会在%a中去除它&lt;/p&gt;&lt;p&gt;%a = 原有的别名&lt;/p&gt;&lt;p&gt;%f = 对应的文件名（不包括扩展名）&lt;/p&gt;&lt;p&gt;%r = 重复别名自动编号（更名规则后）&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;margin-bottom:18px&quot;&gt;&lt;span style=&quot; font-size:medium; font-weight:600;&quot;&gt;&quot;Rename to&quot; rule specification:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;%s = Original number suffix, will be removed in %a if used&lt;/p&gt;&lt;p&gt;%a = Original alias&lt;/p&gt;&lt;p&gt;%f = Corresponding wave file name (without extension)&lt;/p&gt;&lt;p&gt;%r = Auto order number for duplicate aliases (after renaming)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>

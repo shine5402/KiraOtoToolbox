@@ -11,7 +11,9 @@ class TableViewDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit TableViewDialog(QWidget* parent = nullptr, QAbstractTableModel* model = nullptr, const QString& title = {}, const QString& labelText = {}, QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::Ok);
+    explicit TableViewDialog(QWidget* parent = nullptr, QAbstractTableModel* model = nullptr,
+                             const QString& title = {}, const QString& labelText = {},
+                             QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::Ok);
     void setLabel(const QString& text);
     void setStandardButtons(QDialogButtonBox::StandardButtons buttons);
     QAbstractTableModel* getModel() const;

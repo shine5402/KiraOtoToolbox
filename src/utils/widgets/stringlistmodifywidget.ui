@@ -10,9 +10,6 @@
     <height>126</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
@@ -34,7 +31,7 @@
      <item>
       <widget class="QPushButton" name="multiLineEditButton">
        <property name="text">
-        <string>多行编辑</string>
+        <string>Multi-line Editor</string>
        </property>
       </widget>
      </item>
@@ -57,21 +54,21 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>&lt;span style=&quot;color: grey&quot;&gt;双击项即可修改值&lt;/span&gt;</string>
+        <string>&lt;span style=&quot;color: grey&quot;&gt;Double click to modify&lt;/span&gt;</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="addButton">
        <property name="text">
-        <string>添加</string>
+        <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="deleteButton">
        <property name="text">
-        <string>删除</string>
+        <string>Remove</string>
        </property>
       </widget>
      </item>

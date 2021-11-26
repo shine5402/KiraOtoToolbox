@@ -29,7 +29,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>比较时……</string>
+      <string>When comparing...</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
@@ -50,7 +50,7 @@
      <item>
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>最大重复数量（0为不限制）</string>
+        <string>Maximum duplicate count (0 for no limit)</string>
        </property>
       </widget>
      </item>
@@ -82,17 +82,17 @@
    <item>
     <widget class="QCheckBox" name="considerNegativeSuffixCheckBox">
      <property name="text">
-      <string>也考虑负数</string>
+      <string>Also consider negative numbers</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="organizeCheckBox">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;按照顺序重新整理重复项的重复编号，并统一音阶名的音名字母。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Assgin number suffix for duplicated entries in order, and unify their pitch names' letter case.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>整理重复项</string>
+      <string>Organize duplicate entries</string>
      </property>
      <property name="checked">
       <bool>false</bool>
@@ -120,14 +120,14 @@
       <item>
        <widget class="QCheckBox" name="respectOriginalNumberOrderCheckBox">
         <property name="text">
-         <string>尊重原有数字顺序</string>
+         <string>Respect original number order</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="organizeStartFrom1CheckBox">
         <property name="text">
-         <string>重复项从1开始编号，而不是从2</string>
+         <string>Begining with 1 not 2 when assigning order suffix</string>
         </property>
        </widget>
       </item>
@@ -136,7 +136,7 @@
         <item>
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>整理后音名字母：</string>
+           <string>Pitch names' case after orgnaizing</string>
           </property>
          </widget>
         </item>
@@ -144,12 +144,12 @@
          <widget class="QComboBox" name="organizeCaseComboBox">
           <item>
            <property name="text">
-            <string>大写</string>
+            <string>UPPER</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>小写</string>
+            <string>lower</string>
            </property>
           </item>
          </widget>

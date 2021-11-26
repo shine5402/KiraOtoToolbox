@@ -75,7 +75,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>行为设定</string>
+      <string>Processing options</string>
      </property>
      <layout class="QVBoxLayout" name="optionLayout">
       <item>
@@ -137,10 +137,10 @@
      <item>
       <widget class="QPushButton" name="switchLoadModeButton">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在&lt;span style=&quot; font-weight:600;&quot;&gt;单文件模式&lt;/span&gt;和&lt;span style=&quot; font-weight:600;&quot;&gt;批处理（多文件）&lt;/span&gt;模式之间切换，切换将会清除之前的打开状态。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch between &lt;span style=&quot; font-weight:600;&quot;&gt;single file&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;batch (multiple file) &lt;/span&gt;mode. Current open state will be cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>切换打开模式</string>
+        <string>Switch open mode</string>
        </property>
       </widget>
      </item>
@@ -150,7 +150,7 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset|QDialogButtonBox::RestoreDefaults</set>
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
        </property>
       </widget>
      </item>

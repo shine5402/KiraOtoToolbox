@@ -31,8 +31,8 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
     auto precision = options.getOption("save/precision").toInt();
     if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                      tr("确认更改"),
-                                      tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
+                                      tr("Confirm changes"),
+                                      tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                       dialogParent);
     return false;
 }

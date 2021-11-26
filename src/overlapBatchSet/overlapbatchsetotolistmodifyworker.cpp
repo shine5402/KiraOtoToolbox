@@ -11,7 +11,7 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     resultOtoList = srcOtoList;
 
     QVector<int> matched;
-    //匹配开头并设置为指定数值
+    //Matching start pattern and set ovl for them
     if (options.getOption("ifSetOverlapStartWith").toBool())
     {
         for (int i = 0; i < resultOtoList.count(); ++i)
@@ -30,7 +30,7 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             }
         }
     }
-    //设置三分之一
+    //Set 1/3
     if (options.getOption("makeOneThird").toBool())
     {
         for (int i = 0; i < resultOtoList.count(); ++i)

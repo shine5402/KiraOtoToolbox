@@ -8,7 +8,7 @@ class AddAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE AddAffixDialogAdapter(QObject* parent = nullptr);
-    DEFINE_TOOL_NAME("添加别名前/后缀")
+    DEFINE_TOOL_NAME("Add affix (prefix/suffix)")
 };
 
 #endif // ADDAFFIXDIALOGADAPTER_H

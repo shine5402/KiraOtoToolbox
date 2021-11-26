@@ -1,7 +1,9 @@
 #include "tableviewdialog.h"
 #include <QVBoxLayout>
 
-TableViewDialog::TableViewDialog(QWidget* parent, QAbstractTableModel* model, const QString& title, const QString& labelText, QDialogButtonBox::StandardButtons standardButtons) : QDialog(parent)
+TableViewDialog::TableViewDialog(QWidget* parent, QAbstractTableModel* model, const QString& title,
+                                 const QString& labelText, QDialogButtonBox::StandardButtons standardButtons)
+    : QDialog(parent)
 {
     setWindowTitle(title);
 

@@ -7,11 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>646</width>
-    <height>183</height>
+    <height>196</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -29,13 +26,13 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>加载源数据</string>
+      <string>Load source data</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>已打开的 oto.ini 文件列表：</string>
+         <string>Loaded &quot;oto.ini&quot;s:</string>
         </property>
        </widget>
       </item>
@@ -52,7 +49,7 @@
       <item row="2" column="2">
        <widget class="QPushButton" name="loadButton">
         <property name="text">
-         <string>加载并追加</string>
+         <string>Load new</string>
         </property>
        </widget>
       </item>
@@ -71,7 +68,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>移除</string>
+           <string>Remove</string>
           </property>
          </widget>
         </item>
@@ -88,7 +85,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>查看内容列表</string>
+           <string>Show</string>
           </property>
          </widget>
         </item>

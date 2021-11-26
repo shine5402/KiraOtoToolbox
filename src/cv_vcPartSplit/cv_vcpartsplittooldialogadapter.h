@@ -13,7 +13,7 @@ public:
     bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                 OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent) override;
 
-    DEFINE_TOOL_NAME("分离CV/VC部")
+    DEFINE_TOOL_NAME("Extract CV/VC part")
 };
 
 #endif // CV_VCPARTSPLITTOOLDIALOGADAPTER_H

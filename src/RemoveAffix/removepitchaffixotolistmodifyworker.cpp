@@ -11,7 +11,7 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
     resultOtoList = srcOtoList;
     removedStringInfos.clear();
     std::function<decltype (OtoEntryFunctions::removePitchPrefix)> removeFunc{};
-    auto func = [&](RemovedStringInfo::AffixType affixType) {//return 被删除的字符串
+    auto func = [&](RemovedStringInfo::AffixType affixType) {//return removed strings
         for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto& currentOto = resultOtoList[i];

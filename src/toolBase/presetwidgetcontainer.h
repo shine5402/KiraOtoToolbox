@@ -49,7 +49,7 @@ private:
     void setComboBoxItemTextDirtyState(int id, bool dirty);
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;
-    bool checkCurrentPresetBuiltIn();//Would warn user about check result
+    bool checkCurrentPresetBuiltInForUserModify();//Would warn user about check result
     void doSavePreset();
 };
 

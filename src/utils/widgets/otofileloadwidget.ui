@@ -7,11 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>618</width>
-    <height>133</height>
+    <height>141</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
@@ -29,13 +26,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>加载源数据</string>
+      <string>Load source data</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>指定oto.ini的位置</string>
+         <string>Specify the location of &quot;oto.ini&quot;</string>
         </property>
        </widget>
       </item>
@@ -74,7 +71,7 @@
          <item>
           <widget class="QPushButton" name="loadButton">
            <property name="text">
-            <string>加载</string>
+            <string>Load</string>
            </property>
           </widget>
          </item>
@@ -86,7 +83,7 @@
         <item>
          <widget class="QLabel" name="countLabel">
           <property name="text">
-           <string>还未加载原音设定</string>
+           <string>Oto data has not been loaded</string>
           </property>
          </widget>
         </item>
@@ -109,7 +106,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>查看列表</string>
+           <string>Show</string>
           </property>
          </widget>
         </item>

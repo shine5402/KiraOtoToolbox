@@ -6,9 +6,12 @@
 
 class ToolOptionWidget;
 
+//TODO: maybe refractor to class later
 struct Preset
 {
     QString name;
+    QHash<QString, QString> nameI18nMap;//locale name, name
+    QString getI18nName(const QLocale& locale) const;
     QJsonObject content;
     int version = 0;
     QDateTime lastModified;

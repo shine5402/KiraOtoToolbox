@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
+    <width>880</width>
     <height>463</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
        <item>
         <widget class="QCheckBox" name="specificPrefixCheckBox">
          <property name="text">
-          <string>去除别名中的特定前缀</string>
+          <string>Remove specific prefixes in alias</string>
          </property>
         </widget>
        </item>
@@ -64,7 +64,7 @@
        <item>
         <widget class="QCheckBox" name="specificSuffixCheckBox">
          <property name="text">
-          <string>去除别名中的特定后缀</string>
+          <string>Remove specific suffixes in alias</string>
          </property>
         </widget>
        </item>
@@ -100,7 +100,7 @@
      <item>
       <widget class="QCheckBox" name="ignorePitchSuffixCheckBox">
        <property name="text">
-        <string>去除音阶词缀</string>
+        <string>Remove pitch affix</string>
        </property>
       </widget>
      </item>
@@ -126,21 +126,21 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>范围：</string>
+           <string>Range:</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="pitchPrefixCheckBox">
           <property name="text">
-           <string>前缀</string>
+           <string>Prefix</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="pitchSuffixCheckBox">
           <property name="text">
-           <string>后缀</string>
+           <string>Suffix</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -166,7 +166,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>音阶范围：</string>
+           <string>Pitch range:</string>
           </property>
          </widget>
         </item>
@@ -264,7 +264,7 @@
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>到</string>
+           <string>to</string>
           </property>
          </widget>
         </item>
@@ -366,7 +366,7 @@
         <item>
          <widget class="QCheckBox" name="pitchCaseSensitiveCheckBox">
           <property name="text">
-           <string>区分大小写</string>
+           <string>Case sensitive</string>
           </property>
          </widget>
         </item>
@@ -376,7 +376,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>音名字母：</string>
+           <string>Pitch names in</string>
           </property>
          </widget>
         </item>
@@ -385,14 +385,17 @@
           <property name="enabled">
            <bool>false</bool>
           </property>
+          <property name="currentText">
+           <string>UPPER</string>
+          </property>
           <item>
            <property name="text">
-            <string>大写</string>
+            <string>UPPER</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>小写</string>
+            <string>lower</string>
            </property>
           </item>
          </widget>

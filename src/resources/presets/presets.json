@@ -21,6 +21,7 @@
                 },
                 "lastModified": "2021-11-23T17:00:43",
                 "name": "仅整理重复项",
+                "name_en": "Organize duplicated entries only",
                 "version": 1
             },
             {
@@ -45,6 +46,7 @@
                 },
                 "lastModified": "2021-11-23T17:01:16",
                 "name": "保留3项重复项",
+                "name_en": "Keep 3 duplicated entries",
                 "version": 1
             }
         ],
@@ -65,6 +67,7 @@
             },
             "lastModified": "2021-11-23T17:11:53",
             "name": "通用",
+            "name_en": "Universal",
             "version": 1
         }],
         "targetName": "CV_VCPartSplitOptionWidget"
@@ -82,6 +85,7 @@
                 },
                 "lastModified": "2021-11-23T11:43:48",
                 "name": "三分之一化",
+                "name_en": "Make Ovl 1/3",
                 "version": 1
             },
             {
@@ -180,6 +184,7 @@
                 },
                 "lastModified": "2021-11-23T11:44:46",
                 "name": "日语CVVC",
+                "name_en": "Japanese CVVC",
                 "version": 1
             },
             {
@@ -205,6 +210,7 @@
                 },
                 "lastModified": "2021-11-23T11:44:31",
                 "name": "中文CVVC",
+                "name_en": "Chinese CVVC",
                 "version": 1
             },
             {
@@ -303,6 +309,7 @@
                 },
                 "lastModified": "2021-11-23T11:44:53",
                 "name": "日语单独音",
+                "name_en": "Japanese CV",
                 "version": 1
             },
             {
@@ -328,6 +335,7 @@
                 },
                 "lastModified": "2021-11-23T11:45:04",
                 "name": "中文单独音",
+                "name_en": "Chinese CV",
                 "version": 1
             }
         ],
@@ -345,6 +353,7 @@
             },
             "lastModified": "2021-11-23T17:02:32",
             "name": "用文件名填上空别名",
+            "name_en": "Fill filename into empty alias",
             "version": 1
         }],
         "targetName": "SetAliasOptionWidget"
@@ -488,6 +497,7 @@
             },
             "lastModified": "2021-11-23T18:21:11",
             "name": "Moresampler日语oto自动推断后处理",
+            "name_en": "Post processing for moresampler deduced JPN oto",
             "version": 1
         }],
         "targetName": "ChainToolOptionWidget"

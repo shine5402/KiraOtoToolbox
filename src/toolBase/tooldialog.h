@@ -32,7 +32,6 @@ private slots:
     void accept() override;
     void reset();
     void resetOto();
-    void resetOptions();
     void buttonBoxClicked(QAbstractButton *button);
 
     void refreshOptionWidgetEnableState();

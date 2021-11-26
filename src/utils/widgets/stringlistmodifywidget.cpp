@@ -34,12 +34,12 @@ void StringListModifyWidget::setData(const QStringList& value)
 void StringListModifyWidget::addRow()
 {
     bool ok;
-    auto str = QInputDialog::getText(this, tr("输入新值"), tr("输入要添加到列表的新字符串"), QLineEdit::Normal, {}, &ok);
+    auto str = QInputDialog::getText(this, tr("Input new value"), tr("Input the new string to append"), QLineEdit::Normal, {}, &ok);
     if (ok)
     {
         if (str.isEmpty())
         {
-            QMessageBox::critical(this, tr("输入值为空"),tr("提供的输入是空的。列表不会做出更改。"));
+            QMessageBox::critical(this, tr("Input is empty"),tr("Input is empty. The list remains unchanged."));
             return;
         }
         model->insertRow(model->rowCount());
@@ -57,7 +57,7 @@ void StringListModifyWidget::deleteCurrentRow()
 void StringListModifyWidget::openMultiLineEdit()
 {
     bool ok = false;
-    auto result = QInputDialog::getMultiLineText(this, tr("输入数据"), tr("请输入要应用于列表里的数据，一行一个。"), getData().join("\n"), &ok);
+    auto result = QInputDialog::getMultiLineText(this, tr("Input data"), tr("Input what to apply for the list. One data per line."), getData().join("\n"), &ok);
     if (ok)
     {
         setData(result.split("\n",Qt::SkipEmptyParts));

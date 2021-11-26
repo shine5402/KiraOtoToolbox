@@ -86,16 +86,14 @@
      <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_File">
+   <widget class="QMenu" name="menu_Preference">
     <property name="title">
-     <string>文件(&amp;F)</string>
+     <string>&amp;Preference</string>
     </property>
-    <addaction name="actionExit"/>
-    <addaction name="actionDebug"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
-     <string>帮助(&amp;H)</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
@@ -105,42 +103,32 @@
     <addaction name="separator"/>
     <addaction name="actionDonate"/>
    </widget>
-   <addaction name="menu_File"/>
+   <addaction name="menu_Preference"/>
    <addaction name="menu_Help"/>
   </widget>
-  <action name="actionExit">
-   <property name="text">
-    <string>退出</string>
-   </property>
-  </action>
   <action name="actionAbout">
    <property name="text">
-    <string>关于</string>
+    <string>About</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
    <property name="text">
-    <string>关于 Qt</string>
+    <string>About Qt</string>
    </property>
   </action>
   <action name="actionDonate">
    <property name="text">
-    <string>捐赠</string>
+    <string>Donate</string>
    </property>
   </action>
   <action name="actionUpdate">
    <property name="text">
-    <string>获得更新</string>
-   </property>
-  </action>
-  <action name="actionDebug">
-   <property name="text">
-    <string>Debug</string>
+    <string>Get update</string>
    </property>
   </action>
   <action name="actionSend_feedback">
    <property name="text">
-    <string>提交反馈</string>
+    <string>Provide feedback</string>
    </property>
   </action>
  </widget>

@@ -18,14 +18,17 @@
 
 void registerTools()
 {
-    REGISTER_TOOL("Remove unneeded entries", RemoveDuplicateDialogAdapter);
-    REGISTER_TOOL("Remove unneeded entries", RemoveBlankDialogAdapter);
-    REGISTER_TOOL("Set values in batch", OverlapBatchSetDialogAdapter);
-    REGISTER_TOOL("Manipulate aliases", RemoveAffixDialogAdapter);
-    REGISTER_TOOL("Manipulate aliases", AddAffixDialogAdapter);
-    REGISTER_TOOL("Manipulate aliases", SetAliasDialogAdapter);
-    REGISTER_TOOL("Filter what you need", CV_VCPartSplitToolDialogAdapter);
-    REGISTER_TOOL("Misc", MergeOtoDialogAdapter);
+    REGISTER_TOOL("Entry operations", RemoveDuplicateDialogAdapter);
+    REGISTER_TOOL("Entry operations", RemoveBlankDialogAdapter);
+    REGISTER_TOOL("Entry operations", MergeOtoDialogAdapter);
+    REGISTER_TOOL("Entry operations", CV_VCPartSplitToolDialogAdapter);
+
+    REGISTER_TOOL("Value operations", OverlapBatchSetDialogAdapter);
+
+    REGISTER_TOOL("Alias operations", RemoveAffixDialogAdapter);
+    REGISTER_TOOL("Alias operations", AddAffixDialogAdapter);
+    REGISTER_TOOL("Alias operations", SetAliasDialogAdapter);
+
     REGISTER_TOOL("Meta actions", ChainDialogAdapter);
     REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);
 }

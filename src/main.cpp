@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 
     a.setWindowIcon(QIcon{":/icon/appIcon.ico"});
 
+    a.setOrganizationName("KiraTools");
     a.setApplicationName("KiraOtoToolBox");
 
     QSplashScreen splashScr(QPixmap(":/splashscr", "png"));

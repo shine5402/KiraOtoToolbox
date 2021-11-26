@@ -28,6 +28,8 @@ private:
 
     void createI18nMenu();
     void setLangActionChecked(const Translation& translation);
+    void saveUserLocaleSetting(QLocale locale);
+    QLocale getLocaleUserSetting() const;
 private slots:
     void showAboutDialog();
     void showAboutQtDialog();

@@ -14,6 +14,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include "i18n/translationmanager.h"
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     //create language menu
     createI18nMenu();
 
-    TranslationManager::getManager()->getTranslationFor(QLocale::system()).install();
+    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
     setLangActionChecked(Translation::getCurrentInstalled());
 
     //set window titie
@@ -72,6 +73,7 @@ void MainWindow::createI18nMenu()
         auto translation = TranslationManager::getManager()->getTranslation(action->data().toInt());
         translation.install();
         setLangActionChecked(translation);
+        saveUserLocaleSetting(translation.locale());
     });
     ui->menu_Preference->addMenu(i18nMenu);
 }
@@ -83,6 +85,18 @@ void MainWindow::setLangActionChecked(const Translation& translation)
         auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
         action->setChecked(currTr == translation);
     }
+}
+
+void MainWindow::saveUserLocaleSetting(QLocale locale)
+{
+    QSettings settings;
+    settings.setValue("locale", locale);
+}
+
+QLocale MainWindow::getLocaleUserSetting() const
+{
+    QSettings settings;
+    return settings.value("locale", QLocale::system()).value<QLocale>();
 }
 
 void MainWindow::createToolSelectorUI()

@@ -558,6 +558,11 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <source>Preutterance</source>
         <translation>先行发声</translation>
     </message>
+    <message>
+        <location filename="../../src/utils/models/otolistmodel.cpp" line="19"/>
+        <source>Overlap</source>
+        <translation>重叠</translation>
+    </message>
 </context>
 <context>
     <name>OtoListShowValueChangeModel</name>
@@ -595,6 +600,11 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <location filename="../../src/utils/models/otolistshowvaluechangemodel.cpp" line="147"/>
         <source>Overlap</source>
         <translation>重叠</translation>
+    </message>
+    <message>
+        <location filename="../../src/utils/models/otolistshowvaluechangemodel.cpp" line="157"/>
+        <source>New %1</source>
+        <translation>新%1</translation>
     </message>
 </context>
 <context>
@@ -1277,6 +1287,11 @@ If not, original preset content other than working setting will be saved.</sourc
         <source>Merge oto</source>
         <translation>合并 oto</translation>
     </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.h" line="11"/>
+        <source>Trim around specific value</source>
+        <translation>在特定值周围修整</translation>
+    </message>
 </context>
 <context>
     <name>TOOL_TYPE</name>
@@ -1297,28 +1312,29 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation type="vanished">筛选出需要的项</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="21"/>
         <location filename="../../src/initFuncs.cpp" line="22"/>
         <location filename="../../src/initFuncs.cpp" line="23"/>
         <location filename="../../src/initFuncs.cpp" line="24"/>
+        <location filename="../../src/initFuncs.cpp" line="25"/>
         <source>Entry operations</source>
         <translation>对项做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="26"/>
+        <location filename="../../src/initFuncs.cpp" line="27"/>
+        <location filename="../../src/initFuncs.cpp" line="28"/>
         <source>Value operations</source>
         <translation>对数值做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="28"/>
-        <location filename="../../src/initFuncs.cpp" line="29"/>
         <location filename="../../src/initFuncs.cpp" line="30"/>
+        <location filename="../../src/initFuncs.cpp" line="31"/>
+        <location filename="../../src/initFuncs.cpp" line="32"/>
         <source>Alias operations</source>
         <translation>对别名做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="32"/>
-        <location filename="../../src/initFuncs.cpp" line="33"/>
+        <location filename="../../src/initFuncs.cpp" line="34"/>
+        <location filename="../../src/initFuncs.cpp" line="35"/>
         <source>Meta actions</source>
         <translation>元操作</translation>
     </message>
@@ -1448,6 +1464,58 @@ If not, original preset content other than working setting will be saved.</sourc
         <location filename="../../src/toolBase/tooldialogadapter.cpp" line="35"/>
         <source>These are changes that will be applied to oto data. Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</source>
         <translation>以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。</translation>
+    </message>
+</context>
+<context>
+    <name>TrimAroundSpecificValueOptionWidget</name>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="20"/>
+        <source>Field applied to</source>
+        <translation>应用字段</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="28"/>
+        <source>Left</source>
+        <translation>左边界</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="33"/>
+        <source>Const field</source>
+        <translation>固定范围</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="38"/>
+        <source>Right</source>
+        <translation>右边界</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="43"/>
+        <source>Preutterance</source>
+        <translation>先行发声</translation>
+    </message>
+    <message>
+        <source>PreUtterance</source>
+        <translation type="vanished">先行发声</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="48"/>
+        <source>Overlap</source>
+        <translation>重叠</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="56"/>
+        <source>Target value</source>
+        <translation>目标数值</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="73"/>
+        <source>Rouding range</source>
+        <translation>舍入范围</translation>
+    </message>
+    <message>
+        <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="80"/>
+        <source>±</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

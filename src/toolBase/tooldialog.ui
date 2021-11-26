@@ -10,7 +10,7 @@
     <height>730</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="rootLayout">
+  <layout class="QVBoxLayout" name="rootLayout" stretch="0,1,0,0">
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">

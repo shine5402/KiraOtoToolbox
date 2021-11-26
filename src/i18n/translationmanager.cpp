@@ -58,3 +58,8 @@ int TranslationManager::getCurrentInstalledTranslationID() const
     }, translations);
     return result.is_just() ? result.unsafe_get_just() : -1;
 }
+
+Translation TranslationManager::getCurrentInstalled() const
+{
+    return Translation::getCurrentInstalled();
+}

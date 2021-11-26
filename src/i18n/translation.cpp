@@ -103,12 +103,12 @@ Translation Translation::getCurrentInstalled()
 
 bool Translation::isValid() const
 {
-    return translationFilenames_.isEmpty() || author_.isEmpty();
+    return !(translationFilenames_.isEmpty() || author_.isEmpty());
 }
 
 bool Translation::operator==(const Translation& other) const
 {
     if (!isValid() && !other.isValid())
-        return false;
+        return true;
     return locale_ == other.locale_ && translationFilenames_ == other.translationFilenames_ && author_ == other.author_;
 }

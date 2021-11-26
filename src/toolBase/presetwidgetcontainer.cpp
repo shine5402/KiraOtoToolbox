@@ -7,6 +7,7 @@
 #include "../lib/misc/qballontip.h"
 #include <QFileDialog>
 #include <QJsonDocument>
+#include "i18n/translationmanager.h"
 
 namespace {
     const auto dirtyFlag = QStringLiteral("[*] ");
@@ -213,6 +214,11 @@ void PresetWidgetContainer::importPreset()
             return;
         if (reply == QMessageBox::Yes)
         {
+            if (PresetManager::getManager()->isBuiltIn(targetName(), preset.name))
+            {
+                QMessageBox::critical(this, {}, "\"%1\" is a built-in preset. It can't be replaced.");
+                return;
+            }
             PresetManager::getManager()->replacePreset(targetName(), preset);
             ui->presetComboBox->setCurrentText(preset.name);
             return;
@@ -275,7 +281,7 @@ void PresetWidgetContainer::reloadComboBoxItems()
     //Get presets and put their name into combobox
     ui->presetComboBox->addItems(fplus::transform([this](const Preset& preset)->QString{
         //So for built-in presets, it will show like "Preset 1 [Built-in]"
-        return tr("%1%2").arg(preset.name, PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]") : "");
+        return tr("%1%2").arg(preset.getI18nName(Translation::getCurrentInstalled().locale()), PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]") : "");
     }, PresetManager::getManager()->presets(targetName())).toList());
     //ui->presetComboBox->setCurrentText(currPreset.name);
 }

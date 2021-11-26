@@ -11,6 +11,7 @@ public:
     Translation getTranslation(int i) const;
     Translation getTranslationFor(const QLocale& locale) const;
     int getCurrentInstalledTranslationID() const;
+    Translation getCurrentInstalled() const;
 
 private:
     TranslationManager();

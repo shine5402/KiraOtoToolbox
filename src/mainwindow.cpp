@@ -94,6 +94,13 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef VERSION_BETA
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
 #endif
+#ifndef NDEBUG
+    auto debugAction = new QAction("Debug", this);
+    ui->menu_Preference->addAction(debugAction);
+    connect(debugAction, &QAction::triggered, [](){
+
+    });
+#endif
 }
 
 MainWindow::~MainWindow()

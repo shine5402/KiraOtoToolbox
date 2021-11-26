@@ -177,6 +177,17 @@ void PresetManager::savePresets()
     }
 }
 
+QString Preset::getI18nName(const QLocale& locale) const
+{
+    auto uiLang = locale.uiLanguages();
+    for (const auto& l : qAsConst(uiLang)){
+        if (nameI18nMap.contains(l))
+            return nameI18nMap.value(l);
+    }
+
+    return name;
+}
+
 Preset::Preset(QString name, QJsonObject content, int version, QDateTime lastModified):
     name(std::move(name)), content(std::move(content)), lastModified(std::move(lastModified))
 {
@@ -198,6 +209,9 @@ QJsonObject Preset::getJson(const Preset& preset)
 {
     QJsonObject presetObj;
     presetObj.insert("name", preset.name);
+    for (auto it = preset.nameI18nMap.begin(); it != preset.nameI18nMap.end(); ++it){
+        presetObj.insert("name_" + it.key(), it.value());
+    }
     presetObj.insert("version", preset.version);
     presetObj.insert("lastModified", preset.lastModified.toString(Qt::ISODate));
     presetObj.insert("content", preset.content);
@@ -213,6 +227,14 @@ Preset Preset::fromJson(const QJsonObject& json)
 {
     Preset preset;
     preset.name = json.value("name").toString();
+    auto i18n = fplus::map_keep_if([](const QString& key)->bool{
+        return key.startsWith("name_");
+    }, json.toVariantMap());
+    for (auto it = i18n.begin(); it != i18n.end(); ++it){
+        auto key = it.key();
+        key.remove(0, 5);
+        preset.nameI18nMap.insert(key, it.value().toString());
+    }
     preset.version = json.value("version").toInt();
     preset.lastModified = QDateTime::fromString(json.value("lastModified").toString(), Qt::ISODate);
     preset.content = json.value("content").toObject();

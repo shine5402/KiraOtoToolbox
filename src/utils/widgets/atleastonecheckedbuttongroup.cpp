@@ -64,7 +64,7 @@ void AtLeastOneCheckedButtonGroup::checkCheckedState(QAbstractButton* button)
 {
     if (checkedButtons().count() < 1){
     QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxWarning),
-    tr("必须至少选择一项"), tr("您应当至少选择一项作为输入。"), button, QCursor::pos(), 3000);
+    tr("Must choose at least one"), tr("You should keep at least one option to be chosen."), button, QCursor::pos(), 3000);
     button->toggle();
     }
 }

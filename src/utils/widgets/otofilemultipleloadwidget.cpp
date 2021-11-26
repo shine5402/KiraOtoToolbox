@@ -73,15 +73,15 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 {
     auto fileNames = ui->openFileNameEdit->fileNames();
 
-    for (auto fileName : fileNames){
+    for (const auto &fileName : fileNames){
         if (!QFileInfo::exists(fileName)){
-            QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件 %1 不存在，请检查后再试。").arg(fileName));
+            QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(fileName));
             return;
         }
 
         if (this->fileNames().contains(fileName))
         {
-            QMessageBox::warning(this, tr("已经读取"), tr("您指定的文件 %1 已经被读取过了。").arg(fileName));
+            QMessageBox::warning(this, tr("Has been readed"), tr("\"%1\" oto entries has been loaded.").arg(fileName));
             return;
         }
 

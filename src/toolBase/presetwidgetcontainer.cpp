@@ -104,7 +104,7 @@ void PresetWidgetContainer::renamePreset()
 {
     if (currentDirty())
     {
-        QMessageBox::critical(this, {}, tr("Woring settings is changed from preset. Please save or reset first."));
+        QMessageBox::critical(this, {}, tr("Working settings is changed from preset. Please save or reset first."));
         return;
     }
     if (!checkCurrentPresetBuiltInForUserModify())

@@ -28,63 +28,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
 
     //Create tool selector ui
-    auto buttonGroup = new QButtonGroup(this);
-
-    auto availableTools = ToolManager::getManager()->getTools();
-    auto toolGroups = ToolManager::getManager()->getToolGroups();
-    auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
-    for (int groupID = 0; groupID < groups.count(); ++groupID){
-        auto group = groups.at(groupID);
-        auto groupBox = new QGroupBox(group.isEmpty() ? tr("Uncategorized") : group, this);
-        auto groupBoxLayout = new QVBoxLayout(groupBox);
-        auto tools = toolGroups.values(group);
-        std::reverse(tools.begin(), tools.end());
-        for (const auto& tool : tools)
-        {
-            auto button = new QPushButton(tool.toolName(), this);
-            buttonGroup->addButton(button, availableTools.indexOf(tool));
-            groupBoxLayout->addWidget(button);
-        }
-        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 stands for behind first spacer in ui layout
-    }
-
-    connect(buttonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [buttonGroup, this](QAbstractButton* button){
-        auto tools = ToolManager::getManager()->getTools();
-        auto dialog = new ToolDialog(tools.at(buttonGroup->id(button)).getAdapterInstance(this), this);
-        dialog->setAttribute(Qt::WA_DeleteOnClose, true);
-        dialog->open();
-    });
+    createToolSelectorUI();
 
     //create language menu
-    auto translations = TranslationManager::getManager()->getTranslations();
-    auto i18nMenu = new QMenu(tr("Language"), this);
-    auto defaultLang = new QAction("English, built-in");
-    defaultLang->setData(-1);
-    defaultLang->setCheckable(true);
-    i18nMenu->addAction(defaultLang);
-
-    for (auto i = 0; i < translations.count(); ++i)
-    {
-        auto l = translations.at(i);
-        auto langAction = new QAction(QLatin1String("%1, by %2").arg(l.locale().bcp47Name(), l.author()));
-        langAction->setData(i);
-        langAction->setCheckable(true);
-        i18nMenu->addAction(langAction);
-
-    }
-    auto setLangActionChecked = [i18nMenu](const Translation& translation){
-        auto actions = i18nMenu->actions();
-        for (auto action : qAsConst(actions)){
-            auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
-            action->setChecked(currTr == translation);
-        }
-    };
-    connect(i18nMenu, &QMenu::triggered, [setLangActionChecked](QAction* action){
-        auto translation = TranslationManager::getManager()->getTranslation(action->data().toInt());
-        translation.install();
-        setLangActionChecked(translation);
-    });
-    ui->menu_Preference->addMenu(i18nMenu);
+    createI18nMenu();
 
     TranslationManager::getManager()->getTranslationFor(QLocale::system()).install();
     setLangActionChecked(Translation::getCurrentInstalled());
@@ -101,6 +48,89 @@ MainWindow::MainWindow(QWidget *parent)
 
     });
 #endif
+}
+
+void MainWindow::createI18nMenu()
+{
+    auto translations = TranslationManager::getManager()->getTranslations();
+    i18nMenu = new QMenu("Language", this);
+    auto defaultLang = new QAction("English, built-in", i18nMenu);
+    defaultLang->setData(-1);
+    defaultLang->setCheckable(true);
+    i18nMenu->addAction(defaultLang);
+
+    for (auto i = 0; i < translations.count(); ++i)
+    {
+        auto l = translations.at(i);
+        auto langAction = new QAction(QLatin1String("%1 (%2), by %3").arg(QLocale::languageToString(l.locale().language()),l.locale().bcp47Name(),l.author()), i18nMenu);
+        langAction->setData(i);
+        langAction->setCheckable(true);
+        i18nMenu->addAction(langAction);
+
+    }
+    connect(i18nMenu, &QMenu::triggered, [this](QAction* action){
+        auto translation = TranslationManager::getManager()->getTranslation(action->data().toInt());
+        translation.install();
+        setLangActionChecked(translation);
+    });
+    ui->menu_Preference->addMenu(i18nMenu);
+}
+
+void MainWindow::setLangActionChecked(const Translation& translation)
+{
+    auto actions = i18nMenu->actions();
+    for (auto action : qAsConst(actions)){
+        auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
+        action->setChecked(currTr == translation);
+    }
+}
+
+void MainWindow::createToolSelectorUI()
+{
+    if (!toolButtonsLayoutResources.isEmpty())
+    {
+        for (auto i : qAsConst(toolButtonsLayoutResources)){
+            auto widget = qobject_cast<QWidget*>(i);
+            if (widget)
+            {
+                ui->toolLayout->removeWidget(widget);
+            }
+            i->deleteLater();
+        }
+        toolButtonsLayoutResources.clear();
+    }
+
+    auto toolButtonGroup = new QButtonGroup(this);
+    toolButtonsLayoutResources.append(toolButtonGroup);
+
+    auto availableTools = ToolManager::getManager()->getTools();
+    auto toolGroups = ToolManager::getManager()->getToolGroups();
+    auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
+    for (int groupID = 0; groupID < groups.count(); ++groupID){
+        auto group = groups.at(groupID);
+        auto groupBox = new QGroupBox(group.isEmpty() ? tr("Uncategorized") : QCoreApplication::translate("TOOL_TYPE", group.toStdString().c_str()), this);
+        toolButtonsLayoutResources.append(groupBox);
+        auto groupBoxLayout = new QVBoxLayout(groupBox);
+        auto tools = toolGroups.values(group);
+        std::reverse(tools.begin(), tools.end());
+        for (const auto& tool : tools)
+        {
+            auto button = new QPushButton(tool.toolName(), groupBox);
+            toolButtonGroup->addButton(button, availableTools.indexOf(tool));
+            groupBoxLayout->addWidget(button);
+        }
+        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 stands for behind first spacer in ui layout
+    }
+
+    connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [toolButtonGroup, this](QAbstractButton* button){
+        auto tools = ToolManager::getManager()->getTools();
+        auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), this);
+        dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+        dialog->open();
+    });
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -174,3 +204,12 @@ void MainWindow::debugFunction()
 
 }
 #endif
+
+void MainWindow::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);
+        createToolSelectorUI();
+    }
+}

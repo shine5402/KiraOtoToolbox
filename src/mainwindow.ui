@@ -106,11 +106,6 @@
    <addaction name="menu_Preference"/>
    <addaction name="menu_Help"/>
   </widget>
-  <action name="actionExit">
-   <property name="text">
-    <string>退出</string>
-   </property>
-  </action>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
@@ -129,11 +124,6 @@
   <action name="actionUpdate">
    <property name="text">
     <string>Get update</string>
-   </property>
-  </action>
-  <action name="actionDebug">
-   <property name="text">
-    <string>Debug</string>
    </property>
   </action>
   <action name="actionSend_feedback">

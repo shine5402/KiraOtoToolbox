@@ -46,7 +46,7 @@ void OtoFileLoadWidget::reset()
     entryListReaded = false;
 
     ui->showOtoListButton->setEnabled(false);
-    ui->countLabel->setText(tr("还未加载原音设定"));
+    ui->countLabel->setText(tr("Oto data has not been loaded"));
     ui->loadOtoWidget->setEnabled(true);
     emit resetted();
 }
@@ -56,7 +56,7 @@ void OtoFileLoadWidget::loadOtoFile()
     auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
-        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));
+        QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again."));
         return;
     }
 
@@ -66,7 +66,7 @@ void OtoFileLoadWidget::loadOtoFile()
 
     ui->showOtoListButton->setEnabled(true);
 
-    ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));
+    ui->countLabel->setText(tr("%1 oto entries has been loaded.").arg(entryList.count()));
     ui->loadOtoWidget->setDisabled(true);
 
     emit loaded();

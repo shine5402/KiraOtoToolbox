@@ -32,7 +32,7 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
     if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
                                       tr("Confirm changes"),
-                                      tr("These are changes that will be applied to %1 （at %2). Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                      tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                       dialogParent);
     return false;
 }

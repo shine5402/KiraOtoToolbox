@@ -54,7 +54,7 @@ void ToolDialog::otoFileLoaded()
     ui->otoSaveWidget->setEnabled(true);
 }
 
-void ToolDialog::ToolDialog::accept()
+void ToolDialog::accept()
 {
     if (!((isSingleMode() && ui->otoLoadWidget->isEntryListReaded()) || (isBatchMode() && ui->otoMultipleLoadWidget->count() > 0)))
     {

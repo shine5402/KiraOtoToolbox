@@ -83,7 +83,7 @@
         <item>
          <widget class="QLabel" name="countLabel">
           <property name="text">
-           <string>Oto data is not loaded.</string>
+           <string>Oto data has not been loaded</string>
           </property>
          </widget>
         </item>

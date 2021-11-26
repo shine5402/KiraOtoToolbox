@@ -89,7 +89,7 @@
    <item>
     <widget class="QCheckBox" name="organizeCheckBox">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;按照顺序重新整理重复项的重复编号，并统一音阶名的音名字母。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Assgin number suffix for duplicated entries in order, and unify their pitch names' letter case.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string>Organize duplicate entries</string>
@@ -136,7 +136,7 @@
         <item>
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>PItch names' case after orgnaizing</string>
+           <string>Pitch names' case after orgnaizing</string>
           </property>
          </widget>
         </item>

@@ -2,7 +2,7 @@ QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17
+CONFIG += c++17 file_copies
 
 TARGET = KiraOtoToolbox
 

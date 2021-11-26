@@ -27,7 +27,12 @@ TranslationManager::TranslationManager()
     translations = fplus::keep_if([](const Translation& elem)->bool{
         return elem.isValid();
     }, fplus::transform([](const QJsonValue& value)->Translation{
-        return Translation::fromJson(value.toObject());
+        auto tr = Translation::fromJson(value.toObject());
+        tr.setTranslationFilenames(fplus::transform([](const QString& fileName)->QString{
+            return QDir{qApp->applicationDirPath()}.filePath("translations/" + fileName);
+        },
+        tr.translationFilenames()));
+        return tr;
     }, array));
 }
 

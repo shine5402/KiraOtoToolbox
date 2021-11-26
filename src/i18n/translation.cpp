@@ -64,6 +64,7 @@ void Translation::uninstall()
     for (auto translator : std::as_const(installedTranslators)){
         qApp->removeTranslator(translator);
     }
+    installedTranslators.clear();
 }
 
 QLocale Translation::locale() const

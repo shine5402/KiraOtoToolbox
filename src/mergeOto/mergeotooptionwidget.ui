@@ -22,16 +22,24 @@
     </widget>
    </item>
    <item>
-    <widget class="OtoFileLoadWidget" name="otherOtoLoadWidget" native="true"/>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Please notice that the file's name and content will not be saved into preset. Reseting or switching presets will clear load state above.</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
+    <widget class="QGroupBox" name="groupBox">
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="OtoFileLoadWidget" name="otherOtoLoadWidget" native="true"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -90,6 +98,16 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Please notice that the file's name and content will not be saved into preset. Reseting or switching presets will clear load state above.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_4">

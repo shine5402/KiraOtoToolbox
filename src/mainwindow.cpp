@@ -28,13 +28,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
     connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
 
+    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
+
     //Create tool selector ui
     createToolSelectorUI();
 
     //create language menu
     createI18nMenu();
-
-    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
     setLangActionChecked(Translation::getCurrentInstalled());
 
     //set window titie

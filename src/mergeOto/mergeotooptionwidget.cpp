@@ -38,6 +38,7 @@ OptionContainer MergeOtoOptionWidget::getOptions() const
 
 void MergeOtoOptionWidget::setOptions(const OptionContainer& options)
 {
+    ui->otherOtoLoadWidget->reset();
     auto otherOtoLoaded = options.getOption("otherOtoLoaded").toBool();
     if (otherOtoLoaded){
         auto otherOtoFileName = options.getOption("otherOtoFileName").toString();

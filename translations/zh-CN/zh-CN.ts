@@ -210,7 +210,7 @@
     <message>
         <location filename="../../src/mainwindow.cpp" line="159"/>
         <source> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;You are using a test build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.</source>
-        <translation> (BETA) &lt;/p&gt;&lt;p style=\&quot;color:orange\&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
+        <translation> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="163"/>

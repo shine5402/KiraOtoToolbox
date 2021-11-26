@@ -16,7 +16,7 @@ QVariant OtoListModel::headerData(int section, Qt::Orientation orientation, int 
             case OtoEntry::CONSONANT: return tr("Const field");
             case OtoEntry::RIGHT: return tr("Right");
             case OtoEntry::PREUTTERANCE: return tr("Preutterance");
-            case OtoEntry::OVERLAP: return ("Overlap");
+            case OtoEntry::OVERLAP: return tr("Overlap");
         }
     }
     if (orientation == Qt::Vertical && role == Qt::DisplayRole)

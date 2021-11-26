@@ -154,7 +154,7 @@ void OtoListShowValueChangeModel::refreshHeaderList()
         const auto currentName = parameterName.value(static_cast<OtoEntry::OtoParameter>(meta.value(i)));
         headerList.append(currentName);
         if (changedParameters.testFlag(static_cast<OtoEntry::OtoParameter>(meta.value(i))))
-            headerList.append(QString("New %1").arg(currentName));
+            headerList.append(tr("New %1").arg(currentName));
     }
 }
 

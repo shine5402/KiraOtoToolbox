@@ -73,6 +73,9 @@ SOURCES += \
     toolBase/tooldialogadapter.cpp \
     toolBase/toolmanager.cpp \
     toolBase/tooloptionwidget.cpp \
+    trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.cpp \
+    trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.cpp \
+    trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.cpp \
     utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
@@ -143,6 +146,9 @@ HEADERS += \
     toolBase/tooldialogadapter.h \
     toolBase/toolmanager.h \
     toolBase/tooloptionwidget.h \
+    trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.h \
+    trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.h \
+    trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.h \
     utils/dialogs/listviewdialog.h \
     utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
@@ -175,6 +181,7 @@ FORMS += \
     setAlias/setaliasoptionwidget.ui \
     toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \
+    trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui \
     utils/dialogs/showdiffdialog.ui \
     utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofileloadwidget.ui \

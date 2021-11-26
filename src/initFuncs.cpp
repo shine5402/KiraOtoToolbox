@@ -12,6 +12,7 @@
 #include "setAlias/setaliasdialogadapter.h"
 #include "mergeOto/mergeotodialogadapter.h"
 #include <QCoreApplication>
+#include "trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.h"
 
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
@@ -24,6 +25,7 @@ void registerTools()
     REGISTER_TOOL("Entry operations", CV_VCPartSplitToolDialogAdapter);
 
     REGISTER_TOOL("Value operations", OverlapBatchSetDialogAdapter);
+    REGISTER_TOOL("Value operations", TrimAroundSpecificValueDialogAdapter);
 
     REGISTER_TOOL("Alias operations", RemoveAffixDialogAdapter);
     REGISTER_TOOL("Alias operations", AddAffixDialogAdapter);

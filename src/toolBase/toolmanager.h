@@ -19,9 +19,7 @@ struct Tool{
         return !(*this == rhs);
     }
     QString toolName() const {
-        if (auto adapter = std::unique_ptr<ToolDialogAdapter>(
-                    qobject_cast<ToolDialogAdapter *>(
-                        toolAdapterMetaObj.newInstance()))){
+        if (auto adapter = getAdapterInstance(nullptr)){
             return adapter->getToolName();
         }
         return {};

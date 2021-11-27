@@ -29,6 +29,27 @@ namespace fplus {
         return concat_qt_adapt_internal(lists);
     }
 
+    template <typename F, typename T>
+    auto transform_and_concat(F f, const QList<T>& xs)
+    {
+        internal::trigger_static_asserts<internal::unary_function_tag, F, typename QList<T>::value_type>();
+        return concat_qt_adapt_internal(transform(f, xs));
+    }
+
+    template <typename F, typename T>
+    auto transform_and_concat(F f, const QVector<T>& xs)
+    {
+        internal::trigger_static_asserts<internal::unary_function_tag, F, typename QVector<T>::value_type>();
+        return concat_qt_adapt_internal(transform(f, xs));
+    }
+
+    template <typename F>
+    auto transform_and_concat(F f, const QStringList& xs)
+    {
+        internal::trigger_static_asserts<internal::unary_function_tag, F, typename QStringList::value_type>();
+        return concat_qt_adapt_internal(transform(f, xs));
+    }
+
     template <typename Key, typename T, typename Pred>
     QHash<Key,T> map_keep_if(Pred pred, const QHash<Key,T>& map)
     {

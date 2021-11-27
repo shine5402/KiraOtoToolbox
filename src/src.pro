@@ -93,7 +93,10 @@ SOURCES += \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
     utils/widgets/otofilesavewidgetabstract.cpp \
-    utils/widgets/stringlistmodifywidget.cpp
+    utils/widgets/stringlistmodifywidget.cpp \
+    vowelCrossfading/vowelcrossfadingdialogadapter.cpp \
+    vowelCrossfading/vowelcrossfadingoptionwidget.cpp \
+    vowelCrossfading/vowelcrossfadingotolistmodifyworker.cpp
 
 HEADERS += \
     chain/chaindialogadapter.h \
@@ -167,7 +170,10 @@ HEADERS += \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
     utils/widgets/otofilesavewidgetabstract.h \
-    utils/widgets/stringlistmodifywidget.h
+    utils/widgets/stringlistmodifywidget.h \
+    vowelCrossfading/vowelcrossfadingdialogadapter.h \
+    vowelCrossfading/vowelcrossfadingoptionwidget.h \
+    vowelCrossfading/vowelcrossfadingotolistmodifyworker.h
 
 
 FORMS += \
@@ -188,7 +194,8 @@ FORMS += \
     utils/widgets/otofilemultipleloadwidget.ui \
     utils/widgets/otofilemultiplesavewidget.ui \
     utils/widgets/otofilesavewidget.ui \
-    utils/widgets/stringlistmodifywidget.ui
+    utils/widgets/stringlistmodifywidget.ui \
+    vowelCrossfading/vowelcrossfadingoptionwidget.ui
 
 include(lib.pri)
 

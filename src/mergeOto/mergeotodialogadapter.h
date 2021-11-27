@@ -7,7 +7,7 @@ class MergeOtoDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE MergeOtoDialogAdapter(QObject* parent = nullptr);
+    Q_INVOKABLE explicit MergeOtoDialogAdapter(QObject* parent = nullptr);
     DEFINE_TOOL_NAME("Merge oto")
 };
 

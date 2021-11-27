@@ -63,13 +63,15 @@ void ToolDialog::accept()
     }
 
     bool success = false;
+    auto saveOptions = ui->otoSaveWidget->getOptions();
+    saveOptions.setOption("precision", ui->precisionSpinBox->value());
     if (isSingleMode()){
         success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(),
-                         OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+                         OptionContainer::combine(optionWidget->getOptions(), saveOptions, "save/"), this);
     }
     else {
         success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(),
-                         OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+                         OptionContainer::combine(optionWidget->getOptions(), saveOptions, "save/"), this);
     }
 
     if (success){
@@ -115,7 +117,7 @@ void ToolDialog::refreshOptionWidgetEnableState()
 {
     auto setEnableState = [&](bool state){
         ui->optionGroupBox->setEnabled(state);
-        ui->stackedSaveWidget->setEnabled(state);
+        ui->saveOptionsContainer->setEnabled(state);
     };
     if (isSingleMode()){
         setEnableState(ui->otoLoadWidget->isEntryListReaded());

@@ -47,13 +47,14 @@ OptionContainer OtoFileMultipleSaveWidget::getOptions() const
     options.setOption("isSaveToSrc", true);
     options.setOption("isSaveToCustom", false);
     options.setOption("isSecondFileNameUsed", false);
-    options.setOption("precision", ui->precisionSpinBox->value());
+    //options.setOption("precision", ui->precisionSpinBox->value());
     return options;
 }
 
 void OtoFileMultipleSaveWidget::setOptions(const OptionContainer& options)
 {
-    ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
+    //ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
+    Q_UNUSED(options)
 }
 
 

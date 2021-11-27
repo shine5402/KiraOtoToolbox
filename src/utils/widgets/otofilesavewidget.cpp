@@ -56,7 +56,7 @@ OptionContainer OtoFileSaveWidget::getOptions() const
     options.setOption("isSecondFileNameAvailable", m_secondFileNameAvailable);
     options.setOption("isSecondFileNameUsed", ui->secondFileNameCheckBox->isChecked());
     options.setOption("secondFileName", ui->secondFileNameEdit->fileName());
-    options.setOption("precision", ui->precisionSpinBox->value());
+    //options.setOption("precision", ui->precisionSpinBox->value());
     options.setOption("secondFileNameUsage", m_secondFileNameUsage);
     return options;
 }
@@ -74,7 +74,7 @@ void OtoFileSaveWidget::setOptions(const OptionContainer& options)
         ui->secondFileNameEdit->setFileName(options.getOption("secondFileName").toString());
         setSecondFileNameUsage(options.getOption("secondFileNameUsage").toString());
     }
-    ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
+    //ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
 }
 
 OtoFileSaveWidgetWithSecondFileName::OtoFileSaveWidgetWithSecondFileName(QWidget* parent) : OtoFileSaveWidget(parent)

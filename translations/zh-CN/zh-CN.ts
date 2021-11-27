@@ -156,39 +156,39 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/mainwindow.ui" line="175"/>
+        <location filename="../../src/mainwindow.ui" line="181"/>
         <source>&amp;Preference</source>
         <translation>选项(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="180"/>
+        <location filename="../../src/mainwindow.ui" line="186"/>
         <source>&amp;Help</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="195"/>
+        <location filename="../../src/mainwindow.ui" line="201"/>
         <location filename="../../src/mainwindow.cpp" line="180"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="200"/>
+        <location filename="../../src/mainwindow.ui" line="206"/>
         <location filename="../../src/mainwindow.cpp" line="214"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="205"/>
+        <location filename="../../src/mainwindow.ui" line="211"/>
         <source>Donate</source>
         <translation>捐赠</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="210"/>
+        <location filename="../../src/mainwindow.ui" line="216"/>
         <source>Get update</source>
         <translation>获取更新</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="215"/>
+        <location filename="../../src/mainwindow.ui" line="221"/>
         <source>Provide feedback</source>
         <translation>提供反馈</translation>
     </message>
@@ -203,8 +203,8 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="30"/>
-        <source>&lt;p&gt;It seems like that these filepaths provided in arguments. These paths will be used as tool&apos;s oto data input.&lt;/p&gt;&lt;code&gt;%1&lt;/code&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;p&gt;It seems like that these filepaths provided in arguments. &lt;br/&gt;These paths will be used as tool&apos;s oto data input.&lt;/p&gt;&lt;code&gt;&lt;ul style=&apos;margin-left:15px;-qt-list-indent:0;&apos;&gt;&lt;li&gt;%1&lt;/li&gt;&lt;/ul&gt;&lt;/code&gt;</source>
+        <translation>&lt;p&gt;看起来程序启动时被传入了这些文件路径作为参数。&lt;br&gt;他们将会被用作工具的输入。&lt;/p&gt;&lt;code&gt;&lt;ul style=&apos;margin-left:15px;-qt-list-indent:0;&apos;&gt;&lt;li&gt;%1&lt;/li&gt;&lt;/ul&gt;&lt;/code&gt;</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="58"/>
@@ -322,6 +322,14 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
     </message>
 </context>
 <context>
+    <name>OtoFileDirectSaveWidget</name>
+    <message>
+        <location filename="../../src/utils/widgets/otofiledirectsavewidget.ui" line="35"/>
+        <source>Only &quot;save to source file&quot; is supported in batch mode. Extra save path functionality is also disabled.</source>
+        <translation>多文件批量模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
+    </message>
+</context>
+<context>
     <name>OtoFileListModel</name>
     <message>
         <location filename="../../src/utils/models/otofilelistmodel.h" line="37"/>
@@ -380,17 +388,17 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <translation>查看列表</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="75"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="80"/>
         <source>File not exists</source>
         <translation>文件不存在</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="75"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="80"/>
         <source>The file &quot;%1&quot; not exists. Please check and try again.</source>
         <translation>您指定的文件 %1 不存在，请检查后再试。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="66"/>
+        <location filename="../../src/utils/widgets/otofileloadwidget.cpp" line="71"/>
         <source>%1 oto entries has been loaded.</source>
         <translation>共加载了 %1 条原音设定。</translation>
     </message>
@@ -411,37 +419,37 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <translation>已打开的 oto.ini 文件列表：</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="98"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="104"/>
         <source>Load new</source>
         <translation>加载并追加</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="42"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="44"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="59"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.ui" line="61"/>
         <source>Show</source>
         <translation>查看列表</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="78"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="68"/>
         <source>File not exists</source>
         <translation>文件不存在</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="78"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="68"/>
         <source>The file &quot;%1&quot; not exists. Please check and try again.</source>
         <translation>您指定的文件 %1 不存在，请检查后再试。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="84"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="74"/>
         <source>&quot;%1&quot; oto entries has been loaded.</source>
         <translation>您指定的文件 %1 已经被读取过了。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="84"/>
+        <location filename="../../src/utils/widgets/otofilemultipleloadwidget.cpp" line="74"/>
         <source>Has been readed</source>
         <translation>已经读取</translation>
     </message>
@@ -453,14 +461,12 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <translation type="vanished">保存选项</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="23"/>
         <source>Only &quot;save to source file&quot; is supported in batch mode. Extra save path functionality is also disabled.</source>
-        <translation>多文件批量模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
+        <translation type="vanished">多文件批量模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilemultiplesavewidget.ui" line="35"/>
         <source>Decimal precision when saving</source>
-        <translation>保存时的小数精度</translation>
+        <translation type="vanished">保存时的小数精度</translation>
     </message>
 </context>
 <context>
@@ -493,29 +499,28 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <translation type="vanished">保存选项</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="19"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="31"/>
         <source>Save to</source>
         <translation>保存到</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="26"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="38"/>
         <source>source file</source>
         <translation>源文件</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="39"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="51"/>
         <source>specified location</source>
         <translation>指定路径</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="79"/>
+        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="91"/>
         <source>Save modified entries to</source>
         <translation>保存时的小数精度</translation>
     </message>
     <message>
-        <location filename="../../src/utils/widgets/otofilesavewidget.ui" line="104"/>
         <source>Decimal precision when saving</source>
-        <translation>保存时的小数精度</translation>
+        <translation type="vanished">保存时的小数精度</translation>
     </message>
 </context>
 <context>
@@ -1368,98 +1373,108 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation>保存选项</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.ui" line="188"/>
+        <location filename="../../src/toolBase/tooldialog.ui" line="185"/>
+        <source>Decimal precision when saving</source>
+        <translation>保存时的小数精度</translation>
+    </message>
+    <message>
+        <location filename="../../src/toolBase/tooldialog.ui" line="225"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch between &lt;span style=&quot; font-weight:600;&quot;&gt;single file&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;batch (multiple file) &lt;/span&gt;mode. Current open state will be cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在&lt;span style=&quot; font-weight:600;&quot;&gt;单文件模式&lt;/span&gt;和&lt;span style=&quot; font-weight:600;&quot;&gt;批处理（多文件）&lt;/span&gt;模式之间切换，切换将会清除之前的打开状态。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.ui" line="191"/>
+        <location filename="../../src/toolBase/tooldialog.ui" line="228"/>
         <source>Switch open mode</source>
         <translation>切换打开模式</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="61"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="29"/>
+        <source>Only &quot;save to source file&quot; is supported in command line mode. Extra save path functionality is also disabled.</source>
+        <translation>命令行传入模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
+    </message>
+    <message>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="81"/>
         <source>File is not loaded</source>
         <translation>文件未加载</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="61"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="81"/>
         <source>Oto.ini has not been loaded. Please load it and try again.</source>
         <translation>您还没有加载oto.ini文件。请加载后重试。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="76"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="98"/>
         <source>Operation completed successfully.</source>
         <translation>操作成功完成。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="151"/>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="218"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="173"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="240"/>
         <source>Save processing result</source>
         <translation>保存处理结果</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="171"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="193"/>
         <source>Failed to process</source>
         <translation>处理失败</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="171"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="193"/>
         <source>Stopped because file %1 (at %2) was failed to process. All files are remained unchanged.</source>
         <translation>文件 %1 （位于第 %2）没有成功被处理，于是进程终止。所有文件都没有被修改。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="182"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="204"/>
         <source>Confirm changes</source>
         <translation>确认更改</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="186"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="208"/>
         <source>These are changes that will be applied to oto data. Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</source>
         <translation>以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="199"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="221"/>
         <source>Show difference for selected file</source>
         <translation>显示选中的文件的差异</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="205"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="227"/>
         <source>Differences of %1 (at %2)</source>
         <translation>%1 的差异（位于第 %2 项）</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="206"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="228"/>
         <source>These are changes that will be applied to %1 （at %2).</source>
         <translation>以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="220"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="242"/>
         <source>Error occured while saving</source>
         <translation>保存时出现错误</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="221"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="243"/>
         <source>As %1 (at %2) can not be saved, the process is stopped. Files before it has been saved.</source>
         <translation>无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="279"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="301"/>
         <source>Failed to save</source>
         <translation>保存失败</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="282"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="304"/>
         <source>Error occured when saving %1.</source>
         <translation>在保存 %1 时发生错误。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="284"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="306"/>
         <source>The file is meant to be used for %1.</source>
         <translation>该文件的用途是 %1。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="285"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="307"/>
         <source>Error information: %1</source>
         <translation>遇到的错误是：%1</translation>
     </message>

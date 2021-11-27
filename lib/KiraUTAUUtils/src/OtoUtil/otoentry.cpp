@@ -493,4 +493,7 @@ bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEnt
 }
 
 
-
+QString OtoEntryFunctions::removeDigitSuffix(QString string, int* position, bool considerNegative, bool* removed)
+{
+    return removeSuffix(string, getDigitSuffix(string, position, considerNegative), Qt::CaseInsensitive, removed);
+}

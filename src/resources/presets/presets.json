@@ -20,8 +20,8 @@
                     "shouldOrganize": true
                 },
                 "lastModified": "2021-11-23T17:00:43",
-                "name": "仅整理重复项",
-                "name_en": "Organize duplicated entries only",
+                "name_zh": "仅整理重复项",
+                "name": "Organize duplicated entries only",
                 "version": 1
             },
             {
@@ -45,8 +45,8 @@
                     "shouldOrganize": false
                 },
                 "lastModified": "2021-11-23T17:01:16",
-                "name": "保留3项重复项",
-                "name_en": "Keep 3 duplicated entries",
+                "name_zh": "保留3项重复项",
+                "name": "Keep 3 duplicated entries",
                 "version": 1
             }
         ],
@@ -66,8 +66,8 @@
                 ]
             },
             "lastModified": "2021-11-23T17:11:53",
-            "name": "通用",
-            "name_en": "Universal",
+            "name_zh": "通用",
+            "name": "Universal",
             "version": 1
         }],
         "targetName": "CV_VCPartSplitOptionWidget"
@@ -84,8 +84,8 @@
                     "oneSecondWhenTooSmallValue": 15
                 },
                 "lastModified": "2021-11-23T11:43:48",
-                "name": "三分之一化",
-                "name_en": "Make Ovl 1/3",
+                "name_zh": "三分之一化",
+                "name": "Make Ovl 1/3",
                 "version": 1
             },
             {
@@ -183,8 +183,8 @@
                     ]
                 },
                 "lastModified": "2021-11-23T11:44:46",
-                "name": "日语CVVC",
-                "name_en": "Japanese CVVC",
+                "name_zh": "日语CVVC",
+                "name": "Japanese CVVC",
                 "version": 1
             },
             {
@@ -308,8 +308,8 @@
                     ]
                 },
                 "lastModified": "2021-11-23T11:44:53",
-                "name": "日语单独音",
-                "name_en": "Japanese CV",
+                "name_zh": "日语单独音",
+                "name": "Japanese CV",
                 "version": 1
             },
             {
@@ -334,8 +334,8 @@
                     ]
                 },
                 "lastModified": "2021-11-23T11:45:04",
-                "name": "中文单独音",
-                "name_en": "Chinese CV",
+                "name_zh": "中文单独音",
+                "name": "Chinese CV",
                 "version": 1
             }
         ],
@@ -352,8 +352,8 @@
                 "strShouldRemoveIsRegex": false
             },
             "lastModified": "2021-11-23T17:02:32",
-            "name": "用文件名填上空别名",
-            "name_en": "Fill filename into empty alias",
+            "name_zh": "用文件名填上空别名",
+            "name": "Fill filename into empty alias",
             "version": 1
         }],
         "targetName": "SetAliasOptionWidget"
@@ -496,10 +496,152 @@
                 ]
             },
             "lastModified": "2021-11-23T18:21:11",
-            "name": "Moresampler日语oto自动推断后处理",
-            "name_en": "Post processing for moresampler deduced JPN oto",
+            "name_zh": "Moresampler日语oto自动推断后处理",
+            "name": "Post processing for moresampler deduced JPN oto",
             "version": 1
         }],
         "targetName": "ChainToolOptionWidget"
+    },
+    {
+        "presets": [{
+                "content": {
+                    "CVBehaviourCopy": true,
+                    "CVBehaviourOverride": false,
+                    "CVList": [
+                        "あ",
+                        "い",
+                        "う",
+                        "え",
+                        "お",
+                        "ん"
+                    ],
+                    "CVOverlap": 50,
+                    "CVPreUtterance": 50,
+                    "VList": [
+                        "a",
+                        "i",
+                        "u",
+                        "e",
+                        "o",
+                        "n"
+                    ],
+                    "VVOverlapIncrease": false,
+                    "doCVCrossfading": true,
+                    "longRecordingPattern": [
+                        "%a長",
+                        "%a L"
+                    ],
+                    "removeNumberSuffixWhenMatching": true
+                },
+                "lastModified": "2021-11-27T15:28:03",
+                "name_jp": "日本語単独音",
+                "name": "Japanese CV",
+                "name_zh": "日语单独音",
+                "version": 1
+            },
+            {
+                "content": {
+                    "CVBehaviourCopy": false,
+                    "CVBehaviourOverride": true,
+                    "CVList": [
+                        "あ",
+                        "い",
+                        "う",
+                        "え",
+                        "お",
+                        "ん"
+                    ],
+                    "CVOverlap": 50,
+                    "CVPreUtterance": 50,
+                    "VList": [
+                        "a",
+                        "i",
+                        "u",
+                        "e",
+                        "o",
+                        "n"
+                    ],
+                    "VVOverlapIncrease": true,
+                    "doCVCrossfading": false,
+                    "longRecordingPattern": [
+                        "%a長",
+                        "%a L"
+                    ],
+                    "removeNumberSuffixWhenMatching": true
+                },
+                "lastModified": "2021-11-27T15:28:07",
+                "name_jp": "日本語連続音",
+                "name": "Japanese VCV",
+                "name_zh": "日文连续音",
+                "version": 1
+            },
+            {
+                "content": {
+                    "CVBehaviourCopy": false,
+                    "CVBehaviourOverride": true,
+                    "CVList": [
+                        "a",
+                        "ai",
+                        "an",
+                        "ang",
+                        "ang",
+                        "ao",
+                        "o",
+                        "ong",
+                        "ou",
+                        "e",
+                        "eng",
+                        "ei",
+                        "en",
+                        "i",
+                        "in",
+                        "ing",
+                        "u",
+                        "v",
+                        "vn",
+                        "er"
+                    ],
+                    "CVOverlap": 50,
+                    "CVPreUtterance": 50,
+                    "VList": [
+                        "a",
+                        "ai",
+                        "an",
+                        "ang",
+                        "ang",
+                        "ao",
+                        "o",
+                        "ong",
+                        "ou",
+                        "e",
+                        "eng",
+                        "e0",
+                        "ei",
+                        "en",
+                        "en0",
+                        "i",
+                        "in",
+                        "ing",
+                        "u",
+                        "v",
+                        "vn",
+                        "i0",
+                        "ir",
+                        "er"
+                    ],
+                    "VVOverlapIncrease": true,
+                    "doCVCrossfading": true,
+                    "longRecordingPattern": [
+                        "%a L"
+                    ],
+                    "removeNumberSuffixWhenMatching": true
+                },
+                "lastModified": "2021-11-27T16:25:45",
+                "name_zh": "中文CVVC",
+                "name": "Chinese CVVC",
+                "version": 1
+            }
+        ],
+        "targetName": "VowelCrossfadingOptionWidget"
     }
 ]

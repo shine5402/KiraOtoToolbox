@@ -43,7 +43,7 @@
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Long recoding oto block (like あ長) pattern
-Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; above.</string>
+Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; on left.</string>
        </property>
       </widget>
      </item>

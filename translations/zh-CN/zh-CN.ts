@@ -156,44 +156,44 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/mainwindow.ui" line="91"/>
+        <location filename="../../src/mainwindow.ui" line="175"/>
         <source>&amp;Preference</source>
         <translation>选项(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="96"/>
+        <location filename="../../src/mainwindow.ui" line="180"/>
         <source>&amp;Help</source>
         <translation>帮助(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="111"/>
-        <location filename="../../src/mainwindow.cpp" line="163"/>
+        <location filename="../../src/mainwindow.ui" line="195"/>
+        <location filename="../../src/mainwindow.cpp" line="180"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="116"/>
-        <location filename="../../src/mainwindow.cpp" line="197"/>
+        <location filename="../../src/mainwindow.ui" line="200"/>
+        <location filename="../../src/mainwindow.cpp" line="214"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="121"/>
+        <location filename="../../src/mainwindow.ui" line="205"/>
         <source>Donate</source>
         <translation>捐赠</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="126"/>
+        <location filename="../../src/mainwindow.ui" line="210"/>
         <source>Get update</source>
         <translation>获取更新</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="131"/>
+        <location filename="../../src/mainwindow.ui" line="215"/>
         <source>Provide feedback</source>
         <translation>提供反馈</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="125"/>
+        <location filename="../../src/mainwindow.cpp" line="142"/>
         <source>Uncategorized</source>
         <translation>未分类</translation>
     </message>
@@ -202,18 +202,23 @@
         <translation type="vanished">语言</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="41"/>
-        <location filename="../../src/mainwindow.cpp" line="43"/>
+        <location filename="../../src/mainwindow.cpp" line="30"/>
+        <source>&lt;p&gt;It seems like that these filepaths provided in arguments. These paths will be used as tool&apos;s oto data input.&lt;/p&gt;&lt;code&gt;%1&lt;/code&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.cpp" line="58"/>
+        <location filename="../../src/mainwindow.cpp" line="60"/>
         <source>%1 ver.%2</source>
         <translation>%1 版本 %2</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="159"/>
+        <location filename="../../src/mainwindow.cpp" line="176"/>
         <source> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;You are using a test build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.</source>
         <translation> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="163"/>
+        <location filename="../../src/mainwindow.cpp" line="180"/>
         <source>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
 
 &lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;

@@ -8,5 +8,6 @@
         <file alias="rename">icons8-rename-48.png</file>
         <file alias="reset">icons8-reset-48.png</file>
         <file alias="save">icons8-save-48.png</file>
+        <file alias="console">icons8-console-48.png</file>
     </qresource>
 </RCC>

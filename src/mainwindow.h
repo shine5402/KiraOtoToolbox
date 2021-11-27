@@ -30,16 +30,14 @@ private:
     void setLangActionChecked(const Translation& translation);
     void saveUserLocaleSetting(QLocale locale);
     QLocale getLocaleUserSetting() const;
+    void setArgInfoBlock();
+
 private slots:
     void showAboutDialog();
     void showAboutQtDialog();
     void showDonationPage();
     void showUpdatePage();
     void showFeedbackPage();
-#ifndef NDEBUG
-    void debugFunction();
-#endif
-
     // QWidget interface
 protected:
     void changeEvent(QEvent*) override;

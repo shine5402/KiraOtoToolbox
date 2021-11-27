@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
+    auto arg = a.arguments();
+
     a.setWindowIcon(QIcon{":/icon/appIcon.ico"});
 
     a.setOrganizationName("KiraTools");

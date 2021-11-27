@@ -16,10 +16,27 @@
 #include "i18n/translationmanager.h"
 #include <QSettings>
 
+void MainWindow::setArgInfoBlock()
+{
+    auto args = qApp->arguments();
+
+    if (args.count() < 2)
+    {
+        ui->argInfoBlock->hide();
+    }
+    else
+    {
+        args.removeFirst();
+        ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. "
+"These paths will be used as tool's oto data input.</p><code>%1</code>").arg(args.count() > 1 ? args.join("<br>") : args.at(0)));
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
     ui->setupUi(this);
 
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
@@ -28,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
     connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
 
-    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
+    setArgInfoBlock();
 
     //Create tool selector ui
     createToolSelectorUI();
@@ -212,18 +229,12 @@ void MainWindow::showFeedbackPage()
     QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
 }
 
-#ifndef NDEBUG
-void MainWindow::debugFunction()
-{
-
-}
-#endif
-
 void MainWindow::changeEvent(QEvent* event)
 {
     if (event->type() == QEvent::LanguageChange)
     {
         ui->retranslateUi(this);
         createToolSelectorUI();
+        setArgInfoBlock();
     }
 }

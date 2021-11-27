@@ -20,6 +20,8 @@ public:
     int count() const;
     QList<OtoEntryList> entryLists() const;
     QStringList fileNames() const;
+    void loadFiles(const QStringList& fileNames);
+    void disableModify();
 
 private slots:
     void showOtoList();

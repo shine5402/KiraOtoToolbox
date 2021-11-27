@@ -21,6 +21,7 @@ public:
     OtoEntryList getEntryList() const;
     bool isEntryListReaded() const;
     void reset();
+    void load();
 
     void pretendLoaded(const QString& fileName, const OtoEntryList& entryList);
 private:

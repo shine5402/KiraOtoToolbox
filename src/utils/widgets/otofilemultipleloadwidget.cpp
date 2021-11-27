@@ -61,18 +61,8 @@ QStringList OtoFileMultipleLoadWidget::fileNames() const
     return result;
 }
 
-void OtoFileMultipleLoadWidget::showOtoList()
+void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
 {
-    auto currentList = new OtoEntryList(model->data(currentRow()).entryList);
-    auto dialog = new ShowOtoListDialog(currentList, this);
-    dialog->open();
-    connect(dialog, &QObject::destroyed, [currentList](){delete currentList;});
-}
-
-void OtoFileMultipleLoadWidget::appendOtoFile()
-{
-    auto fileNames = ui->openFileNameEdit->fileNames();
-
     for (const auto &fileName : fileNames){
         if (!QFileInfo::exists(fileName)){
             QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(fileName));
@@ -90,12 +80,35 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 
         model->addData(fileName, entryList);
     }
+    constexpr auto COLUMN_OTO_FILENAME = 0;
+    ui->otoFileTableView->resizeColumnToContents(COLUMN_OTO_FILENAME);
+}
+
+void OtoFileMultipleLoadWidget::disableModify()
+{
+    ui->openFileNameEdit->hide();
+    ui->loadButton->hide();
+    ui->removeButton->hide();
+    ui->line->hide();
+    ui->line_2->hide();
+}
+
+void OtoFileMultipleLoadWidget::showOtoList()
+{
+    auto currentList = new OtoEntryList(model->data(currentRow()).entryList);
+    auto dialog = new ShowOtoListDialog(currentList, this);
+    dialog->open();
+    connect(dialog, &QObject::destroyed, [currentList](){delete currentList;});
+}
+
+void OtoFileMultipleLoadWidget::appendOtoFile()
+{
+    auto fileNames = ui->openFileNameEdit->fileNames();
+
+    loadFiles(fileNames);
 
     ui->openFileNameEdit->setFileName("");
     refreshButtonEnableState();
-
-    constexpr auto COLUMN_OTO_FILENAME = 0;
-    ui->otoFileTableView->resizeColumnToContents(COLUMN_OTO_FILENAME);
 }
 
 void OtoFileMultipleLoadWidget::removeOtoFile()

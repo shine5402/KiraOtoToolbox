@@ -51,6 +51,11 @@ void OtoFileLoadWidget::reset()
     emit resetted();
 }
 
+void OtoFileLoadWidget::load()
+{
+    loadOtoFile();
+}
+
 void OtoFileLoadWidget::pretendLoaded(const QString& fileName, const OtoEntryList& entryList)
 {
     ui->openFileNameEdit->setFileName(fileName);

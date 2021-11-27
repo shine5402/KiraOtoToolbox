@@ -27,8 +27,8 @@ void MainWindow::setArgInfoBlock()
     else
     {
         args.removeFirst();
-        ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. "
-"These paths will be used as tool's oto data input.</p><code>%1</code>").arg(args.count() > 1 ? args.join("<br>") : args.at(0)));
+        ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. <br/>"
+"These paths will be used as tool's oto data input.</p><code><ul style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>").arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
     }
 }
 

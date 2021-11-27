@@ -19,6 +19,26 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoMultipleLoadWidget, &OtoFileMultipleLoadWidget::dataChanged, this, &ToolDialog::refreshOptionWidgetEnableState);
     adapter->replaceUIWidgets(ui->rootLayout);
 
+    auto args = qApp->arguments();
+    if (args.count() > 1){
+        args.removeFirst();
+        auto buttons = ui->buttonBox->standardButtons().setFlag(QDialogButtonBox::Reset, false);
+        ui->buttonBox->setStandardButtons(buttons);
+        ui->switchLoadModeButton->hide();
+        ui->stackedSaveWidget->setCurrentIndex(batchModePageIndex);
+        ui->otoMultipleSaveWidget->setInfoText(tr("Only \"save to source file\" is supported in command line mode. Extra save path functionality is also disabled."));
+        if (args.count() == 1){
+            ui->stackedLoadWidget->setCurrentIndex(singleModePageIndex);
+            ui->otoLoadWidget->setFileName(args.at(0));
+            ui->otoLoadWidget->load();
+        }
+        else{
+            ui->stackedLoadWidget->setCurrentIndex(batchModePageIndex);//Batch mode
+            ui->otoMultipleLoadWidget->loadFiles(args);
+            ui->otoMultipleLoadWidget->disableModify();
+        }
+    }
+
     reAssignWidgetHandles();
 
     setWindowTitle(adapter->getToolName());

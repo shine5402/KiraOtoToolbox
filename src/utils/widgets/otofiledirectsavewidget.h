@@ -1,24 +1,26 @@
-#ifndef OTOFILEMULTIPLESAVEWIDGET_H
-#define OTOFILEMULTIPLESAVEWIDGET_H
+#ifndef OTOFILEDIRECTSAVEWIDGET_H
+#define OTOFILEDIRECTSAVEWIDGET_H
 
 #include <QWidget>
 #include "otofilesavewidgetabstract.h"
 
 
 namespace Ui {
-    class OtoFileMultipleSaveWidget;
+    class OtoFileDirectSaveWidget;
 }
 
-class OtoFileMultipleSaveWidget : public OtoFileSaveWidgetAbstract
+class OtoFileDirectSaveWidget : public OtoFileSaveWidgetAbstract
 {
     Q_OBJECT
 
 public:
-    explicit OtoFileMultipleSaveWidget(QWidget *parent = nullptr);
-    ~OtoFileMultipleSaveWidget();
+    explicit OtoFileDirectSaveWidget(QWidget *parent = nullptr);
+    ~OtoFileDirectSaveWidget();
+
+    void setInfoText(QString text);
 
 private:
-    Ui::OtoFileMultipleSaveWidget *ui;
+    Ui::OtoFileDirectSaveWidget *ui;
 
     // OtoFileSaveWidgetAbstract interface
 public:

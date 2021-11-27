@@ -15,6 +15,7 @@ VowelCrossfadingOptionWidget::VowelCrossfadingOptionWidget(QWidget *parent) :
     connect(ui->CVoverlapSpinBox, &QDoubleSpinBox::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVBehavoirButtonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->doVVOverlapIncreaseCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeNumberSuffixWhenMatchingCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 VowelCrossfadingOptionWidget::~VowelCrossfadingOptionWidget()
@@ -36,6 +37,7 @@ OptionContainer VowelCrossfadingOptionWidget::getOptions() const
     options.setOption("CVBehaviourOverride", ui->overrideRadioButton->isChecked());
     options.setOption("CVBehaviourCopy", ui->copyRadioButton->isChecked());
     options.setOption("VVOverlapIncrease", ui->doVVOverlapIncreaseCheckBox->isChecked());
+    options.setOption("removeNumberSuffixWhenMatching", ui->removeNumberSuffixWhenMatchingCheckBox->isChecked());
 
     return options;
 }
@@ -51,6 +53,7 @@ void VowelCrossfadingOptionWidget::setOptions(const OptionContainer& options)
     ui->overrideRadioButton->setChecked(options.getOption("CVBehaviourOverride").toBool());
     ui->copyRadioButton->setChecked(options.getOption("CVBehaviourCopy").toBool());
     ui->doVVOverlapIncreaseCheckBox->setChecked(options.getOption("VVOverlapIncrease").toBool());
+    ui->removeNumberSuffixWhenMatchingCheckBox->setChecked(options.getOption("removeNumberSuffixWhenMatching").toBool());
 }
 
 QJsonObject VowelCrossfadingOptionWidget::optionsToJson(const OptionContainer& options) const
@@ -66,6 +69,7 @@ QJsonObject VowelCrossfadingOptionWidget::optionsToJson(const OptionContainer& o
     json.insert("CVBehaviourOverride", options.getOption("CVBehaviourOverride").toBool());
     json.insert("CVBehaviourCopy", options.getOption("CVBehaviourCopy").toBool());
     json.insert("VVOverlapIncrease", options.getOption("VVOverlapIncrease").toBool());
+    json.insert("removeNumberSuffixWhenMatching", options.getOption("removeNumberSuffixWhenMatching").toBool());
 
     return json;
 }
@@ -83,6 +87,7 @@ OptionContainer VowelCrossfadingOptionWidget::jsonToOptions(const QJsonObject& j
     options.setOption("CVBehaviourOverride", json.value("CVBehaviourOverride").toBool());
     options.setOption("CVBehaviourCopy", json.value("CVBehaviourCopy").toBool());
     options.setOption("VVOverlapIncrease", json.value("VVOverlapIncrease").toBool());
+    options.setOption("removeNumberSuffixWhenMatching", json.value("removeNumberSuffixWhenMatching").toBool());
 
     return options;
 }

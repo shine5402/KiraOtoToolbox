@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
+    <width>576</width>
     <height>463</height>
    </rect>
   </property>
@@ -42,7 +42,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Long recoding oto block(like あ長) pattern
+        <string>Long recoding oto block (like あ長) pattern
 Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; above.</string>
        </property>
       </widget>
@@ -57,6 +57,20 @@ Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; above.</string>
       <widget class="StringListModifyWidget" name="LongRecordingPatternStringListModifyWidget" native="true"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="removeNumberSuffixWhenMatchingCheckBox">
+     <property name="text">
+      <string>Remove number suffix in alias when matching</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="doCVCheckBox">

@@ -25,6 +25,12 @@ bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         }, longRecordingPattern);
     }, CVList + VList));
 
+    auto containsAlias = [&](const QStringList& patterns, const QString& alias) -> bool{
+        return patterns.contains(alias) ||
+                (options.getOption("removeNumberSuffixWhenMatching").toBool() &&
+                 patterns.contains(OtoEntryFunctions::removeDigitSuffix(alias)));
+    };
+
     if (options.getOption("doCVCrossfading").toBool())
     {
         auto preUtterance = options.getOption("CVPreUtterance").toDouble();
@@ -33,7 +39,7 @@ bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         QMutableVectorIterator it(resultOtoList);
         while (it.hasNext()){
             auto entry = it.next();
-            if (matchList.contains(it.value().alias()))
+            if (containsAlias(matchList, it.value().alias()))
             {
                 entry.setPreUtterance(preUtterance);
                 entry.setOverlap(overlap);
@@ -56,8 +62,8 @@ bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
             }, VList);
         }, CVList);
 
-        resultOtoList = fplus::transform([VVList](OtoEntry entry){
-            if (VVList.contains(entry.alias())){
+        resultOtoList = fplus::transform([VVList, containsAlias](OtoEntry entry){
+            if (containsAlias(VVList, entry.alias())){
                 entry.setOverlap(entry.preUtterance() / 2);
             }
                 return entry;

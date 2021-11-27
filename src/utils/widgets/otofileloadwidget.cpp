@@ -77,7 +77,7 @@ void OtoFileLoadWidget::loadOtoFile()
     auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
-        QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again."));
+        QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(path));
         return;
     }
 

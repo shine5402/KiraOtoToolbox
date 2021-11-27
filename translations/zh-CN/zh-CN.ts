@@ -292,12 +292,12 @@
         <translation>保留全部</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="102"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="118"/>
         <source>Please notice that the file&apos;s name and content will not be saved into preset. Reseting or switching presets will clear load state above.</source>
         <translation>请注意文件名和文件内容不会被保存在预设中。重置到预设或者切换预设会重置上面的打开状态。</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="112"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="128"/>
         <source>If source file contains entries with same alias, &quot;Replace&quot; only replace the first one.
 If the other file contains entries with same alias, &quot;Replace&quot; will take the last one to replace.
 All input alias will be maintained as original by this tool. Use &quot;Remove and organize duplicated entries&quot; if you need.</source>
@@ -1258,7 +1258,7 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation>什么都不做</translation>
     </message>
     <message>
-        <location filename="../../src/overlapBatchSet/overlapbatchsetdialogadapter.h" line="13"/>
+        <location filename="../../src/overlapBatchSet/overlapbatchsetdialogadapter.h" line="11"/>
         <source>Set overlap in batch</source>
         <translation>批量设置 Overlap</translation>
     </message>
@@ -1292,6 +1292,11 @@ If not, original preset content other than working setting will be saved.</sourc
         <source>Trim around specific value</source>
         <translation>在特定值周围修整</translation>
     </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingdialogadapter.h" line="11"/>
+        <source>Vowel crossfading</source>
+        <translation>母音结合</translation>
+    </message>
 </context>
 <context>
     <name>TOOL_TYPE</name>
@@ -1312,29 +1317,30 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation type="vanished">筛选出需要的项</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="22"/>
         <location filename="../../src/initFuncs.cpp" line="23"/>
         <location filename="../../src/initFuncs.cpp" line="24"/>
         <location filename="../../src/initFuncs.cpp" line="25"/>
+        <location filename="../../src/initFuncs.cpp" line="26"/>
         <source>Entry operations</source>
         <translation>对项做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="27"/>
         <location filename="../../src/initFuncs.cpp" line="28"/>
+        <location filename="../../src/initFuncs.cpp" line="29"/>
+        <location filename="../../src/initFuncs.cpp" line="30"/>
         <source>Value operations</source>
         <translation>对数值做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="30"/>
-        <location filename="../../src/initFuncs.cpp" line="31"/>
         <location filename="../../src/initFuncs.cpp" line="32"/>
+        <location filename="../../src/initFuncs.cpp" line="33"/>
+        <location filename="../../src/initFuncs.cpp" line="34"/>
         <source>Alias operations</source>
         <translation>对别名做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="34"/>
-        <location filename="../../src/initFuncs.cpp" line="35"/>
+        <location filename="../../src/initFuncs.cpp" line="36"/>
+        <location filename="../../src/initFuncs.cpp" line="37"/>
         <source>Meta actions</source>
         <translation>元操作</translation>
     </message>
@@ -1516,6 +1522,67 @@ If not, original preset content other than working setting will be saved.</sourc
         <location filename="../../src/trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui" line="80"/>
         <source>±</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>VowelCrossfadingOptionWidget</name>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="31"/>
+        <source>Vowel (C)V list</source>
+        <translation>元音单独音（(C)V）列表</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="38"/>
+        <source>Vowel V list (in [V] CV)</source>
+        <translation>元音母音部分列表（[V] CV 部分）</translation>
+    </message>
+    <message>
+        <source>Long recoding oto block (like あ長) pattern
+Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; above.</source>
+        <translation type="obsolete">长音素（比如あ長）匹配模式
+请用 %a 来代表</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="45"/>
+        <source>Long recoding oto block (like あ長) pattern
+Use %a to stand for &quot;(C)V&quot; or &quot;V&quot; on left.</source>
+        <translation>长音素（比如あ長）匹配模式
+请用 %a 来代表左边的“(C)V”和“V”。</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="64"/>
+        <source>Remove number suffix in alias when matching</source>
+        <translation>在匹配别名时先移除数字后缀</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="78"/>
+        <source>Vowel crossfading for (C)V</source>
+        <translation>对单独音进行母音结合</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="96"/>
+        <source>Preutterance</source>
+        <translation>先行发声</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="106"/>
+        <source>Overlap</source>
+        <translation>重叠</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="133"/>
+        <source>Override original</source>
+        <translation>覆盖原条目</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="146"/>
+        <source>Copy as &quot;* (C)V&quot;</source>
+        <translation>复制为“* (C)V”</translation>
+    </message>
+    <message>
+        <location filename="../../src/vowelCrossfading/vowelcrossfadingoptionwidget.ui" line="174"/>
+        <source>Increase overlap to 1/2 for VV</source>
+        <translation>增加母音连续（VV）的重叠到二分之一</translation>
     </message>
 </context>
 </TS>

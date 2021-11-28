@@ -14,7 +14,7 @@ bool MergeOtoOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
     if (!otherOtoLoaded)
         return false;
     auto otherOtoList = options.getOption("otherOtoList").value<OtoEntryList>();
-    auto mergeStrtegy = (MergeStrategy) options.getOption("mergeStrategy", Replace).toInt();
+    auto mergeStrtegy = (MergeOtoOptionWidget::MergeStrategy) options.getOption("mergeStrategy", MergeOtoOptionWidget::Replace).toInt();
 
     resultOtoList = srcOtoList;
     for (const auto& otherEntry : qAsConst(otherOtoList)){
@@ -22,11 +22,11 @@ bool MergeOtoOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
             return srcEntry.alias() == otherEntry.alias();
         },resultOtoList);
         if (findResult.is_just()){
-            if (mergeStrtegy == Replace){
+            if (mergeStrtegy == MergeOtoOptionWidget::Replace){
                 resultOtoList[findResult.unsafe_get_just()] = otherEntry;
                 continue;
             }
-            else if (mergeStrtegy == Skip)
+            else if (mergeStrtegy == MergeOtoOptionWidget::Skip)
                 continue;
         }
         resultOtoList.append(otherEntry);

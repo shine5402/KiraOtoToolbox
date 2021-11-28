@@ -4,10 +4,6 @@
 #include <QWidget>
 #include <toolBase/tooloptionwidget.h>
 
-enum MergeStrategy{
-    Replace = 0, Skip, KeepAll
-};
-
 namespace Ui {
     class MergeOtoOptionWidget;
 }
@@ -19,6 +15,10 @@ class MergeOtoOptionWidget : public ToolOptionWidget
 public:
     Q_INVOKABLE explicit MergeOtoOptionWidget(QWidget *parent = nullptr);
     ~MergeOtoOptionWidget();
+
+    enum MergeStrategy{
+        Replace = 0, Skip, KeepAll
+    };
 
 private:
     Ui::MergeOtoOptionWidget *ui;

@@ -12,6 +12,7 @@ RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget* parent) : ToolOptionWi
 
     auto layout = new QVBoxLayout(this);
 
+    layout->setContentsMargins(0,0,0,0);
     layout->addWidget(ignoreRightCheckBox);
     layout->addStretch();
 

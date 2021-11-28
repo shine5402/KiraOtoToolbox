@@ -14,6 +14,7 @@
 #include <QCoreApplication>
 #include "trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.h"
 #include "vowelCrossfading/vowelcrossfadingdialogadapter.h"
+#include "removeSpecificEntries/removespecificentriesdialogadapter.h"
 
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
@@ -24,6 +25,7 @@ void registerTools()
     REGISTER_TOOL("Entry operations", RemoveBlankDialogAdapter);
     REGISTER_TOOL("Entry operations", MergeOtoDialogAdapter);
     REGISTER_TOOL("Entry operations", CV_VCPartSplitToolDialogAdapter);
+    REGISTER_TOOL("Entry operations", RemoveSpecificEntriesDialogAdapter);
 
     REGISTER_TOOL("Value operations", OverlapBatchSetDialogAdapter);
     REGISTER_TOOL("Value operations", VowelCrossfadingDialogAdapter);

@@ -44,7 +44,7 @@
         <string>Reset working options to preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/reset</normaloff>:/icon/reset</iconset>
        </property>
        <property name="iconSize">
@@ -74,7 +74,7 @@
         <string>Rename current preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/rename</normaloff>:/icon/rename</iconset>
        </property>
        <property name="iconSize">
@@ -97,7 +97,7 @@
         <string>Save(update) current preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/save</normaloff>:/icon/save</iconset>
        </property>
        <property name="iconSize">
@@ -127,7 +127,7 @@
         <string>Copy to a new preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/add</normaloff>:/icon/add</iconset>
        </property>
        <property name="iconSize">
@@ -150,7 +150,7 @@
         <string>Remove current preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/remove</normaloff>:/icon/remove</iconset>
        </property>
        <property name="iconSize">
@@ -180,7 +180,7 @@
         <string>Import preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/import</normaloff>:/icon/import</iconset>
        </property>
        <property name="iconSize">
@@ -203,7 +203,7 @@
         <string>Export preset</string>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../resources/icon/icon.qrc">
          <normaloff>:/icon/export</normaloff>:/icon/export</iconset>
        </property>
        <property name="iconSize">
@@ -223,6 +223,13 @@
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QWidget" name="optionWidget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -234,6 +241,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/icon/icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

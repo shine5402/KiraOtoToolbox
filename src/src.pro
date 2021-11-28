@@ -62,6 +62,9 @@ SOURCES += \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.cpp \
     removeDuplicate/removeduplicateoptionwidget.cpp \
     removeDuplicate/removeduplicateotolistmodifyworker.cpp \
+    removeSpecificEntries/removespecificentriesdialogadapter.cpp \
+    removeSpecificEntries/removespecificentriesoptionwidget.cpp \
+    removeSpecificEntries/removespecificentriesotolistmodifyworker.cpp \
     setAlias/setaliasdialogadapter.cpp \
     setAlias/setaliasoptionwidget.cpp \
     setAlias/setaliasotolistmodifyworker.cpp \
@@ -138,6 +141,9 @@ HEADERS += \
     removeDuplicate/removeduplicatemoduleotolistmodifyworker.h \
     removeDuplicate/removeduplicateoptionwidget.h \
     removeDuplicate/removeduplicateotolistmodifyworker.h \
+    removeSpecificEntries/removespecificentriesdialogadapter.h \
+    removeSpecificEntries/removespecificentriesoptionwidget.h \
+    removeSpecificEntries/removespecificentriesotolistmodifyworker.h \
     setAlias/setaliasdialogadapter.h \
     setAlias/setaliasoptionwidget.h \
     setAlias/setaliasotolistmodifyworker.h \
@@ -184,6 +190,7 @@ FORMS += \
     mainwindow.ui \
     overlapBatchSet/overlapbatchsetdialogoptionwidget.ui \
     removeDuplicate/removeduplicateoptionwidget.ui \
+    removeSpecificEntries/removespecificentriesoptionwidget.ui \
     setAlias/setaliasoptionwidget.ui \
     toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \

@@ -29,6 +29,7 @@ bool CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
                     it.insert(curr);
                 if (behaviorReplace)
                     it.setValue(curr);
+                break;
             }
         }
     }

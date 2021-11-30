@@ -15,6 +15,9 @@
 #include <QUrl>
 #include "i18n/translationmanager.h"
 #include <QSettings>
+#ifndef NDEBUG
+#include "copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.h"
+#endif
 
 void MainWindow::setArgInfoBlock()
 {
@@ -63,7 +66,9 @@ MainWindow::MainWindow(QWidget *parent)
     auto debugAction = new QAction("Debug", this);
     ui->menu_Preference->addAction(debugAction);
     connect(debugAction, &QAction::triggered, [](){
-
+        auto dialog = new CopyOrReplaceByAliasRulesMultiLineEditorDialog();
+        dialog->exec();
+        dialog->deleteLater();
     });
 #endif
 }

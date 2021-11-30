@@ -43,6 +43,7 @@ bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
             {
                 entry.setPreUtterance(preUtterance);
                 entry.setOverlap(overlap);
+                Q_ASSERT(options.getOption("CVBehaviourOverride").toBool() ^ options.getOption("CVBehaviourCopy").toBool());
                 if (options.getOption("CVBehaviourOverride").toBool()){
                     it.setValue(entry);
                 }

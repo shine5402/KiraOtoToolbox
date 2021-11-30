@@ -22,6 +22,7 @@ bool RemoveSpecificEntriesOtoListModifyWorker::doWork(const OtoEntryList& srcOto
         case RemoveSpecificEntriesOptionWidget::Exact:return entry.alias().compare(pattern, caseSensitive) == 0;
         case RemoveSpecificEntriesOptionWidget::Partial:return entry.alias().contains(pattern, caseSensitive);
         case RemoveSpecificEntriesOptionWidget::Regex:return entry.alias().contains(QRegExp(pattern, caseSensitive));
+        default:Q_UNREACHABLE();
         }
     }, srcOtoList);
 

@@ -28,6 +28,13 @@ SOURCES += \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasrule.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesdelegate.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.cpp \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.cpp \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.cpp \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
@@ -108,6 +115,13 @@ HEADERS += \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasrule.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesdelegate.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.h \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.h \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.h \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
@@ -183,6 +197,8 @@ HEADERS += \
 
 
 FORMS += \
+    copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
+    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
     removeAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \

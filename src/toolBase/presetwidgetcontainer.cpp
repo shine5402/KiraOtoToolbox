@@ -138,13 +138,13 @@ void PresetWidgetContainer::doSavePreset()
 
 void PresetWidgetContainer::savePreset()
 {
+    if (!checkCurrentPresetBuiltInForUserModify())
+        return;
     if (!currentDirty()){
         QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation),
                                  tr("No need to save"), tr("Current working setting is same with preset."), this, QCursor::pos(), 3000);
         return;
     }
-    if (!checkCurrentPresetBuiltInForUserModify())
-        return;
     doSavePreset();
     QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::StandardPixmap::SP_MessageBoxInformation),
                              tr("Save complete"), tr("Current working setting is saved to \"%1\".").arg(getCurrentPreset().name), this, QCursor::pos(), 3000);

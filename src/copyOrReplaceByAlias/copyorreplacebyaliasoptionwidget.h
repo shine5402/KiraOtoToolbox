@@ -22,6 +22,9 @@ private slots:
     void addRule();
     void removeRule();
     void multiLineEdit();
+    void moveUpRule();
+    void moveDownRule();
+    void sortRuleByMatchPatternLength();
 
 private:
     Ui::CopyOrReplaceByAliasOptionWidget *ui;

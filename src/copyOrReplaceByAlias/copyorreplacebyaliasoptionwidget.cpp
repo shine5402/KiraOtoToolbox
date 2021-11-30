@@ -24,6 +24,9 @@ CopyOrReplaceByAliasOptionWidget::CopyOrReplaceByAliasOptionWidget(QWidget *pare
     connect(ui->addButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::addRule);
     connect(ui->deleteButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::removeRule);
     connect(ui->multiLineEditButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::multiLineEdit);
+    connect(ui->moveUpButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::moveUpRule);
+    connect(ui->moveDownButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::moveDownRule);
+    connect(ui->sortByMatchPatternLengthButton, &QPushButton::clicked, this, &CopyOrReplaceByAliasOptionWidget::sortRuleByMatchPatternLength);
 
     connect(model, &QAbstractItemModel::dataChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->behaviorButtonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
@@ -97,6 +100,22 @@ void CopyOrReplaceByAliasOptionWidget::multiLineEdit()
     dialog->deleteLater();
 }
 
+void CopyOrReplaceByAliasOptionWidget::moveUpRule()
+{
+    model->moveUpRule(ui->ruleTableView->currentIndex().row());
+}
+
+void CopyOrReplaceByAliasOptionWidget::moveDownRule()
+{
+    model->moveDownRule(ui->ruleTableView->currentIndex().row());
+}
+
+void CopyOrReplaceByAliasOptionWidget::sortRuleByMatchPatternLength()
+{
+    model->setRules(fplus::sort_by([](const CopyOrReplaceByAliasRule& lhs, const CopyOrReplaceByAliasRule& rhs)->bool{
+        return lhs.matchPattern().count() > rhs.matchPattern().count();
+    }, model->getRules()));
+}
 
 OptionContainer CopyOrReplaceByAliasOptionWidget::getOptions() const
 {

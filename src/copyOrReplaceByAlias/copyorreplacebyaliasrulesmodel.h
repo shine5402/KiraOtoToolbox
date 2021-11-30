@@ -16,6 +16,8 @@ public:
 
     void appendRule(const CopyOrReplaceByAliasRule& rule);
     bool removeRule(int index);
+    void moveUpRule(int index);
+    void moveDownRule(int index);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

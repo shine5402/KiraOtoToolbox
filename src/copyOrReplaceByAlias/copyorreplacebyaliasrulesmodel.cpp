@@ -120,3 +120,21 @@ bool CopyOrReplaceByAliasRulesModel::removeRule(int index)
 
     return true;
 }
+
+void CopyOrReplaceByAliasRulesModel::moveUpRule(int index)
+{
+    if (index > 0){
+        beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index - 1);
+        std::swap(rules[index], rules[index - 1]);
+        endMoveRows();
+    }
+}
+
+void CopyOrReplaceByAliasRulesModel::moveDownRule(int index)
+{
+    if (index < rules.count() - 1){
+        beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index + 2);
+        std::swap(rules[index], rules[index + 1]);
+        endMoveRows();
+    }
+}

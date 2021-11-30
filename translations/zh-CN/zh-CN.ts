@@ -138,6 +138,147 @@
     </message>
 </context>
 <context>
+    <name>CopyOrReplaceByAliasOptionWidget</name>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="29"/>
+        <source>Alias matching and replacing rule</source>
+        <translation>别名匹配与替换规则</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="54"/>
+        <source>Multi-line Editor</source>
+        <translation>多行编辑</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="77"/>
+        <source>&lt;span style=&quot;color: grey&quot;&gt;Double click to modify&lt;/span&gt;</source>
+        <translation>&lt;span style=&quot;color: grey&quot;&gt;双击项即可修改值&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="84"/>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="91"/>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="102"/>
+        <source>Behavior:</source>
+        <translation>行为：</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="122"/>
+        <source>Copy to new entry</source>
+        <translation>复制到新项</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="135"/>
+        <source>Replace original entry</source>
+        <translation>替换原有项</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="44"/>
+        <source>Matching pattern</source>
+        <translation>匹配源</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="46"/>
+        <source>Replacing target</source>
+        <translation>替换目标</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="53"/>
+        <source>Matching strategy</source>
+        <translation>匹配策略</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="55"/>
+        <source>Specify details of the new rule below.</source>
+        <translation>在下方指定新规则的细节。</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="79"/>
+        <source>&lt;p&gt;Are you sure to remove current rule?&lt;/p&gt;&lt;p&gt;Matching pattern: %1&lt;br&gt;Replacing target: %2&lt;br&gt;Strategy: %3&lt;/p&gt;</source>
+        <translation>&lt;p&gt;你确定要移除当前规则？&lt;/p&gt;&lt;p&gt;匹配源：%1&lt;br&gt;替换目标：%2&lt;br&gt;匹配策略：%3&lt;/p&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>CopyOrReplaceByAliasRule</name>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrule.cpp" line="49"/>
+        <source>Exact</source>
+        <translation>完全匹配</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrule.cpp" line="50"/>
+        <source>Partial</source>
+        <translation>部分匹配</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrule.cpp" line="51"/>
+        <source>Regex</source>
+        <translation>正则匹配</translation>
+    </message>
+</context>
+<context>
+    <name>CopyOrReplaceByAliasRulesModel</name>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.cpp" line="12"/>
+        <source>Matching pattern</source>
+        <translation>匹配源</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.cpp" line="13"/>
+        <source>Replacing target</source>
+        <translation>替换目标</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.cpp" line="14"/>
+        <source>Matching strategy</source>
+        <translation>匹配策略</translation>
+    </message>
+</context>
+<context>
+    <name>CopyOrReplaceByAliasRulesMultiLineEditorDialog</name>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui" line="14"/>
+        <source>Edit rules</source>
+        <translation>编辑规则</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui" line="20"/>
+        <source>Matching pattern</source>
+        <translation>匹配源</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui" line="27"/>
+        <source>Replacing target</source>
+        <translation>替换目标</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui" line="34"/>
+        <source>Strategy (e for Exact, p for partial, r for regex)</source>
+        <translation>策略（完全写e，部分写p，正则写r）</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui" line="62"/>
+        <source>Specify replacing rules line by line. Data on the same line will be seen as one rule.</source>
+        <translation>按行来指定替换规则。位于同一行的数据将会被用于建立同一条规则。</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.cpp" line="100"/>
+        <source>The given data is invalid.
+It may be caused by not identical line count or invalid strategy string.
+Please check and try again.</source>
+        <translation>输入的数据无效。
+这可能是由于行数不一致或者是无效的匹配策略字符串造成的。
+请检查后再试。</translation>
+    </message>
+</context>
+<context>
     <name>EmptyToolOptionWidget</name>
     <message>
         <location filename="../../src/toolBase/tooloptionwidget.cpp" line="59"/>
@@ -167,13 +308,13 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.ui" line="201"/>
-        <location filename="../../src/mainwindow.cpp" line="180"/>
+        <location filename="../../src/mainwindow.cpp" line="185"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.ui" line="206"/>
-        <location filename="../../src/mainwindow.cpp" line="214"/>
+        <location filename="../../src/mainwindow.cpp" line="219"/>
         <source>About Qt</source>
         <translation>关于 Qt</translation>
     </message>
@@ -193,7 +334,7 @@
         <translation>提供反馈</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="142"/>
+        <location filename="../../src/mainwindow.cpp" line="147"/>
         <source>Uncategorized</source>
         <translation>未分类</translation>
     </message>
@@ -202,23 +343,23 @@
         <translation type="vanished">语言</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="30"/>
+        <location filename="../../src/mainwindow.cpp" line="33"/>
         <source>&lt;p&gt;It seems like that these filepaths provided in arguments. &lt;br/&gt;These paths will be used as tool&apos;s oto data input.&lt;/p&gt;&lt;code&gt;&lt;ul style=&apos;margin-left:15px;-qt-list-indent:0;&apos;&gt;&lt;li&gt;%1&lt;/li&gt;&lt;/ul&gt;&lt;/code&gt;</source>
         <translation>&lt;p&gt;看起来程序启动时被传入了这些文件路径作为参数。&lt;br&gt;他们将会被用作工具的输入。&lt;/p&gt;&lt;code&gt;&lt;ul style=&apos;margin-left:15px;-qt-list-indent:0;&apos;&gt;&lt;li&gt;%1&lt;/li&gt;&lt;/ul&gt;&lt;/code&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="58"/>
-        <location filename="../../src/mainwindow.cpp" line="60"/>
+        <location filename="../../src/mainwindow.cpp" line="61"/>
+        <location filename="../../src/mainwindow.cpp" line="63"/>
         <source>%1 ver.%2</source>
         <translation>%1 版本 %2</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="176"/>
+        <location filename="../../src/mainwindow.cpp" line="181"/>
         <source> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;You are using a test build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.</source>
         <translation> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="180"/>
+        <location filename="../../src/mainwindow.cpp" line="185"/>
         <source>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
 
 &lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
@@ -272,37 +413,37 @@
 <context>
     <name>MergeOtoOptionWidget</name>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="17"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="29"/>
         <source>Load the other file to merge</source>
         <translation>加载要合并入的另一个文件</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="47"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="59"/>
         <source>When alias conflict occurs, do:</source>
         <translation>当别名冲突发生时，进行：</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="67"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="79"/>
         <source>Replace</source>
         <translation>替换</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="80"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="92"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="90"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="102"/>
         <source>Keep all</source>
         <translation>保留全部</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="118"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="130"/>
         <source>Please notice that the file&apos;s name and content will not be saved into preset. Reseting or switching presets will clear load state above.</source>
         <translation>请注意文件名和文件内容不会被保存在预设中。重置到预设或者切换预设会重置上面的打开状态。</translation>
     </message>
     <message>
-        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="128"/>
+        <location filename="../../src/mergeOto/mergeotooptionwidget.ui" line="140"/>
         <source>If source file contains entries with same alias, &quot;Replace&quot; only replace the first one.
 If the other file contains entries with same alias, &quot;Replace&quot; will take the last one to replace.
 All input alias will be maintained as original by this tool. Use &quot;Remove and organize duplicated entries&quot; if you need.</source>
@@ -714,12 +855,12 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <translation>您输入的名称无效，请更换一个名称重试。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/presetwidgetcontainer.cpp" line="143"/>
+        <location filename="../../src/toolBase/presetwidgetcontainer.cpp" line="145"/>
         <source>No need to save</source>
         <translation>无需保存</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/presetwidgetcontainer.cpp" line="143"/>
+        <location filename="../../src/toolBase/presetwidgetcontainer.cpp" line="145"/>
         <source>Current working setting is same with preset.</source>
         <translation>当前设置和预设内设置一致，不需要进行保存操作。</translation>
     </message>
@@ -1072,6 +1213,34 @@ If not, original preset content other than working setting will be saved.</sourc
     </message>
 </context>
 <context>
+    <name>RemoveSpecificEntriesOptionWidget</name>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesoptionwidget.ui" line="29"/>
+        <source>Delete entries whose alias matching:</source>
+        <translation>删除别名可以匹配下文的项：</translation>
+    </message>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesoptionwidget.ui" line="54"/>
+        <source>Exact</source>
+        <translation>完全匹配</translation>
+    </message>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesoptionwidget.ui" line="67"/>
+        <source>Partial</source>
+        <translation>部分匹配</translation>
+    </message>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesoptionwidget.ui" line="77"/>
+        <source>Regex</source>
+        <translation>正则匹配</translation>
+    </message>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesoptionwidget.ui" line="94"/>
+        <source>Case sensitive</source>
+        <translation>区分大小写</translation>
+    </message>
+</context>
+<context>
     <name>SetAliasOptionWidget</name>
     <message>
         <location filename="../../src/setAlias/setaliasoptionwidget.ui" line="22"/>
@@ -1307,6 +1476,16 @@ If not, original preset content other than working setting will be saved.</sourc
         <source>Vowel crossfading</source>
         <translation>母音结合</translation>
     </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h" line="11"/>
+        <source>Copy/Replace by alias</source>
+        <translation>根据别名复制/替换</translation>
+    </message>
+    <message>
+        <location filename="../../src/removeSpecificEntries/removespecificentriesdialogadapter.h" line="11"/>
+        <source>Remove specific entries</source>
+        <translation>删除特定项</translation>
+    </message>
 </context>
 <context>
     <name>TOOL_TYPE</name>
@@ -1327,30 +1506,32 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation type="vanished">筛选出需要的项</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="23"/>
-        <location filename="../../src/initFuncs.cpp" line="24"/>
         <location filename="../../src/initFuncs.cpp" line="25"/>
         <location filename="../../src/initFuncs.cpp" line="26"/>
-        <source>Entry operations</source>
-        <translation>对项做操作</translation>
-    </message>
-    <message>
+        <location filename="../../src/initFuncs.cpp" line="27"/>
         <location filename="../../src/initFuncs.cpp" line="28"/>
         <location filename="../../src/initFuncs.cpp" line="29"/>
         <location filename="../../src/initFuncs.cpp" line="30"/>
-        <source>Value operations</source>
-        <translation>对数值做操作</translation>
+        <source>Entry operations</source>
+        <translation>对项做操作</translation>
     </message>
     <message>
         <location filename="../../src/initFuncs.cpp" line="32"/>
         <location filename="../../src/initFuncs.cpp" line="33"/>
         <location filename="../../src/initFuncs.cpp" line="34"/>
-        <source>Alias operations</source>
-        <translation>对别名做操作</translation>
+        <source>Value operations</source>
+        <translation>对数值做操作</translation>
     </message>
     <message>
         <location filename="../../src/initFuncs.cpp" line="36"/>
         <location filename="../../src/initFuncs.cpp" line="37"/>
+        <location filename="../../src/initFuncs.cpp" line="38"/>
+        <source>Alias operations</source>
+        <translation>对别名做操作</translation>
+    </message>
+    <message>
+        <location filename="../../src/initFuncs.cpp" line="40"/>
+        <location filename="../../src/initFuncs.cpp" line="41"/>
         <source>Meta actions</source>
         <translation>元操作</translation>
     </message>

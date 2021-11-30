@@ -165,42 +165,62 @@
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="102"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="105"/>
+        <source>Move up</source>
+        <translation>上移</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="112"/>
+        <source>Move down</source>
+        <translation>下移</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="123"/>
+        <source>The upper a rule is, the higher priority it has.</source>
+        <translation>越上面的规则优先级越高。</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="143"/>
+        <source>Sort by matching pattern length</source>
+        <translation>按照匹配源长度排序</translation>
+    </message>
+    <message>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="154"/>
         <source>Behavior:</source>
         <translation>行为：</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="122"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="174"/>
         <source>Copy to new entry</source>
         <translation>复制到新项</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="135"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="187"/>
         <source>Replace original entry</source>
         <translation>替换原有项</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="44"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="47"/>
         <source>Matching pattern</source>
         <translation>匹配源</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="46"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="49"/>
         <source>Replacing target</source>
         <translation>替换目标</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="53"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="56"/>
         <source>Matching strategy</source>
         <translation>匹配策略</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="55"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="58"/>
         <source>Specify details of the new rule below.</source>
         <translation>在下方指定新规则的细节。</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="79"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp" line="82"/>
         <source>&lt;p&gt;Are you sure to remove current rule?&lt;/p&gt;&lt;p&gt;Matching pattern: %1&lt;br&gt;Replacing target: %2&lt;br&gt;Strategy: %3&lt;/p&gt;</source>
         <translation>&lt;p&gt;你确定要移除当前规则？&lt;/p&gt;&lt;p&gt;匹配源：%1&lt;br&gt;替换目标：%2&lt;br&gt;匹配策略：%3&lt;/p&gt;</translation>
     </message>

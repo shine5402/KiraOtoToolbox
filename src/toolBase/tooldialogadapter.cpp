@@ -34,6 +34,8 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
                                       tr("Confirm changes"),
                                       tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                                       dialogParent);
+    else
+        QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
     return false;
 }
 

@@ -28,6 +28,9 @@ SOURCES += \
     chain/chainotolistmodifyworker.cpp \
     chain/chainstepsmodel.cpp \
     chain/chaintooloptionwidget.cpp \
+    convertPlusMinusRight/convertplusminusrightdialogadapter.cpp \
+    convertPlusMinusRight/convertplusminusrightoptionwidget.cpp \
+    convertPlusMinusRight/convertplusminusrightotolistmodifyworker.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
@@ -115,6 +118,9 @@ HEADERS += \
     chain/chainotolistmodifyworker.h \
     chain/chainstepsmodel.h \
     chain/chaintooloptionwidget.h \
+    convertPlusMinusRight/convertplusminusrightdialogadapter.h \
+    convertPlusMinusRight/convertplusminusrightoptionwidget.h \
+    convertPlusMinusRight/convertplusminusrightotolistmodifyworker.h \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
@@ -177,6 +183,7 @@ HEADERS += \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
     utils/misc/fplusAdapter.h \
+    utils/misc/kfr_adapt.h \
     utils/misc/misc.h \
     utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
@@ -197,6 +204,7 @@ HEADERS += \
 
 
 FORMS += \
+    convertPlusMinusRight/convertplusminusrightoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
@@ -221,6 +229,7 @@ FORMS += \
     vowelCrossfading/vowelcrossfadingoptionwidget.ui
 
 include(lib.pri)
+include(external-lib.pri)
 
 
 # Default rules for deployment.

@@ -16,13 +16,13 @@ bool ConvertPlusMinusRightDialogAdapter::doWork(const OtoEntryList& srcOtoList, 
         return ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options, dialogParent);
     }
     catch(const ConvertPlusMinusRightOtoListModifyWorker::FileNotFoundException& e){
-        QMessageBox::critical(dialogParent, {}, tr("File %1 don't exist. Please check and try again.").arg(e.fileName()));
+        QMessageBox::critical(dialogParent, {}, tr("The file \"%1\" don't exist. Please check and try again.").arg(e.fileName()));
     }
     catch(const ConvertPlusMinusRightOtoListModifyWorker::FileCannotReadException& e){
-        QMessageBox::critical(dialogParent, {}, tr("Cannot open file %1, or it contains invalid data. Please check and try again.").arg(e.fileName()));
+        QMessageBox::critical(dialogParent, {}, tr("Cannot open file \"%1\", or it contains invalid data. Please check and try again.").arg(e.fileName()));
     }
     catch(const ConvertPlusMinusRightOtoListModifyWorker::InvalidRightValue& e){
-        QMessageBox::critical(dialogParent, {}, tr("Invalid right value %1 has been calculated for oto %2. Please check and try again.").arg(e.calculatedRight()).arg(e.entry().toString()));
+        QMessageBox::critical(dialogParent, {}, tr("Invalid right value\"%1\" has been calculated for oto \"%2\". Please check and try again.").arg(e.calculatedRight()).arg(e.entry().toString()));
     }
     return false;
 }

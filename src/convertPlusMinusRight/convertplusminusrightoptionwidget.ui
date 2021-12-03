@@ -6,12 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
+    <width>880</width>
     <height>114</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">

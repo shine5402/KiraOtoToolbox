@@ -138,6 +138,60 @@
     </message>
 </context>
 <context>
+    <name>ConvertPlusMinusRightDialogAdapter</name>
+    <message>
+        <source>The file %1 don&apos;t exist. Please check and try again.</source>
+        <translation type="vanished">您指定的文件 %1 不存在，请检查后再试。</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1, or it contains invalid data. Please check and try again.</source>
+        <translation type="obsolete">无法打开文件%1，</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightdialogadapter.cpp" line="19"/>
+        <source>The file &quot;%1&quot; don&apos;t exist. Please check and try again.</source>
+        <translation>您指定的文件 %1 不存在，请检查后再试。</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightdialogadapter.cpp" line="22"/>
+        <source>Cannot open file &quot;%1&quot;, or it contains invalid data. Please check and try again.</source>
+        <translation>无法打开文件%1，因为其包含无效数据。请检查后重试。</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightdialogadapter.cpp" line="25"/>
+        <source>Invalid right value&quot;%1&quot; has been calculated for oto &quot;%2&quot;. Please check and try again.</source>
+        <translation>计算 oto 条目&quot;%2&quot;的右值时出现无效值&quot;%1&quot;。请检查后重试。</translation>
+    </message>
+</context>
+<context>
+    <name>ConvertPlusMinusRightOptionWidget</name>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightoptionwidget.ui" line="31"/>
+        <source>Convert to:</source>
+        <translation>转换到：</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightoptionwidget.ui" line="38"/>
+        <source>Positive right (from WAV end)</source>
+        <translation>正的右边界（自WAV结尾）</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightoptionwidget.ui" line="51"/>
+        <source>Negative right (from left)</source>
+        <translation>负的右边界（自左边界）</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightoptionwidget.ui" line="76"/>
+        <source>Use system encoding to interpret Shift-JIS encoding when accessing WAV by filenames (useful for gibberish filenames).</source>
+        <translation>访问文件时，使用系统编码来重解释Shift-JIS文件名（即读取乱码文件名）。</translation>
+    </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightoptionwidget.ui" line="83"/>
+        <source>This tool need the WAV files to be presented in locations that oto.ini specified.</source>
+        <translation>该工具需要oto.ini中记录的WAV文件位置存在。</translation>
+    </message>
+</context>
+<context>
     <name>CopyOrReplaceByAliasOptionWidget</name>
     <message>
         <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="29"/>
@@ -165,17 +219,17 @@
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="105"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="122"/>
         <source>Move up</source>
         <translation>上移</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="112"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="129"/>
         <source>Move down</source>
         <translation>下移</translation>
     </message>
     <message>
-        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="123"/>
+        <location filename="../../src/copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui" line="102"/>
         <source>The upper a rule is, the higher priority it has.</source>
         <translation>越上面的规则优先级越高。</translation>
     </message>
@@ -1506,6 +1560,11 @@ If not, original preset content other than working setting will be saved.</sourc
         <source>Remove specific entries</source>
         <translation>删除特定项</translation>
     </message>
+    <message>
+        <location filename="../../src/convertPlusMinusRight/convertplusminusrightdialogadapter.h" line="11"/>
+        <source>Convert ±right value</source>
+        <translation>转换±右边界</translation>
+    </message>
 </context>
 <context>
     <name>TOOL_TYPE</name>
@@ -1526,32 +1585,33 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation type="vanished">筛选出需要的项</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="25"/>
         <location filename="../../src/initFuncs.cpp" line="26"/>
         <location filename="../../src/initFuncs.cpp" line="27"/>
         <location filename="../../src/initFuncs.cpp" line="28"/>
         <location filename="../../src/initFuncs.cpp" line="29"/>
         <location filename="../../src/initFuncs.cpp" line="30"/>
+        <location filename="../../src/initFuncs.cpp" line="31"/>
         <source>Entry operations</source>
         <translation>对项做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="32"/>
         <location filename="../../src/initFuncs.cpp" line="33"/>
         <location filename="../../src/initFuncs.cpp" line="34"/>
+        <location filename="../../src/initFuncs.cpp" line="35"/>
+        <location filename="../../src/initFuncs.cpp" line="36"/>
         <source>Value operations</source>
         <translation>对数值做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="36"/>
-        <location filename="../../src/initFuncs.cpp" line="37"/>
         <location filename="../../src/initFuncs.cpp" line="38"/>
+        <location filename="../../src/initFuncs.cpp" line="39"/>
+        <location filename="../../src/initFuncs.cpp" line="40"/>
         <source>Alias operations</source>
         <translation>对别名做操作</translation>
     </message>
     <message>
-        <location filename="../../src/initFuncs.cpp" line="40"/>
-        <location filename="../../src/initFuncs.cpp" line="41"/>
+        <location filename="../../src/initFuncs.cpp" line="42"/>
+        <location filename="../../src/initFuncs.cpp" line="43"/>
         <source>Meta actions</source>
         <translation>元操作</translation>
     </message>
@@ -1589,93 +1649,93 @@ If not, original preset content other than working setting will be saved.</sourc
         <translation>切换打开模式</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="29"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="31"/>
         <source>Only &quot;save to source file&quot; is supported in command line mode. Extra save path functionality is also disabled.</source>
         <translation>命令行传入模式下只支持保存到源文件，且额外路径保存无法使用。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="81"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="83"/>
         <source>File is not loaded</source>
         <translation>文件未加载</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="81"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="83"/>
         <source>Oto.ini has not been loaded. Please load it and try again.</source>
         <translation>您还没有加载oto.ini文件。请加载后重试。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="98"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="106"/>
         <source>Operation completed successfully.</source>
         <translation>操作成功完成。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="173"/>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="240"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="182"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="250"/>
         <source>Save processing result</source>
         <translation>保存处理结果</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="193"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="203"/>
         <source>Failed to process</source>
         <translation>处理失败</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="193"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="203"/>
         <source>Stopped because file %1 (at %2) was failed to process. All files are remained unchanged.</source>
         <translation>文件 %1 （位于第 %2）没有成功被处理，于是进程终止。所有文件都没有被修改。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="204"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="214"/>
         <source>Confirm changes</source>
         <translation>确认更改</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="208"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="218"/>
         <source>These are changes that will be applied to oto data. Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</source>
         <translation>以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="221"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="231"/>
         <source>Show difference for selected file</source>
         <translation>显示选中的文件的差异</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="227"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="237"/>
         <source>Differences of %1 (at %2)</source>
         <translation>%1 的差异（位于第 %2 项）</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="228"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="238"/>
         <source>These are changes that will be applied to %1 （at %2).</source>
         <translation>以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="242"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="252"/>
         <source>Error occured while saving</source>
         <translation>保存时出现错误</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="243"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="253"/>
         <source>As %1 (at %2) can not be saved, the process is stopped. Files before it has been saved.</source>
         <translation>无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="301"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="311"/>
         <source>Failed to save</source>
         <translation>保存失败</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="304"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="314"/>
         <source>Error occured when saving %1.</source>
         <translation>在保存 %1 时发生错误。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="306"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="316"/>
         <source>The file is meant to be used for %1.</source>
         <translation>该文件的用途是 %1。</translation>
     </message>
     <message>
-        <location filename="../../src/toolBase/tooldialog.cpp" line="307"/>
+        <location filename="../../src/toolBase/tooldialog.cpp" line="317"/>
         <source>Error information: %1</source>
         <translation>遇到的错误是：%1</translation>
     </message>
@@ -1691,6 +1751,11 @@ If not, original preset content other than working setting will be saved.</sourc
         <location filename="../../src/toolBase/tooldialogadapter.cpp" line="35"/>
         <source>These are changes that will be applied to oto data. Click &quot;OK&quot; to confirm, &quot;Cancel&quot; to discard these changes.</source>
         <translation>以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。</translation>
+    </message>
+    <message>
+        <location filename="../../src/toolBase/tooldialogadapter.cpp" line="38"/>
+        <source>Error occured while processing. Please check and try again.</source>
+        <translation>在处理时发生错误。请检查后重试。</translation>
     </message>
 </context>
 <context>

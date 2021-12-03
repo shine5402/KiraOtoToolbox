@@ -19,12 +19,14 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoMultipleLoadWidget, &OtoFileMultipleLoadWidget::dataChanged, this, &ToolDialog::refreshOptionWidgetEnableState);
     adapter->replaceUIWidgets(ui->rootLayout);
 
+    //Deal with args mode
     auto args = qApp->arguments();
     if (args.count() > 1){
         args.removeFirst();
         auto buttons = ui->buttonBox->standardButtons().setFlag(QDialogButtonBox::Reset, false);
         ui->buttonBox->setStandardButtons(buttons);
         ui->switchLoadModeButton->hide();
+        //As we have direct save widget here. We name it multiple save widget because of historical reason.
         ui->stackedSaveWidget->setCurrentIndex(batchModePageIndex);
         ui->otoMultipleSaveWidget->setInfoText(tr("Only \"save to source file\" is supported in command line mode. Extra save path functionality is also disabled."));
         if (args.count() == 1){
@@ -83,15 +85,21 @@ void ToolDialog::accept()
     }
 
     bool success = false;
-    auto saveOptions = ui->otoSaveWidget->getOptions();
+
+    auto userOptions = optionWidget->getOptions();
+
+    auto saveOptions = isBatchMode() ? ui->otoMultipleSaveWidget->getOptions() : ui->otoSaveWidget->getOptions();
     saveOptions.setOption("precision", ui->precisionSpinBox->value());
+
+    auto options = OptionContainer::combine(userOptions, saveOptions, "save/");
+
     if (isSingleMode()){
         success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(),
-                         OptionContainer::combine(optionWidget->getOptions(), saveOptions, "save/"), this);
+                         options, this);
     }
     else {
         success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(),
-                         OptionContainer::combine(optionWidget->getOptions(), saveOptions, "save/"), this);
+                         options, this);
     }
 
     if (success){
@@ -153,7 +161,8 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
     OtoEntryList secondSaveList{};
 
     auto saveOptions = options.extract("save/");
-    auto& toolOptions = options;
+    auto toolOptions = options;
+    toolOptions.setOption("load/fileName", srcFileName);
 
     auto result = adapter->doWork(srcList, entryListWorking, secondSaveList, toolOptions, dialogParent);
     if (result)
@@ -180,7 +189,7 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
     Q_ASSERT(srcLists.count() == srcFileNames.count());
 
     auto saveOptions = options.extract("save/");
-    auto& toolOptions = options;
+    auto toolOptions = options;
 
     QList<OtoEntryList> results{};
 
@@ -188,6 +197,7 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
         OtoEntryList entryListWorking{};
         OtoEntryList secondSaveList{};
 
+        toolOptions.setOption("load/fileName", srcFileNames.at(i));
         if ((!adapter->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions)) && srcLists.count() > 1)
         {
             QMessageBox::critical(dialogParent, tr("Failed to process"), tr("Stopped because file %1 (at %2) was failed to process. All files are remained unchanged.").arg(srcFileNames.at(i)).arg(i + 1));

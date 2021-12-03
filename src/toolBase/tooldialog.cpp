@@ -106,6 +106,8 @@ void ToolDialog::accept()
         QMessageBox::information(this, {}, tr("Operation completed successfully."));
         QDialog::accept();
     }
+    else
+        QMessageBox::critical(this, {}, tr("Error occured while processing. Please check and try again."));
 }
 
 void ToolDialog::reset()

@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>757</width>
-    <height>625</height>
+    <height>583</height>
    </rect>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -38,10 +38,10 @@
          <x>0</x>
          <y>0</y>
          <width>757</width>
-         <height>601</height>
+         <height>559</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,1,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QFrame" name="argInfoBlock">
           <property name="styleSheet">
@@ -139,7 +139,7 @@ margin-bottom:8px;
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>0</width>
+            <width>20</width>
             <height>0</height>
            </size>
           </property>
@@ -155,7 +155,7 @@ margin-bottom:8px;
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>0</width>
+            <width>20</width>
             <height>0</height>
            </size>
           </property>

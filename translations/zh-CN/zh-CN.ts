@@ -556,6 +556,16 @@ ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing)
         <source>Oto entry count</source>
         <translation>oto 条目数</translation>
     </message>
+    <message>
+        <location filename="../../src/utils/widgets/otofilelistmodel.h" line="37"/>
+        <source>路径</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/utils/widgets/otofilelistmodel.h" line="37"/>
+        <source>oto 条目数</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OtoFileListWithPreviousModel</name>

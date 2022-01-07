@@ -192,10 +192,10 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
     layout->setContentsMargins(3, 3, 3, 3);
     setLayout(layout);
 
-    QPalette pal = palette();
-    pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
-    pal.setColor(QPalette::WindowText, Qt::black);
-    setPalette(pal);
+//    QPalette pal = palette();
+//    pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
+//    pal.setColor(QPalette::WindowText, Qt::black);
+//    setPalette(pal);
 }
 
 QBalloonTip::~QBalloonTip()
@@ -223,7 +223,8 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
     const int arrowHeight = 18, arrowOffset = 18, arrowWidth = 18, roundCorner = 7;
     bool arrowAtTop = (pos.y() + sizeHint_.height() + arrowHeight < scr.height());
     bool arrowAtLeft = (pos.x() + sizeHint_.width() - arrowOffset < scr.width());
-    setContentsMargins(border + 3,  border + (arrowAtTop ? arrowHeight : 0) + 2, border + 3, border + (arrowAtTop ? 0 : arrowHeight) + 2);
+    constexpr auto margin = 8;
+    setContentsMargins(border + margin,  border + (arrowAtTop ? arrowHeight : 0) + margin, border + margin, border + (arrowAtTop ? 0 : arrowHeight) + margin);
     updateGeometry();
     sizeHint_ = sizeHint();
 
@@ -294,8 +295,8 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
     // Draw the border
     pixmap = QPixmap(sz);
     QPainter painter2(&pixmap);
-    painter2.setPen(QPen(palette().color(QPalette::Window).darker(160), border));
-    painter2.setBrush(palette().color(QPalette::Window));
+    painter2.setPen(QPen(palette().color(QPalette::Base).darker(160), border));
+    painter2.setBrush(palette().color(QPalette::Base));
     painter2.drawPath(path);
 
     if (msecs > 0)

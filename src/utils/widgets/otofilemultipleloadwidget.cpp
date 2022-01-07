@@ -142,5 +142,5 @@ int OtoFileMultipleLoadWidget::currentRow()
 void OtoFileMultipleLoadWidget::refreshButtonEnableState()
 {
     ui->removeButton->setEnabled(count() > 0);
-    ui->showContentButton->setEnabled(count() > 0);
+    ui->showContentButton->setEnabled(count() > 0 && currentRow() >= 0);
 }

@@ -6,7 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QSpinBox>
 
 OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent) :

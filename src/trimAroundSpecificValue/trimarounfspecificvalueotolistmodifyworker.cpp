@@ -1,5 +1,5 @@
 #include "trimarounfspecificvalueotolistmodifyworker.h"
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 TrimArounfSpecificValueOtoListModifyWorker::TrimArounfSpecificValueOtoListModifyWorker(QObject* parent):OtoListModifyWorker(parent)
 {

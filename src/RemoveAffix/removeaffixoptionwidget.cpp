@@ -3,7 +3,7 @@
 #include <kira/widgets/atleastonecheckedbuttongroup.h>
 #include <OtoUtil/otoentry.h>
 #include <QJsonArray>
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),

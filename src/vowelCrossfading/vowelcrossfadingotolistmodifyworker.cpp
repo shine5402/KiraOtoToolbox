@@ -1,5 +1,5 @@
 #include "vowelcrossfadingotolistmodifyworker.h"
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 VowelCrossfadingOtoListModifyWorker::VowelCrossfadingOtoListModifyWorker(QObject* parent):OtoListModifyWorker(parent)
 {

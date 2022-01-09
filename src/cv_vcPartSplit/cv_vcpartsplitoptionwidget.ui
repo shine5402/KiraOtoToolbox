@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
+    <width>898</width>
     <height>405</height>
    </rect>
   </property>
@@ -65,7 +65,7 @@
   <customwidget>
    <class>StringListModifyWidget</class>
    <extends>QWidget</extends>
-   <header>utils/widgets/stringlistmodifywidget.h</header>
+   <header location="global">kira/widgets/stringlistmodifywidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

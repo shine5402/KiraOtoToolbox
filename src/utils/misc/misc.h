@@ -8,9 +8,6 @@
 #include <QDialogButtonBox>
 
 namespace Misc {
-    void replaceWidget(QLayout* parentLayout, const QString& widgetName,
-                       QWidget* newWidget, QWidget* newParent = nullptr);
-
     enum ChangeAskDialogType{
         Determine, ValueChangeModel, Diff
     };

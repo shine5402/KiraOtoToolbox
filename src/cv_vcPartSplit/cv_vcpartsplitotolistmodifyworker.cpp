@@ -1,7 +1,7 @@
 #include "cv_vcpartsplitotolistmodifyworker.h"
 #include <fplus/fplus.hpp>
 #include <QRegularExpression>
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 CV_VCPartSplitOtoListModifyWorker::CV_VCPartSplitOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
 {

@@ -1,24 +1,11 @@
 #include "misc.h"
 #include <QDialog>
-#include <utils/dialogs/showdiffdialog.h>
+#include <kira/dialogs/showdiffdialog.h>
 #include <utils/models/otolistshowvaluechangemodel.h>
-#include <utils/dialogs/tableviewdialog.h>
+#include <kira/dialogs/tableviewdialog.h>
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
-
-void Misc::replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent)
-{
-    auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
-    if (oldWidget){
-        newWidget->setParent(newParent ? newParent : parentLayout->parentWidget());
-        auto previousWidget = parentLayout->replaceWidget(oldWidget, newWidget);
-        if (previousWidget){
-            oldWidget->deleteLater();
-            delete previousWidget;
-        }
-    }
-}
 
 bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
                              const QString& title, const QString& label, QWidget* dialogParent,

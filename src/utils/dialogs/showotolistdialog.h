@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <OtoUtil/otoentry.h>
 #include "../models/otolistmodel.h"
-#include "tableviewdialog.h"
+#include <kira/dialogs/tableviewdialog.h>
 #include <QDialogButtonBox>
 
 class ShowOtoListDialog : public TableViewDialog

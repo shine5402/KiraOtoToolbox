@@ -1,6 +1,6 @@
 #include "removespecificentriesotolistmodifyworker.h"
 #include "removespecificentriesoptionwidget.h"
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 RemoveSpecificEntriesOtoListModifyWorker::RemoveSpecificEntriesOtoListModifyWorker(QObject* parent) :
     OtoListModifyWorker(parent)

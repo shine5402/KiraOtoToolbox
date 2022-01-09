@@ -1,7 +1,7 @@
 #include "copyorreplacebyaliasrulesmultilineeditordialog.h"
 #include "ui_copyorreplacebyaliasrulesmultilineeditordialog.h"
 #include <QScrollBar>
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QMessageBox>
 
 CopyOrReplaceByAliasRulesMultiLineEditorDialog::CopyOrReplaceByAliasRulesMultiLineEditorDialog(QWidget *parent) :

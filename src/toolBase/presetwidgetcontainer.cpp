@@ -7,7 +7,7 @@
 #include <kira/widgets/qballontip.h>
 #include <QFileDialog>
 #include <QJsonDocument>
-#include "i18n/translationmanager.h"
+#include <kira/i18n/translationmanager.h>
 
 namespace {
     const auto dirtyFlag = QStringLiteral("[*] ");

@@ -3,12 +3,13 @@
 #include <QMessageBox>
 #include <QSaveFile>
 #include <QTextStream>
-#include <utils/dialogs/showdiffdialog.h>
+#include <kira/dialogs/showdiffdialog.h>
 #include <utils/models/otolistshowvaluechangemodel.h>
-#include <utils/dialogs/tableviewdialog.h>
+#include <kira/dialogs/tableviewdialog.h>
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
+#include <kira/widgets/misc.h>
 #include "presetwidgetcontainer.h"
 
 
@@ -22,7 +23,7 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
     auto presetWidgetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    Misc::replaceWidget(optionLayout, "presetWidgetContainer", presetWidgetContainer, rootLayout->parentWidget());
+    replaceWidget(optionLayout, "presetWidgetContainer", presetWidgetContainer, rootLayout->parentWidget());
 }
 
 //Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
@@ -80,6 +81,6 @@ void ToolDialogAdapter::setOptionWidgetMetaObj(const QMetaObject& value)
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {
     auto saveWidgetRootLayout = rootLayout->parentWidget()->findChild<QWidget *>("stackedSaveWidget")->findChild<QWidget *>("singleSave")->layout();
-    Misc::replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
+    replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
 }
 

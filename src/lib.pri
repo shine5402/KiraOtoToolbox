@@ -1,7 +1,5 @@
 INCLUDEPATH += ../lib/FunctionalPlus/include
 
-SOURCES += ../lib/diff-match-patch/diff_match_patch.cpp
-HEADERS += ../lib/diff-match-patch/diff_match_patch.h
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../lib/KiraUTAUUtils/src/release/ -lKiraUTAUUtils
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../lib/KiraUTAUUtils/src/debug/ -lKiraUTAUUtils
 else:unix: LIBS += -L$$OUT_PWD/../lib/KiraUTAUUtils/src/ -lKiraUTAUUtils

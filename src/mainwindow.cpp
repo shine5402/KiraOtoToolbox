@@ -13,7 +13,7 @@
 #include <QGroupBox>
 #include <QDesktopServices>
 #include <QUrl>
-#include "i18n/translationmanager.h"
+#include <kira/i18n/translationmanager.h>
 #include <QSettings>
 #ifndef NDEBUG
 #include "copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.h"

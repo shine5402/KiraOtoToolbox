@@ -41,8 +41,6 @@ SOURCES += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.cpp \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
-    i18n/translation.cpp \
-    i18n/translationmanager.cpp \
     initFuncs.cpp \
     mergeOto/mergeotodialogadapter.cpp \
     mergeOto/mergeotooptionwidget.cpp \
@@ -89,9 +87,7 @@ SOURCES += \
     trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.cpp \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.cpp \
     trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.cpp \
-    utils/dialogs/listviewdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
-    utils/dialogs/tableviewdialog.cpp \
     utils/misc/misc.cpp \
     utils/models/otofilelistwithpreviousmodel.cpp \
     utils/models/otolistmodel.cpp \
@@ -103,7 +99,6 @@ SOURCES += \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
     utils/widgets/otofilesavewidgetabstract.cpp \
-    utils/widgets/stringlistmodifywidget.cpp \
     vowelCrossfading/vowelcrossfadingdialogadapter.cpp \
     vowelCrossfading/vowelcrossfadingoptionwidget.cpp \
     vowelCrossfading/vowelcrossfadingotolistmodifyworker.cpp
@@ -128,8 +123,6 @@ HEADERS += \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.h \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
-    i18n/translation.h \
-    i18n/translationmanager.h \
     initFuncs.h \
     mergeOto/mergeotodialogadapter.h \
     mergeOto/mergeotooptionwidget.h \
@@ -175,11 +168,7 @@ HEADERS += \
     trimAroundSpecificValue/trimaroundspecificvaluedialogadapter.h \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.h \
     trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.h \
-    utils/dialogs/listviewdialog.h \
     utils/dialogs/showotolistdialog.h \
-    utils/dialogs/tableviewdialog.h \
-    utils/misc/fplusAdapter.h \
-    utils/misc/kfr_adapt.h \
     utils/misc/misc.h \
     utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
@@ -191,7 +180,6 @@ HEADERS += \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
     utils/widgets/otofilesavewidgetabstract.h \
-    utils/widgets/stringlistmodifywidget.h \
     vowelCrossfading/vowelcrossfadingdialogadapter.h \
     vowelCrossfading/vowelcrossfadingoptionwidget.h \
     vowelCrossfading/vowelcrossfadingotolistmodifyworker.h
@@ -217,7 +205,6 @@ FORMS += \
     utils/widgets/otofileloadwidget.ui \
     utils/widgets/otofilemultipleloadwidget.ui \
     utils/widgets/otofilesavewidget.ui \
-    utils/widgets/stringlistmodifywidget.ui \
     vowelCrossfading/vowelcrossfadingoptionwidget.ui
 
 include(lib.pri)

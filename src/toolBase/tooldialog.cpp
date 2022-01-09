@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include "utils/models/otofilelistmodel.h"
-#include "utils/dialogs/tableviewdialog.h"
+#include <kira/dialogs/tableviewdialog.h>
 #include "utils/models/otofilelistwithpreviousmodel.h"
 #include "utils/misc/misc.h"
 #include "presetwidgetcontainer.h"

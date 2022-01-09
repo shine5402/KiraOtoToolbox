@@ -1,12 +1,12 @@
 #include "chaintooloptionwidget.h"
 #include "ui_chaintooloptionwidget.h"
-#include "utils/dialogs/listviewdialog.h"
+#include <kira/dialogs/listviewdialog.h>
 #include "chainstepsmodel.h"
 #include <QDialogButtonBox>
 #include <QGroupBox>
 #include "toolBase/toolmanager.h"
 #include <fplus/fplus.hpp>
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QJsonArray>
 #include <toolBase/tooldialogadapter.h>
 #include <QMessageBox>

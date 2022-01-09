@@ -1,3 +1,3 @@
-HEADERS += ../lib/diff-match-patch/diff-match-patch.h
+HEADERS += ../lib/diff-match-patch/diff_match_patch.h
 
-SOURCE += ../lib/diff-match-patch/diff-match-patch.cpp
+SOURCES += ../lib/diff-match-patch/diff_match_patch.cpp

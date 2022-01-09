@@ -1,5 +1,5 @@
-#ifndef MISC_H
-#define MISC_H
+#ifndef KIRA_WIDGETS_MISC_H
+#define KIRA_WIDGETS_MISC_H
 
 class QLayout;
 class QWidget;
@@ -11,4 +11,4 @@ void replaceWidget(QLayout* parentLayout, const QString& widgetName,
 
 void refreshStackedWidgetSize(QStackedWidget* stackedWidget);
                    
-#endif // MISC_H
+#endif // KIRA_WIDGETS_MISC_H

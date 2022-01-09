@@ -53,6 +53,7 @@ FORMS += dialogs/showhtmldialog.ui \
          dialogs/showdiffdialog.ui
 
 include(lib.pri)
+include(external-lib.pri)
 
 # Default rules for deployment.
 unix {

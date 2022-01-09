@@ -13,3 +13,9 @@ As a very own repo, documentations and features can be very uncompleted, and the
 ## License
 
 If not specifically declared, the code in this repo is distrubuted with [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). You should refer to code itself to check any exception, because some code do use different license due to their own reasons.
+
+## Open source code used by this project
+
+- [diff-match-patch](https://github.com/google/diff-match-patch), Google, [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+- [mapbox-eternal](https://github.com/mapbox/eternal), mapbox, [ISC License](https://github.com/mapbox/eternal/blob/master/LICENSE.md)
+- [FunctionalPlus](https://github.com/Dobiasd/FunctionalPlus/), [Boost Software License 1.0](https://github.com/Dobiasd/FunctionalPlus/blob/master/LICENSE)

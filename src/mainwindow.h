@@ -26,10 +26,6 @@ private:
     QMenu* i18nMenu = nullptr;
     QVector<QObject*> toolButtonsLayoutResources;
 
-    void createI18nMenu();
-    void setLangActionChecked(const Translation& translation);
-    void saveUserLocaleSetting(QLocale locale);
-    QLocale getLocaleUserSetting() const;
     void setArgInfoBlock();
 
 private slots:

@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    TranslationManager::getManager()->getTranslationFor(getLocaleUserSetting()).install();
+
     ui->setupUi(this);
 
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
@@ -54,8 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     createToolSelectorUI();
 
     //create language menu
-    createI18nMenu();
-    setLangActionChecked(Translation::getCurrentInstalled());
+    ui->menu_Preference->addMenu(TranslationManager::getManager()->createI18nMenu(this));
 
     //set window titie
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
@@ -65,60 +64,12 @@ MainWindow::MainWindow(QWidget *parent)
 #ifndef NDEBUG
     auto debugAction = new QAction("Debug", this);
     ui->menu_Preference->addAction(debugAction);
-    connect(debugAction, &QAction::triggered, [](){
+    connect(debugAction, &QAction::triggered, debugAction, [](){
         auto dialog = new CopyOrReplaceByAliasRulesMultiLineEditorDialog();
         dialog->exec();
         dialog->deleteLater();
     });
 #endif
-}
-
-void MainWindow::createI18nMenu()
-{
-    auto translations = TranslationManager::getManager()->getTranslations();
-    i18nMenu = new QMenu("Language", this);
-    auto defaultLang = new QAction("English, built-in", i18nMenu);
-    defaultLang->setData(-1);
-    defaultLang->setCheckable(true);
-    i18nMenu->addAction(defaultLang);
-
-    for (auto i = 0; i < translations.count(); ++i)
-    {
-        auto l = translations.at(i);
-        auto langAction = new QAction(QLatin1String("%1 (%2), by %3").arg(QLocale::languageToString(l.locale().language()),l.locale().bcp47Name(),l.author()), i18nMenu);
-        langAction->setData(i);
-        langAction->setCheckable(true);
-        i18nMenu->addAction(langAction);
-
-    }
-    connect(i18nMenu, &QMenu::triggered, [this](QAction* action){
-        auto translation = TranslationManager::getManager()->getTranslation(action->data().toInt());
-        translation.install();
-        setLangActionChecked(translation);
-        saveUserLocaleSetting(translation.locale());
-    });
-    ui->menu_Preference->addMenu(i18nMenu);
-}
-
-void MainWindow::setLangActionChecked(const Translation& translation)
-{
-    auto actions = i18nMenu->actions();
-    for (auto action : qAsConst(actions)){
-        auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
-        action->setChecked(currTr == translation);
-    }
-}
-
-void MainWindow::saveUserLocaleSetting(QLocale locale)
-{
-    QSettings settings;
-    settings.setValue("locale", locale);
-}
-
-QLocale MainWindow::getLocaleUserSetting() const
-{
-    QSettings settings;
-    return settings.value("locale", QLocale::system()).value<QLocale>();
 }
 
 void MainWindow::createToolSelectorUI()
@@ -158,7 +109,7 @@ void MainWindow::createToolSelectorUI()
         ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 stands for behind first spacer in ui layout
     }
 
-    connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), [toolButtonGroup, this](QAbstractButton* button){
+    connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup, [toolButtonGroup, this](QAbstractButton* button){
         auto tools = ToolManager::getManager()->getTools();
         auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), this);
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);

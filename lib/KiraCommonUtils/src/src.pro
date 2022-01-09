@@ -25,7 +25,8 @@ SOURCES += filesystem.cpp \
         widgets/misc.cpp \
         widgets/stringlistmodifywidget.cpp \
         widgets/qballontip.cpp \
-        stringfunc.cpp
+        stringfunc.cpp \
+        dialogs/showdiffdialog.cpp
 
 HEADERS += include/kira/dialogs/listviewdialog.h \
         include/kira/dialogs/showhtmldialog.h \
@@ -43,11 +44,15 @@ HEADERS += include/kira/dialogs/listviewdialog.h \
         include/kira/filesystem.h \
         include/kira/setoperations.h \
         include/kira/widgets/qballontip.h \
-        include/kira/stringfunc.h
+        include/kira/stringfunc.h \
+        include/kira/dialogs/showdiffdialog.h
 
 FORMS += dialogs/showhtmldialog.ui \
          widgets/filenameeditwithbrowse.ui \
-         widgets/stringlistmodifywidget.ui
+         widgets/stringlistmodifywidget.ui \
+         dialogs/showdiffdialog.ui
+
+include(lib.pri)
 
 # Default rules for deployment.
 unix {

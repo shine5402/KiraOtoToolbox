@@ -2,7 +2,7 @@
 #define OTOFILENAMEEDITWITHBROWSE_H
 
 #include <QWidget>
-#include "filenameeditwithbrowse.h"
+#include <kira/widgets/filenameeditwithbrowse.h>
 
 class OtoFileNameEditWithBrowse : public FileNameEditWithBrowse
 {

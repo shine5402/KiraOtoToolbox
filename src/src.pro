@@ -90,15 +90,12 @@ SOURCES += \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.cpp \
     trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.cpp \
     utils/dialogs/listviewdialog.cpp \
-    utils/dialogs/showdiffdialog.cpp \
     utils/dialogs/showotolistdialog.cpp \
     utils/dialogs/tableviewdialog.cpp \
     utils/misc/misc.cpp \
     utils/models/otofilelistwithpreviousmodel.cpp \
     utils/models/otolistmodel.cpp \
     utils/models/otolistshowvaluechangemodel.cpp \
-    utils/widgets/atleastonecheckedbuttongroup.cpp \
-    utils/widgets/filenameeditwithbrowse.cpp \
     utils/models/otofilelistmodel.cpp \
     utils/widgets/otofiledirectsavewidget.cpp \
     utils/widgets/otofileloadwidget.cpp \
@@ -179,7 +176,6 @@ HEADERS += \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.h \
     trimAroundSpecificValue/trimarounfspecificvalueotolistmodifyworker.h \
     utils/dialogs/listviewdialog.h \
-    utils/dialogs/showdiffdialog.h \
     utils/dialogs/showotolistdialog.h \
     utils/dialogs/tableviewdialog.h \
     utils/misc/fplusAdapter.h \
@@ -188,8 +184,6 @@ HEADERS += \
     utils/models/otofilelistwithpreviousmodel.h \
     utils/models/otolistmodel.h \
     utils/models/otolistshowvaluechangemodel.h \
-    utils/widgets/atleastonecheckedbuttongroup.h \
-    utils/widgets/filenameeditwithbrowse.h \
     utils/models/otofilelistmodel.h \
     utils/widgets/otofiledirectsavewidget.h \
     utils/widgets/otofileloadwidget.h \
@@ -219,8 +213,6 @@ FORMS += \
     toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui \
-    utils/dialogs/showdiffdialog.ui \
-    utils/widgets/filenameeditwithbrowse.ui \
     utils/widgets/otofiledirectsavewidget.ui \
     utils/widgets/otofileloadwidget.ui \
     utils/widgets/otofilemultipleloadwidget.ui \

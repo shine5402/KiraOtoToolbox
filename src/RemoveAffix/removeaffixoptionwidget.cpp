@@ -1,6 +1,6 @@
 #include "removeaffixoptionwidget.h"
 #include "ui_removeaffixoptionwidget.h"
-#include "utils/widgets/atleastonecheckedbuttongroup.h"
+#include <kira/widgets/atleastonecheckedbuttongroup.h>
 #include <OtoUtil/otoentry.h>
 #include <QJsonArray>
 #include <utils/misc/fplusAdapter.h>

@@ -4,7 +4,7 @@
 #include "presetmanager.h"
 #include <QMessageBox>
 #include <QInputDialog>
-#include "../lib/misc/qballontip.h"
+#include <kira/widgets/qballontip.h>
 #include <QFileDialog>
 #include <QJsonDocument>
 #include "i18n/translationmanager.h"

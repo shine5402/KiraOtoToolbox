@@ -14,6 +14,7 @@ DEPENDPATH += include/ \
             ../lib/fplus/include/
 
 SOURCES += filesystem.cpp \
+        darkmode.cpp \
         dialogs/listviewdialog.cpp \
         dialogs/showhtmldialog.cpp \
         dialogs/tableviewdialog.cpp \
@@ -29,6 +30,7 @@ SOURCES += filesystem.cpp \
         dialogs/showdiffdialog.cpp
 
 HEADERS += include/kira/dialogs/listviewdialog.h \
+        include/kira/darkmode.h \
         include/kira/dialogs/showhtmldialog.h \
         include/kira/dialogs/tableviewdialog.h \
         include/kira/i18n/translation.h \

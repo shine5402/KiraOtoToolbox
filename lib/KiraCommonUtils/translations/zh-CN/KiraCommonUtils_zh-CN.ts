@@ -15,6 +15,24 @@
     </message>
 </context>
 <context>
+    <name>DarkMode</name>
+    <message>
+        <location filename="../../src/darkmode.cpp" line="76"/>
+        <source>UI Theme</source>
+        <translation>UI 主题</translation>
+    </message>
+    <message>
+        <location filename="../../src/darkmode.cpp" line="78"/>
+        <source>Light</source>
+        <translation>明亮</translation>
+    </message>
+    <message>
+        <location filename="../../src/darkmode.cpp" line="85"/>
+        <source>Dark</source>
+        <translation>暗黑</translation>
+    </message>
+</context>
+<context>
     <name>DirNameEditWithBrowse</name>
     <message>
         <location filename="../../src/widgets/dirnameeditwithbrowse.cpp" line="19"/>

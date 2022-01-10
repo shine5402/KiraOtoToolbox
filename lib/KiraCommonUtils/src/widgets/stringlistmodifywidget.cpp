@@ -31,6 +31,14 @@ void StringListModifyWidget::setData(const QStringList& value)
     emit dataModified();
 }
 
+void StringListModifyWidget::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);
+    }
+}
+
 void StringListModifyWidget::addRow()
 {
     bool ok;

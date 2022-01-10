@@ -124,15 +124,24 @@ void FileNameEditWithBrowse::dropEvent(QDropEvent* event)
         {
             auto urls = event->mimeData()->urls();
             QStringList fileNames;
-            for (auto url : urls){
+            for (const auto &url : urls){
                 fileNames.append(url.toLocalFile());
             }
             ui->fileNameEdit->setText(fileNames.join(multipleModeSeparator));
         }
 
+        emit dropTriggered();
         event->setDropAction(Qt::LinkAction);
         event->accept();
     }
+}
+
+void FileNameEditWithBrowse::changeEvent(QEvent* event)
+{
+    if (event->type() == QEvent::LanguageChange)
+    {
+        ui->retranslateUi(this);
+    };
 }
 
 QString FileNameEditWithBrowse::getMultipleModeSeparator() const

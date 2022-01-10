@@ -39,7 +39,11 @@ public:
     QFileDialog::Options getOptions() const;
     void setOptions(const QFileDialog::Options& value);
 
-    void setParameters(const QString &caption = QString(), const QString &dir = QString(), const QString &filter = QString(), QString *selectedFilter = nullptr, QFileDialog::Options options = QFileDialog::Options());
+    void setParameters(const QString &caption = QString(),
+                       const QString &dir = QString(),
+                       const QString &filter = QString(),
+                       QString *selectedFilter = nullptr,
+                       QFileDialog::Options options = QFileDialog::Options());
 
     QString* getSelectedFilter() const;
     void setSelectedFilter(QString* value);
@@ -53,6 +57,7 @@ public:
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
+    void changeEvent(QEvent* event) override;
 
 private:
     Ui::FileNameEditWithBrowse *ui;
@@ -77,6 +82,7 @@ private slots:
 
 signals:
     void browseTriggered();
+    void dropTriggered();
 };
 
 

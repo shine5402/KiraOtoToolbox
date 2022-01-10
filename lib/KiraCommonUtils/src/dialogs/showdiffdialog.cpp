@@ -63,6 +63,7 @@ void ShowDiffDialog::startDiffCalc()
 
     auto future = QtConcurrent::run([&]() -> QString { //returns diff's prettyHtml
         diff_match_patch dmp;
+        //TODO:Use a parameter to determine which mode should be used
         auto diff = dmp.diff_lineMode(source, result, std::numeric_limits<clock_t>::max());
         return dmp.diff_prettyHtml(diff);
     });

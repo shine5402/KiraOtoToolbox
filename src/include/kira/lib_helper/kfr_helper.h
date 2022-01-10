@@ -1,3 +1,12 @@
+/*
+ * Copyright 2022, shine_5402.
+ *
+ * kfr is licensed under GPL v2+, 
+ * so you can use this file under apache v2 license when licensing your own application in GPL v3. 
+ * Or if you'd like to, this file can also licensed under MIT License, which should have no conflict with GPL v2.
+ * If you have bought kfr's commercial license, you can use this file under apache v2 license without problem.
+ */
+
 #ifndef KFR_HELPER_H
 #define KFR_HELPER_H
 

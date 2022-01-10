@@ -18,6 +18,8 @@ public:
     QStringList getData() const;
     void setData(const QStringList& value);
 
+protected:
+    void changeEvent(QEvent* event) override;
 private:
     Ui::StringListModifyWidget *ui;
 

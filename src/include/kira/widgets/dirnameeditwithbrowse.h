@@ -5,6 +5,7 @@
 #include <QFileDialog>
 
 class QLineEdit;
+class QPushButton;
 
 class DirNameEditWithBrowse : public QWidget
 {
@@ -25,6 +26,7 @@ private:
     QLineEdit* dirNameEdit;
     QString caption{};
     QFileDialog::Options options = QFileDialog::ShowDirsOnly;
+    QPushButton* browseButton;
 private slots:
     void onBrowse();
 signals:
@@ -34,6 +36,7 @@ signals:
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent* event) override;
+    void changeEvent(QEvent* event) override;
 };
 
 #endif // DIRNAMEEDITWITHBROWSE_H

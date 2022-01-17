@@ -86,13 +86,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="versionLabel">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="langButton">
             <property name="text">
              <string>Language</string>

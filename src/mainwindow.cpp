@@ -51,8 +51,8 @@ MainWindow::MainWindow(QWidget *parent)
     //darkMode
     ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());
     auto darkModeObserver = DarkMode::getObserver();
-    connect(darkModeObserver, &DarkMode::Observer::darkModeChanged, this, &MainWindow::fitLogoToDarkMode);
-    fitLogoToDarkMode(DarkMode::getCurrentMode());
+    connect(darkModeObserver, &DarkMode::Observer::darkModeChanged, this, &MainWindow::fitUIToDarkMode);
+    fitUIToDarkMode(DarkMode::getCurrentMode());
 
     //Help menu
     auto helpMenu = new QMenu(tr("Help"), this);
@@ -193,12 +193,26 @@ void MainWindow::showFeedbackPage()
     QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
 }
 
-void MainWindow::fitLogoToDarkMode(DarkMode::Mode curr)
+void MainWindow::fitUIToDarkMode(DarkMode::Mode curr)
 {
     if (curr == DarkMode::LIGHT)
+    {
         ui->logoLabel->setPixmap(QPixmap(":/logo/light"));
+        ui->argIconLabel->setPixmap(QPixmap(":/icon/console"));
+        auto argInfoPalette = QPalette();
+        argInfoPalette.setColor(QPalette::WindowText, QColor("#004970"));
+        argInfoPalette.setColor(QPalette::Text, QColor("#004970"));
+        ui->argInfoLabel->setPalette(argInfoPalette);
+    }
     else
+    {
         ui->logoLabel->setPixmap(QPixmap(":/logo/dark"));
+        ui->argIconLabel->setPixmap(QPixmap(":/icon/console_dark"));
+        auto argInfoPalette = QPalette();
+        argInfoPalette.setColor(QPalette::WindowText, QColor("#9fe1ff"));
+        argInfoPalette.setColor(QPalette::Text, QColor("#9fe1ff"));
+        ui->argInfoLabel->setPalette(argInfoPalette);
+    }
 }
 
 void MainWindow::changeEvent(QEvent* event)

@@ -34,7 +34,7 @@ private slots:
     void showDonationPage();
     void showUpdatePage();
     void showFeedbackPage();
-    void fitLogoToDarkMode(DarkMode::Mode curr);
+    void fitUIToDarkMode(DarkMode::Mode curr);
     // QWidget interface
 protected:
     void changeEvent(QEvent*) override;

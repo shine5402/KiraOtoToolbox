@@ -109,26 +109,12 @@
          </layout>
         </item>
         <item>
-         <widget class="QFrame" name="argInfoBlock">
-          <property name="styleSheet">
-           <string notr="true">#argInfoBlock {
-border: 3px solid rgb(77, 147, 191);
-border-radius: 12px;
-background:rgb(221, 241, 255);
-margin-bottom:8px;
-}</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
+         <widget class="QGroupBox" name="argInfoBlock">
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="argIconLabel">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -180,9 +166,6 @@ margin-bottom:8px;
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(0, 73, 112);</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>

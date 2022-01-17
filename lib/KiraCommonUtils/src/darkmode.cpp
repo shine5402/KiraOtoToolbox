@@ -6,6 +6,7 @@
 #include <QStyleFactory>
 #include <QStyle>
 #include <QMenu>
+#include <QToolTip>
 
 namespace DarkMode {
     static QMenu* darkModeMenu = nullptr;
@@ -24,16 +25,17 @@ namespace DarkMode {
         return observerInstance;
     }
 
+
     DarkMode::Mode getCurrentMode()
     {
         QSettings settings;
         return settings.value("darkMode", LIGHT).value<Mode>();
     }
-
     void setCurrentMode(Mode mode)
     {
         QSettings settings;
         settings.setValue("darkMode", mode);
+        QToolTip::setPalette(getPaletteFor(getCurrentMode()));
     }
 
     void setCurrentPaletteToApp()
@@ -76,6 +78,8 @@ namespace DarkMode {
         {
             auto lightPalette = QStyleFactory::create("fusion")->standardPalette();
             lightPalette.setColor(QPalette::Window, QColor(250,250,250));
+            lightPalette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor(240,240,240));
+            lightPalette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor(50,50,50));
             return lightPalette;
         }
     }

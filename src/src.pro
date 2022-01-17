@@ -218,6 +218,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources/icon/icon.qrc \
+    resources/logo/logo.qrc \
     resources/presets/built-in_presets.qrc \
     resources/splashscr/splashscr.qrc
 

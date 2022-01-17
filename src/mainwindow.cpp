@@ -15,9 +15,7 @@
 #include <QUrl>
 #include <kira/i18n/translationmanager.h>
 #include <QSettings>
-#ifndef NDEBUG
-#include "copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.h"
-#endif
+#include <kira/darkmode.h>
 
 void MainWindow::setArgInfoBlock()
 {
@@ -42,19 +40,36 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
-    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::showAboutDialog);
-    connect(ui->actionAbout_Qt, &QAction::triggered, this, &MainWindow::showAboutQtDialog);
-    connect(ui->actionDonate, &QAction::triggered, this, &MainWindow::showDonationPage);
-    connect(ui->actionUpdate, &QAction::triggered, this, &MainWindow::showUpdatePage);
-    connect(ui->actionSend_feedback, &QAction::triggered, this, &MainWindow::showFeedbackPage);
-
     setArgInfoBlock();
 
     //Create tool selector ui
     createToolSelectorUI();
 
     //create language menu
-    ui->menu_Preference->addMenu(TranslationManager::getManager()->createI18nMenu(this));
+    ui->langButton->setMenu(TranslationManager::getManager()->getI18nMenu());
+
+    //darkMode
+    ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());
+    auto darkModeObserver = DarkMode::getObserver();
+    connect(darkModeObserver, &DarkMode::Observer::darkModeChanged, this, &MainWindow::fitLogoToDarkMode);
+    fitLogoToDarkMode(DarkMode::getCurrentMode());
+
+    //Help menu
+    auto helpMenu = new QMenu(tr("Help"), this);
+    auto aboutAction = helpMenu->addAction(tr("About"));
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::showAboutDialog);
+    auto aboutQtAction = helpMenu->addAction(tr("About Qt"));
+    connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
+    helpMenu->addSeparator();
+    auto donateAction = helpMenu->addAction(tr("Donate"));
+    connect(donateAction, &QAction::triggered, this, &MainWindow::showDonationPage);
+    helpMenu->addSeparator();
+    auto updateAction = helpMenu->addAction(tr("Get update"));
+    connect(updateAction, &QAction::triggered, this, &MainWindow::showUpdatePage);
+    auto feedbackAction = helpMenu->addAction(tr("Provide feedback"));
+    connect(feedbackAction, &QAction::triggered, this, &MainWindow::showFeedbackPage);
+
+    ui->helpButton->setMenu(helpMenu);
 
     //set window titie
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
@@ -63,11 +78,8 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
 #ifndef NDEBUG
     auto debugAction = new QAction("Debug", this);
-    ui->menu_Preference->addAction(debugAction);
     connect(debugAction, &QAction::triggered, debugAction, [](){
-        auto dialog = new CopyOrReplaceByAliasRulesMultiLineEditorDialog();
-        dialog->exec();
-        dialog->deleteLater();
+
     });
 #endif
 }
@@ -156,7 +168,7 @@ void MainWindow::showAboutDialog()
 <ul>
 <li>Qt %2, The Qt Company Ltd, under LGPL v3.</li>
 <li><a href="https://github.com/shine5402/KiraUTAUUtils">KiraUTAUUtils</a>, shine_5402, under LGPL v3</li>
-<li><a herf="https://github.com/shine5402/KiraCommonUtils">KiraCommmonUtils</a>, shine_5402, mainly under the Apache License, Version 2.0</li>
+<li><a href="https://github.com/shine5402/KiraCommonUtils">KiraCommmonUtils</a>, shine_5402, mainly under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 </ul>
@@ -164,11 +176,6 @@ void MainWindow::showAboutDialog()
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>
 )"
 ).arg(versionStr).arg(QT_VERSION_STR));
-}
-
-void MainWindow::showAboutQtDialog()
-{
-    QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 void MainWindow::showDonationPage()
@@ -184,6 +191,14 @@ void MainWindow::showUpdatePage()
 void MainWindow::showFeedbackPage()
 {
     QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
+}
+
+void MainWindow::fitLogoToDarkMode(DarkMode::Mode curr)
+{
+    if (curr == DarkMode::LIGHT)
+        ui->logoLabel->setPixmap(QPixmap(":/logo/light"));
+    else
+        ui->logoLabel->setPixmap(QPixmap(":/logo/dark"));
 }
 
 void MainWindow::changeEvent(QEvent* event)

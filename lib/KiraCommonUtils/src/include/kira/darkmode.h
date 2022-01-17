@@ -1,6 +1,7 @@
 #ifndef KIRA_DARKMODE_H
 #define KIRA_DARKMODE_H
 #include <QMetaType>
+#include <QObject>
 
 class QMenu;
 class QPalette;
@@ -27,6 +28,20 @@ namespace DarkMode {
 
     QPalette getPaletteFor(Mode mode);
     QMenu* getDarkModeSettingMenu();
+
+    class Observer : public QObject {
+        Q_OBJECT
+    private:
+        explicit Observer(QObject* parent) : QObject(parent){};
+
+    signals:
+        ///Emitted when setCurrentPaletteToApp being called, as you should change assets that time
+        void darkModeChanged(DarkMode::Mode curr);
+
+    friend Observer* getObserver();
+    };
+
+    Observer* getObserver();
 }
 
 #endif // KIRA_DARKMODE_H

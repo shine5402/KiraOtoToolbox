@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/logo">
+        <file alias="light">logo.svg</file>
+        <file alias="dark">logo_dark.svg</file>
+    </qresource>
+</RCC>

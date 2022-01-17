@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <kira/darkmode.h>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -30,10 +31,10 @@ private:
 
 private slots:
     void showAboutDialog();
-    void showAboutQtDialog();
     void showDonationPage();
     void showUpdatePage();
     void showFeedbackPage();
+    void fitLogoToDarkMode(DarkMode::Mode curr);
     // QWidget interface
 protected:
     void changeEvent(QEvent*) override;

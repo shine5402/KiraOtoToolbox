@@ -6,6 +6,7 @@
 #include <QStyleFactory>
 #include <QStyle>
 #include <QMenu>
+#include <QToolTip>
 
 namespace DarkMode {
     static QMenu* darkModeMenu = nullptr;
@@ -29,6 +30,7 @@ void DarkMode::setCurrentMode(Mode mode)
 void DarkMode::setCurrentPaletteToApp()
 {
     QApplication::setPalette(getPaletteFor(getCurrentMode()));
+    QToolTip::setPalette(getPaletteFor(getCurrentMode()));
 }
 
 QPalette DarkMode::getPaletteFor(Mode mode)
@@ -44,8 +46,8 @@ QPalette DarkMode::getPaletteFor(Mode mode)
         darkPalette.setColor(QPalette::WindowText, Qt::white);
         darkPalette.setColor(QPalette::Base, black);
         darkPalette.setColor(QPalette::AlternateBase, darkGray);
-        darkPalette.setColor(QPalette::ToolTipBase, blue);
-        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+        darkPalette.setColor(QPalette::Inactive, QPalette::ToolTipBase, darkGray.lighter());
+        darkPalette.setColor(QPalette::Inactive, QPalette::ToolTipText, Qt::white);
         darkPalette.setColor(QPalette::Text, Qt::white);
         darkPalette.setColor(QPalette::Button, darkGray);
         darkPalette.setColor(QPalette::ButtonText, Qt::white);
@@ -64,6 +66,8 @@ QPalette DarkMode::getPaletteFor(Mode mode)
     {
         auto lightPalette = QStyleFactory::create("fusion")->standardPalette();
         lightPalette.setColor(QPalette::Window, QColor(250,250,250));
+        lightPalette.setColor(QPalette::Inactive, QPalette::ToolTipBase, QColor(240,240,240));
+        lightPalette.setColor(QPalette::Inactive, QPalette::ToolTipText, QColor(50,50,50));
         return lightPalette;
     }
 }

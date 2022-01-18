@@ -15,8 +15,8 @@ public:
     virtual OptionContainer getOptions() const;//required
     virtual void setOptions(const OptionContainer& options);//required
 
-    virtual QJsonObject getOptionsJson() const;
-    virtual void setOptionsJson(const QJsonObject& json);
+    QJsonObject getOptionsJson() const;
+    void setOptionsJson(const QJsonObject& json);
 
     virtual QJsonObject optionsToJson(const OptionContainer& options) const;//required
     virtual OptionContainer jsonToOptions(const QJsonObject& json) const;//required
@@ -39,9 +39,9 @@ public:
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;
 
-    QJsonObject getOptionsJson() const override;
-    void setOptionsJson(const QJsonObject& json) override;
     virtual int optionJsonVersion() const override;
+    QJsonObject optionsToJson(const OptionContainer& options) const override;
+    OptionContainer jsonToOptions(const QJsonObject& json) const override;
 };
 
 #include <kira/lib_helper/fplus_qt_adapter.h>

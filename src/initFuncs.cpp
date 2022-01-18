@@ -17,6 +17,7 @@
 #include "removeSpecificEntries/removespecificentriesdialogadapter.h"
 #include "copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h"
 #include "convertPlusMinusRight/convertplusminusrightdialogadapter.h"
+#include "preCenteredChangeValue/precenteredchangevalueadapter.h"
 
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
@@ -34,6 +35,7 @@ void registerTools()
     REGISTER_TOOL("Value operations", VowelCrossfadingDialogAdapter);
     REGISTER_TOOL("Value operations", TrimAroundSpecificValueDialogAdapter);
     REGISTER_TOOL("Value operations", ConvertPlusMinusRightDialogAdapter);
+    REGISTER_TOOL("Value operations", PreCenteredChangeValueAdapter);
 
     REGISTER_TOOL("Alias operations", RemoveAffixDialogAdapter);
     REGISTER_TOOL("Alias operations", AddAffixDialogAdapter);

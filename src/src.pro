@@ -49,6 +49,9 @@ SOURCES += \
     notdoanything/notdoanythingoptionwidget.cpp \
     notdoanything/notdoanythingotolistmodifyworker.cpp \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.cpp \
+    preCenteredChangeValue/precenteredchangevalueadapter.cpp \
+    preCenteredChangeValue/precenteredchangevalueoptionwidget.cpp \
+    preCenteredChangeValue/precenteredchangevalueotolistmodifyworker.cpp \
     removeAffix/removeaffixdialogadapter.cpp \
     removeAffix/removeaffixoptionwidget.cpp \
     removeAffix/removeaffixotolistmodifyworker.cpp \
@@ -131,6 +134,9 @@ HEADERS += \
     notdoanything/notdoanythingoptionwidget.h \
     notdoanything/notdoanythingotolistmodifyworker.h \
     overlapBatchSet/overlapbatchsetotolistmodifyworker.h \
+    preCenteredChangeValue/precenteredchangevalueadapter.h \
+    preCenteredChangeValue/precenteredchangevalueoptionwidget.h \
+    preCenteredChangeValue/precenteredchangevalueotolistmodifyworker.h \
     removeAffix/removeaffixdialogadapter.h \
     removeAffix/removeaffixoptionwidget.h \
     removeAffix/removeaffixotolistmodifyworker.h \
@@ -190,6 +196,7 @@ FORMS += \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
+    preCenteredChangeValue/precenteredchangevalueoptionwidget.ui \
     removeAffix/removeaffixoptionwidget.ui \
     chain/chaintooloptionwidget.ui \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.ui \

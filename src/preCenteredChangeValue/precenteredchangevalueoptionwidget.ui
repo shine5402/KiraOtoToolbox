@@ -141,7 +141,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>This tool will keep preutterance's &lt;b&gt;absolute&lt;/b&gt; position while changing other values relatively. In other words, it calculate new  &lt;b&gt;left&lt;/b&gt; value and change it based on the new pattern you input above.</string>
+      <string>This tool will keep preutterance's &lt;b&gt;absolute&lt;/b&gt; position while changing other values relatively. In other words, it calculate new  &lt;b&gt;left&lt;/b&gt; value and change it based on the new pattern you input above. If new left value is less than 0, the entry's left and preutterance will be kept as original.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

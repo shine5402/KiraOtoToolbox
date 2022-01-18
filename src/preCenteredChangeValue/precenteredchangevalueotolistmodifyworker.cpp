@@ -18,14 +18,14 @@ bool PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOt
     resultOtoList = {};
     for (const auto& entry : srcOtoList){
         auto newEntry = entry;
-        newEntry.setLeft(entry.preUtterance() - preutterance + entry.left());
-        newEntry.setPreUtterance(preutterance);
+        auto newLeft = entry.preUtterance() - preutterance + entry.left();
+        newEntry.setLeft(newLeft >= 0 ? newLeft : entry.left());
+        newEntry.setPreUtterance(newLeft >= 0 ? preutterance : entry.preUtterance());
         newEntry.setConsonant(constField);
         newEntry.setOverlap(overlap);
         newEntry.setRight(right);
         resultOtoList.append(newEntry);
     }
 
-    //TODO:check for negative left as they are invalid, or give a ignore/bound to zero option
     return true;
 }

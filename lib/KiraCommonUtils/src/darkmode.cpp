@@ -35,12 +35,13 @@ namespace DarkMode {
     {
         QSettings settings;
         settings.setValue("darkMode", mode);
-        QToolTip::setPalette(getPaletteFor(getCurrentMode()));
+        setCurrentPaletteToApp();
     }
 
     void setCurrentPaletteToApp()
     {
         QApplication::setPalette(getPaletteFor(getCurrentMode()));
+        QToolTip::setPalette(getPaletteFor(getCurrentMode()));
         if (observerInstance)
             emit observerInstance->darkModeChanged(getCurrentMode());
     }
@@ -95,14 +96,12 @@ namespace DarkMode {
         lightAction->setCheckable(true);
         QObject::connect(lightAction, &QAction::triggered, [](){
             setCurrentMode(LIGHT);
-            setCurrentPaletteToApp();
             setCurrentActionChecked();
         });
         darkAction = darkModeMenu->addAction(QCoreApplication::translate("DarkMode", "Dark"));
         darkAction->setCheckable(true);
         QObject::connect(darkAction, &QAction::triggered, [](){
             setCurrentMode(DARK);
-            setCurrentPaletteToApp();
             setCurrentActionChecked();
         });
         setCurrentActionChecked();

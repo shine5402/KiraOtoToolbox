@@ -42,7 +42,7 @@ private:
     ToolOptionWidget* optionWidget;
     PresetWidgetContainer* presetWidgetContainer;
     bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
-    bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
+    bool doWork(const QVector<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;
     constexpr static auto batchModePageIndex = 1;
     void refreshStackedWidgetSize(QStackedWidget* stackedWidget);

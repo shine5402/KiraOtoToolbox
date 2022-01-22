@@ -184,14 +184,14 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
     return result;
 }
 
-bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent)
+bool ToolDialog::doWork(const QVector<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent)
 {
     Q_ASSERT(srcLists.count() == srcFileNames.count());
 
     auto saveOptions = options.extract("save/");
     auto toolOptions = options;
 
-    QList<OtoEntryList> results{};
+    QVector<OtoEntryList> results{};
 
     for (int i = 0; i < srcLists.count(); ++i){
         OtoEntryList entryListWorking{};

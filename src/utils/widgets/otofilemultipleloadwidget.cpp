@@ -37,9 +37,9 @@ int OtoFileMultipleLoadWidget::count() const
     return model->rowCount();
 }
 
-QList<OtoEntryList> OtoFileMultipleLoadWidget::entryLists() const
+QVector<OtoEntryList> OtoFileMultipleLoadWidget::entryLists() const
 {
-    QList<OtoEntryList> result;
+    QVector<OtoEntryList> result;
 
     auto datas = model->datas();
     for (const auto& data : datas){

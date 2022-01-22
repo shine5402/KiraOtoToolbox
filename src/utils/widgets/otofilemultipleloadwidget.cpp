@@ -66,17 +66,23 @@ void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
     for (const auto &fileName : fileNames){
         if (!QFileInfo::exists(fileName)){
             QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(fileName));
-            return;
+            continue;
         }
 
         if (this->fileNames().contains(fileName))
         {
             QMessageBox::warning(this, tr("Has been readed"), tr("\"%1\" oto entries has been loaded.").arg(fileName));
-            return;
+            continue;
         }
 
         OtoFileReader reader(fileName);
         auto entryList = reader.getEntryList();
+
+        if (entryList.isEmpty())
+        {
+            QMessageBox::critical(this, {}, tr("The given file \"%1\" is empty, or contains invalid data only.").arg(fileName));
+            continue;
+        }
 
         model->addData(fileName, entryList);
     }

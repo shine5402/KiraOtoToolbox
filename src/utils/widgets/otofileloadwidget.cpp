@@ -83,6 +83,11 @@ void OtoFileLoadWidget::loadOtoFile()
 
     OtoFileReader reader(path);
     entryList = reader.getEntryList();
+    if (entryList.isEmpty())
+    {
+        QMessageBox::critical(this, {}, tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
+        return;
+    }
     entryListReaded = true;
     setUpLoadedUI();
 

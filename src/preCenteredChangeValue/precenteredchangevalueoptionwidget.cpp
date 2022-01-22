@@ -7,6 +7,11 @@ PreCenteredChangeValueOptionWidget::PreCenteredChangeValueOptionWidget(QWidget *
 {
     ui->setupUi(this);
     connect(ui->normalizeWithTempoButton, &QPushButton::clicked, this, &PreCenteredChangeValueOptionWidget::setParamsWithUITempo);
+
+    connect(ui->constFieldDoubleSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->preutteranceDoubleSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->overlapDoubleSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->rightDoubleSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
 }
 
 PreCenteredChangeValueOptionWidget::~PreCenteredChangeValueOptionWidget()

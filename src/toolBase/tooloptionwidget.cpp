@@ -52,6 +52,12 @@ QJsonObject ToolOptionWidget::updateOptionJsonFrom(int version, const QJsonObjec
     return json;
 }
 
+void ToolOptionWidget::askOtoDataCallback(int askId, const QVector<OtoEntryList>& contents)
+{
+    Q_UNUSED(contents);
+    Q_UNUSED(askId);
+}
+
 EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);

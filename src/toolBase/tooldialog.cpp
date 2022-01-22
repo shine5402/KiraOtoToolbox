@@ -19,7 +19,7 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoMultipleLoadWidget, &OtoFileMultipleLoadWidget::dataChanged, this, &ToolDialog::refreshOptionWidgetEnableState);
     adapter->replaceUIWidgets(ui->rootLayout);
 
-    //Deal with args mode
+    //Deal with command line mode
     auto args = qApp->arguments();
     if (args.count() > 1){
         args.removeFirst();
@@ -42,6 +42,14 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     }
 
     reAssignWidgetHandles();
+
+    //askOtoData callback handle
+    connect(optionWidget, &ToolOptionWidget::askOtoData, optionWidget, [this](int askId){
+         if (isSingleMode())
+             optionWidget->askOtoDataCallback(askId, QVector({ui->otoLoadWidget->getEntryList()}));
+         else
+             optionWidget->askOtoDataCallback(askId, ui->otoMultipleLoadWidget->entryLists());
+    });
 
     setWindowTitle(adapter->getToolName());
     refreshStackedWidgetSize(ui->stackedLoadWidget);

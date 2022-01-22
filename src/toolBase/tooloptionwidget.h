@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVariant>
+#include "OtoUtil/otoentry.h"
 #include "optioncontainer.h"
 #include <QJsonObject>
 
@@ -24,8 +25,13 @@ public:
     virtual int optionJsonVersion() const;//required
     virtual QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const;
 
+    //For tools that provides a deduce from data ability for their options.
+    virtual void askOtoDataCallback(int askId, const QVector<OtoEntryList>& contents);
+
 signals:
     void userSettingsChanged();//required
+    //For tools that provides a deduce from data ability for their options.
+    void askOtoData(int askId);
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget

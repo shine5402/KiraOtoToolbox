@@ -79,6 +79,9 @@ SOURCES += \
     setAlias/setaliasdialogadapter.cpp \
     setAlias/setaliasoptionwidget.cpp \
     setAlias/setaliasotolistmodifyworker.cpp \
+    tempoTransform/tempotransformoptionwidget.cpp \
+    tempoTransform/tempotransformotolistmodifyworker.cpp \
+    tempoTransform/tempotransfromdialogadapter.cpp \
     toolBase/optioncontainer.cpp \
     toolBase/otolistmodifyworker.cpp \
     toolBase/presetmanager.cpp \
@@ -163,6 +166,9 @@ HEADERS += \
     setAlias/setaliasdialogadapter.h \
     setAlias/setaliasoptionwidget.h \
     setAlias/setaliasotolistmodifyworker.h \
+    tempoTransform/tempotransformoptionwidget.h \
+    tempoTransform/tempotransformotolistmodifyworker.h \
+    tempoTransform/tempotransfromdialogadapter.h \
     toolBase/optioncontainer.h \
     toolBase/otolistmodifyworker.h \
     toolBase/presetmanager.h \
@@ -205,6 +211,7 @@ FORMS += \
     removeDuplicate/removeduplicateoptionwidget.ui \
     removeSpecificEntries/removespecificentriesoptionwidget.ui \
     setAlias/setaliasoptionwidget.ui \
+    tempoTransform/tempotransformoptionwidget.ui \
     toolBase/presetwidgetcontainer.ui \
     toolBase/tooldialog.ui \
     trimAroundSpecificValue/trimaroundspecificvalueoptionwidget.ui \

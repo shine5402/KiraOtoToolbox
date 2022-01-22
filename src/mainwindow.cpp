@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(debugAction, &QAction::triggered, debugAction, [](){
 
     });
+    helpMenu->addAction(debugAction);
 #endif
 }
 

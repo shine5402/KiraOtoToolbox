@@ -6,7 +6,7 @@ CONFIG += c++17 file_copies
 
 TARGET = KiraOtoToolbox
 
-VERSION = 0.7.0
+VERSION = 1.0.0
 DEFINES += VERSION_BETA
 
 RC_ICONS = resources/icon/appIcon.ico

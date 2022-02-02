@@ -19,6 +19,8 @@ OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
     connect(ui->otoFileTableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &OtoFileMultipleLoadWidget::onSelectionChanged);
 
     ui->openFileNameEdit->setMultipleMode(true);
+
+    refreshButtonEnableState();
 }
 
 OtoFileMultipleLoadWidget::~OtoFileMultipleLoadWidget()
@@ -34,7 +36,8 @@ void OtoFileMultipleLoadWidget::reset()
 
 int OtoFileMultipleLoadWidget::count() const
 {
-    return model->rowCount();
+    //As we have a (total) item at the end
+    return model->rowCount() - 1;
 }
 
 QVector<OtoEntryList> OtoFileMultipleLoadWidget::entryLists() const
@@ -121,7 +124,8 @@ void OtoFileMultipleLoadWidget::removeOtoFile()
 {
     if (model->rowCount() > 0){
         QSet<int> selectedRowsSet;
-        for (auto index : ui->otoFileTableView->selectionModel()->selection().indexes()){
+        auto selectedIndexes = ui->otoFileTableView->selectionModel()->selection().indexes();
+        for (auto index : qAsConst(selectedIndexes)){
             selectedRowsSet.insert(index.row());
         }
         auto selectedRows = selectedRowsSet.values();
@@ -136,8 +140,9 @@ void OtoFileMultipleLoadWidget::removeOtoFile()
 void OtoFileMultipleLoadWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
 {
     Q_UNUSED(deselected)
-    ui->showContentButton->setEnabled(selected.count() <= 1);
-
+    refreshButtonEnableState();
+    //Prevent showing multiple list
+    ui->showContentButton->setEnabled(ui->showContentButton->isEnabled() && selected.count() <= 1);
 }
 
 int OtoFileMultipleLoadWidget::currentRow()
@@ -147,6 +152,6 @@ int OtoFileMultipleLoadWidget::currentRow()
 
 void OtoFileMultipleLoadWidget::refreshButtonEnableState()
 {
-    ui->removeButton->setEnabled(count() > 0);
-    ui->showContentButton->setEnabled(count() > 0 && currentRow() >= 0);
+    ui->removeButton->setEnabled(count() > 0 && currentRow() < count());
+    ui->showContentButton->setEnabled(count() > 0 && currentRow() >= 0 && currentRow() < count());
 }

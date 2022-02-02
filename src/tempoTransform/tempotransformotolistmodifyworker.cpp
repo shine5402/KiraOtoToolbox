@@ -35,6 +35,8 @@ bool TempoTransformOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         return fplus::transform([&](const std::pair<OtoEntry, double>& pair)->OtoEntry{
             auto entry = pair.first;
             entry.setLeft(entry.left() + pair.second + offset);
+            if (entry.right() > 0)
+                entry.setRight(entry.right() - (pair.second + offset));
             return entry;
         },
         fplus::zip(entrys, diff));

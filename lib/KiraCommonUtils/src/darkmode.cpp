@@ -59,8 +59,8 @@ namespace DarkMode {
             darkPalette.setColor(QPalette::WindowText, Qt::white);
             darkPalette.setColor(QPalette::Base, black);
             darkPalette.setColor(QPalette::AlternateBase, darkGray);
-            darkPalette.setColor(QPalette::ToolTipBase, blue);
-            darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+            darkPalette.setColor(QPalette::Inactive, QPalette::ToolTipBase, darkGray.lighter());
+            darkPalette.setColor(QPalette::Inactive, QPalette::ToolTipText, Qt::white);
             darkPalette.setColor(QPalette::Text, Qt::white);
             darkPalette.setColor(QPalette::Button, darkGray);
             darkPalette.setColor(QPalette::ButtonText, Qt::white);
@@ -109,5 +109,4 @@ namespace DarkMode {
         return darkModeMenu;
     }
 }
-
 

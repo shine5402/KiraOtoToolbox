@@ -8,6 +8,7 @@
 // This file contains some utils that adapt Qt's container to FunctionalPlus.
 // To use, include it with fplus, or just replace fplus with this file.
 // It only contains needed adapters to solve the problem I found, so it is very incomplete.
+// It also contains some utils making my usuage easier.
 
 namespace fplus {
     template <typename ContainerIn, typename ContainerOut = typename ContainerIn::value_type>
@@ -134,6 +135,11 @@ namespace fplus {
     template <typename T>
     T get_just_or_default(const maybe<T>& maybe, const T& default_value){
         return maybe.is_just() ? maybe.unsafe_get_just() : default_value;
+    }
+
+    template <typename ContainerIn>
+    auto zipWithNext(ContainerIn xs){
+        return zip(drop_last(1, xs), drop(1, xs));
     }
 }
 

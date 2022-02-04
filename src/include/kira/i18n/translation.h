@@ -33,7 +33,7 @@ public:
     bool operator==(const Translation& other) const;
 
 private:
-    QLocale locale_;
+    QLocale locale_ = QLocale("en_US");
     QStringList translationFilenames_;
     QString author_;
 

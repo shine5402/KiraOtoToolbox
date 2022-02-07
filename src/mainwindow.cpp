@@ -119,7 +119,7 @@ void MainWindow::createToolSelectorUI()
             toolButtonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
-        ui->toolLayout->insertWidget(groupID + 1, groupBox);//1 stands for behind first spacer in ui layout
+        ui->toolLayout->insertWidget(groupID, groupBox);//1 stands for behind first spacer in ui layout
     }
 
     connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup, [toolButtonGroup, this](QAbstractButton* button){

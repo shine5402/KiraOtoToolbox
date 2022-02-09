@@ -17,22 +17,20 @@ public:
     virtual void replaceUIWidgets(QLayout* rootLayout);
     virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
                                const OptionContainer& options, QWidget* dialogParent);
-    virtual bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                        const OptionContainer& options);
     virtual QString getToolName() const;
 
     QMetaObject getOptionWidgetMetaObj() const;
     QMetaObject getWorkerMetaObj() const;
+    std::unique_ptr<OtoListModifyWorker> getWorkerInstance() const;
 
 protected:
     static void replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget);
     void setOptionWidgetMetaObj(const QMetaObject& value);
     void setWorkerMetaObj(const QMetaObject& value);
+
 private:
     QMetaObject optionWidgetMetaObj;
     QMetaObject workerMetaObj;
-    std::unique_ptr<OtoListModifyWorker> getWorkerInstance() const;
-
 signals:
 };
 

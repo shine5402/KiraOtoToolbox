@@ -30,21 +30,14 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
-    if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+    if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
         return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                      tr("Confirm changes"),
-                                      tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
-                                      dialogParent);
+                                       tr("Confirm changes"),
+                                       tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                       dialogParent);
     else
         QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
     return false;
-}
-
-bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
-{
-    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
-    auto worker = qobject_cast<OtoListModifyWorker *>(workerMetaObj.newInstance(Q_ARG(QObject*, this)));
-    return worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
 }
 
 QString ToolDialogAdapter::getToolName() const
@@ -56,6 +49,7 @@ QString ToolDialogAdapter::getToolName() const
 
 std::unique_ptr<OtoListModifyWorker> ToolDialogAdapter::getWorkerInstance() const
 {
+    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
     return std::unique_ptr<OtoListModifyWorker>(qobject_cast<OtoListModifyWorker*>(workerMetaObj.newInstance()));
 }
 

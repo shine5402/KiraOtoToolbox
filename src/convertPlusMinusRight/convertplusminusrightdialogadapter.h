@@ -13,7 +13,6 @@ public:
     // ToolDialogAdapter interface
 public:
     bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent) override;
-    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
 };
 
 #endif // CONVERTPLUSMINUSRIGHTDIALOGADAPTER_H

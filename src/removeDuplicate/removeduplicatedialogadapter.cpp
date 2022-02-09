@@ -23,7 +23,7 @@ void RemoveDuplicateDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 bool RemoveDuplicateDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
-    if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+    if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
     {
         auto specificWorker = new RemoveDuplicateModuleOtoListModifyWorker(this);
         if ((!specificWorker->getOrganizeResult().isEmpty()) &&

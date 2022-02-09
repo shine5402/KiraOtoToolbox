@@ -22,7 +22,7 @@ bool CV_VCPartSplitToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, Oto
 {
     auto precision = options.getOption("save/precision").toInt();
     auto isSecondFileNameUsed = options.getOption("save/isSecondFileNameUsed").toBool();
-    if (ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options)){
+    if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options)){
         if (isSecondFileNameUsed && !(Misc::askUserWithShowOtoList(secondSaveOtoList, tr("VC part extracted"), tr("These %1 oto entries will be save to location specified.").arg(secondSaveOtoList.count()), dialogParent)))
         {
             return false;

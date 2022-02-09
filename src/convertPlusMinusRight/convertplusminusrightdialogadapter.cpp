@@ -15,6 +15,7 @@ bool ConvertPlusMinusRightDialogAdapter::doWork(const OtoEntryList& srcOtoList, 
     try {
         return ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options, dialogParent);
     }
+    //TODO:refractor later
     catch(const ConvertPlusMinusRightOtoListModifyWorker::FileNotFoundException& e){
         QMessageBox::critical(dialogParent, {}, tr("The file \"%1\" don't exist. Please check and try again.").arg(e.fileName()));
     }
@@ -27,13 +28,3 @@ bool ConvertPlusMinusRightDialogAdapter::doWork(const OtoEntryList& srcOtoList, 
     return false;
 }
 
-bool ConvertPlusMinusRightDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
-{
-    try {
-        return ToolDialogAdapter::doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
-    }
-    catch(const std::runtime_error&){
-        return false;
-    }
-    return false;
-}

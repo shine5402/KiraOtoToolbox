@@ -11,6 +11,11 @@ namespace Misc {
     enum ChangeAskDialogType{
         Determine, ValueChangeModel, Diff
     };
+    QDialog* getOtoDiffDialogInstance(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
+                                      const QString& title = {}, const QString& label = {}, QWidget* dialogParent = nullptr,
+                                      ChangeAskDialogType changeType = Determine,
+                                      QDialogButtonBox::StandardButtons stdButtons = QDialogButtonBox::Ok | QDialogButtonBox::Cancel
+            );
     bool showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
                            const QString& title = {}, const QString& label = {}, QWidget* dialogParent = nullptr,
                            ChangeAskDialogType changeType = Determine,

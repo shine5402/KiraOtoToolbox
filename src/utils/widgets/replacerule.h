@@ -30,6 +30,9 @@ public:
     bool match(const QString& alias) const;
     QString replace(const QString& alias) const;
 
+    static QJsonArray rulesToJson(const QVector<ReplaceRule>& rules);
+    static QVector<ReplaceRule> jsonToRules(const QJsonArray& ruleJsonArray);
+
 private:
     QString matchPattern_;
     QString targetPattern_;

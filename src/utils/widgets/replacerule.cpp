@@ -1,4 +1,7 @@
 #include "replacerule.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/misc/misc.h"
+#include "qjsonarray.h"
 #include <QRegularExpression>
 
 ReplaceRule::ReplaceRule(QString matchPattern, QString targetPattern,
@@ -78,4 +81,27 @@ QString ReplaceRule::replace(const QString& alias) const
         case ReplaceRule::Regex:return QString(alias).replace(QRegularExpression(matchPattern()), targetPattern());
     }
     Q_UNREACHABLE();
+}
+
+QJsonArray ReplaceRule::rulesToJson(const QVector<ReplaceRule>& rules)
+{
+    return Misc::arrayFromJsonValueVector(fplus::transform([](const ReplaceRule& rule)->QJsonValue{
+            QJsonObject ruleJson;
+            ruleJson.insert("matchPattern", rule.matchPattern());
+            ruleJson.insert("targetPattern", rule.targetPattern());
+            ruleJson.insert("strategy", rule.strategy());
+            return ruleJson;
+    }, rules));
+}
+
+QVector<ReplaceRule> ReplaceRule::jsonToRules(const QJsonArray& ruleJsonArray)
+{
+    return fplus::transform([](const QJsonValue& value)->ReplaceRule{
+            auto obj = value.toObject();
+            ReplaceRule rule;
+            rule.setMatchPattern(obj.value("matchPattern").toString());
+            rule.setTargetPattern(obj.value("targetPattern").toString());
+            rule.setStrategy((ReplaceRule::MatchStrategy) obj.value("strategy").toInt());
+            return rule;
+        }, ruleJsonArray);
 }

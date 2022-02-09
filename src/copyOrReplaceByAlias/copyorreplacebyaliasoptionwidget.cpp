@@ -1,5 +1,6 @@
 #include "copyorreplacebyaliasoptionwidget.h"
 #include "ui_copyorreplacebyaliasoptionwidget.h"
+#include "utils/misc/misc.h"
 #include <QDialog>
 #include <QFormLayout>
 #include <QLineEdit>
@@ -41,27 +42,12 @@ void CopyOrReplaceByAliasOptionWidget::setOptions(const OptionContainer& options
     ui->behaviorReplaceRadioButton->setChecked(options.getOption("behaviorReplace").toBool());
 }
 
-QJsonArray arrayFromJsonValueVector(QVector<QJsonValue> vector){
-    QJsonArray array;
-    for (const auto& i : qAsConst(vector))
-    {
-        array.append(i);
-    }
-    return array;
-}
-
 QJsonObject CopyOrReplaceByAliasOptionWidget::optionsToJson(const OptionContainer& options) const
 {
     QJsonObject json;
 
     auto rules = options.getOption("rules").value<QVector<ReplaceRule>>();
-    auto ruleJsonArray = arrayFromJsonValueVector(fplus::transform([](const ReplaceRule& rule)->QJsonValue{
-        QJsonObject ruleJson;
-        ruleJson.insert("matchPattern", rule.matchPattern());
-        ruleJson.insert("targetPattern", rule.targetPattern());
-        ruleJson.insert("strategy", rule.strategy());
-        return ruleJson;
-    }, rules));
+    auto ruleJsonArray = ReplaceRule::rulesToJson(rules);
     json.insert("rules", ruleJsonArray);
     json.insert("behaviorCopy", options.getOption("behaviorCopy").toBool());
     json.insert("behaviorReplace", options.getOption("behaviorReplace").toBool());
@@ -74,14 +60,7 @@ OptionContainer CopyOrReplaceByAliasOptionWidget::jsonToOptions(const QJsonObjec
     OptionContainer options;
 
     auto ruleJsonArray = json.value("rules").toArray();
-    auto rules = fplus::transform([](const QJsonValue& value)->ReplaceRule{
-        auto obj = value.toObject();
-        ReplaceRule rule;
-        rule.setMatchPattern(obj.value("matchPattern").toString());
-        rule.setTargetPattern(obj.value("targetPattern").toString());
-        rule.setStrategy((ReplaceRule::MatchStrategy) obj.value("strategy").toInt());
-        return rule;
-    }, ruleJsonArray);
+    auto rules = ReplaceRule::jsonToRules(ruleJsonArray);
     options.setOption("rules", QVariant::fromValue(rules));
     options.setOption("behaviorCopy", json.value("behaviorCopy").toBool());
     options.setOption("behaviorReplace", json.value("behaviorReplace").toBool());

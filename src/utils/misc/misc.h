@@ -19,6 +19,14 @@ namespace Misc {
 
     bool askUserWithShowOtoList(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 
+    QJsonArray arrayFromJsonValueVector(QVector<QJsonValue> vector){
+        QJsonArray array;
+        for (const auto& i : qAsConst(vector))
+        {
+            array.append(i);
+        }
+        return array;
+    }
 }
 
 #endif // MISC_H

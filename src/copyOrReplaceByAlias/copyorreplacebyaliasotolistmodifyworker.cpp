@@ -1,5 +1,5 @@
 #include "copyorreplacebyaliasotolistmodifyworker.h"
-#include "copyorreplacebyaliasrule.h"
+#include "utils/widgets/replacerule.h"
 
 CopyOrReplaceByAliasOtoListModifyWorker::CopyOrReplaceByAliasOtoListModifyWorker(QObject* parent):OtoListModifyWorker(parent)
 {
@@ -12,7 +12,7 @@ bool CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
 {
     Q_UNUSED(secondSaveOtoList)
 
-    auto rules = options.getOption("rules").value<QVector<CopyOrReplaceByAliasRule>>();
+    auto rules = options.getOption("rules").value<QVector<ReplaceRule>>();
     auto behaviorCopy = options.getOption("behaviorCopy").toBool();
     auto behaviorReplace = options.getOption("behaviorReplace").toBool();
 

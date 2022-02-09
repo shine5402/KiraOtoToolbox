@@ -8,8 +8,6 @@ namespace Ui {
     class CopyOrReplaceByAliasOptionWidget;
 }
 
-class CopyOrReplaceByAliasRulesModel;
-
 class CopyOrReplaceByAliasOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
@@ -18,18 +16,9 @@ public:
     Q_INVOKABLE explicit CopyOrReplaceByAliasOptionWidget(QWidget *parent = nullptr);
     ~CopyOrReplaceByAliasOptionWidget();
 
-private slots:
-    void addRule();
-    void removeRule();
-    void multiLineEdit();
-    void moveUpRule();
-    void moveDownRule();
-    void sortRuleByMatchPatternLength();
-
 private:
     Ui::CopyOrReplaceByAliasOptionWidget *ui;
-    CopyOrReplaceByAliasRulesModel* model;
-    // ToolOptionWidget interface
+
 public:
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;

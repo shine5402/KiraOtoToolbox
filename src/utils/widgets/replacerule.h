@@ -1,10 +1,10 @@
-#ifndef COPYORREPLACEBYALIASRULE_H
-#define COPYORREPLACEBYALIASRULE_H
+#ifndef REPLACERULE_H
+#define REPLACERULE_H
 
 #include <QString>
 #include <QCoreApplication>
 
-class CopyOrReplaceByAliasRule
+class ReplaceRule
 {
     Q_DECLARE_TR_FUNCTIONS(CopyOrReplaceByAliasRule)
 public:
@@ -12,8 +12,8 @@ public:
         Exact = 0, Partial, Regex
     };
 
-    CopyOrReplaceByAliasRule(QString matchPattern, QString targetPattern, MatchStrategy strategy);
-    CopyOrReplaceByAliasRule();
+    ReplaceRule(QString matchPattern, QString targetPattern, MatchStrategy strategy);
+    ReplaceRule();
 
     QString matchPattern() const;
     void setMatchPattern(const QString& value);
@@ -25,7 +25,7 @@ public:
     void setStrategy(const MatchStrategy& value);
     static QString getStrategyString(MatchStrategy strategy);
 
-    bool operator==(const CopyOrReplaceByAliasRule& other) const;
+    bool operator==(const ReplaceRule& other) const;
 
     bool match(const QString& alias) const;
     QString replace(const QString& alias) const;
@@ -36,6 +36,6 @@ private:
     MatchStrategy strategy_ = Exact;
 };
 
-Q_DECLARE_METATYPE(CopyOrReplaceByAliasRule)
+Q_DECLARE_METATYPE(ReplaceRule)
 
-#endif // COPYORREPLACEBYALIASRULE_H
+#endif // REPLACERULE_H

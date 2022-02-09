@@ -1,12 +1,12 @@
-#include "copyorreplacebyaliasrulesmultilineeditordialog.h"
-#include "ui_copyorreplacebyaliasrulesmultilineeditordialog.h"
+#include "replacerulesmultilineeditordialog.h"
+#include "ui_replacerulesmultilineeditordialog.h"
 #include <QScrollBar>
 #include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QMessageBox>
 
-CopyOrReplaceByAliasRulesMultiLineEditorDialog::CopyOrReplaceByAliasRulesMultiLineEditorDialog(QWidget *parent) :
+ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::CopyOrReplaceByAliasRulesMultiLineEditorDialog)
+    ui(new Ui::ReplaceRulesMultiLineEditorDialog)
 {
     ui->setupUi(this);
 
@@ -25,12 +25,12 @@ CopyOrReplaceByAliasRulesMultiLineEditorDialog::CopyOrReplaceByAliasRulesMultiLi
 
 }
 
-CopyOrReplaceByAliasRulesMultiLineEditorDialog::~CopyOrReplaceByAliasRulesMultiLineEditorDialog()
+ReplaceRulesMultiLineEditorDialog::~ReplaceRulesMultiLineEditorDialog()
 {
     delete ui;
 }
 
-QVector<CopyOrReplaceByAliasRule> CopyOrReplaceByAliasRulesMultiLineEditorDialog::rules() const
+QVector<ReplaceRule> ReplaceRulesMultiLineEditorDialog::rules() const
 {
     auto matchData = ui->matchPatternEdit->toPlainText().split("\n");
     auto targetData = ui->targetPatternEdit->toPlainText().split("\n");
@@ -39,14 +39,14 @@ QVector<CopyOrReplaceByAliasRule> CopyOrReplaceByAliasRulesMultiLineEditorDialog
     if (!isValid())
         return {};
 
-    QVector<CopyOrReplaceByAliasRule> result;
-    auto getStrategy = [](const QString& str)->CopyOrReplaceByAliasRule::MatchStrategy{
+    QVector<ReplaceRule> result;
+    auto getStrategy = [](const QString& str)->ReplaceRule::MatchStrategy{
         if (str == "e")
-            return CopyOrReplaceByAliasRule::Exact;
+            return ReplaceRule::Exact;
         else if (str == "p")
-            return CopyOrReplaceByAliasRule::Partial;
+            return ReplaceRule::Partial;
         else if (str == "r")
-            return CopyOrReplaceByAliasRule::Regex;
+            return ReplaceRule::Regex;
         else
             Q_UNREACHABLE();
     };
@@ -56,26 +56,26 @@ QVector<CopyOrReplaceByAliasRule> CopyOrReplaceByAliasRulesMultiLineEditorDialog
     return result;
 }
 
-void CopyOrReplaceByAliasRulesMultiLineEditorDialog::setRules(QVector<CopyOrReplaceByAliasRule> rules)
+void ReplaceRulesMultiLineEditorDialog::setRules(QVector<ReplaceRule> rules)
 {
-    ui->matchPatternEdit->setPlainText(fplus::transform([](const CopyOrReplaceByAliasRule& rule)->QString{
+    ui->matchPatternEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
         return rule.matchPattern();
     }, rules).toList().join("\n"));
-    ui->targetPatternEdit->setPlainText(fplus::transform([](const CopyOrReplaceByAliasRule& rule)->QString{
+    ui->targetPatternEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
         return rule.targetPattern();
     }, rules).toList().join("\n"));
-    ui->strategyEdit->setPlainText(fplus::transform([](const CopyOrReplaceByAliasRule& rule)->QString{
+    ui->strategyEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
         switch (rule.strategy())
         {
-            case CopyOrReplaceByAliasRule::Exact: return "e";
-            case CopyOrReplaceByAliasRule::Partial: return "p";
-            case CopyOrReplaceByAliasRule::Regex: return "r";
+            case ReplaceRule::Exact: return "e";
+            case ReplaceRule::Partial: return "p";
+            case ReplaceRule::Regex: return "r";
         }
         Q_UNREACHABLE();
     }, rules).toList().join("\n"));
 }
 
-bool CopyOrReplaceByAliasRulesMultiLineEditorDialog::isValid() const
+bool ReplaceRulesMultiLineEditorDialog::isValid() const
 {
     auto matchData = ui->matchPatternEdit->toPlainText().split("\n");
     auto targetData = ui->targetPatternEdit->toPlainText().split("\n");
@@ -94,7 +94,7 @@ bool CopyOrReplaceByAliasRulesMultiLineEditorDialog::isValid() const
 }
 
 
-void CopyOrReplaceByAliasRulesMultiLineEditorDialog::accept()
+void ReplaceRulesMultiLineEditorDialog::accept()
 {
     if (!isValid()){
         QMessageBox::critical(this, {}, tr("The given data is invalid.\nIt may be caused by not identical line count or invalid strategy string.\nPlease check and try again."));

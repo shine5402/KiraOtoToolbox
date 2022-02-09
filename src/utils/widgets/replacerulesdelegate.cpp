@@ -1,21 +1,21 @@
-#include "copyorreplacebyaliasrulesdelegate.h"
+#include "replacerulesdelegate.h"
 #include <QComboBox>
-#include "copyorreplacebyaliasrule.h"
+#include "replacerule.h"
 
-CopyOrReplaceByAliasRulesDelegate::CopyOrReplaceByAliasRulesDelegate(QObject* parent):QStyledItemDelegate(parent)
+ReplaceRulesDelegate::ReplaceRulesDelegate(QObject* parent):QStyledItemDelegate(parent)
 {
 
 }
 
 
-QWidget* CopyOrReplaceByAliasRulesDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
+QWidget* ReplaceRulesDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     if (index.column() == 2){
         auto strategyComboBox = new QComboBox(parent);
         strategyComboBox->addItems({
-                                       CopyOrReplaceByAliasRule::getStrategyString(CopyOrReplaceByAliasRule::Exact),
-                                       CopyOrReplaceByAliasRule::getStrategyString(CopyOrReplaceByAliasRule::Partial),
-                                       CopyOrReplaceByAliasRule::getStrategyString(CopyOrReplaceByAliasRule::Regex)
+                                       ReplaceRule::getStrategyString(ReplaceRule::Exact),
+                                       ReplaceRule::getStrategyString(ReplaceRule::Partial),
+                                       ReplaceRule::getStrategyString(ReplaceRule::Regex)
                                    });
         strategyComboBox->setAutoFillBackground(true);
         return strategyComboBox;
@@ -23,7 +23,7 @@ QWidget* CopyOrReplaceByAliasRulesDelegate::createEditor(QWidget* parent, const 
     return QStyledItemDelegate::createEditor(parent, option, index);
 }
 
-void CopyOrReplaceByAliasRulesDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
+void ReplaceRulesDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     if (index.column() == 2){
         auto strategyComboBox = qobject_cast<QComboBox*>(editor);
@@ -34,7 +34,7 @@ void CopyOrReplaceByAliasRulesDelegate::setEditorData(QWidget* editor, const QMo
     return QStyledItemDelegate::setEditorData(editor, index);
 }
 
-void CopyOrReplaceByAliasRulesDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
+void ReplaceRulesDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     if (index.column() == 2){
         auto strategyComboBox = qobject_cast<QComboBox*>(editor);

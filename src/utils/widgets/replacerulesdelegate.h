@@ -1,13 +1,13 @@
-#ifndef COPYORREPLACEBYALIASRULESDELEGATE_H
-#define COPYORREPLACEBYALIASRULESDELEGATE_H
+#ifndef REPLACERULESDELEGATE_H
+#define REPLACERULESDELEGATE_H
 
 #include <QStyledItemDelegate>
 
-class CopyOrReplaceByAliasRulesDelegate : public QStyledItemDelegate
+class ReplaceRulesDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    explicit CopyOrReplaceByAliasRulesDelegate(QObject *parent = nullptr);
+    explicit ReplaceRulesDelegate(QObject *parent = nullptr);
 
     // QAbstractItemDelegate interface
 public:
@@ -16,4 +16,4 @@ public:
     void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 };
 
-#endif // COPYORREPLACEBYALIASRULESDELEGATE_H
+#endif // REPLACERULESDELEGATE_H

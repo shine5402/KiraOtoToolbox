@@ -34,10 +34,10 @@ SOURCES += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
-    copyOrReplaceByAlias/copyorreplacebyaliasrule.cpp \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesdelegate.cpp \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.cpp \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.cpp \
+    utils/widgets/replacerule.cpp \
+    utils/widgets/replacerulesdelegate.cpp \
+    utils/widgets/replacerulesmodel.cpp \
+    utils/widgets/replacerulesmultilineeditordialog.cpp \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.cpp \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.cpp \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.cpp \
@@ -105,6 +105,7 @@ SOURCES += \
     utils/widgets/otofilenameeditwithbrowse.cpp \
     utils/widgets/otofilesavewidget.cpp \
     utils/widgets/otofilesavewidgetabstract.cpp \
+    utils/widgets/replaceruleswidget.cpp \
     vowelCrossfading/vowelcrossfadingdialogadapter.cpp \
     vowelCrossfading/vowelcrossfadingoptionwidget.cpp \
     vowelCrossfading/vowelcrossfadingotolistmodifyworker.cpp
@@ -122,10 +123,10 @@ HEADERS += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
-    copyOrReplaceByAlias/copyorreplacebyaliasrule.h \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesdelegate.h \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesmodel.h \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.h \
+    utils/widgets/replacerule.h \
+    utils/widgets/replacerulesdelegate.h \
+    utils/widgets/replacerulesmodel.h \
+    utils/widgets/replacerulesmultilineeditordialog.h \
     cv_vcPartSplit/cv_vcpartsplitoptionwidget.h \
     cv_vcPartSplit/cv_vcpartsplitotolistmodifyworker.h \
     cv_vcPartSplit/cv_vcpartsplittooldialogadapter.h \
@@ -192,6 +193,7 @@ HEADERS += \
     utils/widgets/otofilenameeditwithbrowse.h \
     utils/widgets/otofilesavewidget.h \
     utils/widgets/otofilesavewidgetabstract.h \
+    utils/widgets/replaceruleswidget.h \
     vowelCrossfading/vowelcrossfadingdialogadapter.h \
     vowelCrossfading/vowelcrossfadingoptionwidget.h \
     vowelCrossfading/vowelcrossfadingotolistmodifyworker.h
@@ -200,7 +202,7 @@ HEADERS += \
 FORMS += \
     convertPlusMinusRight/convertplusminusrightoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
-    copyOrReplaceByAlias/copyorreplacebyaliasrulesmultilineeditordialog.ui \
+    utils/widgets/replacerulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
     preCenteredChangeValue/precenteredchangevalueoptionwidget.ui \
     removeAffix/removeaffixoptionwidget.ui \
@@ -219,6 +221,7 @@ FORMS += \
     utils/widgets/otofileloadwidget.ui \
     utils/widgets/otofilemultipleloadwidget.ui \
     utils/widgets/otofilesavewidget.ui \
+    utils/widgets/replaceruleswidget.ui \
     vowelCrossfading/vowelcrossfadingoptionwidget.ui
 
 include(lib.pri)

@@ -1,20 +1,20 @@
-#ifndef COPYORREPLACEBYALIASRULESMODEL_H
-#define COPYORREPLACEBYALIASRULESMODEL_H
+#ifndef REPLACERULESMODEL_H
+#define REPLACERULESMODEL_H
 
 #include <QAbstractTableModel>
-#include "copyorreplacebyaliasrule.h"
+#include "replacerule.h"
 
-class CopyOrReplaceByAliasRulesModel : public QAbstractTableModel
+class ReplaceRulesModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit CopyOrReplaceByAliasRulesModel(QObject *parent = nullptr);
+    explicit ReplaceRulesModel(QObject *parent = nullptr);
 
-    QVector<CopyOrReplaceByAliasRule> getRules() const;
-    void setRules(const QVector<CopyOrReplaceByAliasRule>& value);
+    QVector<ReplaceRule> getRules() const;
+    void setRules(const QVector<ReplaceRule>& value);
 
-    void appendRule(const CopyOrReplaceByAliasRule& rule);
+    void appendRule(const ReplaceRule& rule);
     bool removeRule(int index);
     void moveUpRule(int index);
     void moveDownRule(int index);
@@ -35,7 +35,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 private:
-    QVector<CopyOrReplaceByAliasRule> rules;
+    QVector<ReplaceRule> rules;
 };
 
-#endif // COPYORREPLACEBYALIASRULESMODEL_H
+#endif // REPLACERULESMODEL_H

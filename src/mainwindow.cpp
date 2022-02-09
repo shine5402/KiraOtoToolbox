@@ -176,7 +176,7 @@ void MainWindow::showAboutDialog()
 
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>
 )"
-).arg(versionStr).arg(QT_VERSION_STR));
+).arg(versionStr, QT_VERSION_STR));
 }
 
 void MainWindow::showDonationPage()

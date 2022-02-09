@@ -1,11 +1,11 @@
-#include "copyorreplacebyaliasrulesmodel.h"
+#include "replacerulesmodel.h"
 
-CopyOrReplaceByAliasRulesModel::CopyOrReplaceByAliasRulesModel(QObject *parent)
+ReplaceRulesModel::ReplaceRulesModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
 }
 
-QVariant CopyOrReplaceByAliasRulesModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ReplaceRulesModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole){
         switch (section) {
@@ -18,7 +18,7 @@ QVariant CopyOrReplaceByAliasRulesModel::headerData(int section, Qt::Orientation
     return {};
 }
 
-int CopyOrReplaceByAliasRulesModel::rowCount(const QModelIndex &parent) const
+int ReplaceRulesModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -26,7 +26,7 @@ int CopyOrReplaceByAliasRulesModel::rowCount(const QModelIndex &parent) const
     return rules.count();
 }
 
-int CopyOrReplaceByAliasRulesModel::columnCount(const QModelIndex &parent) const
+int ReplaceRulesModel::columnCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
@@ -34,7 +34,7 @@ int CopyOrReplaceByAliasRulesModel::columnCount(const QModelIndex &parent) const
     return 3;
 }
 
-QVariant CopyOrReplaceByAliasRulesModel::data(const QModelIndex &index, int role) const
+QVariant ReplaceRulesModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -44,7 +44,7 @@ QVariant CopyOrReplaceByAliasRulesModel::data(const QModelIndex &index, int role
         switch (index.column()){
             case 0:return currentRule.matchPattern();
             case 1:return currentRule.targetPattern();
-            case 2:return CopyOrReplaceByAliasRule::getStrategyString(currentRule.strategy());
+            case 2:return ReplaceRule::getStrategyString(currentRule.strategy());
         }
     }
 
@@ -60,7 +60,7 @@ QVariant CopyOrReplaceByAliasRulesModel::data(const QModelIndex &index, int role
     return QVariant();
 }
 
-bool CopyOrReplaceByAliasRulesModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool ReplaceRulesModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
         if (role == Qt::EditRole){
@@ -68,7 +68,7 @@ bool CopyOrReplaceByAliasRulesModel::setData(const QModelIndex &index, const QVa
             switch (index.column()) {
                 case 0:currentRule.setMatchPattern(value.toString());break;
                 case 1:currentRule.setTargetPattern(value.toString());break;
-                case 2:currentRule.setStrategy((CopyOrReplaceByAliasRule::MatchStrategy) value.toInt());break;
+                case 2:currentRule.setStrategy((ReplaceRule::MatchStrategy) value.toInt());break;
                 default:return false;
             }
             rules[index.row()] = currentRule;
@@ -79,7 +79,7 @@ bool CopyOrReplaceByAliasRulesModel::setData(const QModelIndex &index, const QVa
     return false;
 }
 
-Qt::ItemFlags CopyOrReplaceByAliasRulesModel::flags(const QModelIndex &index) const
+Qt::ItemFlags ReplaceRulesModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
@@ -87,19 +87,19 @@ Qt::ItemFlags CopyOrReplaceByAliasRulesModel::flags(const QModelIndex &index) co
     return Qt::ItemIsEditable | Qt::ItemNeverHasChildren |Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
-QVector<CopyOrReplaceByAliasRule> CopyOrReplaceByAliasRulesModel::getRules() const
+QVector<ReplaceRule> ReplaceRulesModel::getRules() const
 {
     return rules;
 }
 
-void CopyOrReplaceByAliasRulesModel::setRules(const QVector<CopyOrReplaceByAliasRule>& value)
+void ReplaceRulesModel::setRules(const QVector<ReplaceRule>& value)
 {
     beginResetModel();
     rules = value;
     endResetModel();
 }
 
-void CopyOrReplaceByAliasRulesModel::appendRule(const CopyOrReplaceByAliasRule& rule)
+void ReplaceRulesModel::appendRule(const ReplaceRule& rule)
 {
     beginInsertRows({}, rules.count(), rules.count());
 
@@ -108,7 +108,7 @@ void CopyOrReplaceByAliasRulesModel::appendRule(const CopyOrReplaceByAliasRule& 
     endInsertRows();
 }
 
-bool CopyOrReplaceByAliasRulesModel::removeRule(int index)
+bool ReplaceRulesModel::removeRule(int index)
 {
     if (index >= rules.count())
         return false;
@@ -121,7 +121,7 @@ bool CopyOrReplaceByAliasRulesModel::removeRule(int index)
     return true;
 }
 
-void CopyOrReplaceByAliasRulesModel::moveUpRule(int index)
+void ReplaceRulesModel::moveUpRule(int index)
 {
     if (index > 0){
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index - 1);
@@ -130,7 +130,7 @@ void CopyOrReplaceByAliasRulesModel::moveUpRule(int index)
     }
 }
 
-void CopyOrReplaceByAliasRulesModel::moveDownRule(int index)
+void ReplaceRulesModel::moveDownRule(int index)
 {
     if (index < rules.count() - 1){
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index + 2);

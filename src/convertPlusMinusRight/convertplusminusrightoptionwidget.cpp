@@ -7,8 +7,8 @@ ConvertPlusMinusRightOptionWidget::ConvertPlusMinusRightOptionWidget(QWidget *pa
 {
     ui->setupUi(this);
 
-    connect(ui->buttonGroup, &QButtonGroup::idToggled, this, &ConvertPlusMinusRightOptionWidget::userSettingsChanged);
-    connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ConvertPlusMinusRightOptionWidget::userSettingsChanged);
+    connect(ui->buttonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 ConvertPlusMinusRightOptionWidget::~ConvertPlusMinusRightOptionWidget()

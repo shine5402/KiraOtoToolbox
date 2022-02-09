@@ -1,4 +1,5 @@
 #include "convertplusminusrightotolistmodifyworker.h"
+#include "utils/misc/misc.h"
 #include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QDir>
 #include <QFileInfo>
@@ -23,15 +24,9 @@ bool ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     Q_ASSERT(saveNegative ^ savePositive);
 
     auto interpretBySystemEncoding = options.getOption("interpretBySystemEncoding").toBool();
-    auto getFileNameInSystemEncoding = [](const QString& fileName)->QString{
-        auto encoder = std::unique_ptr<QTextEncoder>(QTextCodec::codecForName("Shift-JIS")->makeEncoder());
-        auto decoder = std::unique_ptr<QTextDecoder>(QTextCodec::codecForLocale()->makeDecoder());
-
-        return decoder->toUnicode(encoder->fromUnicode(fileName));
-    };
 
     resultOtoList = fplus::transform([=](OtoEntry entry) -> OtoEntry{
-        auto fileName = interpretBySystemEncoding ? getFileNameInSystemEncoding(entry.fileName()) : entry.fileName();
+        auto fileName = interpretBySystemEncoding ? Misc::getFileNameInSystemEncoding(entry.fileName()) : entry.fileName();
         auto filePath = dir.filePath(fileName);
         if (!QFileInfo{filePath}.exists())
             throw FileNotFoundException(filePath);

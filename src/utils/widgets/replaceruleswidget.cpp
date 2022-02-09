@@ -21,6 +21,13 @@ ReplaceRulesWidget::ReplaceRulesWidget(QWidget *parent) :
     ui->ruleTableView->setModel(model);
     ui->ruleTableView->setItemDelegate(delegate);
 
+    connect(ui->addButton, &QPushButton::clicked, this, &ReplaceRulesWidget::addRule);
+    connect(ui->deleteButton, &QPushButton::clicked, this, &ReplaceRulesWidget::removeRule);
+    connect(ui->multiLineEditButton, &QPushButton::clicked, this, &ReplaceRulesWidget::multiLineEdit);
+    connect(ui->moveUpButton, &QPushButton::clicked, this, &ReplaceRulesWidget::moveUpRule);
+    connect(ui->moveDownButton, &QPushButton::clicked, this, &ReplaceRulesWidget::moveDownRule);
+    connect(ui->sortByMatchPatternLengthButton, &QPushButton::clicked, this, &ReplaceRulesWidget::sortRuleByMatchPatternLength);
+
     connect(model, &QAbstractItemModel::dataChanged, this, &ReplaceRulesWidget::rulesChanged);
 }
 

@@ -9,10 +9,6 @@ class ConvertPlusMinusRightDialogAdapter : public ToolDialogAdapter
 public:
     Q_INVOKABLE ConvertPlusMinusRightDialogAdapter(QObject* parent = nullptr);
     DEFINE_TOOL_NAME("Convert ±right value")
-
-    // ToolDialogAdapter interface
-public:
-    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent) override;
 };
 
 #endif // CONVERTPLUSMINUSRIGHTDIALOGADAPTER_H

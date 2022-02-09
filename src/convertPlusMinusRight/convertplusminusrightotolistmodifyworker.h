@@ -2,17 +2,16 @@
 #define CONVERTPLUSMINUSRIGHTOTOLISTMODIFYWORKER_H
 
 #include <toolBase/otolistmodifyworker.h>
-#include <exception>
 
 class ConvertPlusMinusRightOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    class FileNotFoundException : std::runtime_error{
+    class FileNotFoundException : ToolException {
     public:
         FileNotFoundException(const QString& fileName) :
-            std::runtime_error("[ConvertPlusMinusRightOtoListModifyWorker] cannot find file " +
-                               fileName.toStdString()), fileName_(fileName){};
+            ToolException(tr("The file \"%1\" don't exist. Please check and try again.").arg(fileName)),
+            fileName_(fileName){};
         QString fileName() const{
             return fileName_;
         }
@@ -20,11 +19,11 @@ public:
         QString fileName_;
     };
 
-    class FileCannotReadException : std::runtime_error{
+    class FileCannotReadException : ToolException {
     public:
         FileCannotReadException(const QString& fileName) :
-            std::runtime_error("[ConvertPlusMinusRightOtoListModifyWorker] cannot read file " +
-                               fileName.toStdString()), fileName_(fileName){};
+            ToolException(tr("Cannot open file \"%1\", or it contains invalid data. Please check and try again.").arg(fileName)),
+            fileName_(fileName){};
         QString fileName() const{
             return fileName_;
         }
@@ -32,10 +31,10 @@ public:
         QString fileName_;
     };
 
-    class InvalidRightValue : std::runtime_error{
+    class InvalidRightValue : ToolException {
     public:
         InvalidRightValue(const OtoEntry& entry, double calculatedRight) :
-            std::runtime_error("[ConvertPlusMinusRightOtoListModifyWorker] Invalid right value"),
+            ToolException(tr("Invalid right value\"%1\" has been calculated for oto \"%2\". Please check and try again.").arg(calculatedRight).arg(entry.toString())),
             entry_(entry), calculatedRight_(calculatedRight){};
 
         OtoEntry entry() const{

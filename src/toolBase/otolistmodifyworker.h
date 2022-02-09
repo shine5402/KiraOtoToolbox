@@ -4,6 +4,7 @@
 #include <QObject>
 #include <OtoUtil/otoentry.h>
 #include "optioncontainer.h"
+#include "toolexception.h"
 
 class OtoListModifyWorker : public QObject
 {

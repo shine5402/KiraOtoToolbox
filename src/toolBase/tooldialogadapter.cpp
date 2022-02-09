@@ -26,17 +26,37 @@ void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
     replaceWidget(optionLayout, "presetWidgetContainer", presetWidgetContainer, rootLayout->parentWidget());
 }
 
-//Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
-    if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
-        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                       tr("Confirm changes"),
-                                       tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
-                                       dialogParent);
-    else
+    try {
+        if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
+            return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
+                                           tr("Confirm changes"),
+                                           tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                           dialogParent);
+        else //TODO:remove this later
+            QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
+    }
+    catch (const ToolException& e){
+        QMessageBox msgBox(dialogParent);
+        msgBox.setText(tr("Error occured while processing. Please check and try again."));
+        msgBox.setInformativeText(e.info());
+        msgBox.exec();
+        return false;
+    }
+    catch (const std::exception& e){
+        QMessageBox msgBox(dialogParent);
+        msgBox.setText(tr("Error occured while processing. Please check and try again."));
+        msgBox.setInformativeText(e.what());
+        msgBox.exec();
+        return false;
+    }
+    catch (...){
         QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
+        return false;
+    }
+
     return false;
 }
 

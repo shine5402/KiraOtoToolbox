@@ -8,6 +8,7 @@
 #include "toolBase/tooloptionwidget.h"
 #include "toolBase/otolistmodifyworker.h"
 #include <QPointer>
+#include "toolexception.h"
 
 class ToolDialogAdapter : public QObject
 {

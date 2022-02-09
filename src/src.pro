@@ -34,6 +34,7 @@ SOURCES += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
+    toolBase/toolexception.cpp \
     utils/widgets/replacerule.cpp \
     utils/widgets/replacerulesdelegate.cpp \
     utils/widgets/replacerulesmodel.cpp \
@@ -123,6 +124,7 @@ HEADERS += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
+    toolBase/toolexception.h \
     utils/widgets/replacerule.h \
     utils/widgets/replacerulesdelegate.h \
     utils/widgets/replacerulesmodel.h \

@@ -8,7 +8,7 @@ CV_VCPartSplitOtoListModifyWorker::CV_VCPartSplitOtoListModifyWorker(QObject *pa
 
 }
 
-bool CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     auto isSeeBeginPatternAsCV = options.getOption("isSeeBeginPatternAsCV").toBool();
     auto seeBeginPatternAsCVContent = options.getOption("seeBeginPatternAsCVContent").toStringList();
@@ -51,5 +51,4 @@ bool CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
     else{
         resultOtoList = fplus::concat(QVector{CVList, emptyPart, VCList});
     }
-    return true;
 }

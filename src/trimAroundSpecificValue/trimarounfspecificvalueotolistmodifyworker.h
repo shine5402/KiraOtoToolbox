@@ -9,7 +9,8 @@ class TrimArounfSpecificValueOtoListModifyWorker : public OtoListModifyWorker
     Q_OBJECT
 public:
     Q_INVOKABLE TrimArounfSpecificValueOtoListModifyWorker(QObject* parent = nullptr);
-    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer &options) override;
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                OtoEntryList &secondSaveOtoList, const OptionContainer &options) override;
 };
 
 #endif // TRIMAROUNFSPECIFICVALUEOTOLISTMODIFYWORKER_H

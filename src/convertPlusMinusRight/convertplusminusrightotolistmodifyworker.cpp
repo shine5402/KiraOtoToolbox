@@ -13,7 +13,7 @@ ConvertPlusMinusRightOtoListModifyWorker::ConvertPlusMinusRightOtoListModifyWork
 }
 
 
-bool ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -50,5 +50,4 @@ bool ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList& srcOto
 
         return entry;
     }, srcOtoList);
-    return true;
 }

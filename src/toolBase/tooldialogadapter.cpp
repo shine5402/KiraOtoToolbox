@@ -30,25 +30,27 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 {
     auto precision = options.getOption("save/precision").toInt();
     try {
-        if (getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
-            return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                           tr("Confirm changes"),
-                                           tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
-                                           dialogParent);
-        else //TODO:remove this later
-            QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
+        getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
+                                       tr("Confirm changes"),
+                                       tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                       dialogParent);
     }
     catch (const ToolException& e){
         QMessageBox msgBox(dialogParent);
+        msgBox.setIcon(QMessageBox::Critical);
         msgBox.setText(tr("Error occured while processing. Please check and try again."));
         msgBox.setInformativeText(e.info());
+        msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
         return false;
     }
     catch (const std::exception& e){
         QMessageBox msgBox(dialogParent);
+        msgBox.setIcon(QMessageBox::Critical);
         msgBox.setText(tr("Error occured while processing. Please check and try again."));
         msgBox.setInformativeText(e.what());
+        msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
         return false;
     }

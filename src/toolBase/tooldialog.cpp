@@ -206,9 +206,17 @@ bool ToolDialog::doWork(const QVector<OtoEntryList>& srcLists, const QStringList
         OtoEntryList secondSaveList{};
 
         toolOptions.setOption("load/fileName", srcFileNames.at(i));
-        if ((!adapter->getWorkerInstance()->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions)) && srcLists.count() > 1)
-        {
-            QMessageBox::critical(dialogParent, tr("Failed to process"), tr("Stopped because file %1 (at %2) was failed to process. All files are remained unchanged.").arg(srcFileNames.at(i)).arg(i + 1));
+        try {
+            adapter->getWorkerInstance()->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions);
+        }
+        catch (const ToolException& e){
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText(tr("Stopped because file %1 (at %2) was failed to process. All files are remained unchanged. Please check and try again.")
+                           .arg(srcFileNames.at(i)).arg(i + 1));
+            msgBox.setInformativeText(e.info());
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
             return false;
         }
         results.append(entryListWorking);

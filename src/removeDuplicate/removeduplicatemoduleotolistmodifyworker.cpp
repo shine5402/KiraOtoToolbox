@@ -11,11 +11,10 @@ RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWork
 
 }
 
-bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList currentResult;
-    bool success = false;
 
     auto updateResult = [&](){
         lastResult = std::move(currentResult);
@@ -23,12 +22,12 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     };
 
     RemoveAffixOtoListModifyWorker removeAffixWorker;
-    success |= removeAffixWorker.doWork(lastResult, currentResult, secondSaveOtoList, options.extract("affixRemove/"));
+    removeAffixWorker.doWork(lastResult, currentResult, secondSaveOtoList, options.extract("affixRemove/"));
     updateResult();
 
     if (options.getOption("shouldOrganize").toBool()){
         OrgnaizeDuplicateOtoListModifyWorker orgnaizeWorker;
-        success |= orgnaizeWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
+        orgnaizeWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
         organizeResult = currentResult;
         updateResult();
     }
@@ -37,7 +36,7 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     auto beforeRemoveDuplicate = lastResult;
 
     RemoveDuplicateOtoListModifyWorker removeDuplicateWorker;
-    success |= removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
+    removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
 
     //Add affix back
     auto specificRemovedInfos = removeAffixWorker.getSpecificWorker()->getRemovedStringInfos();
@@ -45,16 +44,16 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     for (auto& i : (pitchRemovedInfos + specificRemovedInfos)){
         auto& currentOto = beforeRemoveDuplicate[i.id()];
         auto newAlias = [&]() -> QString{
-                switch (i.type()) {
+            switch (i.type()) {
                 case RemovedStringInfo::Prefix :{
-                return i.value() + currentOto.alias();
-    }
+                    return i.value() + currentOto.alias();
+                }
                 case RemovedStringInfo::Suffix : {
-                return currentOto.alias() + i.value();
-    }
-    }
-                return {};
-    }();
+                    return currentOto.alias() + i.value();
+                }
+            }
+            return {};
+        }();
         currentOto.setAlias(newAlias);
     }
 
@@ -76,7 +75,6 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     }
 
     resultOtoList = currentResult;
-    return success;
 }
 
 OtoEntryList RemoveDuplicateModuleOtoListModifyWorker::getOrganizeResult() const

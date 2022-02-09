@@ -6,13 +6,13 @@ MergeOtoOtoListModifyWorker::MergeOtoOtoListModifyWorker(QObject *parent) : OtoL
 
 }
 
-bool MergeOtoOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void MergeOtoOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                          OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
     auto otherOtoLoaded = options.getOption("otherOtoLoaded").toBool();
     if (!otherOtoLoaded)
-        return false;
+        throw ToolException(tr("The oto file to merge from has not been loaded."));
     auto otherOtoList = options.getOption("otherOtoList").value<OtoEntryList>();
     auto mergeStrtegy = (MergeOtoOptionWidget::MergeStrategy) options.getOption("mergeStrategy", MergeOtoOptionWidget::Replace).toInt();
 
@@ -31,5 +31,4 @@ bool MergeOtoOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
         }
         resultOtoList.append(otherEntry);
     }
-    return true;
 }

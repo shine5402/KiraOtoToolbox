@@ -5,13 +5,13 @@ RemovePitchAffixOtoListModifyWorker::RemovePitchAffixOtoListModifyWorker(QObject
 
 }
 
-bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;
     removedStringInfos.clear();
     std::function<decltype (OtoEntryFunctions::removePitchPrefix)> removeFunc{};
-    auto func = [&](RemovedStringInfo::AffixType affixType) {//return removed strings
+    auto func = [&](RemovedStringInfo::AffixType affixType) {
         for (int i = 0; i < srcOtoList.count(); ++i)
     {
         auto& currentOto = resultOtoList[i];
@@ -24,6 +24,8 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
     }
     };
 
+    Q_ASSERT(options.getOption("removePitchPrefix").toBool() || options.getOption("removePitchSuffix").toBool());
+
     if (options.getOption("removePitchPrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchPrefix;
         func(RemovedStringInfo::Prefix);
@@ -33,7 +35,6 @@ bool RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         removeFunc = OtoEntryFunctions::removePitchSuffix;
         func(RemovedStringInfo::Suffix);
     }
-    return removeFunc.operator bool();
 }
 
 QVector<RemovedStringInfo> RemovePitchAffixOtoListModifyWorker::getRemovedStringInfos() const

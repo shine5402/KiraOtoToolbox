@@ -5,7 +5,8 @@ RemoveSpecificAffixOtoListModifyWorker::RemoveSpecificAffixOtoListModifyWorker(Q
 
 }
 
-bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                    OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList);
     resultOtoList = srcOtoList;
@@ -31,6 +32,8 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
     }
     };
 
+    Q_ASSERT(options.getOption("removePrefix").toBool() || options.getOption("removeSuffix").toBool());
+
     if (options.getOption("removePrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePrefix;
         affixList = options.getOption("prefixList").toStringList();
@@ -48,8 +51,6 @@ bool RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
         };
         func(RemovedStringInfo::Suffix);
     }
-
-    return removeFunc.operator bool();
 }
 
 QVector<RemovedStringInfo> RemoveSpecificAffixOtoListModifyWorker::getRemovedStringInfos() const

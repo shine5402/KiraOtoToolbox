@@ -6,13 +6,15 @@ TrimArounfSpecificValueOtoListModifyWorker::TrimArounfSpecificValueOtoListModify
 
 }
 
-bool TrimArounfSpecificValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void TrimArounfSpecificValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                         OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
 
     if (!options.exists("field"))
-        return false;
+    {
+        throw ToolException(tr("No field specified"));
+    }
 
     auto field = (OtoEntry::OtoParameterOrder) options.getOption("field", 2).toInt();
     auto targetValue = options.getOption("targetValue").toDouble();
@@ -25,6 +27,4 @@ bool TrimArounfSpecificValueOtoListModifyWorker::doWork(const OtoEntryList& srcO
             result.setParameter(field, targetValue);
         return result;
     }, srcOtoList);
-
-    return true;
 }

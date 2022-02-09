@@ -9,7 +9,7 @@ RemoveSpecificEntriesOtoListModifyWorker::RemoveSpecificEntriesOtoListModifyWork
 }
 
 
-bool RemoveSpecificEntriesOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void RemoveSpecificEntriesOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                       OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
@@ -25,6 +25,4 @@ bool RemoveSpecificEntriesOtoListModifyWorker::doWork(const OtoEntryList& srcOto
         default:Q_UNREACHABLE();
         }
     }, srcOtoList);
-
-    return true;
 }

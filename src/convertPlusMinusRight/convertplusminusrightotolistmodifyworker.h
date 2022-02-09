@@ -49,7 +49,7 @@ public:
     };
 
     Q_INVOKABLE explicit ConvertPlusMinusRightOtoListModifyWorker(QObject* parent = nullptr);
-    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
+    void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
 };
 
 #endif // CONVERTPLUSMINUSRIGHTOTOLISTMODIFYWORKER_H

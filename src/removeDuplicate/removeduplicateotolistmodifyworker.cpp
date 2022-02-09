@@ -5,7 +5,8 @@ RemoveDuplicateOtoListModifyWorker::RemoveDuplicateOtoListModifyWorker(QObject* 
 
 }
 
-bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     resultOtoList = srcOtoList;
     QStringList compareStringList;
@@ -55,8 +56,6 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             resultOtoList.removeOne(i);
         }
     }
-
-    return true;
 }
 
 QList<int> RemoveDuplicateOtoListModifyWorker::getRemovedIDs() const

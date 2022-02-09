@@ -7,7 +7,7 @@ VowelCrossfadingOtoListModifyWorker::VowelCrossfadingOtoListModifyWorker(QObject
 }
 
 
-bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                  OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
@@ -70,6 +70,4 @@ bool VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
                 return entry;
         }, resultOtoList);
     }
-
-    return true;
 }

@@ -7,7 +7,7 @@ CopyOrReplaceByAliasOtoListModifyWorker::CopyOrReplaceByAliasOtoListModifyWorker
 }
 
 
-bool CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                      OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
@@ -33,5 +33,4 @@ bool CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
             }
         }
     }
-    return true;
 }

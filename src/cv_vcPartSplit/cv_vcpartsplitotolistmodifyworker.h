@@ -8,10 +8,8 @@ class CV_VCPartSplitOtoListModifyWorker : public OtoListModifyWorker
     Q_OBJECT
 public:
     Q_INVOKABLE explicit CV_VCPartSplitOtoListModifyWorker(QObject *parent = nullptr);
-
-    // OtoListModifyWorker interface
-public:
-    bool doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
+    void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
 };
 
 #endif // CV_VCPARTSPLITOTOLISTMODIFYWORKER_H

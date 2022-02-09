@@ -6,7 +6,7 @@ PreCenteredChangeValueOtoListModifyWorker::PreCenteredChangeValueOtoListModifyWo
 
 }
 
-bool PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+void PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                                                        OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
@@ -27,7 +27,7 @@ bool PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOt
             auto newLeft = preDiff + entry.left();
             newEntry.setLeft(newLeft >= 0 ? newLeft : entry.left());
             newEntry.setPreUtterance(newLeft >= 0 ? preutterance : entry.preUtterance());
-            //To ensure new const field not smaller than pre
+            //To ensure new const field still have same relative position to pre
             newEntry.setConsonant(entry.consonant() - preDiff);
         }
         if (changeConstField)
@@ -38,6 +38,4 @@ bool PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOt
             newEntry.setRight(right);
         resultOtoList.append(newEntry);
     }
-
-    return true;
 }

@@ -9,7 +9,7 @@ class RemovePitchAffixOtoListModifyWorker : public OtoListModifyWorker
     Q_OBJECT
 public:
     Q_INVOKABLE explicit RemovePitchAffixOtoListModifyWorker(QObject* parent = nullptr);
-    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer& options) override;
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer& options) override;
     QVector<RemovedStringInfo> getRemovedStringInfos() const;
 
 private:

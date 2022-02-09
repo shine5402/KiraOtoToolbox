@@ -8,7 +8,8 @@ TempoTransformOtoListModifyWorker::TempoTransformOtoListModifyWorker(QObject *pa
 }
 
 
-bool TempoTransformOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void TempoTransformOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                               OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -45,5 +46,4 @@ bool TempoTransformOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         return lhs.fileName() == rhs.fileName();
     }, stdSrc));
     resultOtoList = QVector(stdResult.begin(), stdResult.end());
-    return true;
 }

@@ -5,7 +5,8 @@ OrgnaizeDuplicateOtoListModifyWorker::OrgnaizeDuplicateOtoListModifyWorker(QObje
 
 }
 
-bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                  OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;
@@ -63,5 +64,4 @@ bool OrgnaizeDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList
         currentEntry.setAlias(newAlias.value(currentID));
         resultOtoList.replace(currentID, currentEntry);
     }
-    return true;
 }

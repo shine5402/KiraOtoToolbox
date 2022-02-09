@@ -49,6 +49,7 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 
 QString ToolDialogAdapter::getToolName() const
 {
+    qFatal("DEFINE_TOOL_NAME() not used in tool dialog adapter.");
     Q_UNREACHABLE();
     return {};
 }

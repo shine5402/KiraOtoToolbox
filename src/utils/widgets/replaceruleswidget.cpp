@@ -44,6 +44,7 @@ QVector<ReplaceRule> ReplaceRulesWidget::getRules() const
 void ReplaceRulesWidget::setRules(const QVector<ReplaceRule>& value)
 {
     model->setRules(value);
+    emit rulesChanged();
 }
 
 void ReplaceRulesWidget::addRule()
@@ -111,16 +112,18 @@ void ReplaceRulesWidget::multiLineEdit()
 void ReplaceRulesWidget::moveUpRule()
 {
     model->moveUpRule(ui->ruleTableView->currentIndex().row());
+    emit rulesChanged();
 }
 
 void ReplaceRulesWidget::moveDownRule()
 {
     model->moveDownRule(ui->ruleTableView->currentIndex().row());
+    emit rulesChanged();
 }
 
 void ReplaceRulesWidget::sortRuleByMatchPatternLength()
 {
-    model->setRules(fplus::sort_by([](const ReplaceRule& lhs, const ReplaceRule& rhs)->bool{
+    setRules(fplus::sort_by([](const ReplaceRule& lhs, const ReplaceRule& rhs)->bool{
         return lhs.matchPattern().count() > rhs.matchPattern().count();
     }, model->getRules()));
 }

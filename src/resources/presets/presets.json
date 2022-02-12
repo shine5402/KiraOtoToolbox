@@ -527,6 +527,36 @@
                     "behaviorCopy": false,
                     "behaviorReplace": true,
                     "rules": [{
+                            "matchPattern": "swi",
+                            "strategy": 1,
+                            "targetPattern": "すぃ"
+                        },
+                        {
+                            "matchPattern": "zwi",
+                            "strategy": 1,
+                            "targetPattern": "ずい"
+                        },
+                        {
+                            "matchPattern": "thu",
+                            "strategy": 1,
+                            "targetPattern": "てゅ"
+                        },
+                        {
+                            "matchPattern": "dhu",
+                            "strategy": 1,
+                            "targetPattern": "でゅ"
+                        },
+                        {
+                            "matchPattern": "twu",
+                            "strategy": 1,
+                            "targetPattern": "とぅ"
+                        },
+                        {
+                            "matchPattern": "dwu",
+                            "strategy": 1,
+                            "targetPattern": "どぅ"
+                        },
+                        {
                             "matchPattern": "shi",
                             "strategy": 1,
                             "targetPattern": "し"
@@ -1314,7 +1344,7 @@
                         {
                             "matchPattern": "wo",
                             "strategy": 1,
-                            "targetPattern": "を"
+                            "targetPattern": "うぉ"
                         },
                         {
                             "matchPattern": "fu",
@@ -1350,10 +1380,40 @@
                             "matchPattern": "n",
                             "strategy": 1,
                             "targetPattern": "ん"
+                        },
+                        {
+                            "matchPattern": "あ ",
+                            "strategy": 1,
+                            "targetPattern": "a "
+                        },
+                        {
+                            "matchPattern": "い ",
+                            "strategy": 1,
+                            "targetPattern": "i "
+                        },
+                        {
+                            "matchPattern": "う ",
+                            "strategy": 1,
+                            "targetPattern": "u "
+                        },
+                        {
+                            "matchPattern": "え ",
+                            "strategy": 1,
+                            "targetPattern": "e "
+                        },
+                        {
+                            "matchPattern": "お ",
+                            "strategy": 1,
+                            "targetPattern": "o "
+                        },
+                        {
+                            "matchPattern": "ん ",
+                            "strategy": 1,
+                            "targetPattern": "n "
                         }
                     ]
                 },
-                "lastModified": "2022-02-12T16:43:53",
+                "lastModified": "2022-02-12T17:33:24",
                 "name_zh": "罗马音->假名",
                 "name": "Romaji -> Hiragana",
                 "version": 1
@@ -2226,8 +2286,8 @@
             },
             {
                 "content": {
-                    "behaviorCopy": false,
-                    "behaviorReplace": true,
+                    "behaviorCopy": true,
+                    "behaviorReplace": false,
                     "rules": [{
                             "matchPattern": "ba",
                             "strategy": 0,
@@ -2678,6 +2738,36 @@
                 "content": {
                     "interpretBySystemEncoding": true,
                     "rules": [{
+                            "matchPattern": "swi",
+                            "strategy": 1,
+                            "targetPattern": "すぃ"
+                        },
+                        {
+                            "matchPattern": "zwi",
+                            "strategy": 1,
+                            "targetPattern": "ずい"
+                        },
+                        {
+                            "matchPattern": "thu",
+                            "strategy": 1,
+                            "targetPattern": "てゅ"
+                        },
+                        {
+                            "matchPattern": "dhu",
+                            "strategy": 1,
+                            "targetPattern": "でゅ"
+                        },
+                        {
+                            "matchPattern": "twu",
+                            "strategy": 1,
+                            "targetPattern": "とぅ"
+                        },
+                        {
+                            "matchPattern": "dwu",
+                            "strategy": 1,
+                            "targetPattern": "どぅ"
+                        },
+                        {
                             "matchPattern": "shi",
                             "strategy": 1,
                             "targetPattern": "し"
@@ -3501,10 +3591,15 @@
                             "matchPattern": "n",
                             "strategy": 1,
                             "targetPattern": "ん"
+                        },
+                        {
+                            "matchPattern": "_",
+                            "strategy": 1,
+                            "targetPattern": ""
                         }
                     ]
                 },
-                "lastModified": "2022-02-12T16:43:53",
+                "lastModified": "2022-02-12T17:34:38",
                 "name_zh": "罗马音->假名",
                 "name": "Romaji -> Hiragana",
                 "version": 1
@@ -3513,863 +3608,868 @@
                 "content": {
                     "interpretBySystemEncoding": true,
                     "rules": [{
+                            "matchPattern": "_",
+                            "strategy": 1,
+                            "targetPattern": ""
+                        },
+                        {
                             "matchPattern": "ぶぃ",
                             "strategy": 1,
-                            "targetPattern": "bwi"
+                            "targetPattern": "_bwi"
                         },
                         {
                             "matchPattern": "とぅ",
                             "strategy": 1,
-                            "targetPattern": "twu"
+                            "targetPattern": "_twu"
                         },
                         {
                             "matchPattern": "みょ",
                             "strategy": 1,
-                            "targetPattern": "myo"
+                            "targetPattern": "_myo"
                         },
                         {
                             "matchPattern": "みゅ",
                             "strategy": 1,
-                            "targetPattern": "myu"
+                            "targetPattern": "_myu"
                         },
                         {
                             "matchPattern": "みゃ",
                             "strategy": 1,
-                            "targetPattern": "mya"
+                            "targetPattern": "_mya"
                         },
                         {
                             "matchPattern": "ぴょ",
                             "strategy": 1,
-                            "targetPattern": "pyo"
+                            "targetPattern": "_pyo"
                         },
                         {
                             "matchPattern": "ぴゅ",
                             "strategy": 1,
-                            "targetPattern": "pyu"
+                            "targetPattern": "_pyu"
                         },
                         {
                             "matchPattern": "ぴゃ",
                             "strategy": 1,
-                            "targetPattern": "pya"
+                            "targetPattern": "_pya"
                         },
                         {
                             "matchPattern": "びょ",
                             "strategy": 1,
-                            "targetPattern": "byo"
+                            "targetPattern": "_byo"
                         },
                         {
                             "matchPattern": "びぇ",
                             "strategy": 1,
-                            "targetPattern": "bye"
+                            "targetPattern": "_bye"
                         },
                         {
                             "matchPattern": "びゅ",
                             "strategy": 1,
-                            "targetPattern": "byu"
+                            "targetPattern": "_byu"
                         },
                         {
                             "matchPattern": "びゃ",
                             "strategy": 1,
-                            "targetPattern": "bya"
+                            "targetPattern": "_bya"
                         },
                         {
                             "matchPattern": "きゃ",
                             "strategy": 1,
-                            "targetPattern": "kya"
+                            "targetPattern": "_kya"
                         },
                         {
                             "matchPattern": "ひゅ",
                             "strategy": 1,
-                            "targetPattern": "hyu"
+                            "targetPattern": "_hyu"
                         },
                         {
                             "matchPattern": "ひゃ",
                             "strategy": 1,
-                            "targetPattern": "hya"
+                            "targetPattern": "_hya"
                         },
                         {
                             "matchPattern": "にょ",
                             "strategy": 1,
-                            "targetPattern": "nyo"
+                            "targetPattern": "_nyo"
                         },
                         {
                             "matchPattern": "にゅ",
                             "strategy": 1,
-                            "targetPattern": "nyu"
+                            "targetPattern": "_nyu"
                         },
                         {
                             "matchPattern": "にゃ",
                             "strategy": 1,
-                            "targetPattern": "nya"
+                            "targetPattern": "_nya"
                         },
                         {
                             "matchPattern": "ちょ",
                             "strategy": 1,
-                            "targetPattern": "cho"
+                            "targetPattern": "_cho"
                         },
                         {
                             "matchPattern": "ちゅ",
                             "strategy": 1,
-                            "targetPattern": "chu"
+                            "targetPattern": "_chu"
                         },
                         {
                             "matchPattern": "ちゃ",
                             "strategy": 1,
-                            "targetPattern": "cha"
+                            "targetPattern": "_cha"
                         },
                         {
                             "matchPattern": "ちょ",
                             "strategy": 1,
-                            "targetPattern": "tyo"
+                            "targetPattern": "_tyo"
                         },
                         {
                             "matchPattern": "ちゅ",
                             "strategy": 1,
-                            "targetPattern": "tyu"
+                            "targetPattern": "_tyu"
                         },
                         {
                             "matchPattern": "じゃ",
                             "strategy": 1,
-                            "targetPattern": "ja"
+                            "targetPattern": "_ja"
                         },
                         {
                             "matchPattern": "でゅ",
                             "strategy": 1,
-                            "targetPattern": "dhu"
+                            "targetPattern": "_dhu"
                         },
                         {
                             "matchPattern": "てゅ",
                             "strategy": 1,
-                            "targetPattern": "thu"
+                            "targetPattern": "_thu"
                         },
                         {
                             "matchPattern": "ふぇ",
                             "strategy": 1,
-                            "targetPattern": "fe"
+                            "targetPattern": "_fe"
                         },
                         {
                             "matchPattern": "じょ",
                             "strategy": 1,
-                            "targetPattern": "jo"
+                            "targetPattern": "_jo"
                         },
                         {
                             "matchPattern": "ふぉ",
                             "strategy": 1,
-                            "targetPattern": "fo"
+                            "targetPattern": "_fo"
                         },
                         {
                             "matchPattern": "でゅ",
                             "strategy": 1,
-                            "targetPattern": "dyu"
+                            "targetPattern": "_dyu"
                         },
                         {
                             "matchPattern": "ふぃ",
                             "strategy": 1,
-                            "targetPattern": "fi"
+                            "targetPattern": "_fi"
                         },
                         {
                             "matchPattern": "でぃ",
                             "strategy": 1,
-                            "targetPattern": "di"
+                            "targetPattern": "_di"
                         },
                         {
                             "matchPattern": "りぇ",
                             "strategy": 1,
-                            "targetPattern": "rye"
+                            "targetPattern": "_rye"
                         },
                         {
                             "matchPattern": "ふぁ",
                             "strategy": 1,
-                            "targetPattern": "fa"
+                            "targetPattern": "_fa"
                         },
                         {
                             "matchPattern": "じぇ",
                             "strategy": 1,
-                            "targetPattern": "je"
+                            "targetPattern": "_je"
                         },
                         {
                             "matchPattern": "じゅ",
                             "strategy": 1,
-                            "targetPattern": "ju"
+                            "targetPattern": "_ju"
                         },
                         {
                             "matchPattern": "てぃ",
                             "strategy": 1,
-                            "targetPattern": "ti"
+                            "targetPattern": "_ti"
                         },
                         {
                             "matchPattern": "ちゃ",
                             "strategy": 1,
-                            "targetPattern": "tya"
+                            "targetPattern": "_tya"
                         },
                         {
                             "matchPattern": "うぃ",
                             "strategy": 1,
-                            "targetPattern": "wi"
+                            "targetPattern": "_wi"
                         },
                         {
                             "matchPattern": "うぇ",
                             "strategy": 1,
-                            "targetPattern": "we"
+                            "targetPattern": "_we"
                         },
                         {
                             "matchPattern": "いぇ",
                             "strategy": 1,
-                            "targetPattern": "ye"
+                            "targetPattern": "_ye"
                         },
                         {
                             "matchPattern": "りょ",
                             "strategy": 1,
-                            "targetPattern": "ryo"
+                            "targetPattern": "_ryo"
                         },
                         {
                             "matchPattern": "りゅ",
                             "strategy": 1,
-                            "targetPattern": "ryu"
+                            "targetPattern": "_ryu"
                         },
                         {
                             "matchPattern": "りゃ",
                             "strategy": 1,
-                            "targetPattern": "rya"
+                            "targetPattern": "_rya"
                         },
                         {
                             "matchPattern": "ぶぉ",
                             "strategy": 1,
-                            "targetPattern": "bwo"
+                            "targetPattern": "_bwo"
                         },
                         {
                             "matchPattern": "ぶぇ",
                             "strategy": 1,
-                            "targetPattern": "bwe"
+                            "targetPattern": "_bwe"
                         },
                         {
                             "matchPattern": "でょ",
                             "strategy": 1,
-                            "targetPattern": "dyo"
+                            "targetPattern": "_dyo"
                         },
                         {
                             "matchPattern": "ひぇ",
                             "strategy": 1,
-                            "targetPattern": "hye"
+                            "targetPattern": "_hye"
                         },
                         {
                             "matchPattern": "ヴぁ",
                             "strategy": 1,
-                            "targetPattern": "va"
+                            "targetPattern": "_va"
                         },
                         {
                             "matchPattern": "ヴぃ",
                             "strategy": 1,
-                            "targetPattern": "vi"
+                            "targetPattern": "_vi"
                         },
                         {
                             "matchPattern": "ヴぅ",
                             "strategy": 1,
-                            "targetPattern": "vu"
+                            "targetPattern": "_vu"
                         },
                         {
                             "matchPattern": "ヴぇ",
                             "strategy": 1,
-                            "targetPattern": "ve"
+                            "targetPattern": "_ve"
                         },
                         {
                             "matchPattern": "ヴぉ",
                             "strategy": 1,
-                            "targetPattern": "vo"
+                            "targetPattern": "_vo"
                         },
                         {
                             "matchPattern": "ぴぇ",
                             "strategy": 1,
-                            "targetPattern": "pye"
+                            "targetPattern": "_pye"
                         },
                         {
                             "matchPattern": "ぎぇ",
                             "strategy": 1,
-                            "targetPattern": "gye"
+                            "targetPattern": "_gye"
                         },
                         {
                             "matchPattern": "にぇ",
                             "strategy": 1,
-                            "targetPattern": "nye"
+                            "targetPattern": "_nye"
                         },
                         {
                             "matchPattern": "きぇ",
                             "strategy": 1,
-                            "targetPattern": "kye"
+                            "targetPattern": "_kye"
                         },
                         {
                             "matchPattern": "ぶぁ",
                             "strategy": 1,
-                            "targetPattern": "bwa"
+                            "targetPattern": "_bwa"
                         },
                         {
                             "matchPattern": "しょ",
                             "strategy": 1,
-                            "targetPattern": "sho"
+                            "targetPattern": "_sho"
                         },
                         {
                             "matchPattern": "みぇ",
                             "strategy": 1,
-                            "targetPattern": "mye"
+                            "targetPattern": "_mye"
                         },
                         {
                             "matchPattern": "つぉ",
                             "strategy": 1,
-                            "targetPattern": "tso"
+                            "targetPattern": "_tso"
                         },
                         {
                             "matchPattern": "つぇ",
                             "strategy": 1,
-                            "targetPattern": "tse"
+                            "targetPattern": "_tse"
                         },
                         {
                             "matchPattern": "つぃ",
                             "strategy": 1,
-                            "targetPattern": "tsi"
+                            "targetPattern": "_tsi"
                         },
                         {
                             "matchPattern": "つぁ",
                             "strategy": 1,
-                            "targetPattern": "tsa"
+                            "targetPattern": "_tsa"
                         },
                         {
                             "matchPattern": "ちぇ",
                             "strategy": 1,
-                            "targetPattern": "che"
+                            "targetPattern": "_che"
                         },
                         {
                             "matchPattern": "しゅ",
                             "strategy": 1,
-                            "targetPattern": "shu"
+                            "targetPattern": "_shu"
                         },
                         {
                             "matchPattern": "しぇ",
                             "strategy": 1,
-                            "targetPattern": "she"
+                            "targetPattern": "_she"
                         },
                         {
                             "matchPattern": "しゃ",
                             "strategy": 1,
-                            "targetPattern": "sha"
+                            "targetPattern": "_sha"
                         },
                         {
                             "matchPattern": "うぉ",
                             "strategy": 1,
-                            "targetPattern": "wo"
+                            "targetPattern": "_wo"
                         },
                         {
                             "matchPattern": "ずぃ",
                             "strategy": 1,
-                            "targetPattern": "zwi"
+                            "targetPattern": "_zwi"
                         },
                         {
                             "matchPattern": "どぅ",
                             "strategy": 1,
-                            "targetPattern": "du"
+                            "targetPattern": "_du"
                         },
                         {
                             "matchPattern": "しょ",
                             "strategy": 1,
-                            "targetPattern": "syo"
+                            "targetPattern": "_syo"
                         },
                         {
                             "matchPattern": "しゅ",
                             "strategy": 1,
-                            "targetPattern": "syu"
+                            "targetPattern": "_syu"
                         },
                         {
                             "matchPattern": "しゃ",
                             "strategy": 1,
-                            "targetPattern": "sya"
+                            "targetPattern": "_sya"
                         },
                         {
                             "matchPattern": "ぐぉ",
                             "strategy": 1,
-                            "targetPattern": "gwo"
+                            "targetPattern": "_gwo"
                         },
                         {
                             "matchPattern": "ぐぇ",
                             "strategy": 1,
-                            "targetPattern": "gwe"
+                            "targetPattern": "_gwe"
                         },
                         {
                             "matchPattern": "ぐぃ",
                             "strategy": 1,
-                            "targetPattern": "gwi"
+                            "targetPattern": "_gwi"
                         },
                         {
                             "matchPattern": "ぐぁ",
                             "strategy": 1,
-                            "targetPattern": "gwa"
+                            "targetPattern": "_gwa"
                         },
                         {
                             "matchPattern": "きゅ",
                             "strategy": 1,
-                            "targetPattern": "kyu"
+                            "targetPattern": "_kyu"
                         },
                         {
                             "matchPattern": "くぃ",
                             "strategy": 1,
-                            "targetPattern": "kwi"
+                            "targetPattern": "_kwi"
                         },
                         {
                             "matchPattern": "みぇ",
                             "strategy": 1,
-                            "targetPattern": "mye"
+                            "targetPattern": "_mye"
                         },
                         {
                             "matchPattern": "くぉ",
                             "strategy": 1,
-                            "targetPattern": "kwo"
+                            "targetPattern": "_kwo"
                         },
                         {
                             "matchPattern": "すぃ",
                             "strategy": 1,
-                            "targetPattern": "swi"
+                            "targetPattern": "_swi"
                         },
                         {
                             "matchPattern": "ぎょ",
                             "strategy": 1,
-                            "targetPattern": "gyo"
+                            "targetPattern": "_gyo"
                         },
                         {
                             "matchPattern": "ぎゃ",
                             "strategy": 1,
-                            "targetPattern": "gya"
+                            "targetPattern": "_gya"
                         },
                         {
                             "matchPattern": "ぶぅ",
                             "strategy": 1,
-                            "targetPattern": "bwe"
+                            "targetPattern": "_bwe"
                         },
                         {
                             "matchPattern": "ぎゅ",
                             "strategy": 1,
-                            "targetPattern": "gyu"
+                            "targetPattern": "_gyu"
                         },
                         {
                             "matchPattern": "くぁ",
                             "strategy": 1,
-                            "targetPattern": "kwa"
+                            "targetPattern": "_kwa"
                         },
                         {
                             "matchPattern": "ひょ",
                             "strategy": 1,
-                            "targetPattern": "hyo"
+                            "targetPattern": "_hyo"
                         },
                         {
                             "matchPattern": "くぇ",
                             "strategy": 1,
-                            "targetPattern": "kwe"
+                            "targetPattern": "_kwe"
                         },
                         {
                             "matchPattern": "きょ",
                             "strategy": 1,
-                            "targetPattern": "kyo"
+                            "targetPattern": "_kyo"
                         },
                         {
                             "matchPattern": "れ",
                             "strategy": 1,
-                            "targetPattern": "re"
+                            "targetPattern": "_re"
                         },
                         {
                             "matchPattern": "の",
                             "strategy": 1,
-                            "targetPattern": "no"
+                            "targetPattern": "_no"
                         },
                         {
                             "matchPattern": "ぷ",
                             "strategy": 1,
-                            "targetPattern": "pu"
+                            "targetPattern": "_pu"
                         },
                         {
                             "matchPattern": "み",
                             "strategy": 1,
-                            "targetPattern": "mi"
+                            "targetPattern": "_mi"
                         },
                         {
                             "matchPattern": "べ",
                             "strategy": 1,
-                            "targetPattern": "be"
+                            "targetPattern": "_be"
                         },
                         {
                             "matchPattern": "ぺ",
                             "strategy": 1,
-                            "targetPattern": "pe"
+                            "targetPattern": "_pe"
                         },
                         {
                             "matchPattern": "ほ",
                             "strategy": 1,
-                            "targetPattern": "ho"
+                            "targetPattern": "_ho"
                         },
                         {
                             "matchPattern": "ぼ",
                             "strategy": 1,
-                            "targetPattern": "bo"
+                            "targetPattern": "_bo"
                         },
                         {
                             "matchPattern": "ぽ",
                             "strategy": 1,
-                            "targetPattern": "po"
+                            "targetPattern": "_po"
                         },
                         {
                             "matchPattern": "ま",
                             "strategy": 1,
-                            "targetPattern": "ma"
+                            "targetPattern": "_ma"
                         },
                         {
                             "matchPattern": "ん",
                             "strategy": 1,
-                            "targetPattern": "n"
+                            "targetPattern": "_nn"
                         },
                         {
                             "matchPattern": "し",
                             "strategy": 1,
-                            "targetPattern": "shi"
+                            "targetPattern": "_shi"
                         },
                         {
                             "matchPattern": "ふ",
                             "strategy": 1,
-                            "targetPattern": "hu"
+                            "targetPattern": "_hu"
                         },
                         {
                             "matchPattern": "ぴ",
                             "strategy": 1,
-                            "targetPattern": "pi"
+                            "targetPattern": "_pi"
                         },
                         {
                             "matchPattern": "び",
                             "strategy": 1,
-                            "targetPattern": "bi"
+                            "targetPattern": "_bi"
                         },
                         {
                             "matchPattern": "ひ",
                             "strategy": 1,
-                            "targetPattern": "hi"
+                            "targetPattern": "_hi"
                         },
                         {
                             "matchPattern": "ぱ",
                             "strategy": 1,
-                            "targetPattern": "pa"
+                            "targetPattern": "_pa"
                         },
                         {
                             "matchPattern": "ば",
                             "strategy": 1,
-                            "targetPattern": "ba"
+                            "targetPattern": "_ba"
                         },
                         {
                             "matchPattern": "は",
                             "strategy": 1,
-                            "targetPattern": "ha"
+                            "targetPattern": "_ha"
                         },
                         {
                             "matchPattern": "ね",
                             "strategy": 1,
-                            "targetPattern": "ne"
+                            "targetPattern": "_ne"
                         },
                         {
                             "matchPattern": "ぶ",
                             "strategy": 1,
-                            "targetPattern": "bu"
+                            "targetPattern": "_bu"
                         },
                         {
                             "matchPattern": "お",
                             "strategy": 1,
-                            "targetPattern": "o"
+                            "targetPattern": "_o"
                         },
                         {
                             "matchPattern": "え",
                             "strategy": 1,
-                            "targetPattern": "e"
+                            "targetPattern": "_e"
                         },
                         {
                             "matchPattern": "う",
                             "strategy": 1,
-                            "targetPattern": "u"
+                            "targetPattern": "_u"
                         },
                         {
                             "matchPattern": "い",
                             "strategy": 1,
-                            "targetPattern": "i"
+                            "targetPattern": "_i"
                         },
                         {
                             "matchPattern": "あ",
                             "strategy": 1,
-                            "targetPattern": "a"
+                            "targetPattern": "_a"
                         },
                         {
                             "matchPattern": "ふ",
                             "strategy": 1,
-                            "targetPattern": "fu"
+                            "targetPattern": "_fu"
                         },
                         {
                             "matchPattern": "を",
                             "strategy": 1,
-                            "targetPattern": "wo"
+                            "targetPattern": "_wo"
                         },
                         {
                             "matchPattern": "め",
                             "strategy": 1,
-                            "targetPattern": "me"
+                            "targetPattern": "_me"
                         },
                         {
                             "matchPattern": "ろ",
                             "strategy": 1,
-                            "targetPattern": "ro"
+                            "targetPattern": "_ro"
                         },
                         {
                             "matchPattern": "し",
                             "strategy": 1,
-                            "targetPattern": "si"
+                            "targetPattern": "_si"
                         },
                         {
                             "matchPattern": "る",
                             "strategy": 1,
-                            "targetPattern": "ru"
+                            "targetPattern": "_ru"
                         },
                         {
                             "matchPattern": "り",
                             "strategy": 1,
-                            "targetPattern": "ri"
+                            "targetPattern": "_ri"
                         },
                         {
                             "matchPattern": "ら",
                             "strategy": 1,
-                            "targetPattern": "ra"
+                            "targetPattern": "_ra"
                         },
                         {
                             "matchPattern": "よ",
                             "strategy": 1,
-                            "targetPattern": "yo"
+                            "targetPattern": "_yo"
                         },
                         {
                             "matchPattern": "ゆ",
                             "strategy": 1,
-                            "targetPattern": "yu"
+                            "targetPattern": "_yu"
                         },
                         {
                             "matchPattern": "や",
                             "strategy": 1,
-                            "targetPattern": "ya"
+                            "targetPattern": "_ya"
                         },
                         {
                             "matchPattern": "も",
                             "strategy": 1,
-                            "targetPattern": "mo"
+                            "targetPattern": "_mo"
                         },
                         {
                             "matchPattern": "わ",
                             "strategy": 1,
-                            "targetPattern": "wa"
+                            "targetPattern": "_wa"
                         },
                         {
                             "matchPattern": "が",
                             "strategy": 1,
-                            "targetPattern": "ga"
+                            "targetPattern": "_ga"
                         },
                         {
                             "matchPattern": "た",
                             "strategy": 1,
-                            "targetPattern": "ta"
+                            "targetPattern": "_ta"
                         },
                         {
                             "matchPattern": "ざ",
                             "strategy": 1,
-                            "targetPattern": "za"
+                            "targetPattern": "_za"
                         },
                         {
                             "matchPattern": "ご",
                             "strategy": 1,
-                            "targetPattern": "go"
+                            "targetPattern": "_go"
                         },
                         {
                             "matchPattern": "こ",
                             "strategy": 1,
-                            "targetPattern": "ko"
+                            "targetPattern": "_ko"
                         },
                         {
                             "matchPattern": "げ",
                             "strategy": 1,
-                            "targetPattern": "ge"
+                            "targetPattern": "_ge"
                         },
                         {
                             "matchPattern": "け",
                             "strategy": 1,
-                            "targetPattern": "ke"
+                            "targetPattern": "_ke"
                         },
                         {
                             "matchPattern": "ぐ",
                             "strategy": 1,
-                            "targetPattern": "gu"
+                            "targetPattern": "_gu"
                         },
                         {
                             "matchPattern": "く",
                             "strategy": 1,
-                            "targetPattern": "ku"
+                            "targetPattern": "_ku"
                         },
                         {
                             "matchPattern": "ち",
                             "strategy": 1,
-                            "targetPattern": "chi"
+                            "targetPattern": "_chi"
                         },
                         {
                             "matchPattern": "き",
                             "strategy": 1,
-                            "targetPattern": "ki"
+                            "targetPattern": "_ki"
                         },
                         {
                             "matchPattern": "だ",
                             "strategy": 1,
-                            "targetPattern": "da"
+                            "targetPattern": "_da"
                         },
                         {
                             "matchPattern": "か",
                             "strategy": 1,
-                            "targetPattern": "ka"
+                            "targetPattern": "_ka"
                         },
                         {
                             "matchPattern": "ゴ",
                             "strategy": 1,
-                            "targetPattern": "ngo"
+                            "targetPattern": "_ngo"
                         },
                         {
                             "matchPattern": "ゲ",
                             "strategy": 1,
-                            "targetPattern": "nge"
+                            "targetPattern": "_nge"
                         },
                         {
                             "matchPattern": "グ",
                             "strategy": 1,
-                            "targetPattern": "ngu"
+                            "targetPattern": "_ngu"
                         },
                         {
                             "matchPattern": "ギ",
                             "strategy": 1,
-                            "targetPattern": "ngi"
+                            "targetPattern": "_ngi"
                         },
                         {
                             "matchPattern": "ガ",
                             "strategy": 1,
-                            "targetPattern": "nga"
+                            "targetPattern": "_nga"
                         },
                         {
                             "matchPattern": "つ",
                             "strategy": 1,
-                            "targetPattern": "tsu"
+                            "targetPattern": "_tsu"
                         },
                         {
                             "matchPattern": "ぎ",
                             "strategy": 1,
-                            "targetPattern": "gi"
+                            "targetPattern": "_gi"
                         },
                         {
                             "matchPattern": "さ",
                             "strategy": 1,
-                            "targetPattern": "sa"
+                            "targetPattern": "_sa"
                         },
                         {
                             "matchPattern": "ヴ",
                             "strategy": 1,
-                            "targetPattern": "vu"
+                            "targetPattern": "_vu"
                         },
                         {
                             "matchPattern": "む",
                             "strategy": 1,
-                            "targetPattern": "mu"
+                            "targetPattern": "_mu"
                         },
                         {
                             "matchPattern": "へ",
                             "strategy": 1,
-                            "targetPattern": "he"
+                            "targetPattern": "_he"
                         },
                         {
                             "matchPattern": "な",
                             "strategy": 1,
-                            "targetPattern": "na"
+                            "targetPattern": "_na"
                         },
                         {
                             "matchPattern": "ど",
                             "strategy": 1,
-                            "targetPattern": "do"
+                            "targetPattern": "_do"
                         },
                         {
                             "matchPattern": "と",
                             "strategy": 1,
-                            "targetPattern": "to"
+                            "targetPattern": "_to"
                         },
                         {
                             "matchPattern": "で",
                             "strategy": 1,
-                            "targetPattern": "de"
+                            "targetPattern": "_de"
                         },
                         {
                             "matchPattern": "て",
                             "strategy": 1,
-                            "targetPattern": "te"
+                            "targetPattern": "_te"
                         },
                         {
                             "matchPattern": "つ",
                             "strategy": 1,
-                            "targetPattern": "tu"
+                            "targetPattern": "_tu"
                         },
                         {
                             "matchPattern": "ち",
                             "strategy": 1,
-                            "targetPattern": "ti"
+                            "targetPattern": "_ti"
                         },
                         {
                             "matchPattern": "ぬ",
                             "strategy": 1,
-                            "targetPattern": "nu"
+                            "targetPattern": "_nu"
                         },
                         {
                             "matchPattern": "に",
                             "strategy": 1,
-                            "targetPattern": "ni"
+                            "targetPattern": "_ni"
                         },
                         {
                             "matchPattern": "ぞ",
                             "strategy": 1,
-                            "targetPattern": "zo"
+                            "targetPattern": "_zo"
                         },
                         {
                             "matchPattern": "そ",
                             "strategy": 1,
-                            "targetPattern": "so"
+                            "targetPattern": "_so"
                         },
                         {
                             "matchPattern": "ぜ",
                             "strategy": 1,
-                            "targetPattern": "ze"
+                            "targetPattern": "_ze"
                         },
                         {
                             "matchPattern": "せ",
                             "strategy": 1,
-                            "targetPattern": "se"
+                            "targetPattern": "_se"
                         },
                         {
                             "matchPattern": "ず",
                             "strategy": 1,
-                            "targetPattern": "zu"
+                            "targetPattern": "_zu"
                         },
                         {
                             "matchPattern": "す",
                             "strategy": 1,
-                            "targetPattern": "su"
+                            "targetPattern": "_su"
                         },
                         {
                             "matchPattern": "じ",
                             "strategy": 1,
-                            "targetPattern": "ji"
+                            "targetPattern": "_ji"
                         },
                         {
                             "matchPattern": "じ",
                             "strategy": 1,
-                            "targetPattern": "zi"
+                            "targetPattern": "_zi"
                         }
                     ]
                 },
-                "lastModified": "2022-02-12T16:46:22",
+                "lastModified": "2022-02-12T17:16:20",
                 "name_zh": "假名->罗马音",
                 "name": "Hiragana -> Romaji",
                 "version": 1

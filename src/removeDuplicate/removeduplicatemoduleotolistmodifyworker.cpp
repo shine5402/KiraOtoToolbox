@@ -4,6 +4,7 @@
 #include "removeduplicateotolistmodifyworker.h"
 #include "removeAffix/removespecificaffixotolistmodifyworker.h"
 #include "removeAffix/removepitchaffixotolistmodifyworker.h"
+#include "utils/misc/misc.h"
 
 
 RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
@@ -13,6 +14,10 @@ RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWork
 
 void RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
+    //For confirm msg dialog
+    this->srcOtoList = srcOtoList;
+    precision = options.getOption("save/precision").toInt();
+
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList currentResult;
 
@@ -61,7 +66,7 @@ void RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     currentResult = beforeRemoveDuplicate;
 
     //Remove duplicated entries
-    OtoEntryList toBeRemovedOtoList;
+    toBeRemovedOtoList.clear();
     auto removedID = removeDuplicateWorker.getRemovedIDs();
     for (auto i : std::as_const(removedID))
     {
@@ -77,7 +82,31 @@ void RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     resultOtoList = currentResult;
 }
 
-OtoEntryList RemoveDuplicateModuleOtoListModifyWorker::getOrganizeResult() const
+bool RemoveDuplicateModuleOtoListModifyWorker::needConfirm() const
 {
-    return organizeResult;
+    return (!organizeResult.isEmpty()) || (!toBeRemovedOtoList.isEmpty());
+}
+
+QVector<OtoListModifyWorker::ConfirmMsg> RemoveDuplicateModuleOtoListModifyWorker::getConfirmMsgs() const
+{
+    QVector<OtoListModifyWorker::ConfirmMsg> result;
+    if (!organizeResult.isEmpty())
+    {
+        result.append({Dialog,
+                       tr("Result of organizing duplicate entries"),
+                       std::shared_ptr<QDialog>(Misc::getOtoDiffDialog(srcOtoList, organizeResult, precision, tr("Result of removing duplicate entries"),
+                       tr("The emphasized entries will be renamed, in which unneeded ones will be removed in next step. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                       nullptr,
+                       Misc::ValueChangeModel))});
+    }
+
+    if (!toBeRemovedOtoList.isEmpty()){
+        result.append({Dialog,
+                      tr("Oto entries to remove"),
+                      std::shared_ptr<QDialog>(Misc::getAskUserWithShowOtoListDialog(toBeRemovedOtoList, tr("Oto entries to remove"),
+                       tr("These %1 oto entries will be removed, or be saved to the specified file. Click \"OK\" to confirm, \"Cancel\" to discard these changes.").arg(toBeRemovedOtoList.count()),
+                       nullptr))});
+    }
+
+    return result;
 }

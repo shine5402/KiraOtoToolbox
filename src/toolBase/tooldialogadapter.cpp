@@ -30,11 +30,25 @@ bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& res
 {
     auto precision = options.getOption("save/precision").toInt();
     try {
-        getWorkerInstance()->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
-        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                       tr("Confirm changes"),
-                                       tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
-                                       dialogParent);
+        auto worker = getWorkerInstance();
+        worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+        if (worker->needConfirm())
+        {
+            auto msgs = worker->getConfirmMsgs();
+            for (const auto& msg : qAsConst(msgs)){
+                auto result = msg.userDialog()->exec();
+                if (!worker->isConfirmDialogAccepted(msg.typeId(), result))
+                    return false;
+            }
+        }
+        auto result = Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
+                                              tr("Confirm changes"),
+                                              tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                              dialogParent);
+        if (result && worker->needConfirm())
+            worker->commit();
+
+        return result;
     }
     catch (const ToolException& e){
         QMessageBox msgBox(dialogParent);

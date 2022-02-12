@@ -24,8 +24,6 @@ void RemovePitchAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
     }
     };
 
-    Q_ASSERT(options.getOption("removePitchPrefix").toBool() || options.getOption("removePitchSuffix").toBool());
-
     if (options.getOption("removePitchPrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePitchPrefix;
         func(RemovedStringInfo::Prefix);

@@ -34,6 +34,10 @@ SOURCES += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
+    replaceFileName/filenamereplacemaptablemodel.cpp \
+    replaceFileName/replacefilenameadapter.cpp \
+    replaceFileName/replacefilenameoptionwidget.cpp \
+    replaceFileName/replacefilenameotolistmodifyworker.cpp \
     toolBase/toolexception.cpp \
     utils/widgets/replacerule.cpp \
     utils/widgets/replacerulesdelegate.cpp \
@@ -124,6 +128,10 @@ HEADERS += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
+    replaceFileName/filenamereplacemaptablemodel.h \
+    replaceFileName/replacefilenameadapter.h \
+    replaceFileName/replacefilenameoptionwidget.h \
+    replaceFileName/replacefilenameotolistmodifyworker.h \
     toolBase/toolexception.h \
     utils/widgets/replacerule.h \
     utils/widgets/replacerulesdelegate.h \
@@ -204,6 +212,7 @@ HEADERS += \
 FORMS += \
     convertPlusMinusRight/convertplusminusrightoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
+    replaceFileName/replacefilenameoptionwidget.ui \
     utils/widgets/replacerulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
     preCenteredChangeValue/precenteredchangevalueoptionwidget.ui \

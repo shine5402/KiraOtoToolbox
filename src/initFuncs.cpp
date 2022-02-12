@@ -19,6 +19,7 @@
 #include "convertPlusMinusRight/convertplusminusrightdialogadapter.h"
 #include "preCenteredChangeValue/precenteredchangevalueadapter.h"
 #include "tempoTransform/tempotransfromdialogadapter.h"
+#include "replaceFileName/replacefilenameadapter.h"
 
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
@@ -42,6 +43,8 @@ void registerTools()
     REGISTER_TOOL("Alias operations", RemoveAffixDialogAdapter);
     REGISTER_TOOL("Alias operations", AddAffixDialogAdapter);
     REGISTER_TOOL("Alias operations", SetAliasDialogAdapter);
+
+    REGISTER_TOOL("Filename actions (maybe dangerous)", ReplaceFileNameAdapter);
 
     REGISTER_TOOL("Meta actions", ChainDialogAdapter);
     REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);

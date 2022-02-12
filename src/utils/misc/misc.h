@@ -11,7 +11,7 @@ namespace Misc {
     enum ChangeAskDialogType{
         Determine, ValueChangeModel, Diff
     };
-    QDialog* getOtoDiffDialogInstance(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
+    QDialog* getOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
                                       const QString& title = {}, const QString& label = {}, QWidget* dialogParent = nullptr,
                                       ChangeAskDialogType changeType = Determine,
                                       QDialogButtonBox::StandardButtons stdButtons = QDialogButtonBox::Ok | QDialogButtonBox::Cancel
@@ -23,6 +23,7 @@ namespace Misc {
             );
 
     bool askUserWithShowOtoList(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
+    QDialog* getAskUserWithShowOtoListDialog(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent);
 
     QJsonArray arrayFromJsonValueVector(QVector<QJsonValue> vector);
 

@@ -32,8 +32,6 @@ void RemoveSpecificAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoLi
     }
     };
 
-    Q_ASSERT(options.getOption("removePrefix").toBool() || options.getOption("removeSuffix").toBool());
-
     if (options.getOption("removePrefix").toBool()){
         removeFunc = OtoEntryFunctions::removePrefix;
         affixList = options.getOption("prefixList").toStringList();

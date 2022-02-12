@@ -1,4 +1,5 @@
 #include "cv_vcpartsplitotolistmodifyworker.h"
+#include "utils/misc/misc.h"
 #include <fplus/fplus.hpp>
 #include <QRegularExpression>
 #include <kira/lib_helper/fplus_qt_adapter.h>
@@ -40,10 +41,11 @@ void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         return notDividedBySpace || matchedByBeginPattern || matchedByEndPattern;
     };
     auto CVList = fplus::keep_if(isCVPart, emptyDropped);
-    auto VCList = fplus::drop_if(isCVPart, emptyDropped);
+    VCList = fplus::drop_if(isCVPart, emptyDropped);
 
     auto saveOptions = options.extract("save/");
     auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
+    VCExtractedToNewFile = isSecondFileNameUsed;
     if (isSecondFileNameUsed){
         resultOtoList = fplus::append(CVList, emptyPart);
         secondSaveOtoList = VCList;
@@ -52,3 +54,21 @@ void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         resultOtoList = fplus::concat(QVector{CVList, emptyPart, VCList});
     }
 }
+
+
+bool CV_VCPartSplitOtoListModifyWorker::needConfirm() const
+{
+    return VCExtractedToNewFile;
+}
+
+QVector<OtoListModifyWorker::ConfirmMsg> CV_VCPartSplitOtoListModifyWorker::getConfirmMsgs() const
+{
+    return {{Dialog,
+             tr("%1 oto entries, which is recognized as VC part, will be saved to the path you specified.").arg(VCList.count()),
+             std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(Misc::getAskUserWithShowOtoListDialog(VCList,
+                                          tr("VC part extracted"),
+                                          tr("These %1 oto entries will be save to location specified.").arg(VCList.count()),
+                                          nullptr)))
+        }};
+}
+

@@ -7,7 +7,7 @@
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
 
-QDialog* Misc::getOtoDiffDialogInstance(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
+QDialog* Misc::getOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
                                         const QString& title, const QString& label, QWidget* dialogParent,
                                         ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
 {
@@ -39,16 +39,12 @@ bool Misc::showOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList&
                              const QString& title, const QString& label, QWidget* dialogParent,
                              Misc::ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
 {
-    return getOtoDiffDialogInstance(srcOtoList, resultOtoList, precision, title, label, dialogParent, changeType, stdButtons)->exec();
+    return getOtoDiffDialog(srcOtoList, resultOtoList, precision, title, label, dialogParent, changeType, stdButtons)->exec();
 }
 
 bool Misc::askUserWithShowOtoList(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
 {
-    auto dialog = new ShowOtoListDialog(&secondSaveData, dialogParent);
-    dialog->setLabel(label);
-    dialog->setWindowTitle(title);
-    dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    return dialog->exec();
+    return getAskUserWithShowOtoListDialog(secondSaveData, title, label, dialogParent)->exec();
 }
 
 QJsonArray Misc::arrayFromJsonValueVector(QVector<QJsonValue> vector){
@@ -66,4 +62,13 @@ QString Misc::getFileNameInSystemEncoding(const QString& fileName)
     auto decoder = std::unique_ptr<QTextDecoder>(QTextCodec::codecForLocale()->makeDecoder());
 
     return decoder->toUnicode(encoder->fromUnicode(fileName));
+}
+
+QDialog* Misc::getAskUserWithShowOtoListDialog(const OtoEntryList& secondSaveData, const QString& title, const QString& label, QWidget* dialogParent)
+{
+    auto dialog = new ShowOtoListDialog(&secondSaveData, dialogParent);
+    dialog->setLabel(label);
+    dialog->setWindowTitle(title);
+    dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    return dialog;
 }

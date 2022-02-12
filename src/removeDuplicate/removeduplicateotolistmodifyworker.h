@@ -10,6 +10,7 @@ public:
     Q_INVOKABLE RemoveDuplicateOtoListModifyWorker(QObject* parent = nullptr);
     void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
                 OtoEntryList &secondSaveOtoList, const OptionContainer& options) override;
+
     QList<int> getRemovedIDs() const;
 
 private:

@@ -360,150 +360,6 @@
     },
     {
         "presets": [{
-            "content": {
-                "steps": [{
-                        "options": {
-                            "affixRemove_": {
-                                "bottomPitch": "",
-                                "pitchCase": 0,
-                                "pitchCaseSensitive": 0,
-                                "prefixList": [],
-                                "removePitchAffix": false,
-                                "removePitchPrefix": false,
-                                "removePitchSuffix": false,
-                                "removePrefix": false,
-                                "removeSuffix": false,
-                                "suffixList": [],
-                                "topPitch": ""
-                            },
-                            "maxDuplicateCount": 3,
-                            "organizeStartFrom1": false,
-                            "pitchCaseOrganized": 0,
-                            "shouldOrganize": true
-                        },
-                        "stepAdapterClassName": "RemoveDuplicateDialogAdapter"
-                    },
-                    {
-                        "options": {
-                            "ifMatchStartOto": true,
-                            "ifSetOverlapStartWith": true,
-                            "makeOneThird": true,
-                            "oneSecondWhenTooSmall": true,
-                            "oneSecondWhenTooSmallValue": 15,
-                            "overlapStartWith": 0,
-                            "startWithPatternList": [
-                                "ち",
-                                "ちぇ",
-                                "ちゃ",
-                                "ちゅ",
-                                "ちょ",
-                                "ぎ",
-                                "ぎぇ",
-                                "ぎゃ",
-                                "ぎゅ",
-                                "ぎょ",
-                                "つ",
-                                "つぁ",
-                                "つぃ",
-                                "つぇ",
-                                "つぉ",
-                                "てぃ",
-                                "てぇ",
-                                "てゃ",
-                                "てゅ",
-                                "てょ",
-                                "ぴ",
-                                "ぴぇ",
-                                "ぴゃ",
-                                "ぴゅ",
-                                "ぴょ",
-                                "でぃ",
-                                "でぇ",
-                                "でゃ",
-                                "でゅ",
-                                "でょ",
-                                "び",
-                                "びぇ",
-                                "びゃ",
-                                "びゅ",
-                                "びょ",
-                                "ば",
-                                "ぶ",
-                                "べ",
-                                "ぼ",
-                                "だ",
-                                "で",
-                                "ど",
-                                "どぅ",
-                                "が",
-                                "ぐ",
-                                "げ",
-                                "ご",
-                                "か",
-                                "く",
-                                "け",
-                                "こ",
-                                "じ",
-                                "じぇ",
-                                "じゃ",
-                                "じゅ",
-                                "じょ",
-                                "ぱ",
-                                "ぷ",
-                                "ぺ",
-                                "ぽ",
-                                "た",
-                                "て",
-                                "と",
-                                "とぅ",
-                                "き",
-                                "きぇ",
-                                "きゃ",
-                                "きゅ",
-                                "きょ",
-                                "ざ",
-                                "ず",
-                                "ずぃ",
-                                "ぜ",
-                                "ぞ",
-                                "t",
-                                "d",
-                                "p",
-                                "b",
-                                "k",
-                                "g",
-                                "c",
-                                "z",
-                                "j"
-                            ]
-                        },
-                        "stepAdapterClassName": "OverlapBatchSetDialogAdapter"
-                    },
-                    {
-                        "options": {
-                            "isSeeBeginPatternAsCV": true,
-                            "isSeeEndPatternAsCV": true,
-                            "seeBeginPatternAsCVContent": [
-                                "-",
-                                "・"
-                            ],
-                            "seeEndPatternAsCVContent": [
-                                "L"
-                            ]
-                        },
-                        "stepAdapterClassName": "CV_VCPartSplitToolDialogAdapter"
-                    }
-                ]
-            },
-            "lastModified": "2021-11-23T18:21:11",
-            "name_zh": "Moresampler日语oto自动推断后处理",
-            "name": "Post processing for moresampler deduced JPN oto",
-            "version": 1
-        }],
-        "targetName": "ChainToolOptionWidget"
-    },
-    {
-        "presets": [{
                 "content": {
                     "CVBehaviourCopy": true,
                     "CVBehaviourOverride": false,
@@ -643,5 +499,3882 @@
             }
         ],
         "targetName": "VowelCrossfadingOptionWidget"
+    },
+    {
+        "presets": [{
+                "content": {
+                    "behaviorCopy": true,
+                    "behaviorReplace": false,
+                    "rules": [{
+                            "matchPattern": "お",
+                            "strategy": 1,
+                            "targetPattern": "を"
+                        },
+                        {
+                            "matchPattern": "ず",
+                            "strategy": 1,
+                            "targetPattern": "づ"
+                        }
+                    ]
+                },
+                "lastModified": "2021-12-15T13:16:36",
+                "name_zh": "日语同音字",
+                "name": "Japanese hiragana with same pronunciation",
+                "version": 1
+            },
+            {
+                "content": {
+                    "behaviorCopy": false,
+                    "behaviorReplace": true,
+                    "rules": [{
+                            "matchPattern": "shi",
+                            "strategy": 1,
+                            "targetPattern": "し"
+                        },
+                        {
+                            "matchPattern": "chi",
+                            "strategy": 1,
+                            "targetPattern": "ち"
+                        },
+                        {
+                            "matchPattern": "sha",
+                            "strategy": 1,
+                            "targetPattern": "しゃ"
+                        },
+                        {
+                            "matchPattern": "she",
+                            "strategy": 1,
+                            "targetPattern": "しぇ"
+                        },
+                        {
+                            "matchPattern": "shu",
+                            "strategy": 1,
+                            "targetPattern": "しゅ"
+                        },
+                        {
+                            "matchPattern": "che",
+                            "strategy": 1,
+                            "targetPattern": "ちぇ"
+                        },
+                        {
+                            "matchPattern": "tsa",
+                            "strategy": 1,
+                            "targetPattern": "つぁ"
+                        },
+                        {
+                            "matchPattern": "tsi",
+                            "strategy": 1,
+                            "targetPattern": "つぃ"
+                        },
+                        {
+                            "matchPattern": "tsu",
+                            "strategy": 1,
+                            "targetPattern": "つ"
+                        },
+                        {
+                            "matchPattern": "tse",
+                            "strategy": 1,
+                            "targetPattern": "つぇ"
+                        },
+                        {
+                            "matchPattern": "tso",
+                            "strategy": 1,
+                            "targetPattern": "つぉ"
+                        },
+                        {
+                            "matchPattern": "mye",
+                            "strategy": 1,
+                            "targetPattern": "みぇ"
+                        },
+                        {
+                            "matchPattern": "hye",
+                            "strategy": 1,
+                            "targetPattern": "ひぇ"
+                        },
+                        {
+                            "matchPattern": "rye",
+                            "strategy": 1,
+                            "targetPattern": "りぇ"
+                        },
+                        {
+                            "matchPattern": "kye",
+                            "strategy": 1,
+                            "targetPattern": "きぇ"
+                        },
+                        {
+                            "matchPattern": "nye",
+                            "strategy": 1,
+                            "targetPattern": "にぇ"
+                        },
+                        {
+                            "matchPattern": "gye",
+                            "strategy": 1,
+                            "targetPattern": "ぎぇ"
+                        },
+                        {
+                            "matchPattern": "pye",
+                            "strategy": 1,
+                            "targetPattern": "ぴぇ"
+                        },
+                        {
+                            "matchPattern": "nga",
+                            "strategy": 1,
+                            "targetPattern": "ガ"
+                        },
+                        {
+                            "matchPattern": "ngi",
+                            "strategy": 1,
+                            "targetPattern": "ギ"
+                        },
+                        {
+                            "matchPattern": "ngu",
+                            "strategy": 1,
+                            "targetPattern": "グ"
+                        },
+                        {
+                            "matchPattern": "nge",
+                            "strategy": 1,
+                            "targetPattern": "ゲ"
+                        },
+                        {
+                            "matchPattern": "ngo",
+                            "strategy": 1,
+                            "targetPattern": "ゴ"
+                        },
+                        {
+                            "matchPattern": "mye",
+                            "strategy": 1,
+                            "targetPattern": "みぇ"
+                        },
+                        {
+                            "matchPattern": "kya",
+                            "strategy": 1,
+                            "targetPattern": "きゃ"
+                        },
+                        {
+                            "matchPattern": "kyu",
+                            "strategy": 1,
+                            "targetPattern": "きゅ"
+                        },
+                        {
+                            "matchPattern": "kyo",
+                            "strategy": 1,
+                            "targetPattern": "きょ"
+                        },
+                        {
+                            "matchPattern": "gya",
+                            "strategy": 1,
+                            "targetPattern": "ぎゃ"
+                        },
+                        {
+                            "matchPattern": "gyu",
+                            "strategy": 1,
+                            "targetPattern": "ぎゅ"
+                        },
+                        {
+                            "matchPattern": "gyo",
+                            "strategy": 1,
+                            "targetPattern": "ぎょ"
+                        },
+                        {
+                            "matchPattern": "kwa",
+                            "strategy": 1,
+                            "targetPattern": "くぁ"
+                        },
+                        {
+                            "matchPattern": "kwi",
+                            "strategy": 1,
+                            "targetPattern": "くぃ"
+                        },
+                        {
+                            "matchPattern": "kwe",
+                            "strategy": 1,
+                            "targetPattern": "くぇ"
+                        },
+                        {
+                            "matchPattern": "kwo",
+                            "strategy": 1,
+                            "targetPattern": "くぉ"
+                        },
+                        {
+                            "matchPattern": "gwa",
+                            "strategy": 1,
+                            "targetPattern": "ぐぁ"
+                        },
+                        {
+                            "matchPattern": "gwi",
+                            "strategy": 1,
+                            "targetPattern": "ぐぃ"
+                        },
+                        {
+                            "matchPattern": "gwe",
+                            "strategy": 1,
+                            "targetPattern": "ぐぇ"
+                        },
+                        {
+                            "matchPattern": "gwo",
+                            "strategy": 1,
+                            "targetPattern": "ぐぉ"
+                        },
+                        {
+                            "matchPattern": "sya",
+                            "strategy": 1,
+                            "targetPattern": "しゃ"
+                        },
+                        {
+                            "matchPattern": "syu",
+                            "strategy": 1,
+                            "targetPattern": "しゅ"
+                        },
+                        {
+                            "matchPattern": "syo",
+                            "strategy": 1,
+                            "targetPattern": "しょ"
+                        },
+                        {
+                            "matchPattern": "sho",
+                            "strategy": 1,
+                            "targetPattern": "しょ"
+                        },
+                        {
+                            "matchPattern": "dyu",
+                            "strategy": 1,
+                            "targetPattern": "でゅ"
+                        },
+                        {
+                            "matchPattern": "dyo",
+                            "strategy": 1,
+                            "targetPattern": "でょ"
+                        },
+                        {
+                            "matchPattern": "tya",
+                            "strategy": 1,
+                            "targetPattern": "ちゃ"
+                        },
+                        {
+                            "matchPattern": "tyu",
+                            "strategy": 1,
+                            "targetPattern": "ちゅ"
+                        },
+                        {
+                            "matchPattern": "tyo",
+                            "strategy": 1,
+                            "targetPattern": "ちょ"
+                        },
+                        {
+                            "matchPattern": "cha",
+                            "strategy": 1,
+                            "targetPattern": "ちゃ"
+                        },
+                        {
+                            "matchPattern": "chu",
+                            "strategy": 1,
+                            "targetPattern": "ちゅ"
+                        },
+                        {
+                            "matchPattern": "cho",
+                            "strategy": 1,
+                            "targetPattern": "ちょ"
+                        },
+                        {
+                            "matchPattern": "nya",
+                            "strategy": 1,
+                            "targetPattern": "にゃ"
+                        },
+                        {
+                            "matchPattern": "nyu",
+                            "strategy": 1,
+                            "targetPattern": "にゅ"
+                        },
+                        {
+                            "matchPattern": "nyo",
+                            "strategy": 1,
+                            "targetPattern": "にょ"
+                        },
+                        {
+                            "matchPattern": "hya",
+                            "strategy": 1,
+                            "targetPattern": "ひゃ"
+                        },
+                        {
+                            "matchPattern": "hyu",
+                            "strategy": 1,
+                            "targetPattern": "ひゅ"
+                        },
+                        {
+                            "matchPattern": "hyo",
+                            "strategy": 1,
+                            "targetPattern": "ひょ"
+                        },
+                        {
+                            "matchPattern": "bya",
+                            "strategy": 1,
+                            "targetPattern": "びゃ"
+                        },
+                        {
+                            "matchPattern": "byu",
+                            "strategy": 1,
+                            "targetPattern": "びゅ"
+                        },
+                        {
+                            "matchPattern": "bye",
+                            "strategy": 1,
+                            "targetPattern": "びぇ"
+                        },
+                        {
+                            "matchPattern": "byo",
+                            "strategy": 1,
+                            "targetPattern": "びょ"
+                        },
+                        {
+                            "matchPattern": "pya",
+                            "strategy": 1,
+                            "targetPattern": "ぴゃ"
+                        },
+                        {
+                            "matchPattern": "pyu",
+                            "strategy": 1,
+                            "targetPattern": "ぴゅ"
+                        },
+                        {
+                            "matchPattern": "pyo",
+                            "strategy": 1,
+                            "targetPattern": "ぴょ"
+                        },
+                        {
+                            "matchPattern": "mya",
+                            "strategy": 1,
+                            "targetPattern": "みゃ"
+                        },
+                        {
+                            "matchPattern": "myu",
+                            "strategy": 1,
+                            "targetPattern": "みゅ"
+                        },
+                        {
+                            "matchPattern": "myo",
+                            "strategy": 1,
+                            "targetPattern": "みょ"
+                        },
+                        {
+                            "matchPattern": "bwa",
+                            "strategy": 1,
+                            "targetPattern": "ぶぁ"
+                        },
+                        {
+                            "matchPattern": "bwi",
+                            "strategy": 1,
+                            "targetPattern": "ぶぃ"
+                        },
+                        {
+                            "matchPattern": "bwe",
+                            "strategy": 1,
+                            "targetPattern": "ぶぅ"
+                        },
+                        {
+                            "matchPattern": "bwe",
+                            "strategy": 1,
+                            "targetPattern": "ぶぇ"
+                        },
+                        {
+                            "matchPattern": "bwo",
+                            "strategy": 1,
+                            "targetPattern": "ぶぉ"
+                        },
+                        {
+                            "matchPattern": "rya",
+                            "strategy": 1,
+                            "targetPattern": "りゃ"
+                        },
+                        {
+                            "matchPattern": "ryu",
+                            "strategy": 1,
+                            "targetPattern": "りゅ"
+                        },
+                        {
+                            "matchPattern": "ryo",
+                            "strategy": 1,
+                            "targetPattern": "りょ"
+                        },
+                        {
+                            "matchPattern": "nn",
+                            "strategy": 1,
+                            "targetPattern": "ん"
+                        },
+                        {
+                            "matchPattern": "ye",
+                            "strategy": 1,
+                            "targetPattern": "いぇ"
+                        },
+                        {
+                            "matchPattern": "we",
+                            "strategy": 1,
+                            "targetPattern": "うぇ"
+                        },
+                        {
+                            "matchPattern": "wi",
+                            "strategy": 1,
+                            "targetPattern": "うぃ"
+                        },
+                        {
+                            "matchPattern": "ti",
+                            "strategy": 1,
+                            "targetPattern": "てぃ"
+                        },
+                        {
+                            "matchPattern": "di",
+                            "strategy": 1,
+                            "targetPattern": "でぃ"
+                        },
+                        {
+                            "matchPattern": "ja",
+                            "strategy": 1,
+                            "targetPattern": "じゃ"
+                        },
+                        {
+                            "matchPattern": "ju",
+                            "strategy": 1,
+                            "targetPattern": "じゅ"
+                        },
+                        {
+                            "matchPattern": "je",
+                            "strategy": 1,
+                            "targetPattern": "じぇ"
+                        },
+                        {
+                            "matchPattern": "jo",
+                            "strategy": 1,
+                            "targetPattern": "じょ"
+                        },
+                        {
+                            "matchPattern": "fa",
+                            "strategy": 1,
+                            "targetPattern": "ふぁ"
+                        },
+                        {
+                            "matchPattern": "fi",
+                            "strategy": 1,
+                            "targetPattern": "ふぃ"
+                        },
+                        {
+                            "matchPattern": "fe",
+                            "strategy": 1,
+                            "targetPattern": "ふぇ"
+                        },
+                        {
+                            "matchPattern": "fo",
+                            "strategy": 1,
+                            "targetPattern": "ふぉ"
+                        },
+                        {
+                            "matchPattern": "du",
+                            "strategy": 1,
+                            "targetPattern": "どぅ"
+                        },
+                        {
+                            "matchPattern": "va",
+                            "strategy": 1,
+                            "targetPattern": "ヴぁ"
+                        },
+                        {
+                            "matchPattern": "vi",
+                            "strategy": 1,
+                            "targetPattern": "ヴぃ"
+                        },
+                        {
+                            "matchPattern": "vu",
+                            "strategy": 1,
+                            "targetPattern": "ヴ"
+                        },
+                        {
+                            "matchPattern": "ve",
+                            "strategy": 1,
+                            "targetPattern": "ヴぇ"
+                        },
+                        {
+                            "matchPattern": "vo",
+                            "strategy": 1,
+                            "targetPattern": "ヴぉ"
+                        },
+                        {
+                            "matchPattern": "ka",
+                            "strategy": 1,
+                            "targetPattern": "か"
+                        },
+                        {
+                            "matchPattern": "ga",
+                            "strategy": 1,
+                            "targetPattern": "が"
+                        },
+                        {
+                            "matchPattern": "ki",
+                            "strategy": 1,
+                            "targetPattern": "き"
+                        },
+                        {
+                            "matchPattern": "gi",
+                            "strategy": 1,
+                            "targetPattern": "ぎ"
+                        },
+                        {
+                            "matchPattern": "ku",
+                            "strategy": 1,
+                            "targetPattern": "く"
+                        },
+                        {
+                            "matchPattern": "gu",
+                            "strategy": 1,
+                            "targetPattern": "ぐ"
+                        },
+                        {
+                            "matchPattern": "ke",
+                            "strategy": 1,
+                            "targetPattern": "け"
+                        },
+                        {
+                            "matchPattern": "ge",
+                            "strategy": 1,
+                            "targetPattern": "げ"
+                        },
+                        {
+                            "matchPattern": "ko",
+                            "strategy": 1,
+                            "targetPattern": "こ"
+                        },
+                        {
+                            "matchPattern": "go",
+                            "strategy": 1,
+                            "targetPattern": "ご"
+                        },
+                        {
+                            "matchPattern": "sa",
+                            "strategy": 1,
+                            "targetPattern": "さ"
+                        },
+                        {
+                            "matchPattern": "za",
+                            "strategy": 1,
+                            "targetPattern": "ざ"
+                        },
+                        {
+                            "matchPattern": "si",
+                            "strategy": 1,
+                            "targetPattern": "し"
+                        },
+                        {
+                            "matchPattern": "zi",
+                            "strategy": 1,
+                            "targetPattern": "じ"
+                        },
+                        {
+                            "matchPattern": "ji",
+                            "strategy": 1,
+                            "targetPattern": "じ"
+                        },
+                        {
+                            "matchPattern": "su",
+                            "strategy": 1,
+                            "targetPattern": "す"
+                        },
+                        {
+                            "matchPattern": "zu",
+                            "strategy": 1,
+                            "targetPattern": "ず"
+                        },
+                        {
+                            "matchPattern": "se",
+                            "strategy": 1,
+                            "targetPattern": "せ"
+                        },
+                        {
+                            "matchPattern": "ze",
+                            "strategy": 1,
+                            "targetPattern": "ぜ"
+                        },
+                        {
+                            "matchPattern": "so",
+                            "strategy": 1,
+                            "targetPattern": "そ"
+                        },
+                        {
+                            "matchPattern": "zo",
+                            "strategy": 1,
+                            "targetPattern": "ぞ"
+                        },
+                        {
+                            "matchPattern": "ta",
+                            "strategy": 1,
+                            "targetPattern": "た"
+                        },
+                        {
+                            "matchPattern": "da",
+                            "strategy": 1,
+                            "targetPattern": "だ"
+                        },
+                        {
+                            "matchPattern": "ti",
+                            "strategy": 1,
+                            "targetPattern": "ち"
+                        },
+                        {
+                            "matchPattern": "tu",
+                            "strategy": 1,
+                            "targetPattern": "つ"
+                        },
+                        {
+                            "matchPattern": "te",
+                            "strategy": 1,
+                            "targetPattern": "て"
+                        },
+                        {
+                            "matchPattern": "de",
+                            "strategy": 1,
+                            "targetPattern": "で"
+                        },
+                        {
+                            "matchPattern": "to",
+                            "strategy": 1,
+                            "targetPattern": "と"
+                        },
+                        {
+                            "matchPattern": "do",
+                            "strategy": 1,
+                            "targetPattern": "ど"
+                        },
+                        {
+                            "matchPattern": "na",
+                            "strategy": 1,
+                            "targetPattern": "な"
+                        },
+                        {
+                            "matchPattern": "ni",
+                            "strategy": 1,
+                            "targetPattern": "に"
+                        },
+                        {
+                            "matchPattern": "nu",
+                            "strategy": 1,
+                            "targetPattern": "ぬ"
+                        },
+                        {
+                            "matchPattern": "ne",
+                            "strategy": 1,
+                            "targetPattern": "ね"
+                        },
+                        {
+                            "matchPattern": "no",
+                            "strategy": 1,
+                            "targetPattern": "の"
+                        },
+                        {
+                            "matchPattern": "ha",
+                            "strategy": 1,
+                            "targetPattern": "は"
+                        },
+                        {
+                            "matchPattern": "ba",
+                            "strategy": 1,
+                            "targetPattern": "ば"
+                        },
+                        {
+                            "matchPattern": "pa",
+                            "strategy": 1,
+                            "targetPattern": "ぱ"
+                        },
+                        {
+                            "matchPattern": "hi",
+                            "strategy": 1,
+                            "targetPattern": "ひ"
+                        },
+                        {
+                            "matchPattern": "bi",
+                            "strategy": 1,
+                            "targetPattern": "び"
+                        },
+                        {
+                            "matchPattern": "pi",
+                            "strategy": 1,
+                            "targetPattern": "ぴ"
+                        },
+                        {
+                            "matchPattern": "hu",
+                            "strategy": 1,
+                            "targetPattern": "ふ"
+                        },
+                        {
+                            "matchPattern": "bu",
+                            "strategy": 1,
+                            "targetPattern": "ぶ"
+                        },
+                        {
+                            "matchPattern": "pu",
+                            "strategy": 1,
+                            "targetPattern": "ぷ"
+                        },
+                        {
+                            "matchPattern": "he",
+                            "strategy": 1,
+                            "targetPattern": "へ"
+                        },
+                        {
+                            "matchPattern": "be",
+                            "strategy": 1,
+                            "targetPattern": "べ"
+                        },
+                        {
+                            "matchPattern": "pe",
+                            "strategy": 1,
+                            "targetPattern": "ぺ"
+                        },
+                        {
+                            "matchPattern": "ho",
+                            "strategy": 1,
+                            "targetPattern": "ほ"
+                        },
+                        {
+                            "matchPattern": "bo",
+                            "strategy": 1,
+                            "targetPattern": "ぼ"
+                        },
+                        {
+                            "matchPattern": "po",
+                            "strategy": 1,
+                            "targetPattern": "ぽ"
+                        },
+                        {
+                            "matchPattern": "ma",
+                            "strategy": 1,
+                            "targetPattern": "ま"
+                        },
+                        {
+                            "matchPattern": "mi",
+                            "strategy": 1,
+                            "targetPattern": "み"
+                        },
+                        {
+                            "matchPattern": "mu",
+                            "strategy": 1,
+                            "targetPattern": "む"
+                        },
+                        {
+                            "matchPattern": "me",
+                            "strategy": 1,
+                            "targetPattern": "め"
+                        },
+                        {
+                            "matchPattern": "mo",
+                            "strategy": 1,
+                            "targetPattern": "も"
+                        },
+                        {
+                            "matchPattern": "ya",
+                            "strategy": 1,
+                            "targetPattern": "や"
+                        },
+                        {
+                            "matchPattern": "yu",
+                            "strategy": 1,
+                            "targetPattern": "ゆ"
+                        },
+                        {
+                            "matchPattern": "yo",
+                            "strategy": 1,
+                            "targetPattern": "よ"
+                        },
+                        {
+                            "matchPattern": "ra",
+                            "strategy": 1,
+                            "targetPattern": "ら"
+                        },
+                        {
+                            "matchPattern": "ri",
+                            "strategy": 1,
+                            "targetPattern": "り"
+                        },
+                        {
+                            "matchPattern": "ru",
+                            "strategy": 1,
+                            "targetPattern": "る"
+                        },
+                        {
+                            "matchPattern": "re",
+                            "strategy": 1,
+                            "targetPattern": "れ"
+                        },
+                        {
+                            "matchPattern": "ro",
+                            "strategy": 1,
+                            "targetPattern": "ろ"
+                        },
+                        {
+                            "matchPattern": "wa",
+                            "strategy": 1,
+                            "targetPattern": "わ"
+                        },
+                        {
+                            "matchPattern": "wo",
+                            "strategy": 1,
+                            "targetPattern": "を"
+                        },
+                        {
+                            "matchPattern": "fu",
+                            "strategy": 1,
+                            "targetPattern": "ふ"
+                        },
+                        {
+                            "matchPattern": "a",
+                            "strategy": 1,
+                            "targetPattern": "あ"
+                        },
+                        {
+                            "matchPattern": "i",
+                            "strategy": 1,
+                            "targetPattern": "い"
+                        },
+                        {
+                            "matchPattern": "u",
+                            "strategy": 1,
+                            "targetPattern": "う"
+                        },
+                        {
+                            "matchPattern": "e",
+                            "strategy": 1,
+                            "targetPattern": "え"
+                        },
+                        {
+                            "matchPattern": "o",
+                            "strategy": 1,
+                            "targetPattern": "お"
+                        },
+                        {
+                            "matchPattern": "n",
+                            "strategy": 1,
+                            "targetPattern": "ん"
+                        }
+                    ]
+                },
+                "lastModified": "2022-02-12T16:43:53",
+                "name_zh": "罗马音->假名",
+                "name": "Romaji -> Hiragana",
+                "version": 1
+            },
+            {
+                "content": {
+                    "behaviorCopy": false,
+                    "behaviorReplace": true,
+                    "rules": [{
+                            "matchPattern": "ぶぃ",
+                            "strategy": 1,
+                            "targetPattern": "bwi"
+                        },
+                        {
+                            "matchPattern": "とぅ",
+                            "strategy": 1,
+                            "targetPattern": "twu"
+                        },
+                        {
+                            "matchPattern": "みょ",
+                            "strategy": 1,
+                            "targetPattern": "myo"
+                        },
+                        {
+                            "matchPattern": "みゅ",
+                            "strategy": 1,
+                            "targetPattern": "myu"
+                        },
+                        {
+                            "matchPattern": "みゃ",
+                            "strategy": 1,
+                            "targetPattern": "mya"
+                        },
+                        {
+                            "matchPattern": "ぴょ",
+                            "strategy": 1,
+                            "targetPattern": "pyo"
+                        },
+                        {
+                            "matchPattern": "ぴゅ",
+                            "strategy": 1,
+                            "targetPattern": "pyu"
+                        },
+                        {
+                            "matchPattern": "ぴゃ",
+                            "strategy": 1,
+                            "targetPattern": "pya"
+                        },
+                        {
+                            "matchPattern": "びょ",
+                            "strategy": 1,
+                            "targetPattern": "byo"
+                        },
+                        {
+                            "matchPattern": "びぇ",
+                            "strategy": 1,
+                            "targetPattern": "bye"
+                        },
+                        {
+                            "matchPattern": "びゅ",
+                            "strategy": 1,
+                            "targetPattern": "byu"
+                        },
+                        {
+                            "matchPattern": "びゃ",
+                            "strategy": 1,
+                            "targetPattern": "bya"
+                        },
+                        {
+                            "matchPattern": "きゃ",
+                            "strategy": 1,
+                            "targetPattern": "kya"
+                        },
+                        {
+                            "matchPattern": "ひゅ",
+                            "strategy": 1,
+                            "targetPattern": "hyu"
+                        },
+                        {
+                            "matchPattern": "ひゃ",
+                            "strategy": 1,
+                            "targetPattern": "hya"
+                        },
+                        {
+                            "matchPattern": "にょ",
+                            "strategy": 1,
+                            "targetPattern": "nyo"
+                        },
+                        {
+                            "matchPattern": "にゅ",
+                            "strategy": 1,
+                            "targetPattern": "nyu"
+                        },
+                        {
+                            "matchPattern": "にゃ",
+                            "strategy": 1,
+                            "targetPattern": "nya"
+                        },
+                        {
+                            "matchPattern": "ちょ",
+                            "strategy": 1,
+                            "targetPattern": "cho"
+                        },
+                        {
+                            "matchPattern": "ちゅ",
+                            "strategy": 1,
+                            "targetPattern": "chu"
+                        },
+                        {
+                            "matchPattern": "ちゃ",
+                            "strategy": 1,
+                            "targetPattern": "cha"
+                        },
+                        {
+                            "matchPattern": "ちょ",
+                            "strategy": 1,
+                            "targetPattern": "tyo"
+                        },
+                        {
+                            "matchPattern": "ちゅ",
+                            "strategy": 1,
+                            "targetPattern": "tyu"
+                        },
+                        {
+                            "matchPattern": "じゃ",
+                            "strategy": 1,
+                            "targetPattern": "ja"
+                        },
+                        {
+                            "matchPattern": "でゅ",
+                            "strategy": 1,
+                            "targetPattern": "dhu"
+                        },
+                        {
+                            "matchPattern": "てゅ",
+                            "strategy": 1,
+                            "targetPattern": "thu"
+                        },
+                        {
+                            "matchPattern": "ふぇ",
+                            "strategy": 1,
+                            "targetPattern": "fe"
+                        },
+                        {
+                            "matchPattern": "じょ",
+                            "strategy": 1,
+                            "targetPattern": "jo"
+                        },
+                        {
+                            "matchPattern": "ふぉ",
+                            "strategy": 1,
+                            "targetPattern": "fo"
+                        },
+                        {
+                            "matchPattern": "でゅ",
+                            "strategy": 1,
+                            "targetPattern": "dyu"
+                        },
+                        {
+                            "matchPattern": "ふぃ",
+                            "strategy": 1,
+                            "targetPattern": "fi"
+                        },
+                        {
+                            "matchPattern": "でぃ",
+                            "strategy": 1,
+                            "targetPattern": "di"
+                        },
+                        {
+                            "matchPattern": "りぇ",
+                            "strategy": 1,
+                            "targetPattern": "rye"
+                        },
+                        {
+                            "matchPattern": "ふぁ",
+                            "strategy": 1,
+                            "targetPattern": "fa"
+                        },
+                        {
+                            "matchPattern": "じぇ",
+                            "strategy": 1,
+                            "targetPattern": "je"
+                        },
+                        {
+                            "matchPattern": "じゅ",
+                            "strategy": 1,
+                            "targetPattern": "ju"
+                        },
+                        {
+                            "matchPattern": "てぃ",
+                            "strategy": 1,
+                            "targetPattern": "ti"
+                        },
+                        {
+                            "matchPattern": "ちゃ",
+                            "strategy": 1,
+                            "targetPattern": "tya"
+                        },
+                        {
+                            "matchPattern": "うぃ",
+                            "strategy": 1,
+                            "targetPattern": "wi"
+                        },
+                        {
+                            "matchPattern": "うぇ",
+                            "strategy": 1,
+                            "targetPattern": "we"
+                        },
+                        {
+                            "matchPattern": "いぇ",
+                            "strategy": 1,
+                            "targetPattern": "ye"
+                        },
+                        {
+                            "matchPattern": "りょ",
+                            "strategy": 1,
+                            "targetPattern": "ryo"
+                        },
+                        {
+                            "matchPattern": "りゅ",
+                            "strategy": 1,
+                            "targetPattern": "ryu"
+                        },
+                        {
+                            "matchPattern": "りゃ",
+                            "strategy": 1,
+                            "targetPattern": "rya"
+                        },
+                        {
+                            "matchPattern": "ぶぉ",
+                            "strategy": 1,
+                            "targetPattern": "bwo"
+                        },
+                        {
+                            "matchPattern": "ぶぇ",
+                            "strategy": 1,
+                            "targetPattern": "bwe"
+                        },
+                        {
+                            "matchPattern": "でょ",
+                            "strategy": 1,
+                            "targetPattern": "dyo"
+                        },
+                        {
+                            "matchPattern": "ひぇ",
+                            "strategy": 1,
+                            "targetPattern": "hye"
+                        },
+                        {
+                            "matchPattern": "ヴぁ",
+                            "strategy": 1,
+                            "targetPattern": "va"
+                        },
+                        {
+                            "matchPattern": "ヴぃ",
+                            "strategy": 1,
+                            "targetPattern": "vi"
+                        },
+                        {
+                            "matchPattern": "ヴぅ",
+                            "strategy": 1,
+                            "targetPattern": "vu"
+                        },
+                        {
+                            "matchPattern": "ヴぇ",
+                            "strategy": 1,
+                            "targetPattern": "ve"
+                        },
+                        {
+                            "matchPattern": "ヴぉ",
+                            "strategy": 1,
+                            "targetPattern": "vo"
+                        },
+                        {
+                            "matchPattern": "ぴぇ",
+                            "strategy": 1,
+                            "targetPattern": "pye"
+                        },
+                        {
+                            "matchPattern": "ぎぇ",
+                            "strategy": 1,
+                            "targetPattern": "gye"
+                        },
+                        {
+                            "matchPattern": "にぇ",
+                            "strategy": 1,
+                            "targetPattern": "nye"
+                        },
+                        {
+                            "matchPattern": "きぇ",
+                            "strategy": 1,
+                            "targetPattern": "kye"
+                        },
+                        {
+                            "matchPattern": "ぶぁ",
+                            "strategy": 1,
+                            "targetPattern": "bwa"
+                        },
+                        {
+                            "matchPattern": "しょ",
+                            "strategy": 1,
+                            "targetPattern": "sho"
+                        },
+                        {
+                            "matchPattern": "みぇ",
+                            "strategy": 1,
+                            "targetPattern": "mye"
+                        },
+                        {
+                            "matchPattern": "つぉ",
+                            "strategy": 1,
+                            "targetPattern": "tso"
+                        },
+                        {
+                            "matchPattern": "つぇ",
+                            "strategy": 1,
+                            "targetPattern": "tse"
+                        },
+                        {
+                            "matchPattern": "つぃ",
+                            "strategy": 1,
+                            "targetPattern": "tsi"
+                        },
+                        {
+                            "matchPattern": "つぁ",
+                            "strategy": 1,
+                            "targetPattern": "tsa"
+                        },
+                        {
+                            "matchPattern": "ちぇ",
+                            "strategy": 1,
+                            "targetPattern": "che"
+                        },
+                        {
+                            "matchPattern": "しゅ",
+                            "strategy": 1,
+                            "targetPattern": "shu"
+                        },
+                        {
+                            "matchPattern": "しぇ",
+                            "strategy": 1,
+                            "targetPattern": "she"
+                        },
+                        {
+                            "matchPattern": "しゃ",
+                            "strategy": 1,
+                            "targetPattern": "sha"
+                        },
+                        {
+                            "matchPattern": "うぉ",
+                            "strategy": 1,
+                            "targetPattern": "wo"
+                        },
+                        {
+                            "matchPattern": "ずぃ",
+                            "strategy": 1,
+                            "targetPattern": "zwi"
+                        },
+                        {
+                            "matchPattern": "どぅ",
+                            "strategy": 1,
+                            "targetPattern": "du"
+                        },
+                        {
+                            "matchPattern": "しょ",
+                            "strategy": 1,
+                            "targetPattern": "syo"
+                        },
+                        {
+                            "matchPattern": "しゅ",
+                            "strategy": 1,
+                            "targetPattern": "syu"
+                        },
+                        {
+                            "matchPattern": "しゃ",
+                            "strategy": 1,
+                            "targetPattern": "sya"
+                        },
+                        {
+                            "matchPattern": "ぐぉ",
+                            "strategy": 1,
+                            "targetPattern": "gwo"
+                        },
+                        {
+                            "matchPattern": "ぐぇ",
+                            "strategy": 1,
+                            "targetPattern": "gwe"
+                        },
+                        {
+                            "matchPattern": "ぐぃ",
+                            "strategy": 1,
+                            "targetPattern": "gwi"
+                        },
+                        {
+                            "matchPattern": "ぐぁ",
+                            "strategy": 1,
+                            "targetPattern": "gwa"
+                        },
+                        {
+                            "matchPattern": "きゅ",
+                            "strategy": 1,
+                            "targetPattern": "kyu"
+                        },
+                        {
+                            "matchPattern": "くぃ",
+                            "strategy": 1,
+                            "targetPattern": "kwi"
+                        },
+                        {
+                            "matchPattern": "みぇ",
+                            "strategy": 1,
+                            "targetPattern": "mye"
+                        },
+                        {
+                            "matchPattern": "くぉ",
+                            "strategy": 1,
+                            "targetPattern": "kwo"
+                        },
+                        {
+                            "matchPattern": "すぃ",
+                            "strategy": 1,
+                            "targetPattern": "swi"
+                        },
+                        {
+                            "matchPattern": "ぎょ",
+                            "strategy": 1,
+                            "targetPattern": "gyo"
+                        },
+                        {
+                            "matchPattern": "ぎゃ",
+                            "strategy": 1,
+                            "targetPattern": "gya"
+                        },
+                        {
+                            "matchPattern": "ぶぅ",
+                            "strategy": 1,
+                            "targetPattern": "bwe"
+                        },
+                        {
+                            "matchPattern": "ぎゅ",
+                            "strategy": 1,
+                            "targetPattern": "gyu"
+                        },
+                        {
+                            "matchPattern": "くぁ",
+                            "strategy": 1,
+                            "targetPattern": "kwa"
+                        },
+                        {
+                            "matchPattern": "ひょ",
+                            "strategy": 1,
+                            "targetPattern": "hyo"
+                        },
+                        {
+                            "matchPattern": "くぇ",
+                            "strategy": 1,
+                            "targetPattern": "kwe"
+                        },
+                        {
+                            "matchPattern": "きょ",
+                            "strategy": 1,
+                            "targetPattern": "kyo"
+                        },
+                        {
+                            "matchPattern": "れ",
+                            "strategy": 1,
+                            "targetPattern": "re"
+                        },
+                        {
+                            "matchPattern": "の",
+                            "strategy": 1,
+                            "targetPattern": "no"
+                        },
+                        {
+                            "matchPattern": "ぷ",
+                            "strategy": 1,
+                            "targetPattern": "pu"
+                        },
+                        {
+                            "matchPattern": "み",
+                            "strategy": 1,
+                            "targetPattern": "mi"
+                        },
+                        {
+                            "matchPattern": "べ",
+                            "strategy": 1,
+                            "targetPattern": "be"
+                        },
+                        {
+                            "matchPattern": "ぺ",
+                            "strategy": 1,
+                            "targetPattern": "pe"
+                        },
+                        {
+                            "matchPattern": "ほ",
+                            "strategy": 1,
+                            "targetPattern": "ho"
+                        },
+                        {
+                            "matchPattern": "ぼ",
+                            "strategy": 1,
+                            "targetPattern": "bo"
+                        },
+                        {
+                            "matchPattern": "ぽ",
+                            "strategy": 1,
+                            "targetPattern": "po"
+                        },
+                        {
+                            "matchPattern": "ま",
+                            "strategy": 1,
+                            "targetPattern": "ma"
+                        },
+                        {
+                            "matchPattern": "ん",
+                            "strategy": 1,
+                            "targetPattern": "n"
+                        },
+                        {
+                            "matchPattern": "し",
+                            "strategy": 1,
+                            "targetPattern": "shi"
+                        },
+                        {
+                            "matchPattern": "ふ",
+                            "strategy": 1,
+                            "targetPattern": "hu"
+                        },
+                        {
+                            "matchPattern": "ぴ",
+                            "strategy": 1,
+                            "targetPattern": "pi"
+                        },
+                        {
+                            "matchPattern": "び",
+                            "strategy": 1,
+                            "targetPattern": "bi"
+                        },
+                        {
+                            "matchPattern": "ひ",
+                            "strategy": 1,
+                            "targetPattern": "hi"
+                        },
+                        {
+                            "matchPattern": "ぱ",
+                            "strategy": 1,
+                            "targetPattern": "pa"
+                        },
+                        {
+                            "matchPattern": "ば",
+                            "strategy": 1,
+                            "targetPattern": "ba"
+                        },
+                        {
+                            "matchPattern": "は",
+                            "strategy": 1,
+                            "targetPattern": "ha"
+                        },
+                        {
+                            "matchPattern": "ね",
+                            "strategy": 1,
+                            "targetPattern": "ne"
+                        },
+                        {
+                            "matchPattern": "ぶ",
+                            "strategy": 1,
+                            "targetPattern": "bu"
+                        },
+                        {
+                            "matchPattern": "お",
+                            "strategy": 1,
+                            "targetPattern": "o"
+                        },
+                        {
+                            "matchPattern": "え",
+                            "strategy": 1,
+                            "targetPattern": "e"
+                        },
+                        {
+                            "matchPattern": "う",
+                            "strategy": 1,
+                            "targetPattern": "u"
+                        },
+                        {
+                            "matchPattern": "い",
+                            "strategy": 1,
+                            "targetPattern": "i"
+                        },
+                        {
+                            "matchPattern": "あ",
+                            "strategy": 1,
+                            "targetPattern": "a"
+                        },
+                        {
+                            "matchPattern": "ふ",
+                            "strategy": 1,
+                            "targetPattern": "fu"
+                        },
+                        {
+                            "matchPattern": "を",
+                            "strategy": 1,
+                            "targetPattern": "wo"
+                        },
+                        {
+                            "matchPattern": "め",
+                            "strategy": 1,
+                            "targetPattern": "me"
+                        },
+                        {
+                            "matchPattern": "ろ",
+                            "strategy": 1,
+                            "targetPattern": "ro"
+                        },
+                        {
+                            "matchPattern": "し",
+                            "strategy": 1,
+                            "targetPattern": "si"
+                        },
+                        {
+                            "matchPattern": "る",
+                            "strategy": 1,
+                            "targetPattern": "ru"
+                        },
+                        {
+                            "matchPattern": "り",
+                            "strategy": 1,
+                            "targetPattern": "ri"
+                        },
+                        {
+                            "matchPattern": "ら",
+                            "strategy": 1,
+                            "targetPattern": "ra"
+                        },
+                        {
+                            "matchPattern": "よ",
+                            "strategy": 1,
+                            "targetPattern": "yo"
+                        },
+                        {
+                            "matchPattern": "ゆ",
+                            "strategy": 1,
+                            "targetPattern": "yu"
+                        },
+                        {
+                            "matchPattern": "や",
+                            "strategy": 1,
+                            "targetPattern": "ya"
+                        },
+                        {
+                            "matchPattern": "も",
+                            "strategy": 1,
+                            "targetPattern": "mo"
+                        },
+                        {
+                            "matchPattern": "わ",
+                            "strategy": 1,
+                            "targetPattern": "wa"
+                        },
+                        {
+                            "matchPattern": "が",
+                            "strategy": 1,
+                            "targetPattern": "ga"
+                        },
+                        {
+                            "matchPattern": "た",
+                            "strategy": 1,
+                            "targetPattern": "ta"
+                        },
+                        {
+                            "matchPattern": "ざ",
+                            "strategy": 1,
+                            "targetPattern": "za"
+                        },
+                        {
+                            "matchPattern": "ご",
+                            "strategy": 1,
+                            "targetPattern": "go"
+                        },
+                        {
+                            "matchPattern": "こ",
+                            "strategy": 1,
+                            "targetPattern": "ko"
+                        },
+                        {
+                            "matchPattern": "げ",
+                            "strategy": 1,
+                            "targetPattern": "ge"
+                        },
+                        {
+                            "matchPattern": "け",
+                            "strategy": 1,
+                            "targetPattern": "ke"
+                        },
+                        {
+                            "matchPattern": "ぐ",
+                            "strategy": 1,
+                            "targetPattern": "gu"
+                        },
+                        {
+                            "matchPattern": "く",
+                            "strategy": 1,
+                            "targetPattern": "ku"
+                        },
+                        {
+                            "matchPattern": "ち",
+                            "strategy": 1,
+                            "targetPattern": "chi"
+                        },
+                        {
+                            "matchPattern": "き",
+                            "strategy": 1,
+                            "targetPattern": "ki"
+                        },
+                        {
+                            "matchPattern": "だ",
+                            "strategy": 1,
+                            "targetPattern": "da"
+                        },
+                        {
+                            "matchPattern": "か",
+                            "strategy": 1,
+                            "targetPattern": "ka"
+                        },
+                        {
+                            "matchPattern": "ゴ",
+                            "strategy": 1,
+                            "targetPattern": "ngo"
+                        },
+                        {
+                            "matchPattern": "ゲ",
+                            "strategy": 1,
+                            "targetPattern": "nge"
+                        },
+                        {
+                            "matchPattern": "グ",
+                            "strategy": 1,
+                            "targetPattern": "ngu"
+                        },
+                        {
+                            "matchPattern": "ギ",
+                            "strategy": 1,
+                            "targetPattern": "ngi"
+                        },
+                        {
+                            "matchPattern": "ガ",
+                            "strategy": 1,
+                            "targetPattern": "nga"
+                        },
+                        {
+                            "matchPattern": "つ",
+                            "strategy": 1,
+                            "targetPattern": "tsu"
+                        },
+                        {
+                            "matchPattern": "ぎ",
+                            "strategy": 1,
+                            "targetPattern": "gi"
+                        },
+                        {
+                            "matchPattern": "さ",
+                            "strategy": 1,
+                            "targetPattern": "sa"
+                        },
+                        {
+                            "matchPattern": "ヴ",
+                            "strategy": 1,
+                            "targetPattern": "vu"
+                        },
+                        {
+                            "matchPattern": "む",
+                            "strategy": 1,
+                            "targetPattern": "mu"
+                        },
+                        {
+                            "matchPattern": "へ",
+                            "strategy": 1,
+                            "targetPattern": "he"
+                        },
+                        {
+                            "matchPattern": "な",
+                            "strategy": 1,
+                            "targetPattern": "na"
+                        },
+                        {
+                            "matchPattern": "ど",
+                            "strategy": 1,
+                            "targetPattern": "do"
+                        },
+                        {
+                            "matchPattern": "と",
+                            "strategy": 1,
+                            "targetPattern": "to"
+                        },
+                        {
+                            "matchPattern": "で",
+                            "strategy": 1,
+                            "targetPattern": "de"
+                        },
+                        {
+                            "matchPattern": "て",
+                            "strategy": 1,
+                            "targetPattern": "te"
+                        },
+                        {
+                            "matchPattern": "つ",
+                            "strategy": 1,
+                            "targetPattern": "tu"
+                        },
+                        {
+                            "matchPattern": "ち",
+                            "strategy": 1,
+                            "targetPattern": "ti"
+                        },
+                        {
+                            "matchPattern": "ぬ",
+                            "strategy": 1,
+                            "targetPattern": "nu"
+                        },
+                        {
+                            "matchPattern": "に",
+                            "strategy": 1,
+                            "targetPattern": "ni"
+                        },
+                        {
+                            "matchPattern": "ぞ",
+                            "strategy": 1,
+                            "targetPattern": "zo"
+                        },
+                        {
+                            "matchPattern": "そ",
+                            "strategy": 1,
+                            "targetPattern": "so"
+                        },
+                        {
+                            "matchPattern": "ぜ",
+                            "strategy": 1,
+                            "targetPattern": "ze"
+                        },
+                        {
+                            "matchPattern": "せ",
+                            "strategy": 1,
+                            "targetPattern": "se"
+                        },
+                        {
+                            "matchPattern": "ず",
+                            "strategy": 1,
+                            "targetPattern": "zu"
+                        },
+                        {
+                            "matchPattern": "す",
+                            "strategy": 1,
+                            "targetPattern": "su"
+                        },
+                        {
+                            "matchPattern": "じ",
+                            "strategy": 1,
+                            "targetPattern": "ji"
+                        },
+                        {
+                            "matchPattern": "じ",
+                            "strategy": 1,
+                            "targetPattern": "zi"
+                        }
+                    ]
+                },
+                "lastModified": "2022-02-12T16:46:22",
+                "name_zh": "假名->罗马音",
+                "name": "Hiragana -> Romaji",
+                "version": 1
+            },
+            {
+                "content": {
+                    "behaviorCopy": false,
+                    "behaviorReplace": true,
+                    "rules": [{
+                            "matchPattern": "ba",
+                            "strategy": 0,
+                            "targetPattern": "ban"
+                        },
+                        {
+                            "matchPattern": "pa",
+                            "strategy": 0,
+                            "targetPattern": "pan"
+                        },
+                        {
+                            "matchPattern": "ma",
+                            "strategy": 0,
+                            "targetPattern": "man"
+                        },
+                        {
+                            "matchPattern": "fa",
+                            "strategy": 0,
+                            "targetPattern": "fan"
+                        },
+                        {
+                            "matchPattern": "da",
+                            "strategy": 0,
+                            "targetPattern": "dan"
+                        },
+                        {
+                            "matchPattern": "ta",
+                            "strategy": 0,
+                            "targetPattern": "tan"
+                        },
+                        {
+                            "matchPattern": "na",
+                            "strategy": 0,
+                            "targetPattern": "nan"
+                        },
+                        {
+                            "matchPattern": "la",
+                            "strategy": 0,
+                            "targetPattern": "lan"
+                        },
+                        {
+                            "matchPattern": "ga",
+                            "strategy": 0,
+                            "targetPattern": "gan"
+                        },
+                        {
+                            "matchPattern": "ga",
+                            "strategy": 0,
+                            "targetPattern": "gan"
+                        },
+                        {
+                            "matchPattern": "ka",
+                            "strategy": 0,
+                            "targetPattern": "kan"
+                        },
+                        {
+                            "matchPattern": "ha",
+                            "strategy": 0,
+                            "targetPattern": "han"
+                        },
+                        {
+                            "matchPattern": "zha",
+                            "strategy": 0,
+                            "targetPattern": "zhan"
+                        },
+                        {
+                            "matchPattern": "cha",
+                            "strategy": 0,
+                            "targetPattern": "chan"
+                        },
+                        {
+                            "matchPattern": "sha",
+                            "strategy": 0,
+                            "targetPattern": "shan"
+                        },
+                        {
+                            "matchPattern": "ran",
+                            "strategy": 0,
+                            "targetPattern": "ran"
+                        },
+                        {
+                            "matchPattern": "za",
+                            "strategy": 0,
+                            "targetPattern": "zan"
+                        },
+                        {
+                            "matchPattern": "ca",
+                            "strategy": 0,
+                            "targetPattern": "can"
+                        },
+                        {
+                            "matchPattern": "sa",
+                            "strategy": 0,
+                            "targetPattern": "san"
+                        },
+                        {
+                            "matchPattern": "wa",
+                            "strategy": 0,
+                            "targetPattern": "wan"
+                        },
+                        {
+                            "matchPattern": "gua",
+                            "strategy": 0,
+                            "targetPattern": "guan"
+                        },
+                        {
+                            "matchPattern": "kua",
+                            "strategy": 0,
+                            "targetPattern": "kuan"
+                        },
+                        {
+                            "matchPattern": "hua",
+                            "strategy": 0,
+                            "targetPattern": "huan"
+                        },
+                        {
+                            "matchPattern": "zhua",
+                            "strategy": 0,
+                            "targetPattern": "zhuan"
+                        },
+                        {
+                            "matchPattern": "shua",
+                            "strategy": 0,
+                            "targetPattern": "shuan"
+                        },
+                        {
+                            "matchPattern": "bang",
+                            "strategy": 0,
+                            "targetPattern": "bao"
+                        },
+                        {
+                            "matchPattern": "pang",
+                            "strategy": 0,
+                            "targetPattern": "pao"
+                        },
+                        {
+                            "matchPattern": "mang",
+                            "strategy": 0,
+                            "targetPattern": "mao"
+                        },
+                        {
+                            "matchPattern": "dang",
+                            "strategy": 0,
+                            "targetPattern": "dao"
+                        },
+                        {
+                            "matchPattern": "tang",
+                            "strategy": 0,
+                            "targetPattern": "tao"
+                        },
+                        {
+                            "matchPattern": "nang",
+                            "strategy": 0,
+                            "targetPattern": "nao"
+                        },
+                        {
+                            "matchPattern": "lang",
+                            "strategy": 0,
+                            "targetPattern": "lao"
+                        },
+                        {
+                            "matchPattern": "gang",
+                            "strategy": 0,
+                            "targetPattern": "gao"
+                        },
+                        {
+                            "matchPattern": "kang",
+                            "strategy": 0,
+                            "targetPattern": "kao"
+                        },
+                        {
+                            "matchPattern": "hang",
+                            "strategy": 0,
+                            "targetPattern": "hao"
+                        },
+                        {
+                            "matchPattern": "zhang",
+                            "strategy": 0,
+                            "targetPattern": "zhao"
+                        },
+                        {
+                            "matchPattern": "chang",
+                            "strategy": 0,
+                            "targetPattern": "chao"
+                        },
+                        {
+                            "matchPattern": "shang",
+                            "strategy": 0,
+                            "targetPattern": "shao"
+                        },
+                        {
+                            "matchPattern": "rang",
+                            "strategy": 0,
+                            "targetPattern": "rao"
+                        },
+                        {
+                            "matchPattern": "zang",
+                            "strategy": 0,
+                            "targetPattern": "zao"
+                        },
+                        {
+                            "matchPattern": "cang",
+                            "strategy": 0,
+                            "targetPattern": "cao"
+                        },
+                        {
+                            "matchPattern": "sang",
+                            "strategy": 0,
+                            "targetPattern": "sao"
+                        },
+                        {
+                            "matchPattern": "yang",
+                            "strategy": 0,
+                            "targetPattern": "yao"
+                        },
+                        {
+                            "matchPattern": "niao",
+                            "strategy": 0,
+                            "targetPattern": "niang"
+                        },
+                        {
+                            "matchPattern": "liang",
+                            "strategy": 0,
+                            "targetPattern": "liao"
+                        },
+                        {
+                            "matchPattern": "jiang",
+                            "strategy": 0,
+                            "targetPattern": "jiao"
+                        },
+                        {
+                            "matchPattern": "qiang",
+                            "strategy": 0,
+                            "targetPattern": "qiao"
+                        },
+                        {
+                            "matchPattern": "xiang",
+                            "strategy": 0,
+                            "targetPattern": "xiao"
+                        },
+                        {
+                            "matchPattern": "bie",
+                            "strategy": 0,
+                            "targetPattern": "bian"
+                        },
+                        {
+                            "matchPattern": "pie",
+                            "strategy": 0,
+                            "targetPattern": "pian"
+                        },
+                        {
+                            "matchPattern": "mie",
+                            "strategy": 0,
+                            "targetPattern": "mian"
+                        },
+                        {
+                            "matchPattern": "die",
+                            "strategy": 0,
+                            "targetPattern": "dian"
+                        },
+                        {
+                            "matchPattern": "tie",
+                            "strategy": 0,
+                            "targetPattern": "tian"
+                        },
+                        {
+                            "matchPattern": "nie",
+                            "strategy": 0,
+                            "targetPattern": "nian"
+                        },
+                        {
+                            "matchPattern": "lie",
+                            "strategy": 0,
+                            "targetPattern": "lian"
+                        },
+                        {
+                            "matchPattern": "jie",
+                            "strategy": 0,
+                            "targetPattern": "jian"
+                        },
+                        {
+                            "matchPattern": "qie",
+                            "strategy": 0,
+                            "targetPattern": "qian"
+                        },
+                        {
+                            "matchPattern": "xie",
+                            "strategy": 0,
+                            "targetPattern": "xian"
+                        },
+                        {
+                            "matchPattern": "yue",
+                            "strategy": 0,
+                            "targetPattern": "yuan"
+                        },
+                        {
+                            "matchPattern": "nue",
+                            "strategy": 0,
+                            "targetPattern": "nuan"
+                        },
+                        {
+                            "matchPattern": "lue",
+                            "strategy": 0,
+                            "targetPattern": "lve"
+                        },
+                        {
+                            "matchPattern": "jue",
+                            "strategy": 0,
+                            "targetPattern": "juan"
+                        },
+                        {
+                            "matchPattern": "que",
+                            "strategy": 0,
+                            "targetPattern": "quan"
+                        },
+                        {
+                            "matchPattern": "xue",
+                            "strategy": 0,
+                            "targetPattern": "xuan"
+                        },
+                        {
+                            "matchPattern": "yi",
+                            "strategy": 0,
+                            "targetPattern": "yin"
+                        },
+                        {
+                            "matchPattern": "bi",
+                            "strategy": 0,
+                            "targetPattern": "bin"
+                        },
+                        {
+                            "matchPattern": "pi",
+                            "strategy": 0,
+                            "targetPattern": "pin"
+                        },
+                        {
+                            "matchPattern": "mi",
+                            "strategy": 0,
+                            "targetPattern": "min"
+                        },
+                        {
+                            "matchPattern": "ni",
+                            "strategy": 0,
+                            "targetPattern": "nin"
+                        },
+                        {
+                            "matchPattern": "li",
+                            "strategy": 0,
+                            "targetPattern": "lin"
+                        },
+                        {
+                            "matchPattern": "ji",
+                            "strategy": 0,
+                            "targetPattern": "jin"
+                        },
+                        {
+                            "matchPattern": "qi",
+                            "strategy": 0,
+                            "targetPattern": "qin"
+                        },
+                        {
+                            "matchPattern": "xi",
+                            "strategy": 0,
+                            "targetPattern": "xin"
+                        },
+                        {
+                            "matchPattern": "yi",
+                            "strategy": 0,
+                            "targetPattern": "ying"
+                        },
+                        {
+                            "matchPattern": "bi",
+                            "strategy": 0,
+                            "targetPattern": "bing"
+                        },
+                        {
+                            "matchPattern": "pi",
+                            "strategy": 0,
+                            "targetPattern": "ping"
+                        },
+                        {
+                            "matchPattern": "mi",
+                            "strategy": 0,
+                            "targetPattern": "ming"
+                        },
+                        {
+                            "matchPattern": "di",
+                            "strategy": 0,
+                            "targetPattern": "ding"
+                        },
+                        {
+                            "matchPattern": "ti",
+                            "strategy": 0,
+                            "targetPattern": "ting"
+                        },
+                        {
+                            "matchPattern": "ni",
+                            "strategy": 0,
+                            "targetPattern": "ning"
+                        },
+                        {
+                            "matchPattern": "li",
+                            "strategy": 0,
+                            "targetPattern": "ling"
+                        },
+                        {
+                            "matchPattern": "ji",
+                            "strategy": 0,
+                            "targetPattern": "jing"
+                        },
+                        {
+                            "matchPattern": "qi",
+                            "strategy": 0,
+                            "targetPattern": "qing"
+                        },
+                        {
+                            "matchPattern": "xi",
+                            "strategy": 0,
+                            "targetPattern": "xing"
+                        },
+                        {
+                            "matchPattern": "ju",
+                            "strategy": 0,
+                            "targetPattern": "jun"
+                        },
+                        {
+                            "matchPattern": "qu",
+                            "strategy": 0,
+                            "targetPattern": "qun"
+                        },
+                        {
+                            "matchPattern": "xu",
+                            "strategy": 0,
+                            "targetPattern": "xun"
+                        }
+                    ]
+                },
+                "lastModified": "2022-02-12T16:28:29",
+                "name_zh": "Syo式->十月式扩整",
+                "name": "Syo CHN CV -> Oct.CHN CV",
+                "version": 1
+            }
+        ],
+        "targetName": "CopyOrReplaceByAliasOptionWidget"
+    },
+    {
+        "presets": [{
+                "content": {
+                    "interpretBySystemEncoding": true,
+                    "rules": [{
+                            "matchPattern": "shi",
+                            "strategy": 1,
+                            "targetPattern": "し"
+                        },
+                        {
+                            "matchPattern": "chi",
+                            "strategy": 1,
+                            "targetPattern": "ち"
+                        },
+                        {
+                            "matchPattern": "sha",
+                            "strategy": 1,
+                            "targetPattern": "しゃ"
+                        },
+                        {
+                            "matchPattern": "she",
+                            "strategy": 1,
+                            "targetPattern": "しぇ"
+                        },
+                        {
+                            "matchPattern": "shu",
+                            "strategy": 1,
+                            "targetPattern": "しゅ"
+                        },
+                        {
+                            "matchPattern": "che",
+                            "strategy": 1,
+                            "targetPattern": "ちぇ"
+                        },
+                        {
+                            "matchPattern": "tsa",
+                            "strategy": 1,
+                            "targetPattern": "つぁ"
+                        },
+                        {
+                            "matchPattern": "tsi",
+                            "strategy": 1,
+                            "targetPattern": "つぃ"
+                        },
+                        {
+                            "matchPattern": "tsu",
+                            "strategy": 1,
+                            "targetPattern": "つ"
+                        },
+                        {
+                            "matchPattern": "tse",
+                            "strategy": 1,
+                            "targetPattern": "つぇ"
+                        },
+                        {
+                            "matchPattern": "tso",
+                            "strategy": 1,
+                            "targetPattern": "つぉ"
+                        },
+                        {
+                            "matchPattern": "mye",
+                            "strategy": 1,
+                            "targetPattern": "みぇ"
+                        },
+                        {
+                            "matchPattern": "hye",
+                            "strategy": 1,
+                            "targetPattern": "ひぇ"
+                        },
+                        {
+                            "matchPattern": "rye",
+                            "strategy": 1,
+                            "targetPattern": "りぇ"
+                        },
+                        {
+                            "matchPattern": "kye",
+                            "strategy": 1,
+                            "targetPattern": "きぇ"
+                        },
+                        {
+                            "matchPattern": "nye",
+                            "strategy": 1,
+                            "targetPattern": "にぇ"
+                        },
+                        {
+                            "matchPattern": "gye",
+                            "strategy": 1,
+                            "targetPattern": "ぎぇ"
+                        },
+                        {
+                            "matchPattern": "pye",
+                            "strategy": 1,
+                            "targetPattern": "ぴぇ"
+                        },
+                        {
+                            "matchPattern": "nga",
+                            "strategy": 1,
+                            "targetPattern": "ガ"
+                        },
+                        {
+                            "matchPattern": "ngi",
+                            "strategy": 1,
+                            "targetPattern": "ギ"
+                        },
+                        {
+                            "matchPattern": "ngu",
+                            "strategy": 1,
+                            "targetPattern": "グ"
+                        },
+                        {
+                            "matchPattern": "nge",
+                            "strategy": 1,
+                            "targetPattern": "ゲ"
+                        },
+                        {
+                            "matchPattern": "ngo",
+                            "strategy": 1,
+                            "targetPattern": "ゴ"
+                        },
+                        {
+                            "matchPattern": "mye",
+                            "strategy": 1,
+                            "targetPattern": "みぇ"
+                        },
+                        {
+                            "matchPattern": "kya",
+                            "strategy": 1,
+                            "targetPattern": "きゃ"
+                        },
+                        {
+                            "matchPattern": "kyu",
+                            "strategy": 1,
+                            "targetPattern": "きゅ"
+                        },
+                        {
+                            "matchPattern": "kyo",
+                            "strategy": 1,
+                            "targetPattern": "きょ"
+                        },
+                        {
+                            "matchPattern": "gya",
+                            "strategy": 1,
+                            "targetPattern": "ぎゃ"
+                        },
+                        {
+                            "matchPattern": "gyu",
+                            "strategy": 1,
+                            "targetPattern": "ぎゅ"
+                        },
+                        {
+                            "matchPattern": "gyo",
+                            "strategy": 1,
+                            "targetPattern": "ぎょ"
+                        },
+                        {
+                            "matchPattern": "kwa",
+                            "strategy": 1,
+                            "targetPattern": "くぁ"
+                        },
+                        {
+                            "matchPattern": "kwi",
+                            "strategy": 1,
+                            "targetPattern": "くぃ"
+                        },
+                        {
+                            "matchPattern": "kwe",
+                            "strategy": 1,
+                            "targetPattern": "くぇ"
+                        },
+                        {
+                            "matchPattern": "kwo",
+                            "strategy": 1,
+                            "targetPattern": "くぉ"
+                        },
+                        {
+                            "matchPattern": "gwa",
+                            "strategy": 1,
+                            "targetPattern": "ぐぁ"
+                        },
+                        {
+                            "matchPattern": "gwi",
+                            "strategy": 1,
+                            "targetPattern": "ぐぃ"
+                        },
+                        {
+                            "matchPattern": "gwe",
+                            "strategy": 1,
+                            "targetPattern": "ぐぇ"
+                        },
+                        {
+                            "matchPattern": "gwo",
+                            "strategy": 1,
+                            "targetPattern": "ぐぉ"
+                        },
+                        {
+                            "matchPattern": "sya",
+                            "strategy": 1,
+                            "targetPattern": "しゃ"
+                        },
+                        {
+                            "matchPattern": "syu",
+                            "strategy": 1,
+                            "targetPattern": "しゅ"
+                        },
+                        {
+                            "matchPattern": "syo",
+                            "strategy": 1,
+                            "targetPattern": "しょ"
+                        },
+                        {
+                            "matchPattern": "sho",
+                            "strategy": 1,
+                            "targetPattern": "しょ"
+                        },
+                        {
+                            "matchPattern": "dyu",
+                            "strategy": 1,
+                            "targetPattern": "でゅ"
+                        },
+                        {
+                            "matchPattern": "dyo",
+                            "strategy": 1,
+                            "targetPattern": "でょ"
+                        },
+                        {
+                            "matchPattern": "tya",
+                            "strategy": 1,
+                            "targetPattern": "ちゃ"
+                        },
+                        {
+                            "matchPattern": "tyu",
+                            "strategy": 1,
+                            "targetPattern": "ちゅ"
+                        },
+                        {
+                            "matchPattern": "tyo",
+                            "strategy": 1,
+                            "targetPattern": "ちょ"
+                        },
+                        {
+                            "matchPattern": "cha",
+                            "strategy": 1,
+                            "targetPattern": "ちゃ"
+                        },
+                        {
+                            "matchPattern": "chu",
+                            "strategy": 1,
+                            "targetPattern": "ちゅ"
+                        },
+                        {
+                            "matchPattern": "cho",
+                            "strategy": 1,
+                            "targetPattern": "ちょ"
+                        },
+                        {
+                            "matchPattern": "nya",
+                            "strategy": 1,
+                            "targetPattern": "にゃ"
+                        },
+                        {
+                            "matchPattern": "nyu",
+                            "strategy": 1,
+                            "targetPattern": "にゅ"
+                        },
+                        {
+                            "matchPattern": "nyo",
+                            "strategy": 1,
+                            "targetPattern": "にょ"
+                        },
+                        {
+                            "matchPattern": "hya",
+                            "strategy": 1,
+                            "targetPattern": "ひゃ"
+                        },
+                        {
+                            "matchPattern": "hyu",
+                            "strategy": 1,
+                            "targetPattern": "ひゅ"
+                        },
+                        {
+                            "matchPattern": "hyo",
+                            "strategy": 1,
+                            "targetPattern": "ひょ"
+                        },
+                        {
+                            "matchPattern": "bya",
+                            "strategy": 1,
+                            "targetPattern": "びゃ"
+                        },
+                        {
+                            "matchPattern": "byu",
+                            "strategy": 1,
+                            "targetPattern": "びゅ"
+                        },
+                        {
+                            "matchPattern": "bye",
+                            "strategy": 1,
+                            "targetPattern": "びぇ"
+                        },
+                        {
+                            "matchPattern": "byo",
+                            "strategy": 1,
+                            "targetPattern": "びょ"
+                        },
+                        {
+                            "matchPattern": "pya",
+                            "strategy": 1,
+                            "targetPattern": "ぴゃ"
+                        },
+                        {
+                            "matchPattern": "pyu",
+                            "strategy": 1,
+                            "targetPattern": "ぴゅ"
+                        },
+                        {
+                            "matchPattern": "pyo",
+                            "strategy": 1,
+                            "targetPattern": "ぴょ"
+                        },
+                        {
+                            "matchPattern": "mya",
+                            "strategy": 1,
+                            "targetPattern": "みゃ"
+                        },
+                        {
+                            "matchPattern": "myu",
+                            "strategy": 1,
+                            "targetPattern": "みゅ"
+                        },
+                        {
+                            "matchPattern": "myo",
+                            "strategy": 1,
+                            "targetPattern": "みょ"
+                        },
+                        {
+                            "matchPattern": "bwa",
+                            "strategy": 1,
+                            "targetPattern": "ぶぁ"
+                        },
+                        {
+                            "matchPattern": "bwi",
+                            "strategy": 1,
+                            "targetPattern": "ぶぃ"
+                        },
+                        {
+                            "matchPattern": "bwe",
+                            "strategy": 1,
+                            "targetPattern": "ぶぅ"
+                        },
+                        {
+                            "matchPattern": "bwe",
+                            "strategy": 1,
+                            "targetPattern": "ぶぇ"
+                        },
+                        {
+                            "matchPattern": "bwo",
+                            "strategy": 1,
+                            "targetPattern": "ぶぉ"
+                        },
+                        {
+                            "matchPattern": "rya",
+                            "strategy": 1,
+                            "targetPattern": "りゃ"
+                        },
+                        {
+                            "matchPattern": "ryu",
+                            "strategy": 1,
+                            "targetPattern": "りゅ"
+                        },
+                        {
+                            "matchPattern": "ryo",
+                            "strategy": 1,
+                            "targetPattern": "りょ"
+                        },
+                        {
+                            "matchPattern": "nn",
+                            "strategy": 1,
+                            "targetPattern": "ん"
+                        },
+                        {
+                            "matchPattern": "ye",
+                            "strategy": 1,
+                            "targetPattern": "いぇ"
+                        },
+                        {
+                            "matchPattern": "we",
+                            "strategy": 1,
+                            "targetPattern": "うぇ"
+                        },
+                        {
+                            "matchPattern": "wi",
+                            "strategy": 1,
+                            "targetPattern": "うぃ"
+                        },
+                        {
+                            "matchPattern": "ti",
+                            "strategy": 1,
+                            "targetPattern": "てぃ"
+                        },
+                        {
+                            "matchPattern": "di",
+                            "strategy": 1,
+                            "targetPattern": "でぃ"
+                        },
+                        {
+                            "matchPattern": "ja",
+                            "strategy": 1,
+                            "targetPattern": "じゃ"
+                        },
+                        {
+                            "matchPattern": "ju",
+                            "strategy": 1,
+                            "targetPattern": "じゅ"
+                        },
+                        {
+                            "matchPattern": "je",
+                            "strategy": 1,
+                            "targetPattern": "じぇ"
+                        },
+                        {
+                            "matchPattern": "jo",
+                            "strategy": 1,
+                            "targetPattern": "じょ"
+                        },
+                        {
+                            "matchPattern": "fa",
+                            "strategy": 1,
+                            "targetPattern": "ふぁ"
+                        },
+                        {
+                            "matchPattern": "fi",
+                            "strategy": 1,
+                            "targetPattern": "ふぃ"
+                        },
+                        {
+                            "matchPattern": "fe",
+                            "strategy": 1,
+                            "targetPattern": "ふぇ"
+                        },
+                        {
+                            "matchPattern": "fo",
+                            "strategy": 1,
+                            "targetPattern": "ふぉ"
+                        },
+                        {
+                            "matchPattern": "du",
+                            "strategy": 1,
+                            "targetPattern": "どぅ"
+                        },
+                        {
+                            "matchPattern": "va",
+                            "strategy": 1,
+                            "targetPattern": "ヴぁ"
+                        },
+                        {
+                            "matchPattern": "vi",
+                            "strategy": 1,
+                            "targetPattern": "ヴぃ"
+                        },
+                        {
+                            "matchPattern": "vu",
+                            "strategy": 1,
+                            "targetPattern": "ヴ"
+                        },
+                        {
+                            "matchPattern": "ve",
+                            "strategy": 1,
+                            "targetPattern": "ヴぇ"
+                        },
+                        {
+                            "matchPattern": "vo",
+                            "strategy": 1,
+                            "targetPattern": "ヴぉ"
+                        },
+                        {
+                            "matchPattern": "ka",
+                            "strategy": 1,
+                            "targetPattern": "か"
+                        },
+                        {
+                            "matchPattern": "ga",
+                            "strategy": 1,
+                            "targetPattern": "が"
+                        },
+                        {
+                            "matchPattern": "ki",
+                            "strategy": 1,
+                            "targetPattern": "き"
+                        },
+                        {
+                            "matchPattern": "gi",
+                            "strategy": 1,
+                            "targetPattern": "ぎ"
+                        },
+                        {
+                            "matchPattern": "ku",
+                            "strategy": 1,
+                            "targetPattern": "く"
+                        },
+                        {
+                            "matchPattern": "gu",
+                            "strategy": 1,
+                            "targetPattern": "ぐ"
+                        },
+                        {
+                            "matchPattern": "ke",
+                            "strategy": 1,
+                            "targetPattern": "け"
+                        },
+                        {
+                            "matchPattern": "ge",
+                            "strategy": 1,
+                            "targetPattern": "げ"
+                        },
+                        {
+                            "matchPattern": "ko",
+                            "strategy": 1,
+                            "targetPattern": "こ"
+                        },
+                        {
+                            "matchPattern": "go",
+                            "strategy": 1,
+                            "targetPattern": "ご"
+                        },
+                        {
+                            "matchPattern": "sa",
+                            "strategy": 1,
+                            "targetPattern": "さ"
+                        },
+                        {
+                            "matchPattern": "za",
+                            "strategy": 1,
+                            "targetPattern": "ざ"
+                        },
+                        {
+                            "matchPattern": "si",
+                            "strategy": 1,
+                            "targetPattern": "し"
+                        },
+                        {
+                            "matchPattern": "zi",
+                            "strategy": 1,
+                            "targetPattern": "じ"
+                        },
+                        {
+                            "matchPattern": "ji",
+                            "strategy": 1,
+                            "targetPattern": "じ"
+                        },
+                        {
+                            "matchPattern": "su",
+                            "strategy": 1,
+                            "targetPattern": "す"
+                        },
+                        {
+                            "matchPattern": "zu",
+                            "strategy": 1,
+                            "targetPattern": "ず"
+                        },
+                        {
+                            "matchPattern": "se",
+                            "strategy": 1,
+                            "targetPattern": "せ"
+                        },
+                        {
+                            "matchPattern": "ze",
+                            "strategy": 1,
+                            "targetPattern": "ぜ"
+                        },
+                        {
+                            "matchPattern": "so",
+                            "strategy": 1,
+                            "targetPattern": "そ"
+                        },
+                        {
+                            "matchPattern": "zo",
+                            "strategy": 1,
+                            "targetPattern": "ぞ"
+                        },
+                        {
+                            "matchPattern": "ta",
+                            "strategy": 1,
+                            "targetPattern": "た"
+                        },
+                        {
+                            "matchPattern": "da",
+                            "strategy": 1,
+                            "targetPattern": "だ"
+                        },
+                        {
+                            "matchPattern": "ti",
+                            "strategy": 1,
+                            "targetPattern": "ち"
+                        },
+                        {
+                            "matchPattern": "tu",
+                            "strategy": 1,
+                            "targetPattern": "つ"
+                        },
+                        {
+                            "matchPattern": "te",
+                            "strategy": 1,
+                            "targetPattern": "て"
+                        },
+                        {
+                            "matchPattern": "de",
+                            "strategy": 1,
+                            "targetPattern": "で"
+                        },
+                        {
+                            "matchPattern": "to",
+                            "strategy": 1,
+                            "targetPattern": "と"
+                        },
+                        {
+                            "matchPattern": "do",
+                            "strategy": 1,
+                            "targetPattern": "ど"
+                        },
+                        {
+                            "matchPattern": "na",
+                            "strategy": 1,
+                            "targetPattern": "な"
+                        },
+                        {
+                            "matchPattern": "ni",
+                            "strategy": 1,
+                            "targetPattern": "に"
+                        },
+                        {
+                            "matchPattern": "nu",
+                            "strategy": 1,
+                            "targetPattern": "ぬ"
+                        },
+                        {
+                            "matchPattern": "ne",
+                            "strategy": 1,
+                            "targetPattern": "ね"
+                        },
+                        {
+                            "matchPattern": "no",
+                            "strategy": 1,
+                            "targetPattern": "の"
+                        },
+                        {
+                            "matchPattern": "ha",
+                            "strategy": 1,
+                            "targetPattern": "は"
+                        },
+                        {
+                            "matchPattern": "ba",
+                            "strategy": 1,
+                            "targetPattern": "ば"
+                        },
+                        {
+                            "matchPattern": "pa",
+                            "strategy": 1,
+                            "targetPattern": "ぱ"
+                        },
+                        {
+                            "matchPattern": "hi",
+                            "strategy": 1,
+                            "targetPattern": "ひ"
+                        },
+                        {
+                            "matchPattern": "bi",
+                            "strategy": 1,
+                            "targetPattern": "び"
+                        },
+                        {
+                            "matchPattern": "pi",
+                            "strategy": 1,
+                            "targetPattern": "ぴ"
+                        },
+                        {
+                            "matchPattern": "hu",
+                            "strategy": 1,
+                            "targetPattern": "ふ"
+                        },
+                        {
+                            "matchPattern": "bu",
+                            "strategy": 1,
+                            "targetPattern": "ぶ"
+                        },
+                        {
+                            "matchPattern": "pu",
+                            "strategy": 1,
+                            "targetPattern": "ぷ"
+                        },
+                        {
+                            "matchPattern": "he",
+                            "strategy": 1,
+                            "targetPattern": "へ"
+                        },
+                        {
+                            "matchPattern": "be",
+                            "strategy": 1,
+                            "targetPattern": "べ"
+                        },
+                        {
+                            "matchPattern": "pe",
+                            "strategy": 1,
+                            "targetPattern": "ぺ"
+                        },
+                        {
+                            "matchPattern": "ho",
+                            "strategy": 1,
+                            "targetPattern": "ほ"
+                        },
+                        {
+                            "matchPattern": "bo",
+                            "strategy": 1,
+                            "targetPattern": "ぼ"
+                        },
+                        {
+                            "matchPattern": "po",
+                            "strategy": 1,
+                            "targetPattern": "ぽ"
+                        },
+                        {
+                            "matchPattern": "ma",
+                            "strategy": 1,
+                            "targetPattern": "ま"
+                        },
+                        {
+                            "matchPattern": "mi",
+                            "strategy": 1,
+                            "targetPattern": "み"
+                        },
+                        {
+                            "matchPattern": "mu",
+                            "strategy": 1,
+                            "targetPattern": "む"
+                        },
+                        {
+                            "matchPattern": "me",
+                            "strategy": 1,
+                            "targetPattern": "め"
+                        },
+                        {
+                            "matchPattern": "mo",
+                            "strategy": 1,
+                            "targetPattern": "も"
+                        },
+                        {
+                            "matchPattern": "ya",
+                            "strategy": 1,
+                            "targetPattern": "や"
+                        },
+                        {
+                            "matchPattern": "yu",
+                            "strategy": 1,
+                            "targetPattern": "ゆ"
+                        },
+                        {
+                            "matchPattern": "yo",
+                            "strategy": 1,
+                            "targetPattern": "よ"
+                        },
+                        {
+                            "matchPattern": "ra",
+                            "strategy": 1,
+                            "targetPattern": "ら"
+                        },
+                        {
+                            "matchPattern": "ri",
+                            "strategy": 1,
+                            "targetPattern": "り"
+                        },
+                        {
+                            "matchPattern": "ru",
+                            "strategy": 1,
+                            "targetPattern": "る"
+                        },
+                        {
+                            "matchPattern": "re",
+                            "strategy": 1,
+                            "targetPattern": "れ"
+                        },
+                        {
+                            "matchPattern": "ro",
+                            "strategy": 1,
+                            "targetPattern": "ろ"
+                        },
+                        {
+                            "matchPattern": "wa",
+                            "strategy": 1,
+                            "targetPattern": "わ"
+                        },
+                        {
+                            "matchPattern": "wo",
+                            "strategy": 1,
+                            "targetPattern": "を"
+                        },
+                        {
+                            "matchPattern": "fu",
+                            "strategy": 1,
+                            "targetPattern": "ふ"
+                        },
+                        {
+                            "matchPattern": "a",
+                            "strategy": 1,
+                            "targetPattern": "あ"
+                        },
+                        {
+                            "matchPattern": "i",
+                            "strategy": 1,
+                            "targetPattern": "い"
+                        },
+                        {
+                            "matchPattern": "u",
+                            "strategy": 1,
+                            "targetPattern": "う"
+                        },
+                        {
+                            "matchPattern": "e",
+                            "strategy": 1,
+                            "targetPattern": "え"
+                        },
+                        {
+                            "matchPattern": "o",
+                            "strategy": 1,
+                            "targetPattern": "お"
+                        },
+                        {
+                            "matchPattern": "n",
+                            "strategy": 1,
+                            "targetPattern": "ん"
+                        }
+                    ]
+                },
+                "lastModified": "2022-02-12T16:43:53",
+                "name_zh": "罗马音->假名",
+                "name": "Romaji -> Hiragana",
+                "version": 1
+            },
+            {
+                "content": {
+                    "interpretBySystemEncoding": true,
+                    "rules": [{
+                            "matchPattern": "ぶぃ",
+                            "strategy": 1,
+                            "targetPattern": "bwi"
+                        },
+                        {
+                            "matchPattern": "とぅ",
+                            "strategy": 1,
+                            "targetPattern": "twu"
+                        },
+                        {
+                            "matchPattern": "みょ",
+                            "strategy": 1,
+                            "targetPattern": "myo"
+                        },
+                        {
+                            "matchPattern": "みゅ",
+                            "strategy": 1,
+                            "targetPattern": "myu"
+                        },
+                        {
+                            "matchPattern": "みゃ",
+                            "strategy": 1,
+                            "targetPattern": "mya"
+                        },
+                        {
+                            "matchPattern": "ぴょ",
+                            "strategy": 1,
+                            "targetPattern": "pyo"
+                        },
+                        {
+                            "matchPattern": "ぴゅ",
+                            "strategy": 1,
+                            "targetPattern": "pyu"
+                        },
+                        {
+                            "matchPattern": "ぴゃ",
+                            "strategy": 1,
+                            "targetPattern": "pya"
+                        },
+                        {
+                            "matchPattern": "びょ",
+                            "strategy": 1,
+                            "targetPattern": "byo"
+                        },
+                        {
+                            "matchPattern": "びぇ",
+                            "strategy": 1,
+                            "targetPattern": "bye"
+                        },
+                        {
+                            "matchPattern": "びゅ",
+                            "strategy": 1,
+                            "targetPattern": "byu"
+                        },
+                        {
+                            "matchPattern": "びゃ",
+                            "strategy": 1,
+                            "targetPattern": "bya"
+                        },
+                        {
+                            "matchPattern": "きゃ",
+                            "strategy": 1,
+                            "targetPattern": "kya"
+                        },
+                        {
+                            "matchPattern": "ひゅ",
+                            "strategy": 1,
+                            "targetPattern": "hyu"
+                        },
+                        {
+                            "matchPattern": "ひゃ",
+                            "strategy": 1,
+                            "targetPattern": "hya"
+                        },
+                        {
+                            "matchPattern": "にょ",
+                            "strategy": 1,
+                            "targetPattern": "nyo"
+                        },
+                        {
+                            "matchPattern": "にゅ",
+                            "strategy": 1,
+                            "targetPattern": "nyu"
+                        },
+                        {
+                            "matchPattern": "にゃ",
+                            "strategy": 1,
+                            "targetPattern": "nya"
+                        },
+                        {
+                            "matchPattern": "ちょ",
+                            "strategy": 1,
+                            "targetPattern": "cho"
+                        },
+                        {
+                            "matchPattern": "ちゅ",
+                            "strategy": 1,
+                            "targetPattern": "chu"
+                        },
+                        {
+                            "matchPattern": "ちゃ",
+                            "strategy": 1,
+                            "targetPattern": "cha"
+                        },
+                        {
+                            "matchPattern": "ちょ",
+                            "strategy": 1,
+                            "targetPattern": "tyo"
+                        },
+                        {
+                            "matchPattern": "ちゅ",
+                            "strategy": 1,
+                            "targetPattern": "tyu"
+                        },
+                        {
+                            "matchPattern": "じゃ",
+                            "strategy": 1,
+                            "targetPattern": "ja"
+                        },
+                        {
+                            "matchPattern": "でゅ",
+                            "strategy": 1,
+                            "targetPattern": "dhu"
+                        },
+                        {
+                            "matchPattern": "てゅ",
+                            "strategy": 1,
+                            "targetPattern": "thu"
+                        },
+                        {
+                            "matchPattern": "ふぇ",
+                            "strategy": 1,
+                            "targetPattern": "fe"
+                        },
+                        {
+                            "matchPattern": "じょ",
+                            "strategy": 1,
+                            "targetPattern": "jo"
+                        },
+                        {
+                            "matchPattern": "ふぉ",
+                            "strategy": 1,
+                            "targetPattern": "fo"
+                        },
+                        {
+                            "matchPattern": "でゅ",
+                            "strategy": 1,
+                            "targetPattern": "dyu"
+                        },
+                        {
+                            "matchPattern": "ふぃ",
+                            "strategy": 1,
+                            "targetPattern": "fi"
+                        },
+                        {
+                            "matchPattern": "でぃ",
+                            "strategy": 1,
+                            "targetPattern": "di"
+                        },
+                        {
+                            "matchPattern": "りぇ",
+                            "strategy": 1,
+                            "targetPattern": "rye"
+                        },
+                        {
+                            "matchPattern": "ふぁ",
+                            "strategy": 1,
+                            "targetPattern": "fa"
+                        },
+                        {
+                            "matchPattern": "じぇ",
+                            "strategy": 1,
+                            "targetPattern": "je"
+                        },
+                        {
+                            "matchPattern": "じゅ",
+                            "strategy": 1,
+                            "targetPattern": "ju"
+                        },
+                        {
+                            "matchPattern": "てぃ",
+                            "strategy": 1,
+                            "targetPattern": "ti"
+                        },
+                        {
+                            "matchPattern": "ちゃ",
+                            "strategy": 1,
+                            "targetPattern": "tya"
+                        },
+                        {
+                            "matchPattern": "うぃ",
+                            "strategy": 1,
+                            "targetPattern": "wi"
+                        },
+                        {
+                            "matchPattern": "うぇ",
+                            "strategy": 1,
+                            "targetPattern": "we"
+                        },
+                        {
+                            "matchPattern": "いぇ",
+                            "strategy": 1,
+                            "targetPattern": "ye"
+                        },
+                        {
+                            "matchPattern": "りょ",
+                            "strategy": 1,
+                            "targetPattern": "ryo"
+                        },
+                        {
+                            "matchPattern": "りゅ",
+                            "strategy": 1,
+                            "targetPattern": "ryu"
+                        },
+                        {
+                            "matchPattern": "りゃ",
+                            "strategy": 1,
+                            "targetPattern": "rya"
+                        },
+                        {
+                            "matchPattern": "ぶぉ",
+                            "strategy": 1,
+                            "targetPattern": "bwo"
+                        },
+                        {
+                            "matchPattern": "ぶぇ",
+                            "strategy": 1,
+                            "targetPattern": "bwe"
+                        },
+                        {
+                            "matchPattern": "でょ",
+                            "strategy": 1,
+                            "targetPattern": "dyo"
+                        },
+                        {
+                            "matchPattern": "ひぇ",
+                            "strategy": 1,
+                            "targetPattern": "hye"
+                        },
+                        {
+                            "matchPattern": "ヴぁ",
+                            "strategy": 1,
+                            "targetPattern": "va"
+                        },
+                        {
+                            "matchPattern": "ヴぃ",
+                            "strategy": 1,
+                            "targetPattern": "vi"
+                        },
+                        {
+                            "matchPattern": "ヴぅ",
+                            "strategy": 1,
+                            "targetPattern": "vu"
+                        },
+                        {
+                            "matchPattern": "ヴぇ",
+                            "strategy": 1,
+                            "targetPattern": "ve"
+                        },
+                        {
+                            "matchPattern": "ヴぉ",
+                            "strategy": 1,
+                            "targetPattern": "vo"
+                        },
+                        {
+                            "matchPattern": "ぴぇ",
+                            "strategy": 1,
+                            "targetPattern": "pye"
+                        },
+                        {
+                            "matchPattern": "ぎぇ",
+                            "strategy": 1,
+                            "targetPattern": "gye"
+                        },
+                        {
+                            "matchPattern": "にぇ",
+                            "strategy": 1,
+                            "targetPattern": "nye"
+                        },
+                        {
+                            "matchPattern": "きぇ",
+                            "strategy": 1,
+                            "targetPattern": "kye"
+                        },
+                        {
+                            "matchPattern": "ぶぁ",
+                            "strategy": 1,
+                            "targetPattern": "bwa"
+                        },
+                        {
+                            "matchPattern": "しょ",
+                            "strategy": 1,
+                            "targetPattern": "sho"
+                        },
+                        {
+                            "matchPattern": "みぇ",
+                            "strategy": 1,
+                            "targetPattern": "mye"
+                        },
+                        {
+                            "matchPattern": "つぉ",
+                            "strategy": 1,
+                            "targetPattern": "tso"
+                        },
+                        {
+                            "matchPattern": "つぇ",
+                            "strategy": 1,
+                            "targetPattern": "tse"
+                        },
+                        {
+                            "matchPattern": "つぃ",
+                            "strategy": 1,
+                            "targetPattern": "tsi"
+                        },
+                        {
+                            "matchPattern": "つぁ",
+                            "strategy": 1,
+                            "targetPattern": "tsa"
+                        },
+                        {
+                            "matchPattern": "ちぇ",
+                            "strategy": 1,
+                            "targetPattern": "che"
+                        },
+                        {
+                            "matchPattern": "しゅ",
+                            "strategy": 1,
+                            "targetPattern": "shu"
+                        },
+                        {
+                            "matchPattern": "しぇ",
+                            "strategy": 1,
+                            "targetPattern": "she"
+                        },
+                        {
+                            "matchPattern": "しゃ",
+                            "strategy": 1,
+                            "targetPattern": "sha"
+                        },
+                        {
+                            "matchPattern": "うぉ",
+                            "strategy": 1,
+                            "targetPattern": "wo"
+                        },
+                        {
+                            "matchPattern": "ずぃ",
+                            "strategy": 1,
+                            "targetPattern": "zwi"
+                        },
+                        {
+                            "matchPattern": "どぅ",
+                            "strategy": 1,
+                            "targetPattern": "du"
+                        },
+                        {
+                            "matchPattern": "しょ",
+                            "strategy": 1,
+                            "targetPattern": "syo"
+                        },
+                        {
+                            "matchPattern": "しゅ",
+                            "strategy": 1,
+                            "targetPattern": "syu"
+                        },
+                        {
+                            "matchPattern": "しゃ",
+                            "strategy": 1,
+                            "targetPattern": "sya"
+                        },
+                        {
+                            "matchPattern": "ぐぉ",
+                            "strategy": 1,
+                            "targetPattern": "gwo"
+                        },
+                        {
+                            "matchPattern": "ぐぇ",
+                            "strategy": 1,
+                            "targetPattern": "gwe"
+                        },
+                        {
+                            "matchPattern": "ぐぃ",
+                            "strategy": 1,
+                            "targetPattern": "gwi"
+                        },
+                        {
+                            "matchPattern": "ぐぁ",
+                            "strategy": 1,
+                            "targetPattern": "gwa"
+                        },
+                        {
+                            "matchPattern": "きゅ",
+                            "strategy": 1,
+                            "targetPattern": "kyu"
+                        },
+                        {
+                            "matchPattern": "くぃ",
+                            "strategy": 1,
+                            "targetPattern": "kwi"
+                        },
+                        {
+                            "matchPattern": "みぇ",
+                            "strategy": 1,
+                            "targetPattern": "mye"
+                        },
+                        {
+                            "matchPattern": "くぉ",
+                            "strategy": 1,
+                            "targetPattern": "kwo"
+                        },
+                        {
+                            "matchPattern": "すぃ",
+                            "strategy": 1,
+                            "targetPattern": "swi"
+                        },
+                        {
+                            "matchPattern": "ぎょ",
+                            "strategy": 1,
+                            "targetPattern": "gyo"
+                        },
+                        {
+                            "matchPattern": "ぎゃ",
+                            "strategy": 1,
+                            "targetPattern": "gya"
+                        },
+                        {
+                            "matchPattern": "ぶぅ",
+                            "strategy": 1,
+                            "targetPattern": "bwe"
+                        },
+                        {
+                            "matchPattern": "ぎゅ",
+                            "strategy": 1,
+                            "targetPattern": "gyu"
+                        },
+                        {
+                            "matchPattern": "くぁ",
+                            "strategy": 1,
+                            "targetPattern": "kwa"
+                        },
+                        {
+                            "matchPattern": "ひょ",
+                            "strategy": 1,
+                            "targetPattern": "hyo"
+                        },
+                        {
+                            "matchPattern": "くぇ",
+                            "strategy": 1,
+                            "targetPattern": "kwe"
+                        },
+                        {
+                            "matchPattern": "きょ",
+                            "strategy": 1,
+                            "targetPattern": "kyo"
+                        },
+                        {
+                            "matchPattern": "れ",
+                            "strategy": 1,
+                            "targetPattern": "re"
+                        },
+                        {
+                            "matchPattern": "の",
+                            "strategy": 1,
+                            "targetPattern": "no"
+                        },
+                        {
+                            "matchPattern": "ぷ",
+                            "strategy": 1,
+                            "targetPattern": "pu"
+                        },
+                        {
+                            "matchPattern": "み",
+                            "strategy": 1,
+                            "targetPattern": "mi"
+                        },
+                        {
+                            "matchPattern": "べ",
+                            "strategy": 1,
+                            "targetPattern": "be"
+                        },
+                        {
+                            "matchPattern": "ぺ",
+                            "strategy": 1,
+                            "targetPattern": "pe"
+                        },
+                        {
+                            "matchPattern": "ほ",
+                            "strategy": 1,
+                            "targetPattern": "ho"
+                        },
+                        {
+                            "matchPattern": "ぼ",
+                            "strategy": 1,
+                            "targetPattern": "bo"
+                        },
+                        {
+                            "matchPattern": "ぽ",
+                            "strategy": 1,
+                            "targetPattern": "po"
+                        },
+                        {
+                            "matchPattern": "ま",
+                            "strategy": 1,
+                            "targetPattern": "ma"
+                        },
+                        {
+                            "matchPattern": "ん",
+                            "strategy": 1,
+                            "targetPattern": "n"
+                        },
+                        {
+                            "matchPattern": "し",
+                            "strategy": 1,
+                            "targetPattern": "shi"
+                        },
+                        {
+                            "matchPattern": "ふ",
+                            "strategy": 1,
+                            "targetPattern": "hu"
+                        },
+                        {
+                            "matchPattern": "ぴ",
+                            "strategy": 1,
+                            "targetPattern": "pi"
+                        },
+                        {
+                            "matchPattern": "び",
+                            "strategy": 1,
+                            "targetPattern": "bi"
+                        },
+                        {
+                            "matchPattern": "ひ",
+                            "strategy": 1,
+                            "targetPattern": "hi"
+                        },
+                        {
+                            "matchPattern": "ぱ",
+                            "strategy": 1,
+                            "targetPattern": "pa"
+                        },
+                        {
+                            "matchPattern": "ば",
+                            "strategy": 1,
+                            "targetPattern": "ba"
+                        },
+                        {
+                            "matchPattern": "は",
+                            "strategy": 1,
+                            "targetPattern": "ha"
+                        },
+                        {
+                            "matchPattern": "ね",
+                            "strategy": 1,
+                            "targetPattern": "ne"
+                        },
+                        {
+                            "matchPattern": "ぶ",
+                            "strategy": 1,
+                            "targetPattern": "bu"
+                        },
+                        {
+                            "matchPattern": "お",
+                            "strategy": 1,
+                            "targetPattern": "o"
+                        },
+                        {
+                            "matchPattern": "え",
+                            "strategy": 1,
+                            "targetPattern": "e"
+                        },
+                        {
+                            "matchPattern": "う",
+                            "strategy": 1,
+                            "targetPattern": "u"
+                        },
+                        {
+                            "matchPattern": "い",
+                            "strategy": 1,
+                            "targetPattern": "i"
+                        },
+                        {
+                            "matchPattern": "あ",
+                            "strategy": 1,
+                            "targetPattern": "a"
+                        },
+                        {
+                            "matchPattern": "ふ",
+                            "strategy": 1,
+                            "targetPattern": "fu"
+                        },
+                        {
+                            "matchPattern": "を",
+                            "strategy": 1,
+                            "targetPattern": "wo"
+                        },
+                        {
+                            "matchPattern": "め",
+                            "strategy": 1,
+                            "targetPattern": "me"
+                        },
+                        {
+                            "matchPattern": "ろ",
+                            "strategy": 1,
+                            "targetPattern": "ro"
+                        },
+                        {
+                            "matchPattern": "し",
+                            "strategy": 1,
+                            "targetPattern": "si"
+                        },
+                        {
+                            "matchPattern": "る",
+                            "strategy": 1,
+                            "targetPattern": "ru"
+                        },
+                        {
+                            "matchPattern": "り",
+                            "strategy": 1,
+                            "targetPattern": "ri"
+                        },
+                        {
+                            "matchPattern": "ら",
+                            "strategy": 1,
+                            "targetPattern": "ra"
+                        },
+                        {
+                            "matchPattern": "よ",
+                            "strategy": 1,
+                            "targetPattern": "yo"
+                        },
+                        {
+                            "matchPattern": "ゆ",
+                            "strategy": 1,
+                            "targetPattern": "yu"
+                        },
+                        {
+                            "matchPattern": "や",
+                            "strategy": 1,
+                            "targetPattern": "ya"
+                        },
+                        {
+                            "matchPattern": "も",
+                            "strategy": 1,
+                            "targetPattern": "mo"
+                        },
+                        {
+                            "matchPattern": "わ",
+                            "strategy": 1,
+                            "targetPattern": "wa"
+                        },
+                        {
+                            "matchPattern": "が",
+                            "strategy": 1,
+                            "targetPattern": "ga"
+                        },
+                        {
+                            "matchPattern": "た",
+                            "strategy": 1,
+                            "targetPattern": "ta"
+                        },
+                        {
+                            "matchPattern": "ざ",
+                            "strategy": 1,
+                            "targetPattern": "za"
+                        },
+                        {
+                            "matchPattern": "ご",
+                            "strategy": 1,
+                            "targetPattern": "go"
+                        },
+                        {
+                            "matchPattern": "こ",
+                            "strategy": 1,
+                            "targetPattern": "ko"
+                        },
+                        {
+                            "matchPattern": "げ",
+                            "strategy": 1,
+                            "targetPattern": "ge"
+                        },
+                        {
+                            "matchPattern": "け",
+                            "strategy": 1,
+                            "targetPattern": "ke"
+                        },
+                        {
+                            "matchPattern": "ぐ",
+                            "strategy": 1,
+                            "targetPattern": "gu"
+                        },
+                        {
+                            "matchPattern": "く",
+                            "strategy": 1,
+                            "targetPattern": "ku"
+                        },
+                        {
+                            "matchPattern": "ち",
+                            "strategy": 1,
+                            "targetPattern": "chi"
+                        },
+                        {
+                            "matchPattern": "き",
+                            "strategy": 1,
+                            "targetPattern": "ki"
+                        },
+                        {
+                            "matchPattern": "だ",
+                            "strategy": 1,
+                            "targetPattern": "da"
+                        },
+                        {
+                            "matchPattern": "か",
+                            "strategy": 1,
+                            "targetPattern": "ka"
+                        },
+                        {
+                            "matchPattern": "ゴ",
+                            "strategy": 1,
+                            "targetPattern": "ngo"
+                        },
+                        {
+                            "matchPattern": "ゲ",
+                            "strategy": 1,
+                            "targetPattern": "nge"
+                        },
+                        {
+                            "matchPattern": "グ",
+                            "strategy": 1,
+                            "targetPattern": "ngu"
+                        },
+                        {
+                            "matchPattern": "ギ",
+                            "strategy": 1,
+                            "targetPattern": "ngi"
+                        },
+                        {
+                            "matchPattern": "ガ",
+                            "strategy": 1,
+                            "targetPattern": "nga"
+                        },
+                        {
+                            "matchPattern": "つ",
+                            "strategy": 1,
+                            "targetPattern": "tsu"
+                        },
+                        {
+                            "matchPattern": "ぎ",
+                            "strategy": 1,
+                            "targetPattern": "gi"
+                        },
+                        {
+                            "matchPattern": "さ",
+                            "strategy": 1,
+                            "targetPattern": "sa"
+                        },
+                        {
+                            "matchPattern": "ヴ",
+                            "strategy": 1,
+                            "targetPattern": "vu"
+                        },
+                        {
+                            "matchPattern": "む",
+                            "strategy": 1,
+                            "targetPattern": "mu"
+                        },
+                        {
+                            "matchPattern": "へ",
+                            "strategy": 1,
+                            "targetPattern": "he"
+                        },
+                        {
+                            "matchPattern": "な",
+                            "strategy": 1,
+                            "targetPattern": "na"
+                        },
+                        {
+                            "matchPattern": "ど",
+                            "strategy": 1,
+                            "targetPattern": "do"
+                        },
+                        {
+                            "matchPattern": "と",
+                            "strategy": 1,
+                            "targetPattern": "to"
+                        },
+                        {
+                            "matchPattern": "で",
+                            "strategy": 1,
+                            "targetPattern": "de"
+                        },
+                        {
+                            "matchPattern": "て",
+                            "strategy": 1,
+                            "targetPattern": "te"
+                        },
+                        {
+                            "matchPattern": "つ",
+                            "strategy": 1,
+                            "targetPattern": "tu"
+                        },
+                        {
+                            "matchPattern": "ち",
+                            "strategy": 1,
+                            "targetPattern": "ti"
+                        },
+                        {
+                            "matchPattern": "ぬ",
+                            "strategy": 1,
+                            "targetPattern": "nu"
+                        },
+                        {
+                            "matchPattern": "に",
+                            "strategy": 1,
+                            "targetPattern": "ni"
+                        },
+                        {
+                            "matchPattern": "ぞ",
+                            "strategy": 1,
+                            "targetPattern": "zo"
+                        },
+                        {
+                            "matchPattern": "そ",
+                            "strategy": 1,
+                            "targetPattern": "so"
+                        },
+                        {
+                            "matchPattern": "ぜ",
+                            "strategy": 1,
+                            "targetPattern": "ze"
+                        },
+                        {
+                            "matchPattern": "せ",
+                            "strategy": 1,
+                            "targetPattern": "se"
+                        },
+                        {
+                            "matchPattern": "ず",
+                            "strategy": 1,
+                            "targetPattern": "zu"
+                        },
+                        {
+                            "matchPattern": "す",
+                            "strategy": 1,
+                            "targetPattern": "su"
+                        },
+                        {
+                            "matchPattern": "じ",
+                            "strategy": 1,
+                            "targetPattern": "ji"
+                        },
+                        {
+                            "matchPattern": "じ",
+                            "strategy": 1,
+                            "targetPattern": "zi"
+                        }
+                    ]
+                },
+                "lastModified": "2022-02-12T16:46:22",
+                "name_zh": "假名->罗马音",
+                "name": "Hiragana -> Romaji",
+                "version": 1
+            }
+        ],
+        "targetName": "ReplaceFileNameOptionWidget"
     }
 ]

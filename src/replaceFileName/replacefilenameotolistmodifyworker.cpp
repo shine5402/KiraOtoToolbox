@@ -29,17 +29,17 @@ void ReplaceFileNameOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     }, srcOtoList));
 
     for (const auto& fileName : qAsConst(fileNames)){
+        auto fileInfo = QFileInfo(fileName);
+        auto baseName = fileInfo.baseName();
+        auto newBaseName = baseName;
+        auto extension = fileInfo.completeSuffix();
         for (const auto& rule : qAsConst(rules)){
-            auto fileInfo = QFileInfo(fileName);
-            auto baseName = fileInfo.baseName();
-            auto extension = fileInfo.completeSuffix();
-            if (rule.match(baseName)){
-                auto newBaseName = rule.replace(baseName);
-                auto newFileName = newBaseName + "." + extension;
-                replaceMap.insert(fileName, newFileName);
-                break;
+            if (rule.match(newBaseName)){
+                newBaseName = rule.replace(newBaseName);
             }
         }
+        auto newFileName = newBaseName + "." + extension;
+        replaceMap.insert(fileName, newFileName);
     }
 
     resultOtoList = fplus::transform([&](OtoEntry entry)->OtoEntry{

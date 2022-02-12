@@ -22,15 +22,19 @@ void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
     QMutableVectorIterator it(resultOtoList);
     while (it.hasNext()){
         auto curr = it.next();
+        auto matched = false;
         for (const auto& rule : qAsConst(rules)){
             if (rule.match(curr.alias())){
+                matched |= true;
                 curr.setAlias(rule.replace(curr.alias()));
-                if (behaviorCopy)
-                    it.insert(curr);
-                if (behaviorReplace)
-                    it.setValue(curr);
-                break;
             }
+        }
+        if (matched)
+        {
+            if (behaviorCopy)
+                it.insert(curr);
+            if (behaviorReplace)
+                it.setValue(curr);
         }
     }
 }

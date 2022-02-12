@@ -38,8 +38,8 @@ OptionContainer CopyOrReplaceByAliasOptionWidget::getOptions() const
 void CopyOrReplaceByAliasOptionWidget::setOptions(const OptionContainer& options)
 {
     ui->rulesWidget->setRules(options.getOption("rules").value<QVector<ReplaceRule>>());
-    ui->behaviorCopyRadioButton->setChecked(options.getOption("behaviorCopy").toBool());
-    ui->behaviorReplaceRadioButton->setChecked(options.getOption("behaviorReplace").toBool());
+    ui->behaviorCopyRadioButton->setChecked(options.getOption("behaviorCopy", false).toBool());
+    ui->behaviorReplaceRadioButton->setChecked(options.getOption("behaviorReplace", true).toBool());
 }
 
 QJsonObject CopyOrReplaceByAliasOptionWidget::optionsToJson(const OptionContainer& options) const
@@ -62,8 +62,8 @@ OptionContainer CopyOrReplaceByAliasOptionWidget::jsonToOptions(const QJsonObjec
     auto ruleJsonArray = json.value("rules").toArray();
     auto rules = ReplaceRule::jsonToRules(ruleJsonArray);
     options.setOption("rules", QVariant::fromValue(rules));
-    options.setOption("behaviorCopy", json.value("behaviorCopy").toBool());
-    options.setOption("behaviorReplace", json.value("behaviorReplace").toBool());
+    options.setOption("behaviorCopy", json.value("behaviorCopy").toBool(false));
+    options.setOption("behaviorReplace", json.value("behaviorReplace").toBool(true));
 
     return options;
 }

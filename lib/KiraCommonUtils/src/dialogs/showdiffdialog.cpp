@@ -1,4 +1,5 @@
 #include <kira/dialogs/showdiffdialog.h>
+#include "kira/darkmode.h"
 #include "ui_showdiffdialog.h"
 #include <QFuture>
 #include <QFutureWatcher>
@@ -65,7 +66,34 @@ void ShowDiffDialog::startDiffCalc()
         diff_match_patch dmp;
         //TODO:Use a parameter to determine which mode should be used
         auto diff = dmp.diff_lineMode(source, result, std::numeric_limits<clock_t>::max());
-        return dmp.diff_prettyHtml(diff);
+        auto prettyHtml = [](const auto& diffs) -> auto{
+            QString html;
+            QString text;
+            foreach(Diff aDiff, diffs) {
+                text = aDiff.text;
+                text.replace("&", "&amp;").replace("<", "&lt;")
+                        .replace(">", "&gt;").replace("\n", "<br>");
+                switch (aDiff.operation) {
+                    case INSERT:
+                        html += QStringLiteral("<ins style=\"background:%1;text-decoration:underline;\">")
+                                .arg(DarkMode::getCurrentMode() == DarkMode::LIGHT ? "#e6ffe6" : "#147314")
+                                + text
+                                + QStringLiteral("</ins>");
+                        break;
+                    case DELETE:
+                        html += QStringLiteral("<del style=\"background:%1;text-decoration:line-through;\">")
+                                .arg(DarkMode::getCurrentMode() == DarkMode::LIGHT ? "#ffe6e6" : "#B40000")
+                                + text
+                                + QStringLiteral("</del>");
+                        break;
+                    case EQUAL:
+                        html += QStringLiteral("<span>") + text + QStringLiteral("</span>");
+                        break;
+                }
+            }
+            return html;
+        };
+        return prettyHtml(diff);
     });
     futureSynchronizer.addFuture(future);
 

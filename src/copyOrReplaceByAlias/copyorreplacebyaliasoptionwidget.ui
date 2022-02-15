@@ -73,6 +73,62 @@
      </item>
     </layout>
    </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Match strategy:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="matchStrategyComboBox">
+       <property name="toolTip">
+        <string>&lt;p&gt;Control how match works when there are multiple replace rules.&lt;/p&gt;
+&lt;p&gt;With alias &quot;a&quot; and rules [&quot;a&quot;-&gt;&quot;ac&quot;, &quot;a&quot;-&gt;&quot;ab&quot;], output will be like:
+&lt;ul&gt;
+&lt;li&gt;Match first then stop: &quot;ac&quot;&lt;/li&gt;
+&lt;li&gt;Match all and replace all matches: &quot;abc&quot; (1st rule get &quot;ac&quot;, then 2nd rule make it into &quot;abc&quot;)&lt;/li&gt;
+&lt;li&gt;Match all in parallel and copy all matches (copy mode only): [&quot;a&quot;, &quot;ac&quot;, &quot;ab&quot;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;</string>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Match first then stop</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Match all and replace all matches</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Match all in parallel and copy all matches (copy mode only)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <customwidgets>

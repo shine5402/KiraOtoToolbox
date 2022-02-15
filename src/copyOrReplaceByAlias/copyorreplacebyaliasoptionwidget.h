@@ -25,6 +25,7 @@ public:
     QJsonObject optionsToJson(const OptionContainer& options) const override;
     OptionContainer jsonToOptions(const QJsonObject& json) const override;
     int optionJsonVersion() const override;
+    QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const override;
 };
 
 #endif // COPYORREPLACEBYALIASOPTIONWIDGET_H

@@ -56,7 +56,7 @@ PresetWidgetContainer::PresetWidgetContainer(const QMetaObject& optionWidgetMeta
     connect(ui->importButton, &QToolButton::clicked, this, &PresetWidgetContainer::importPreset);
     connect(ui->exportButton, &QToolButton::clicked, this, &PresetWidgetContainer::exportPreset);
 
-    connect(optionWidget, &ToolOptionWidget::userSettingsChanged, [this](){
+    connect(optionWidget, &ToolOptionWidget::userSettingsChanged, this, [this](){
         setCurrentDirty(true);
     });
 }
@@ -85,7 +85,11 @@ void PresetWidgetContainer::reset()
 
 void PresetWidgetContainer::doResetToPreset()
 {
-    optionWidget_->setOptionsJson(getCurrentPreset().content);
+    auto currPreset = getCurrentPreset();
+    auto json = getCurrentPreset().content;
+    if (currPreset.version < optionWidget_->optionJsonVersion())
+        json = optionWidget_->updateOptionJsonFrom(currPreset.version, json);
+    optionWidget_->setOptionsJson(json);
     resetComboBoxDirtyState();
 }
 
@@ -223,6 +227,9 @@ void PresetWidgetContainer::importPreset()
             ui->presetComboBox->setCurrentText(preset.name);
             return;
         }
+    }
+    if (optionWidget_->optionJsonVersion() < preset.version){
+        QMessageBox::critical(this, {}, tr("The given preset file contains a preset whose version is newer than what currently used."));
     }
 
     PresetManager::getManager()->appendPreset(targetName(), preset);

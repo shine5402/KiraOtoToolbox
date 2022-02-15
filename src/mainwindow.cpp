@@ -223,5 +223,6 @@ void MainWindow::changeEvent(QEvent* event)
         ui->retranslateUi(this);
         createToolSelectorUI();
         setArgInfoBlock();
+        ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());//trigger a text reset
     }
 }

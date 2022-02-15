@@ -505,6 +505,7 @@
                 "content": {
                     "behaviorCopy": true,
                     "behaviorReplace": false,
+                    "opStrategy": 2,
                     "rules": [{
                             "matchPattern": "お",
                             "strategy": 1,
@@ -520,7 +521,7 @@
                 "lastModified": "2021-12-15T13:16:36",
                 "name_zh": "日语同音字",
                 "name": "Japanese hiragana with same pronunciation",
-                "version": 1
+                "version": 2
             },
             {
                 "content": {

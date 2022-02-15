@@ -128,6 +128,9 @@ void PresetWidgetContainer::renamePreset()
         preset.name = name;
         preset.updateMeta(optionWidget_);
         PresetManager::getManager()->replacePreset(targetName(), originalName, preset);
+        auto curr = ui->presetComboBox->currentIndex();
+        reloadComboBoxItems();
+        ui->presetComboBox->setCurrentIndex(curr);
     }
 }
 

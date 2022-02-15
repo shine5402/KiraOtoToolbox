@@ -30,7 +30,7 @@ CopyOrReplaceByAliasOptionWidget::CopyOrReplaceByAliasOptionWidget(QWidget *pare
         if (ui->behaviorReplaceRadioButton->isChecked()){
             ui->matchStrategyComboBox->addItems({QStringLiteral("Match first then stop"),
                                                  QStringLiteral("Match all and replace all matches")});
-            ui->matchStrategyComboBox->setCurrentIndex(curr <= 2 ? curr : 0);
+            ui->matchStrategyComboBox->setCurrentIndex(curr < 2 ? curr : 0);
         }
 
     });

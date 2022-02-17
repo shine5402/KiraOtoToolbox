@@ -39,7 +39,8 @@ void ReplaceFileNameOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             }
         }
         auto newFileName = newBaseName + "." + extension;
-        replaceMap.insert(fileName, newFileName);
+        if (fileName != newFileName)
+            replaceMap.insert(fileName, newFileName);
     }
 
     resultOtoList = fplus::transform([&](OtoEntry entry)->OtoEntry{
@@ -74,6 +75,7 @@ void ReplaceFileNameOtoListModifyWorker::commit()
     for (auto it = replaceMap.constBegin(); it != replaceMap.constEnd(); ++it){
         auto fileName = it.key();
         auto newFileName = it.value();
+        Q_ASSERT(fileName != newFileName);
         auto actualFileName = interpretBySystemEncoding ? Misc::getFileNameInSystemEncoding(fileName) : fileName;
         auto actualNewFileName = interpretBySystemEncoding ? Misc::getFileNameInSystemEncoding(newFileName) : newFileName;
         auto actualFilePath = otoDir.filePath(actualFileName);
@@ -88,7 +90,9 @@ void ReplaceFileNameOtoListModifyWorker::commit()
             for (auto it = renamed.constBegin(); it != renamed.constEnd(); ++it){
                 stream << tr("%1 -> %2").arg(it.key(), it.value()) << Qt::endl;
             }
-            throw ToolException(tr("Failed to rename %1 to %2.\nThese files are already renamed:\n%1").arg(renamedInfo));
+            throw ToolException(tr("Failed to rename %1 to %2. Caused by \"%4\".\n"
+                                   "These files are already renamed:\n%3").arg(actualFilePath, actualNewFilePath,
+                                                                               renamedInfo, file.errorString()));
         }
     }
 }

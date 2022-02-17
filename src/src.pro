@@ -7,7 +7,6 @@ CONFIG += c++17 file_copies
 TARGET = KiraOtoToolbox
 
 VERSION = 1.0.0
-DEFINES += VERSION_BETA
 
 RC_ICONS = resources/icon/appIcon.ico
 
@@ -251,3 +250,10 @@ RESOURCES += \
     resources/splashscr/splashscr.qrc
 
 CONFIG(release, debug|release): DEFINES += NDEBUG
+
+# For showing git info
+# Refresh on qmake call
+GIT_HASH="\\\"$$system(git -C \""$$_PRO_FILE_PWD_"\" rev-parse --short HEAD)\\\""
+GIT_DESCRIBE="\\\"$$system(git -C \""$$_PRO_FILE_PWD_"\" describe --tags --dirty)\\\""
+GIT_BRANCH="\\\"$$system(git -C \""$$_PRO_FILE_PWD_"\" rev-parse --abbrev-ref HEAD)\\\""
+DEFINES += GIT_HASH=$$GIT_HASH GIT_BRANCH=$$GIT_BRANCH GIT_DESCRIBE=$$GIT_DESCRIBE

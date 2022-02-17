@@ -29,7 +29,7 @@ void MainWindow::setArgInfoBlock()
     {
         args.removeFirst();
         ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. <br/>"
-"These paths will be used as tool's oto data input.</p><code><ul style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>").arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
+                                     "These paths will be used as tool's oto data input.</p><code><ul style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>").arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
     }
 }
 
@@ -73,9 +73,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     //set window titie
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
-#ifdef VERSION_BETA
-    setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
-#endif
+    if (QStringLiteral(GIT_BRANCH) == QStringLiteral("dev"))
+        setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
 #ifndef NDEBUG
     auto debugAction = new QAction("Debug", this);
     connect(debugAction, &QAction::triggered, debugAction, [](){
@@ -141,16 +140,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::showAboutDialog()
 {
-#ifdef VERSION_BETA
-    auto versionStr = qApp->applicationVersion() + tr(" (BETA) </p><p style=\"color:orange\">You are using a test build. <b>Use it at your own risk.</b> If any problems occured, please provide feedback on Github Issues.");
-#else
-    auto versionStr = qApp->applicationVersion();
-#endif
+    auto isBeta = QStringLiteral(GIT_BRANCH) == QStringLiteral("dev");
+    QString versionStr = tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
+            .arg(qApp->applicationVersion(), GIT_BRANCH, GIT_DESCRIBE, isBeta ? "-beta" : "", __DATE__, __TIME__);
+    if (isBeta)
+        versionStr += tr("<p style=\"color:orange\">You are using a BETA build. "
+                         "<b>Use it at your own risk.</b>"
+                         " If any problems occured, please provide feedback on Github Issues.</p>");
+
     QMessageBox::about(this, tr("About"), tr(
                            R"(<h2>KiraOtoToolbox</h2>
 
 <p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
-<p>Version %1</p>
+%1
 <h3>About</h3>
 <p>A toolbox for manipulating "oto.ini", the voicebank labeling format for UTAU.</p>
 <h3>License</h3>

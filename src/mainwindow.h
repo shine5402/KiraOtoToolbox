@@ -12,6 +12,10 @@ class Translation;
 class QButtonGroup;
 class QGroupBox;
 
+namespace UpdateChecker {
+    class GithubReleaseChecker;
+}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -29,11 +33,12 @@ private:
 
     void setArgInfoBlock();
 
+    QMenu* createHelpMenu();
+
+    UpdateChecker::GithubReleaseChecker* updateChecker;
+
 private slots:
     void showAboutDialog();
-    void showDonationPage();
-    void showUpdatePage();
-    void showFeedbackPage();
     void fitUIToDarkMode(DarkMode::Mode curr);
     // QWidget interface
 protected:

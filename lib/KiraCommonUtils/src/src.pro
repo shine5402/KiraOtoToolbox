@@ -1,6 +1,6 @@
 TEMPLATE = lib
 
-QT += core gui widgets
+QT += core gui widgets network
 
 TARGET = KiraCommonUtils
 
@@ -20,6 +20,7 @@ SOURCES += filesystem.cpp \
         dialogs/tableviewdialog.cpp \
         i18n/translation.cpp \
         i18n/translationmanager.cpp \
+        updatechecker.cpp \
         widgets/atleastonecheckedbuttongroup.cpp \
         widgets/dirnameeditwithbrowse.cpp \
         widgets/filenameeditwithbrowse.cpp \
@@ -37,6 +38,7 @@ HEADERS += include/kira/dialogs/listviewdialog.h \
         include/kira/i18n/translationmanager.h \
         include/kira/lib_helper/kfr_helper.h \
         include/kira/lib_helper/fplus_qt_adapter.h \
+        include/kira/updatechecker.h \
         include/kira/widgets/atleastonecheckedbuttongroup.h \
         include/kira/widgets/dirnameeditwithbrowse.h \
         include/kira/widgets/filenameeditwithbrowse.h \

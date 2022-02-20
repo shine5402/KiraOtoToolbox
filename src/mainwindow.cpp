@@ -16,6 +16,7 @@
 #include <kira/i18n/translationmanager.h>
 #include <QSettings>
 #include <kira/darkmode.h>
+#include <kira/updatechecker.h>
 
 void MainWindow::setArgInfoBlock()
 {
@@ -31,6 +32,28 @@ void MainWindow::setArgInfoBlock()
         ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. <br/>"
                                      "These paths will be used as tool's oto data input.</p><code><ul style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>").arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
     }
+}
+
+QMenu* MainWindow::createHelpMenu()
+{
+    auto helpMenu = new QMenu(tr("Help"), this);
+    auto aboutAction = helpMenu->addAction(tr("About"));
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::showAboutDialog);
+    auto aboutQtAction = helpMenu->addAction(tr("About Qt"));
+    connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
+    helpMenu->addSeparator();
+    helpMenu->addMenu(UpdateChecker::createMenuForSchedule());
+    auto checkUpdateAction = helpMenu->addAction(tr("Check update now"));
+    connect(checkUpdateAction, &QAction::triggered, this, [this](){
+        UpdateChecker::checkManully(updateChecker);
+    });
+    helpMenu->addSeparator();
+    auto feedbackAction = helpMenu->addAction(tr("Provide feedback"));
+    connect(feedbackAction, &QAction::triggered, this, [](){
+        QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
+    });
+
+    return helpMenu;
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -55,26 +78,16 @@ MainWindow::MainWindow(QWidget *parent)
     fitUIToDarkMode(DarkMode::getCurrentMode());
 
     //Help menu
-    auto helpMenu = new QMenu(tr("Help"), this);
-    auto aboutAction = helpMenu->addAction(tr("About"));
-    connect(aboutAction, &QAction::triggered, this, &MainWindow::showAboutDialog);
-    auto aboutQtAction = helpMenu->addAction(tr("About Qt"));
-    connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
-    helpMenu->addSeparator();
-    auto donateAction = helpMenu->addAction(tr("Donate"));
-    connect(donateAction, &QAction::triggered, this, &MainWindow::showDonationPage);
-    helpMenu->addSeparator();
-    auto updateAction = helpMenu->addAction(tr("Get update"));
-    connect(updateAction, &QAction::triggered, this, &MainWindow::showUpdatePage);
-    auto feedbackAction = helpMenu->addAction(tr("Provide feedback"));
-    connect(feedbackAction, &QAction::triggered, this, &MainWindow::showFeedbackPage);
-
+    auto helpMenu = createHelpMenu();
     ui->helpButton->setMenu(helpMenu);
 
     //set window titie
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
     if (QStringLiteral(GIT_BRANCH) == QStringLiteral("dev"))
         setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
+
+    updateChecker = new UpdateChecker::GithubReleaseChecker("shine5402", "KiraOtoToolbox", this);
+    UpdateChecker::triggerScheduledCheck(updateChecker);
 #ifndef NDEBUG
     auto debugAction = new QAction("Debug", this);
     connect(debugAction, &QAction::triggered, debugAction, [](){
@@ -181,20 +194,6 @@ void MainWindow::showAboutDialog()
 ).arg(versionStr, QT_VERSION_STR));
 }
 
-void MainWindow::showDonationPage()
-{
-    QDesktopServices::openUrl(QUrl{"https://afdian.net/@shine5402"});
-}
-
-void MainWindow::showUpdatePage()
-{
-    QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/releases"});
-}
-
-void MainWindow::showFeedbackPage()
-{
-    QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
-}
 
 void MainWindow::fitUIToDarkMode(DarkMode::Mode curr)
 {
@@ -226,5 +225,7 @@ void MainWindow::changeEvent(QEvent* event)
         createToolSelectorUI();
         setArgInfoBlock();
         ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());//trigger a text reset
+        ui->helpButton->menu()->deleteLater();
+        ui->helpButton->setMenu(createHelpMenu());
     }
 }

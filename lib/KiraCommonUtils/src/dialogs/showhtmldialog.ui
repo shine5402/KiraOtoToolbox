@@ -6,11 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
+    <width>651</width>
     <height>491</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QTextBrowser" name="textBrowser"/>
    </item>

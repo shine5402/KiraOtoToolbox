@@ -21,7 +21,6 @@ public:
     QSize sizeHint() const override;
 
 protected:
-    QAbstractTableModel* model = nullptr;
     QLabel* label = new QLabel(this);
     QTableView* tableView = new QTableView(this);
     QDialogButtonBox* buttonBox = new QDialogButtonBox(this);

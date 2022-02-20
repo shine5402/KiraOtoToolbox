@@ -87,9 +87,12 @@ namespace DarkMode {
 
     QMenu* getDarkModeSettingMenu()
     {
-        if (darkModeMenu)
+        if (darkModeMenu){
+            darkModeMenu->setTitle(QCoreApplication::translate("DarkMode","UI Theme"));
+            lightAction->setText(QCoreApplication::translate("DarkMode", "Light"));
+            darkAction->setText(QCoreApplication::translate("DarkMode", "Dark"));
             return darkModeMenu;
-
+        }
         darkModeMenu = new QMenu(QCoreApplication::translate("DarkMode","UI Theme"));
 
         lightAction = darkModeMenu->addAction(QCoreApplication::translate("DarkMode", "Light"));

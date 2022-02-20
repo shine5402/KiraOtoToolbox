@@ -13,7 +13,7 @@ TableViewDialog::TableViewDialog(QWidget* parent, QAbstractTableModel* model, co
     setLabel(labelText);
 
     layout->addWidget(tableView);
-    tableView->setModel(model);
+    setModel(model);
     setStandardButtons(standardButtons);
     layout->addWidget(buttonBox);
 
@@ -39,12 +39,12 @@ void TableViewDialog::setStandardButtons(QDialogButtonBox::StandardButtons butto
 
 QAbstractTableModel* TableViewDialog::getModel() const
 {
-    return model;
+    return dynamic_cast<QAbstractTableModel*>(tableView->model());
 }
 
 void TableViewDialog::setModel(QAbstractTableModel* value)
 {
-    model = value;
+    tableView->setModel(value);
 }
 
 QSize TableViewDialog::sizeHint() const

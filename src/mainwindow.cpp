@@ -155,14 +155,20 @@ void MainWindow::showAboutDialog()
 {
     auto isBeta = QStringLiteral(GIT_BRANCH) == QStringLiteral("dev");
     QString versionStr = tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
-            .arg(qApp->applicationVersion(), GIT_HASH, GIT_DESCRIBE, isBeta ? "-beta" : "", __DATE__, __TIME__);
+            .arg(qApp->applicationVersion(), GIT_BRANCH, GIT_HASH, isBeta ? "-beta" : "", __DATE__, __TIME__);
     if (isBeta)
         versionStr += tr("<p style=\"color:orange\">You are using a BETA build. "
                          "<b>Use it at your own risk.</b>"
                          " If any problems occured, please provide feedback on Github Issues.</p>");
-
-    QMessageBox::about(this, tr("About"), tr(
-                           R"(<h2>KiraOtoToolbox</h2>
+    //To make a about msgBox
+    auto msgBox = new QMessageBox(this);
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+    QIcon icon = windowIcon();
+    QSize size = icon.actualSize(QSize(64, 64));
+    msgBox->setIconPixmap(icon.pixmap(size));
+    msgBox->setWindowTitle(tr("About"));
+    msgBox->setText(tr(
+                        R"(<h2>KiraOtoToolbox</h2>
 
 <p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
 %1
@@ -179,18 +185,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.<br>
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.<br>
- In addition, as a special exception, the copyright holders give
- permission to link the code of portions of this program with the
- OpenSSL library under certain conditions as described in each
- individual source file, and distribute linked combinations
- including the two.<br>
- You must obey the GNU General Public License in all respects
- for all of the code used other than OpenSSL.  If you modify
- file(s) with this exception, you may extend this exception to your
- version of the file(s), but you are not obligated to do so.  If you
- do not wish to do so, delete this exception statement from your
- version.  If you delete this exception statement from all source
- files in the program, then also delete it here.</p>
+In addition, as a special exception, the copyright holders give
+permission to link the code of portions of this program with the
+OpenSSL library under certain conditions as described in each
+individual source file, and distribute linked combinations
+including the two.<br>
+You must obey the GNU General Public License in all respects
+for all of the code used other than OpenSSL.  If you modify
+file(s) with this exception, you may extend this exception to your
+version of the file(s), but you are not obligated to do so.  If you
+do not wish to do so, delete this exception statement from your
+version.  If you delete this exception statement from all source
+files in the program, then also delete it here.</p>
 
 <h3>3rd party librarays used by this project</h3>
 <ul>
@@ -206,6 +212,11 @@ along with this program.  If not, see <a href="https://www.gnu.org/licenses/">ht
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>
 )"
 ).arg(versionStr, QT_VERSION_STR));
+    //To make msgBox wider
+    QSpacerItem* horizontalSpacer = new QSpacerItem(width(), 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    QGridLayout* layout = (QGridLayout*)msgBox->layout();
+    layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+    msgBox->exec();
 }
 
 

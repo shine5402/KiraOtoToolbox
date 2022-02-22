@@ -6,6 +6,9 @@
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
+//#undef UNICODE
+#include <compact_enc_det/compact_enc_det.h>
+#include <QMessageBox>
 
 QDialog* Misc::getOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
                                         const QString& title, const QString& label, QWidget* dialogParent,
@@ -71,4 +74,33 @@ QDialog* Misc::getAskUserWithShowOtoListDialog(const OtoEntryList& secondSaveDat
     dialog->setWindowTitle(title);
     dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     return dialog;
+}
+
+/// @returns The actual codec to use when reading
+QTextCodec* Misc::detectCodecAndAskUserIfNotShiftJIS(const QString& path, QWidget* dialogParent) {
+    QFile file(path);
+    if (file.open(QFile::Text | QFile::ReadOnly)){
+        auto content = file.readAll().toStdString();
+        int bytes_consumed;
+        bool is_reliable;
+        auto detectedEncoding = CompactEncDet::DetectEncoding(content.c_str(), content.size(),
+                                      nullptr, nullptr, nullptr, Encoding::SOFTBANK_SHIFT_JIS, Language::JAPANESE, CompactEncDet::QUERY_CORPUS, true,
+                                      &bytes_consumed, &is_reliable);
+        if (detectedEncoding != SOFTBANK_SHIFT_JIS){
+            auto msg = QCoreApplication::translate("Misc", "The text encoding of file \"%1\" seems like %2 instead of Shift-JIS.\n"
+                                                           "Should we use this encoding to read this file?\n"
+                                                           "(Shift-JIS will always be used when saving files.)")
+                    .arg(path, MimeEncodingName(detectedEncoding));
+            //As EUC-JP and GB are basiclly same on Japanese hiragana, detecting on those will always be "unreliable"
+            //but use either of them while reading typically oto file will cause no issue at all
+            //so we choose not to inform user about it here.
+//            if (!is_reliable){
+//                msg += QCoreApplication::translate("Misc", "\n(Detecting result seems unreliable, so check twice before answer this dialog.)");
+//            }
+            auto result = QMessageBox::question(dialogParent, {}, msg);
+            if (result == QMessageBox::Yes)
+                return QTextCodec::codecForName(MimeEncodingName(detectedEncoding));
+        }
+    }
+    return QTextCodec::codecForName("Shift-JIS");
 }

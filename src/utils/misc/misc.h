@@ -28,6 +28,9 @@ namespace Misc {
     QJsonArray arrayFromJsonValueVector(QVector<QJsonValue> vector);
 
     QString getFileNameInSystemEncoding(const QString& fileName);
+
+    /// @returns The actual codec to use when reading
+    QTextCodec* detectCodecAndAskUserIfNotShiftJIS(const QString& path, QWidget* dialogParent);
 }
 
 #endif // MISC_H

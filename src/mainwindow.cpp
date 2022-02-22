@@ -169,7 +169,7 @@ void MainWindow::showAboutDialog()
 <h3>About</h3>
 <p>A toolbox for manipulating "oto.ini", the voicebank labeling format for UTAU.</p>
 <h3>License</h3>
-<<p> This program is free software: you can redistribute it and/or modify
+<p> This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.<br>
@@ -200,6 +200,7 @@ along with this program.  If not, see <a href="https://www.gnu.org/licenses/">ht
 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 <li>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (<a href='http://www.openssl.org'>http://www.openssl.org/</a>)</li>
+<li><a href="https://github.com/google/compact_enc_det">compact_enc_det</a>, Copyright 2016 Google Inc., under the Apache License, Version 2.0</li>
 </ul>
 
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>

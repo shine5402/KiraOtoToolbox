@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <OtoUtil/otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
+#include <utils/misc/misc.h>
 
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     QWidget(parent),
@@ -77,15 +78,19 @@ void OtoFileLoadWidget::loadOtoFile()
     auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
-        QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(path));
+        QMessageBox::critical(this, tr("File not exists"),
+                              tr("The file \"%1\" not exists. Please check and try again.").arg(path));
         return;
     }
 
+    auto codec = Misc::detectCodecAndAskUserIfNotShiftJIS(path, parentWidget());
     OtoFileReader reader(path);
+    reader.setTextCodec(codec);
     entryList = reader.getEntryList();
     if (entryList.isEmpty())
     {
-        QMessageBox::critical(this, {}, tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
+        QMessageBox::critical(this, {},
+                              tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
         return;
     }
     entryListReaded = true;

@@ -2,6 +2,7 @@
 #include "ui_otofilemultipleloadwidget.h"
 
 #include "../dialogs/showotolistdialog.h"
+#include "utils/misc/misc.h"
 #include <QMessageBox>
 #include <OtoUtil/otofilereader.h>
 
@@ -78,7 +79,10 @@ void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
             continue;
         }
 
+        auto codec = Misc::detectCodecAndAskUserIfNotShiftJIS(fileName, parentWidget());
         OtoFileReader reader(fileName);
+        reader.setTextCodec(codec);
+
         auto entryList = reader.getEntryList();
 
         if (entryList.isEmpty())

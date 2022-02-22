@@ -155,7 +155,7 @@ void MainWindow::showAboutDialog()
 {
     auto isBeta = QStringLiteral(GIT_BRANCH) == QStringLiteral("dev");
     QString versionStr = tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
-            .arg(qApp->applicationVersion(), GIT_BRANCH, GIT_DESCRIBE, isBeta ? "-beta" : "", __DATE__, __TIME__);
+            .arg(qApp->applicationVersion(), GIT_HASH, GIT_DESCRIBE, isBeta ? "-beta" : "", __DATE__, __TIME__);
     if (isBeta)
         versionStr += tr("<p style=\"color:orange\">You are using a BETA build. "
                          "<b>Use it at your own risk.</b>"

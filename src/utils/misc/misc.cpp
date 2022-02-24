@@ -86,11 +86,11 @@ QTextCodec* Misc::detectCodecAndAskUserIfNotShiftJIS(const QString& path, QWidge
         auto detectedEncoding = CompactEncDet::DetectEncoding(content.c_str(), content.size(),
                                       nullptr, nullptr, nullptr, Encoding::SOFTBANK_SHIFT_JIS, Language::JAPANESE, CompactEncDet::QUERY_CORPUS, true,
                                       &bytes_consumed, &is_reliable);
-        if (detectedEncoding != SOFTBANK_SHIFT_JIS){
+        if (detectedEncoding != JAPANESE_SHIFT_JIS){
             auto msg = QCoreApplication::translate("Misc", "The text encoding of file \"%1\" seems like %2 instead of Shift-JIS.\n"
                                                            "Should we use this encoding to read this file?\n"
                                                            "(Shift-JIS will always be used when saving files.)")
-                    .arg(path, MimeEncodingName(detectedEncoding));
+                    .arg(path, EncodingName(detectedEncoding));
             //As EUC-JP and GB are basiclly same on Japanese hiragana, detecting on those will always be "unreliable"
             //but use either of them while reading typically oto file will cause no issue at all
             //so we choose not to inform user about it here.

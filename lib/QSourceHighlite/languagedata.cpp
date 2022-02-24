@@ -23,7 +23,7 @@
 
 #include <QMultiHash>
 #include <QLatin1String>
-#include "languagedata.h"
+#include "include/languagedata.h"
 /* ------------------------
  * TEMPLATE FOR LANG DATA
  * -------------------------

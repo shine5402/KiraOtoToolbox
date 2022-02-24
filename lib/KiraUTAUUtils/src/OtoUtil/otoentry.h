@@ -19,7 +19,7 @@ class OtoEntry : public QObject
     Q_PROPERTY(double overlap READ overlap WRITE setOverlap NOTIFY overlapChanged);
 
 public:
-    OtoEntry(QString fileName,
+    Q_INVOKABLE OtoEntry(QString fileName,
              QString alias,
              double left,
              double consonant,
@@ -27,9 +27,10 @@ public:
              double preUtterance,
              double overlap,
              QObject *parent = nullptr);
-    explicit OtoEntry(const QString& otoString);
-    OtoEntry(const OtoEntry& other);
-    OtoEntry(){};
+    //TODO: turn into fromString
+    Q_INVOKABLE explicit OtoEntry(const QString& otoString);
+    Q_INVOKABLE OtoEntry(const OtoEntry& other);
+    Q_INVOKABLE OtoEntry(){};
 
     OtoEntry& operator=(const OtoEntry& rhs);
 
@@ -101,8 +102,9 @@ public:
     OtoEntryError error() const;
     QString errorString() const;
 
-    QString toString(int precision = OTOENTRY_DEFAULT_PRECISION) const;
+    Q_INVOKABLE QString toString(int precision = OTOENTRY_DEFAULT_PRECISION) const;
 
+    //TODO: turn into isNull later as it's confusing now
     Q_INVOKABLE bool isValid() const{
         return valid_;
     }

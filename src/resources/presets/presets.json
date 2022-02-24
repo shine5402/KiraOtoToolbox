@@ -4478,5 +4478,17 @@
             }
         ],
         "targetName": "ReplaceFileNameOptionWidget"
+    },
+    {
+        "presets": [{
+            "content": {
+                "interpretBySystemEncoding": false,
+                "script": "// Construct oto using...\noto = new OtoEntry();\n// You can give all fields at once,\n// where order is (fileName, alias, left, consonant, right, preUtterance, overlap).\n// By the way, these name above are the property name to use when accessing fields\noto2 = new OtoEntry(\"a.wav\", \"a\", 1, 2, 3, 4, 1);\n// Or you can maully get/set them\noto.fileName = \"b.wav\";\noto.left = oto2.left;\n\n// Also you can deep copy one from another\noto3 = new OtoEntry(oto2);\n\n// Get and modify source oto data via data array:\ndata[0].alias = \"TEST\";\n// You can add or delete items as you like\ndata.push(oto2);\ndata.splice(1, 2);\n// And this array will be the result to save\n\n// You can rename WAV file like this\nWAVFileAPI.renameFile(data[0].fileName, \"a.wav\");\n// These renaming will be performed only after you click \"OK\" and confirmed to do so\n\n// You can get the length of a WAV file like this (in ms)\nWAVFileAPI.getWAVLength(\"a.wav\");\n\n// WAVFileAPI will find these file under the same folder of the oto.ini you open, \n// and you can ask it to use your system encoding to represent Shift-JIS, \n// which is a common case for users with non-Japanese systems.\n\n// And you can use console API to log what you need\nconsole.log(\"Hey!\")\n\n// You can find supported standard \"List of JavaScript Objects and Functions\" here: https://doc.qt.io/qt-5/qtqml-javascript-functionlist.html"
+            },
+            "lastModified": "2022-02-25T02:59:00",
+            "name": "Example",
+            "version": 1
+        }],
+        "targetName": "JavaScriptToolOptionWidget"
     }
 ]

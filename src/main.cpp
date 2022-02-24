@@ -5,6 +5,7 @@
 #include <QSplashScreen>
 #include <QLocale>
 #include <kira/darkmode.h>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,9 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
+
+    //For js tool
+    QFontDatabase::addApplicationFont(":/font/JetBrainsMono-Regular.ttf");
 
     splashScr.finish(&w);
     return a.exec();

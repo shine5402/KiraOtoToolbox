@@ -1,4 +1,4 @@
-QT       += core gui concurrent network
+QT       += core gui concurrent network qml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,6 +33,9 @@ SOURCES += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.cpp \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.cpp \
+    jsScript/javascripttooldialogadapter.cpp \
+    jsScript/javascripttooloptionwidget.cpp \
+    jsScript/javascripttoolotolistmodifyworker.cpp \
     replaceFileName/filenamereplacemaptablemodel.cpp \
     replaceFileName/replacefilenameadapter.cpp \
     replaceFileName/replacefilenameoptionwidget.cpp \
@@ -127,6 +130,9 @@ HEADERS += \
     copyOrReplaceByAlias/copyorreplacebyaliasdialogadapter.h \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.h \
     copyOrReplaceByAlias/copyorreplacebyaliasotolistmodifyworker.h \
+    jsScript/javascripttooldialogadapter.h \
+    jsScript/javascripttooloptionwidget.h \
+    jsScript/javascripttoolotolistmodifyworker.h \
     replaceFileName/filenamereplacemaptablemodel.h \
     replaceFileName/replacefilenameadapter.h \
     replaceFileName/replacefilenameoptionwidget.h \
@@ -211,6 +217,7 @@ HEADERS += \
 FORMS += \
     convertPlusMinusRight/convertplusminusrightoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
+    jsScript/javascripttooloptionwidget.ui \
     replaceFileName/replacefilenameoptionwidget.ui \
     utils/widgets/replacerulesmultilineeditordialog.ui \
     mergeOto/mergeotooptionwidget.ui \
@@ -244,6 +251,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    resources/font/font.qrc \
     resources/icon/icon.qrc \
     resources/logo/logo.qrc \
     resources/presets/built-in_presets.qrc \

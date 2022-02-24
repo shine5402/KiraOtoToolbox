@@ -1,26 +1,19 @@
-QT       += core gui
+TEMPLATE = lib
 
-include(QSourceHighlite.pri)
+QT += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG += c++11 staticlib
 
-CONFIG += c++11
-DEFINES += QT_DEPRECATED_WARNINGS
+HEADERS += include/qsourcehighliter.h \
+           include/qsourcehighliterthemes.h \
+           include/languagedata.h
 
-SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-
-HEADERS += \
-    mainwindow.h \
-
-FORMS += \
-    mainwindow.ui
+SOURCES += qsourcehighliter.cpp \
+    languagedata.cpp \
+    qsourcehighliterthemes.cpp
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+unix {
+    target.path = /usr/lib
+}
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    README.md

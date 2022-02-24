@@ -20,6 +20,7 @@
 #include "preCenteredChangeValue/precenteredchangevalueadapter.h"
 #include "tempoTransform/tempotransfromdialogadapter.h"
 #include "replaceFileName/replacefilenameadapter.h"
+#include "jsScript/javascripttooldialogadapter.h"
 
 #define REGISTER_TOOL(type, adapter_class) \
     ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
@@ -46,6 +47,7 @@ void registerTools()
 
     REGISTER_TOOL("Filename actions (maybe dangerous)", ReplaceFileNameAdapter);
 
+    REGISTER_TOOL("Meta actions", JavaScriptToolDialogAdapter);
     REGISTER_TOOL("Meta actions", ChainDialogAdapter);
     REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);
 }

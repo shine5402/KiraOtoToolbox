@@ -21,9 +21,9 @@
  *
  */
 
-#include "qsourcehighliter.h"
-#include "languagedata.h"
-#include "qsourcehighliterthemes.h"
+#include "include/qsourcehighliter.h"
+#include "include/languagedata.h"
+#include "include/qsourcehighliterthemes.h"
 
 #include <QDebug>
 #include <algorithm>

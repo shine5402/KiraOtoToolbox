@@ -21,7 +21,7 @@
  *
  */
 
-#include "qsourcehighliterthemes.h"
+#include "include/qsourcehighliterthemes.h"
 
 namespace QSourceHighlite {
 

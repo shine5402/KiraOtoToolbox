@@ -11,8 +11,8 @@
 #include <QMessageBox>
 
 QDialog* Misc::getOtoDiffDialog(const OtoEntryList& srcOtoList, const OtoEntryList& resultOtoList, int precision,
-                                        const QString& title, const QString& label, QWidget* dialogParent,
-                                        ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
+                                const QString& title, const QString& label, QWidget* dialogParent,
+                                ChangeAskDialogType changeType, QDialogButtonBox::StandardButtons stdButtons)
 {
     if (changeType == Determine){
         changeType = srcOtoList.count() == resultOtoList.count() ? Misc::ValueChangeModel : Misc::Diff;
@@ -84,9 +84,15 @@ QTextCodec* Misc::detectCodecAndAskUserIfNotShiftJIS(const QString& path, QWidge
         int bytes_consumed;
         bool is_reliable;
         auto detectedEncoding = CompactEncDet::DetectEncoding(content.c_str(), content.size(),
-                                      nullptr, nullptr, nullptr, Encoding::SOFTBANK_SHIFT_JIS, Language::JAPANESE, CompactEncDet::QUERY_CORPUS, true,
-                                      &bytes_consumed, &is_reliable);
-        if (detectedEncoding != JAPANESE_SHIFT_JIS){
+                                                              nullptr, nullptr, nullptr, Encoding::SOFTBANK_SHIFT_JIS, Language::JAPANESE, CompactEncDet::QUERY_CORPUS, true,
+                                                              &bytes_consumed, &is_reliable);
+        if (detectedEncoding != JAPANESE_SHIFT_JIS &&
+            detectedEncoding != ASCII_7BIT &&
+            detectedEncoding != ISO_8859_1 &&
+            detectedEncoding != DOCOMO_SHIFT_JIS &&
+            detectedEncoding != KDDI_SHIFT_JIS &&
+            detectedEncoding != SOFTBANK_SHIFT_JIS)
+        {
             auto msg = QCoreApplication::translate("Misc", "The text encoding of file \"%1\" seems like %2 instead of Shift-JIS.\n"
                                                            "Should we use this encoding to read this file?\n"
                                                            "(Shift-JIS will always be used when saving files.)")
@@ -94,12 +100,19 @@ QTextCodec* Misc::detectCodecAndAskUserIfNotShiftJIS(const QString& path, QWidge
             //As EUC-JP and GB are basiclly same on Japanese hiragana, detecting on those will always be "unreliable"
             //but use either of them while reading typically oto file will cause no issue at all
             //so we choose not to inform user about it here.
-//            if (!is_reliable){
-//                msg += QCoreApplication::translate("Misc", "\n(Detecting result seems unreliable, so check twice before answer this dialog.)");
-//            }
+            //            if (!is_reliable){
+            //                msg += QCoreApplication::translate("Misc", "\n(Detecting result seems unreliable, so check twice before answer this dialog.)");
+            //            }
             auto result = QMessageBox::question(dialogParent, {}, msg);
+            auto codec = QTextCodec::codecForName(MimeEncodingName(detectedEncoding));
+            if (!codec)
+            {
+                QMessageBox::warning(dialogParent, {},
+                                     QCoreApplication::translate("Misc", "Codec %1 is not supported. We will use Shift-JIS instead.")
+                                     .arg(EncodingName(detectedEncoding)));
+            }
             if (result == QMessageBox::Yes)
-                return QTextCodec::codecForName(MimeEncodingName(detectedEncoding));
+                return codec;
         }
     }
     return QTextCodec::codecForName("Shift-JIS");

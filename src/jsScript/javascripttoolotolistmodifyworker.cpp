@@ -142,19 +142,19 @@ void JavaScriptToolOtoListModifyWorker::jsConsoleMsgHandler(QtMsgType type, cons
     {
         switch (type){
             case QtDebugMsg:
-                consoleOutput.append(QString("[Debug] %1").arg(msg));
+                consoleOutput.append(QString("[Debug] %1").arg(msg) + "\n");
                 break;
             case QtInfoMsg:
-                consoleOutput.append(QString("[Info] %1").arg(msg));
+                consoleOutput.append(QString("[Info] %1").arg(msg) + "\n");
                 break;
             case QtWarningMsg:
-                consoleOutput.append(QString("[Warning] %1").arg(msg));
+                consoleOutput.append(QString("[Warning] %1").arg(msg) + "\n");
                 break;
             case QtCriticalMsg:
-                consoleOutput.append(QString("[Critical] %1").arg(msg));
+                consoleOutput.append(QString("[Critical] %1").arg(msg) + "\n");
                 break;
             case QtFatalMsg:
-                consoleOutput.append(QString("[Fatal] %1").arg(msg));
+                consoleOutput.append(QString("[Fatal] %1").arg(msg) + "\n");
         }
     }
     defaultMsgHandler(type, context, msg);

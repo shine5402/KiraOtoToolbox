@@ -194,6 +194,6 @@ It's recommended to using Qt 5.15 since I use it while developing this. But Qt 6
 <li>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (<a href='http://www.openssl.org'>http://www.openssl.org/</a>)</li>
 <li><a href="https://github.com/google/compact_enc_det">compact_enc_det</a>, Copyright 2016 Google Inc., under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Waqar144/QSourceHighlite">QSourceHighlite</a>, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License</li>
+<li>Some icons are provided by <a href="https://icons8.com">icons8</a></li>
+<li><a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a> font is included under the Apache License, Version 2.0.</li>
 </ul>
-
-<p>Some icons are provided by <a href="https://icons8.com">icons8</a>. <br><a href="https://github.com/JetBrains/JetBrainsMono">JetBrains Mono</a> font is included under the Apache License, Version 2.0.</p>

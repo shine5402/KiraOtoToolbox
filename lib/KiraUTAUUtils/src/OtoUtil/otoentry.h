@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QFile>
 #include <QTextCodec>
+#include <QException>
 
 constexpr int OTOENTRY_DEFAULT_PRECISION = 3;
 
@@ -27,8 +28,7 @@ public:
              double preUtterance,
              double overlap,
              QObject *parent = nullptr);
-    //TODO: turn into fromString
-    Q_INVOKABLE explicit OtoEntry(const QString& otoString);
+
     Q_INVOKABLE OtoEntry(const OtoEntry& other);
     Q_INVOKABLE OtoEntry(){};
 
@@ -46,6 +46,17 @@ public:
         EmptyFileName,
     };
     Q_ENUM(OtoEntryError);
+
+    class ParseError : public QException {
+    public:
+        ParseError();
+        explicit ParseError(OtoEntryError error) : error_(error){};
+        OtoEntryError error() const {
+            return error_;
+        }
+    private:
+        OtoEntryError error_ = UnknownError;
+    };
 
     enum OtoParameter{
         FileName = 0x1,
@@ -99,15 +110,13 @@ public:
     static OtoParameter getParameterFlag(OtoParameterOrder order);
     static OtoParameterOrder getParameterOrder(OtoParameter flag);
 
-    OtoEntryError error() const;
-    QString errorString() const;
+    static QString errorString(OtoEntryError error);
 
+    static OtoEntry fromString(const QString& str, bool* ok, OtoEntryError* error);
+
+    //throw exception instead
+    Q_INVOKABLE static OtoEntry fromString(const QString& str);
     Q_INVOKABLE QString toString(int precision = OTOENTRY_DEFAULT_PRECISION) const;
-
-    //TODO: turn into isNull later as it's confusing now
-    Q_INVOKABLE bool isValid() const{
-        return valid_;
-    }
 
     bool operator==(const OtoEntry& rhs) const;
     bool operator!=(const OtoEntry& rhs) const;
@@ -155,8 +164,6 @@ namespace OtoEntryFunctions {
     QString removePrefix(QString string, const QString& prefix, Qt::CaseSensitivity cs = Qt::CaseSensitive, bool* removed = nullptr);
     QString getDigitSuffix(const QString& string, int* position = nullptr, bool considerNegative = false);
     QString removeDigitSuffix(QString string, int* position = nullptr, bool considerNegative = false, bool* removed = nullptr);
-    ///@deprecated
-    int  writeOtoListToFile [[deprecated]] (QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"));
 
     bool writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision = OTOENTRY_DEFAULT_PRECISION, QFileDevice::FileError* error = nullptr, QString* errorString = nullptr , QTextCodec* textCodec = QTextCodec::codecForName("Shift-JIS"),
                                                   bool directWriteFallback = true);

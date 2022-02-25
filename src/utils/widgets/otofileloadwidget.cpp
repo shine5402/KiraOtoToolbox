@@ -86,7 +86,7 @@ void OtoFileLoadWidget::loadOtoFile()
     auto codec = Misc::detectCodecAndAskUserIfNotShiftJIS(path, parentWidget());
     OtoFileReader reader(path);
     reader.setTextCodec(codec);
-    entryList = reader.getEntryList();
+    entryList = reader.read();
     if (entryList.isEmpty())
     {
         QMessageBox::critical(this, {},

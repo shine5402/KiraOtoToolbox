@@ -5,6 +5,7 @@
 #include <QMetaEnum>
 #include <QSaveFile>
 
+
 OtoEntry::OtoEntry(QString fileName,
                    QString alias,
                    double left,
@@ -21,57 +22,6 @@ OtoEntry::OtoEntry(QString fileName,
 }
 
 const int OtoEntry::OtoParameterCount = QMetaEnum::fromType<OtoEntry::OtoParameter>().keyCount();
-
-OtoEntry::OtoEntry(const QString& otoString)
-{
-    if (otoString.isEmpty())
-    {
-        setError(EmptyOtoString);
-        return;
-    }
-    auto fileNameEndIndex = otoString.indexOf("=");
-    if (fileNameEndIndex != -1)
-    {
-        setFileName(otoString.left(fileNameEndIndex));
-        if (fileName().isEmpty())
-        {
-            setError(EmptyFileName);
-            return;
-        }
-        auto parameterString = otoString.mid(fileNameEndIndex + 1);
-        setAlias(parameterString.section(",",0,0));
-
-        constexpr int parameterCount = 5;
-        std::array<bool,parameterCount> doubleConvertOks{};
-        enum parameterID{LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
-
-        setLeft(parameterString.section(",",1,1).toDouble(&doubleConvertOks[parameterID::LEFT]));
-        setConsonant(parameterString.section(",",2,2).toDouble(&doubleConvertOks[parameterID::CONSONANT]));
-        setRight(parameterString.section(",",3,3).toDouble(&doubleConvertOks[parameterID::RIGHT]));
-        setPreUtterance(parameterString.section(",",4,4).toDouble(&doubleConvertOks[parameterID::PREUTTERANCE]));
-        setOverlap(parameterString.section(",",5,5).toDouble(&doubleConvertOks[parameterID::OVERLAP]));
-
-        for (int i = parameterID::LEFT; i <= parameterID::OVERLAP; i++)
-        {
-            if (!doubleConvertOks.at(i))
-            {
-                switch (i) {
-                    case LEFT: setError(LeftConvertFailed);break;
-                    case CONSONANT: setError(ConsonantConvertFailed);break;
-                    case RIGHT: setError(RightConvertFailed);break;
-                    case PREUTTERANCE: setError(PreUtteranceConvertFailed);break;
-                    case OVERLAP: setError(OverlapConvertFailed);break;
-                }
-                return;
-            }
-        }
-    }
-    else{
-        setError(FileNameSeparatorNotFound);
-        return;
-    }
-    setValid(true);
-}
 
 OtoEntry::OtoEntry(const OtoEntry& other) : QObject(other.parent())
 {
@@ -289,12 +239,7 @@ OtoEntry::OtoParameterOrder OtoEntry::getParameterOrder(OtoEntry::OtoParameter f
     throw std::runtime_error("Invalid OtoParameter");
 }
 
-OtoEntry::OtoEntryError OtoEntry::error() const
-{
-    return m_error;
-}
-
-QString OtoEntry::errorString() const
+QString OtoEntry::errorString(OtoEntryError error)
 {
     static const QHash<OtoEntryError,QString> errorStrings{
         {UnknownError, "Unknown Error"},
@@ -308,7 +253,82 @@ QString OtoEntry::errorString() const
         {EmptyFileName, "The fileName is empty"},
     };
 
-    return errorStrings.value(error());
+    return errorStrings.value(error);
+}
+
+OtoEntry OtoEntry::fromString(const QString& str, bool* ok, OtoEntryError* error)
+{
+    //Init
+    if (ok)
+        *ok = false;
+    OtoEntry result;
+    auto setError = [error](OtoEntryError err) mutable{
+        if (error)
+            *error = err;
+    };
+    setError(UnknownError);
+
+    if (str.isEmpty())
+    {
+        setError(EmptyOtoString);
+        return result;
+    }
+    auto fileNameEndIndex = str.indexOf("=");
+    if (fileNameEndIndex != -1)
+    {
+        result.setFileName(str.left(fileNameEndIndex));
+        if (result.fileName().isEmpty())
+        {
+            setError(EmptyFileName);
+            return result;
+        }
+        auto parameterString = str.mid(fileNameEndIndex + 1);
+        result.setAlias(parameterString.section(",",0,0));
+
+        constexpr int parameterCount = 5;
+        std::array<bool,parameterCount> doubleConvertOks{};
+        enum parameterID{LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP};
+
+        result.setLeft(parameterString.section(",",1,1).toDouble(&doubleConvertOks[parameterID::LEFT]));
+        result.setConsonant(parameterString.section(",",2,2).toDouble(&doubleConvertOks[parameterID::CONSONANT]));
+        result.setRight(parameterString.section(",",3,3).toDouble(&doubleConvertOks[parameterID::RIGHT]));
+        result.setPreUtterance(parameterString.section(",",4,4).toDouble(&doubleConvertOks[parameterID::PREUTTERANCE]));
+        result.setOverlap(parameterString.section(",",5,5).toDouble(&doubleConvertOks[parameterID::OVERLAP]));
+
+        for (int i = parameterID::LEFT; i <= parameterID::OVERLAP; i++)
+        {
+            if (!doubleConvertOks.at(i))
+            {
+                switch (i) {
+                    case LEFT: setError(LeftConvertFailed);break;
+                    case CONSONANT: setError(ConsonantConvertFailed);break;
+                    case RIGHT: setError(RightConvertFailed);break;
+                    case PREUTTERANCE: setError(PreUtteranceConvertFailed);break;
+                    case OVERLAP: setError(OverlapConvertFailed);break;
+                }
+                return result;
+            }
+        }
+    }
+    else{
+        setError(FileNameSeparatorNotFound);
+        return result;
+    }
+    if (ok)
+        *ok = true;
+    return result;
+}
+
+OtoEntry OtoEntry::fromString(const QString& str)
+{
+    bool ok = false;
+    OtoEntryError error = UnknownError;
+    auto result = fromString(str, &ok, &error);
+    if (!ok)
+    {
+        throw ParseError(error);
+    }
+    return result;
 }
 
 void OtoEntry::setAlias(const QString& value)
@@ -457,16 +477,6 @@ QString OtoEntryFunctions::getDigitSuffix(const QString& string, int* position, 
     }
     return result;
 }
-
-int OtoEntryFunctions::writeOtoListToFile(QFile& file, const OtoEntryList& entryList, QTextCodec* textCodec){
-    QStringList otoStringList;
-    for (const auto& i : entryList)
-    {
-        otoStringList.append(i.toString());
-    }
-    return file.write(textCodec->makeEncoder()->fromUnicode(otoStringList.join("\n")));
-}
-
 
 bool OtoEntryFunctions::writeOtoListToFile(const QString& fileName, const OtoEntryList& entryList, int precision, QFileDevice::FileError* error, QString* errorString , QTextCodec* textCodec,
                                            bool directWriteFallback){

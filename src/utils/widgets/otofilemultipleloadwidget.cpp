@@ -83,7 +83,7 @@ void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
         OtoFileReader reader(fileName);
         reader.setTextCodec(codec);
 
-        auto entryList = reader.getEntryList();
+        auto entryList = reader.read();
 
         if (entryList.isEmpty())
         {

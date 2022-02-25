@@ -2,16 +2,13 @@
 #include <utility>
 #include <QTextDecoder>
 
-OtoFileReader::OtoFileReader(QString fileName, QTextCodec* textCodec, bool keepInvalid) : fileName_(std::move(fileName)), fileInfo_({fileName}), textCodec_(textCodec), keepInvalid_(keepInvalid)
+OtoFileReader::OtoFileReader(QString fileName, QTextCodec* textCodec, bool keepInvalid) : fileName_(std::move(fileName)), textCodec_(textCodec), keepInvalid_(keepInvalid)
 {
-    fileInfo_.setCaching(false);
 }
 
-OtoEntryList OtoFileReader::getEntryList() const
+OtoEntryList OtoFileReader::read() const
 {
-    if (cacheValid())
-        return entryListCache_;
-
+    OtoEntryList result;
     QFile file(fileName());
     if (file.open(QFile::ReadOnly | QFile::Text))
     {
@@ -20,41 +17,30 @@ OtoEntryList OtoFileReader::getEntryList() const
         auto data = textCodec()->makeDecoder()->toUnicode(rawData);
         auto otoStringList = data.split("\n",Qt::SkipEmptyParts);
         for (const auto& otoString : otoStringList){
-            auto otoEntry = OtoEntry(otoString);
-            if ((!otoEntry.isValid()) && (!keepInvalid()))
+            bool ok = false;
+            auto otoEntry = OtoEntry::fromString(otoString, &ok, nullptr);
+            if ((!ok) && (!keepInvalid()))
                 continue;
-            entryListCache_.append(otoEntry);
+            result.append(otoEntry);
         }
-        lastModifiedOnRead_ = fileInfo_.lastModified();
-        return entryListCache_;
+        return result;
     }
-
-    refresh();
-    return entryListCache_;
+    return {};
 }
 
 void OtoFileReader::setFileName(QString fileName)
 {
     fileName_ = std::move(fileName);
-    refresh();
 }
 
 void OtoFileReader::setTextCodec(QTextCodec* codec)
 {
     textCodec_ = codec;
-    refresh();
 }
 
 void OtoFileReader::setKeepInvalid(bool value)
 {
     keepInvalid_ = value;
-    refresh();
-}
-
-void OtoFileReader::refresh() const
-{
-    entryListCache_.clear();
-    lastModifiedOnRead_ = QDateTime();
 }
 
 QString OtoFileReader::fileName() const
@@ -70,10 +56,5 @@ QTextCodec* OtoFileReader::textCodec() const
 bool OtoFileReader::keepInvalid() const
 {
     return keepInvalid_;
-}
-
-bool OtoFileReader::cacheValid() const
-{
-    return lastModifiedOnRead_.isValid() && fileInfo_.exists() && (lastModifiedOnRead_ == fileInfo_.lastModified());
 }
 

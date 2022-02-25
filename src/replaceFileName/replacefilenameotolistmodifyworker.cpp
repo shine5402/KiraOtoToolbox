@@ -62,7 +62,7 @@ QVector<OtoListModifyWorker::ConfirmMsg> ReplaceFileNameOtoListModifyWorker::get
     auto model = new FileNameReplaceMapTableModel(replaceMap, dialog);
     dialog->setModel(model);
     dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    dialog->setLabel(tr("These file will be renamed. This operation can NOT be UNDOed.\n"
+    dialog->setLabel(tr("These file will be renamed. This operation can NOT be UNDONE.\n"
                         "This dialog show file name in Unicode, we will convert it to system encoding in renaming if you are willing to."));
 
     return {ConfirmMsg(Dialog, tr("%1 files will be renamed.").arg(replaceMap.count()), std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(dialog)))};

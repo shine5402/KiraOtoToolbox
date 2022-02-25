@@ -90,7 +90,7 @@ QVector<OtoListModifyWorker::ConfirmMsg> JavaScriptToolOtoListModifyWorker::getC
         auto model = new FileNameReplaceMapTableModel(fileAPI->renameMap(), dialog);
         dialog->setModel(model);
         dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-        dialog->setLabel(tr("These file will be renamed. This operation can NOT be UNDOed."));
+        dialog->setLabel(tr("These file will be renamed. This operation can NOT be UNDONE."));
         ConfirmMsg fileRenameMsg{Dialog, tr("%1 files will be renamed.").arg(fileAPI->renameMap().count()), std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(dialog))};
         result.append(fileRenameMsg);
     }

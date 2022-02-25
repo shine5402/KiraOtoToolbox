@@ -210,7 +210,7 @@ files in the program, then also delete it here.</p>
 <li><a href="https://github.com/Waqar144/QSourceHighlite">QSourceHighlite</a>, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License</li>
 </ul>
 
-<p>Some icons are provided by <a href="https://icons8.com">icons8</a>.</p>
+<p>Some icons are provided by <a href="https://icons8.com">icons8</a>. JetBrains Mono font is included under the Apache License, Version 2.0.</p>
 )"
 ).arg(versionStr, QT_VERSION_STR));
     //To make msgBox wider

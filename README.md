@@ -8,10 +8,10 @@ A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank label
 
 ![workflow](rm-img/workflow.gif)
 
-1 Choose the tool you want to use
-2 Load oto.ini file to process (you can drag file into path input)
-3 Change tool options to meet your need
-4 Click "OK" and run it!
+1. Choose the tool you want to use
+2. Load oto.ini file to process (you can drag file into path input)
+3. Change tool options to meet your need
+4. Click "OK" and run it!
 
 ## Tools
 

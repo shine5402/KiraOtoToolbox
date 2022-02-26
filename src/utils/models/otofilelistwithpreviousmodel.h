@@ -35,7 +35,7 @@ public:
 
 private:
     QVector<OtoFileInfoWithPrevious> m_datas;
-    const QStringList headerList = {tr("路径"), tr("现在的 oto 条目数"), tr("之前的 oto 条目数")};
+    const QStringList headerList = {tr("Path"), tr("Current oto entry count"), tr("Previous oto entry count")};
     enum Columns{FileName, Count, PreCount};
 };
 

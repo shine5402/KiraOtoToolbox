@@ -35,9 +35,9 @@ private:
 
     void openStepSettings(int index);
     struct stepSettingsDialogInfo{
-        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrPresetContainer(nullptr), index(-1){};
+        stepSettingsDialogInfo() : ptrDialog(nullptr), ptrPresetWidgetContainer(nullptr), index(-1){};
         QDialog* ptrDialog;
-        PresetWidgetContainer* ptrPresetContainer;
+        PresetWidgetContainer* ptrPresetWidgetContainer;
         int index;
     } pendingStepSetting;
     

@@ -1,7 +1,7 @@
 #include "cv_vcpartsplitoptionwidget.h"
 #include "ui_cv_vcpartsplitoptionwidget.h"
 #include <QJsonArray>
-#include <utils/misc/fplusAdapter.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 CV_VCPartSplitOptionWidget::CV_VCPartSplitOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),

@@ -5,7 +5,8 @@ AddAffixOtoListModifyWorker::AddAffixOtoListModifyWorker(QObject* parent) : OtoL
 
 }
 
-bool AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                         OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;
@@ -17,6 +18,4 @@ bool AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
     {
         i.setAlias(prefix + i.alias() + suffix);
     }
-
-    return true;
 }

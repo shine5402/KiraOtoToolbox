@@ -6,8 +6,8 @@ AddAffixOptionWidget::AddAffixOptionWidget(QWidget *parent) : ToolOptionWidget(p
     prefixEdit = new QLineEdit(this);
     suffixEdit = new QLineEdit(this);
     auto layout = new QFormLayout(this);
-    layout->addRow(tr("前缀："), prefixEdit);
-    layout->addRow(tr("后缀："), suffixEdit);
+    layout->addRow(tr("Prefix: "), prefixEdit);
+    layout->addRow(tr("Suffix: "), suffixEdit);
     setLayout(layout);
 
     connect(prefixEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);

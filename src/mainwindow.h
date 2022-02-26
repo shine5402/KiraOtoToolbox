@@ -1,11 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <kira/darkmode.h>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+class Translation;
+class QButtonGroup;
+class QGroupBox;
+
+namespace UpdateChecker {
+    class GithubReleaseChecker;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -15,19 +24,25 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void createToolSelectorUI();
+
 private:
     Ui::MainWindow *ui;
+    QMenu* i18nMenu = nullptr;
+    QVector<QObject*> toolButtonsLayoutResources;
+
+    void setArgInfoBlock();
+
+    QMenu* createHelpMenu();
+
+    UpdateChecker::GithubReleaseChecker* updateChecker;
 
 private slots:
-    void exit();
     void showAboutDialog();
-    void showAboutQtDialog();
-    void showDonationPage();
-    void showUpdatePage();
-    void showFeedbackPage();
-#ifndef NDEBUG
-    void debugFunction();
-#endif
+    void fitUIToDarkMode(DarkMode::Mode curr);
+    // QWidget interface
+protected:
+    void changeEvent(QEvent*) override;
 };
 #ifndef NDEBUG
 

@@ -13,15 +13,13 @@ struct Tool{
     QMetaObject toolAdapterMetaObj;
 
     bool operator==(const Tool& rhs) const {
-        return rhs.toolName() == toolName();
+        return rhs.toolAdapterMetaObj.className() == toolAdapterMetaObj.className();
     }
     bool operator!=(const Tool& rhs){
         return !(*this == rhs);
     }
     QString toolName() const {
-        if (auto adapter = std::unique_ptr<ToolDialogAdapter>(
-                    qobject_cast<ToolDialogAdapter *>(
-                        toolAdapterMetaObj.newInstance()))){
+        if (auto adapter = getAdapterInstance(nullptr)){
             return adapter->getToolName();
         }
         return {};
@@ -88,7 +86,7 @@ public:
 
     QMultiHash<QString, Tool> getToolGroups() const;
 
-    QStringList getToolGroupNamesInRegisterOrder() const;//用来保持注册顺序
+    QStringList getToolGroupNamesInRegisterOrder() const;
 
 private:
     static ToolManager* manager;

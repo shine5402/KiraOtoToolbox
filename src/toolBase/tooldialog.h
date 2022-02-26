@@ -7,6 +7,7 @@
 
 class QAbstractButton;
 class QStackedWidget;
+class PresetWidgetContainer;
 
 namespace Ui {
     class ToolDialog;
@@ -31,7 +32,6 @@ private slots:
     void accept() override;
     void reset();
     void resetOto();
-    void resetOptions();
     void buttonBoxClicked(QAbstractButton *button);
 
     void refreshOptionWidgetEnableState();
@@ -40,8 +40,9 @@ private:
     void reAssignWidgetHandles();
     ToolDialogAdapter* adapter;
     ToolOptionWidget* optionWidget;
+    PresetWidgetContainer* presetWidgetContainer;
     bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
-    bool doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
+    bool doWork(const QVector<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
     constexpr static auto singleModePageIndex = 0;
     constexpr static auto batchModePageIndex = 1;
     void refreshStackedWidgetSize(QStackedWidget* stackedWidget);

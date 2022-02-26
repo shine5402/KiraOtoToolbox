@@ -1,12 +1,12 @@
 #include "chaintooloptionwidget.h"
 #include "ui_chaintooloptionwidget.h"
-#include "utils/dialogs/listviewdialog.h"
+#include <kira/dialogs/listviewdialog.h>
 #include "chainstepsmodel.h"
 #include <QDialogButtonBox>
 #include <QGroupBox>
 #include "toolBase/toolmanager.h"
 #include <fplus/fplus.hpp>
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QJsonArray>
 #include <toolBase/tooldialogadapter.h>
 #include <QMessageBox>
@@ -55,7 +55,8 @@ QJsonObject ChainToolOptionWidget::optionsToJson(const OptionContainer& options)
     for (const auto& step: std::as_const(steps)){
         QJsonObject stepJsonObj;
         stepJsonObj.insert("stepAdapterClassName", step.tool.toolAdapterMetaObj.className());
-        stepJsonObj.insert("options", std::unique_ptr<ToolOptionWidget>(step.tool.getToolOptionWidgetInstance(nullptr))->optionsToJson(step.options));
+        stepJsonObj.insert("options", std::unique_ptr<ToolOptionWidget>(step.tool.getToolOptionWidgetInstance(nullptr))
+                           ->optionsToJson(step.options));
         jsonArray.append(stepJsonObj);
     }
     return {{"steps", jsonArray}};
@@ -127,7 +128,7 @@ void ChainToolOptionWidget::addStep()
             return {tool, {}};
     }, registeredTools);
     auto model = new ChainStepsModel(availableTools, this);
-    auto dialog = new ListViewDialog(this, model, tr("选择一个工具"), tr("从下面的可用工具中选择一个作为操作文件的新步骤。"), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    auto dialog = new ListViewDialog(this, model, tr("Choose tool"), tr("Please choose an available tool for the new processing step."), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     dialog->setDoubleClickAsAccept(true);
     if (dialog->exec() == QDialog::Accepted)
     {
@@ -165,13 +166,13 @@ void ChainToolOptionWidget::openStepSettings(int index)
 
     auto dialog = new QDialog(this);
     dialog->setModal(true);
-    dialog->setWindowTitle(tr("调整“%1”（位于 第 %2 项）的设置")
+    dialog->setWindowTitle(tr("Change options fot \"%1\" (at %2)")
                            .arg(stepsModel->getStep(index).toolName(),
                                 QString::number(index + 1)));
 
     auto dialogLayout = new QVBoxLayout(dialog);
 
-    auto groupBox = new QGroupBox(tr("行为调整（设置会自动保存）"), dialog);
+    auto groupBox = new QGroupBox(tr("Options (will save automatically)"), dialog);
 
     dialogLayout->addWidget(groupBox);
     constexpr auto GROUPBOX_INDEX = 0;
@@ -180,11 +181,11 @@ void ChainToolOptionWidget::openStepSettings(int index)
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
     auto optionWidgetMetaObj = stepsModel->getStep(index).tool.getToolOptionWidgetMetaObj();
-    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, groupBox);
+    auto presetWidgetContainer = new PresetWidgetContainer(optionWidgetMetaObj, groupBox);
     auto options = stepsModel->getStep(index).options;
     if (!options.isEmpty())
-        presetContainer->setWorkingOptions(options);
-    groupBoxLayout->addWidget(presetContainer);
+        presetWidgetContainer->setWorkingOptions(options);
+    groupBoxLayout->addWidget(presetWidgetContainer);
     groupBox->setLayout(groupBoxLayout);
 
     auto buttonBox = new QDialogButtonBox(dialog);
@@ -199,7 +200,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
 
     dialog->open();
-    pendingStepSetting.ptrPresetContainer = presetContainer;
+    pendingStepSetting.ptrPresetWidgetContainer = presetWidgetContainer;
     pendingStepSetting.ptrDialog = dialog;
     pendingStepSetting.index = index;
 }
@@ -214,7 +215,7 @@ void ChainToolOptionWidget::openStepSettings()
 void ChainToolOptionWidget::handleStepSettingsDone(int result)
 {
     if (result == QDialog::Accepted){
-        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrPresetContainer->optionWidget()->getOptions());
+        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrPresetWidgetContainer->optionWidget()->getOptions());
         emit userSettingsChanged();
     }
     pendingStepSetting.ptrDialog->deleteLater();

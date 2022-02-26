@@ -1,4 +1,5 @@
 #include "otofilelistmodel.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 OtoFileListModel::OtoFileListModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -24,7 +25,7 @@ int OtoFileListModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    return m_datas.count();
+    return m_datas.count() + 1;
 }
 
 int OtoFileListModel::columnCount(const QModelIndex &parent) const
@@ -42,9 +43,15 @@ QVariant OtoFileListModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::DisplayRole){
         if (index.column() == Columns::FileName){
+            if (index.row() == m_datas.count())
+                return tr("(Total)");
             return m_datas.at(index.row()).fileName;
         }
         if (index.column() == Columns::Count){
+            if (index.row() == m_datas.count())
+                return fplus::sum(fplus::transform([](const OtoFileInfo& list)->int{
+                    return list.entryList.count();
+                }, m_datas));
             return m_datas.at(index.row()).entryList.count();
         }
     }

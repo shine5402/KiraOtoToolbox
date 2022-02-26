@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVariant>
+#include "OtoUtil/otoentry.h"
 #include "optioncontainer.h"
 #include <QJsonObject>
 
@@ -15,8 +16,8 @@ public:
     virtual OptionContainer getOptions() const;//required
     virtual void setOptions(const OptionContainer& options);//required
 
-    virtual QJsonObject getOptionsJson() const;
-    virtual void setOptionsJson(const QJsonObject& json);
+    QJsonObject getOptionsJson() const;
+    void setOptionsJson(const QJsonObject& json);
 
     virtual QJsonObject optionsToJson(const OptionContainer& options) const;//required
     virtual OptionContainer jsonToOptions(const QJsonObject& json) const;//required
@@ -24,8 +25,13 @@ public:
     virtual int optionJsonVersion() const;//required
     virtual QJsonObject updateOptionJsonFrom(int version, const QJsonObject& json) const;
 
+    //For tools that provides a deduce from data ability for their options.
+    virtual void askOtoDataCallback(int askId, const QVector<OtoEntryList>& contents);
+
 signals:
-    void userSettingsChanged();//FIXME: implement this
+    void userSettingsChanged();//required
+    //For tools that provides a deduce from data ability for their options.
+    void askOtoData(int askId);
 };
 
 class EmptyToolOptionWidget : public ToolOptionWidget
@@ -39,12 +45,12 @@ public:
     OptionContainer getOptions() const override;
     void setOptions(const OptionContainer& options) override;
 
-    QJsonObject getOptionsJson() const override;
-    void setOptionsJson(const QJsonObject& json) override;
     virtual int optionJsonVersion() const override;
+    QJsonObject optionsToJson(const OptionContainer& options) const override;
+    OptionContainer jsonToOptions(const QJsonObject& json) const override;
 };
 
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #define getStringListFromJSONObject(jsonObj, key) QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, jsonObj.value(key).toArray().toVariantList()))
 
 #endif // TOOLOPTIONWIDGET_H

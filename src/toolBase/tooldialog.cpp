@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include "utils/models/otofilelistmodel.h"
-#include "utils/dialogs/tableviewdialog.h"
+#include <kira/dialogs/tableviewdialog.h>
 #include "utils/models/otofilelistwithpreviousmodel.h"
 #include "utils/misc/misc.h"
 #include "presetwidgetcontainer.h"
@@ -19,7 +19,37 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     connect(ui->otoMultipleLoadWidget, &OtoFileMultipleLoadWidget::dataChanged, this, &ToolDialog::refreshOptionWidgetEnableState);
     adapter->replaceUIWidgets(ui->rootLayout);
 
+    //Deal with command line mode
+    auto args = qApp->arguments();
+    if (args.count() > 1){
+        args.removeFirst();
+        auto buttons = ui->buttonBox->standardButtons().setFlag(QDialogButtonBox::Reset, false);
+        ui->buttonBox->setStandardButtons(buttons);
+        ui->switchLoadModeButton->hide();
+        //As we have direct save widget here. We name it multiple save widget because of historical reason.
+        ui->stackedSaveWidget->setCurrentIndex(batchModePageIndex);
+        ui->otoMultipleSaveWidget->setInfoText(tr("Only \"save to source file\" is supported in command line mode. Extra save path functionality is also disabled."));
+        if (args.count() == 1){
+            ui->stackedLoadWidget->setCurrentIndex(singleModePageIndex);
+            ui->otoLoadWidget->setFileName(args.at(0));
+            ui->otoLoadWidget->load();
+        }
+        else{
+            ui->stackedLoadWidget->setCurrentIndex(batchModePageIndex);//Batch mode
+            ui->otoMultipleLoadWidget->loadFiles(args);
+            ui->otoMultipleLoadWidget->disableModify();
+        }
+    }
+
     reAssignWidgetHandles();
+
+    //askOtoData callback handle
+    connect(optionWidget, &ToolOptionWidget::askOtoData, optionWidget, [this](int askId){
+         if (isSingleMode())
+             optionWidget->askOtoDataCallback(askId, QVector({ui->otoLoadWidget->getEntryList()}));
+         else
+             optionWidget->askOtoDataCallback(askId, ui->otoMultipleLoadWidget->entryLists());
+    });
 
     setWindowTitle(adapter->getToolName());
     refreshStackedWidgetSize(ui->stackedLoadWidget);
@@ -32,8 +62,8 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
 void ToolDialog::reAssignWidgetHandles()
 {
     //Use last() to choose the newest widgets.
-    //ui->optionWidget = ui->optionLayout->parentWidget()->findChildren<ToolOptionWidget*>(QString(), Qt::FindDirectChildrenOnly).last();
-    optionWidget = ui->optionLayout->parentWidget()->findChildren<PresetWidgetContainer*>(QString(), Qt::FindDirectChildrenOnly).last()->optionWidget();
+    presetWidgetContainer = ui->optionLayout->parentWidget()->findChildren<PresetWidgetContainer*>(QString(), Qt::FindDirectChildrenOnly).last();
+    optionWidget = presetWidgetContainer->optionWidget();
     //TODO: may change to a individual handle later
     ui->otoSaveWidget = ui->rootLayout->parentWidget()
             ->findChild<QWidget*>("stackedSaveWidget")->
@@ -54,31 +84,41 @@ void ToolDialog::otoFileLoaded()
     ui->otoSaveWidget->setEnabled(true);
 }
 
-void ToolDialog::ToolDialog::accept()
+void ToolDialog::accept()
 {
     if (!((isSingleMode() && ui->otoLoadWidget->isEntryListReaded()) || (isBatchMode() && ui->otoMultipleLoadWidget->count() > 0)))
     {
-        QMessageBox::critical(this, tr("文件未加载"), tr("您还没有加载oto.ini文件。请加载后重试。"));
+        QMessageBox::critical(this, tr("File is not loaded"), tr("Oto.ini has not been loaded. Please load it and try again."));
         return;
     }
 
     bool success = false;
+
+    auto userOptions = optionWidget->getOptions();
+
+    auto saveOptions = isBatchMode() ? ui->otoMultipleSaveWidget->getOptions() : ui->otoSaveWidget->getOptions();
+    saveOptions.setOption("precision", ui->precisionSpinBox->value());
+
+    auto options = OptionContainer::combine(userOptions, saveOptions, "save/");
+
     if (isSingleMode()){
-        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(), OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+        success = doWork(ui->otoLoadWidget->getEntryList(), ui->otoLoadWidget->fileName(),
+                         options, this);
     }
     else {
-        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(), OptionContainer::combine(optionWidget->getOptions(), ui->otoSaveWidget->getOptions(), "save/"), this);
+        success = doWork(ui->otoMultipleLoadWidget->entryLists(), ui->otoMultipleLoadWidget->fileNames(),
+                         options, this);
     }
 
     if (success){
-        QMessageBox::information(this, tr("操作成功完成"), tr("操作成功完成。"));
+        QMessageBox::information(this, {}, tr("Operation completed successfully."));
         QDialog::accept();
     }
 }
 
 void ToolDialog::reset()
 {
-    resetOptions();
+    presetWidgetContainer->reset();
     resetOto();
 }
 
@@ -90,22 +130,12 @@ void ToolDialog::resetOto()
     refreshOptionWidgetEnableState();
 }
 
-void ToolDialog::resetOptions()
-{
-    optionWidget->setOptions({});
-    ui->otoSaveWidget->setOptions({});
-}
-
 void ToolDialog::buttonBoxClicked(QAbstractButton* button)
 {
     auto stdCode = ui->buttonBox->standardButton(button);
     if (stdCode == QDialogButtonBox::Reset)
     {
         reset();
-    }
-    if (stdCode == QDialogButtonBox::RestoreDefaults)
-    {
-        resetOptions();
     }
 }
 
@@ -123,7 +153,7 @@ void ToolDialog::refreshOptionWidgetEnableState()
 {
     auto setEnableState = [&](bool state){
         ui->optionGroupBox->setEnabled(state);
-        ui->stackedSaveWidget->setEnabled(state);
+        ui->saveOptionsContainer->setEnabled(state);
     };
     if (isSingleMode()){
         setEnableState(ui->otoLoadWidget->isEntryListReaded());
@@ -139,7 +169,8 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
     OtoEntryList secondSaveList{};
 
     auto saveOptions = options.extract("save/");
-    auto& toolOptions = options;
+    auto toolOptions = options;
+    toolOptions.setOption("load/fileName", srcFileName);
 
     auto result = adapter->doWork(srcList, entryListWorking, secondSaveList, toolOptions, dialogParent);
     if (result)
@@ -156,27 +187,36 @@ bool ToolDialog::doWork(const OtoEntryList& srcList, const QString& srcFileName,
         }
         auto isSaveToSrc = saveOptions.getOption("isSaveToSrc").toBool();
         auto fileName = saveOptions.getOption("fileName").toString();
-        result = saveOtoFileWithErrorInform(entryListWorking, precision, isSaveToSrc ? srcFileName : fileName, tr("保存处理结果"), dialogParent);
+        result = saveOtoFileWithErrorInform(entryListWorking, precision, isSaveToSrc ? srcFileName : fileName, tr("Save processing result"), dialogParent);
     }
     return result;
 }
 
-bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent)
+bool ToolDialog::doWork(const QVector<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent)
 {
     Q_ASSERT(srcLists.count() == srcFileNames.count());
 
     auto saveOptions = options.extract("save/");
-    auto& toolOptions = options;
+    auto toolOptions = options;
 
-    QList<OtoEntryList> results{};
+    QVector<OtoEntryList> results{};
 
     for (int i = 0; i < srcLists.count(); ++i){
         OtoEntryList entryListWorking{};
         OtoEntryList secondSaveList{};
 
-        if ((!adapter->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions)) && srcLists.count() > 1)
-        {
-            QMessageBox::critical(dialogParent, tr("处理失败"), tr("文件 %1 （位于第 %2）没有成功被处理，于是进程终止。所有文件都没有被修改。").arg(srcFileNames.at(i)).arg(i + 1));
+        toolOptions.setOption("load/fileName", srcFileNames.at(i));
+        try {
+            adapter->getWorkerInstance()->doWork(srcLists.at(i), entryListWorking, secondSaveList, toolOptions);
+        }
+        catch (const ToolException& e){
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText(tr("Stopped because file %1 (at %2) was failed to process. All files are remained unchanged. Please check and try again.")
+                           .arg(srcFileNames.at(i)).arg(i + 1));
+            msgBox.setInformativeText(e.info());
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
             return false;
         }
         results.append(entryListWorking);
@@ -187,11 +227,11 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
         model->addData(srcFileNames.at(i), results.at(i), srcLists.at(i));
     }
     auto dialog = new QDialog(this);
-    dialog->setWindowTitle(tr("确认更改"));
+    dialog->setWindowTitle(tr("Confirm changes"));
 
     auto rootLayout = new QVBoxLayout(dialog);
 
-    auto label = new QLabel(tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"), dialog);
+    auto label = new QLabel(tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."), dialog);
     rootLayout->addWidget(label);
 
     auto contentView = new QTableView(dialog);
@@ -204,14 +244,14 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
     auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, dialog);
     connect(buttonBox, &QDialogButtonBox::accepted, dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, dialog, &QDialog::reject);
-    auto showDiffButton = buttonBox->addButton(tr("显示选中的文件的差异"), QDialogButtonBox::ActionRole);
+    auto showDiffButton = buttonBox->addButton(tr("Show difference for selected file"), QDialogButtonBox::ActionRole);
     connect(showDiffButton, &QPushButton::clicked, this, [contentView, results, srcLists, srcFileNames, dialogParent, saveOptions](){
         auto currentIndex = contentView->currentIndex().row();
         auto currentSrc = srcLists.at(currentIndex);
         auto currentResult = results.at(currentIndex);
         Misc::showOtoDiffDialog(currentSrc, currentResult, saveOptions.getOption("precision").toInt(),
-                                tr("%1 的差异（位于第 %2 项）").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
-                                tr("以下显示了根据您的要求要对 %1（位于第 %2 项）执行的修改。").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
+                                tr("Differences of %1 (at %2)").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
+                                tr("These are changes that will be applied to %1 （at %2).").arg(srcFileNames.at(currentIndex)).arg(currentIndex + 1),
                                 dialogParent,
                                 Misc::Determine,
                                 QDialogButtonBox::Ok);
@@ -223,9 +263,10 @@ bool ToolDialog::doWork(const QList<OtoEntryList>& srcLists, const QStringList s
             auto decimalAccuracy = saveOptions.getOption("secondFileNameUsage").toInt();
             auto isSaveToSrc = saveOptions.getOption("isSaveToSrc").toBool();
             auto fileName = saveOptions.getOption("fileName").toString();
-            bool success = saveOtoFileWithErrorInform(results.at(i), decimalAccuracy, isSaveToSrc ? srcFileNames.at(i) : fileName, tr("保存处理结果"), dialogParent);
+            bool success = saveOtoFileWithErrorInform(results.at(i), decimalAccuracy, isSaveToSrc ? srcFileNames.at(i) : fileName, tr("Save processing result"), dialogParent);
             if (!success){
-                QMessageBox::critical(dialogParent, tr("保存时出现错误"), tr("无法保存 %1（位于第 %2 项），操作终止，该项之前的项已被保存。").arg(srcFileNames.at(i)).arg(i + 1));
+                QMessageBox::critical(dialogParent, tr("Error occured while saving"),
+                                      tr("As %1 (at %2) can not be saved, the process is stopped. Files before it has been saved.").arg(srcFileNames.at(i)).arg(i + 1));
                 return false;
             }
         }
@@ -283,13 +324,13 @@ bool ToolDialog::saveOtoFileWithErrorInform(const OtoEntryList& entryList, int d
     auto result = OtoEntryFunctions::writeOtoListToFile(fileName, entryList, decimalAccuracy, nullptr, &errorString);
     if (!result)
     {
-        QMessageBox::critical(dialogParent, tr("保存失败"), [&]() -> QString{
+        QMessageBox::critical(dialogParent, tr("Failed to save"), [&]() -> QString{
             QString result;
             QTextStream stream(&result);
-            stream << tr("在保存 %1 时发生错误。").arg(fileName);
+            stream << tr("Error occured when saving %1.").arg(fileName);
             if (!usage.isEmpty())
-                stream << tr("该文件的用途是 %1。").arg(usage);
-            stream << tr("遇到的错误是：%1").arg(errorString);
+                stream << tr("The file is meant to be used for %1.").arg(usage);
+            stream << tr("Error information: %1").arg(errorString);
             return result;
         }());
     }

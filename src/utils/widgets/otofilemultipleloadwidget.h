@@ -18,8 +18,10 @@ public:
     ~OtoFileMultipleLoadWidget();
     void reset();
     int count() const;
-    QList<OtoEntryList> entryLists() const;
+    QVector<OtoEntryList> entryLists() const;
     QStringList fileNames() const;
+    void loadFiles(const QStringList& fileNames);
+    void disableModify();
 
 private slots:
     void showOtoList();

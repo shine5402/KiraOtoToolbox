@@ -52,11 +52,17 @@ QJsonObject ToolOptionWidget::updateOptionJsonFrom(int version, const QJsonObjec
     return json;
 }
 
+void ToolOptionWidget::askOtoDataCallback(int askId, const QVector<OtoEntryList>& contents)
+{
+    Q_UNUSED(contents);
+    Q_UNUSED(askId);
+}
+
 EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);
     setLayout(layout);
-    auto label = new QLabel(tr("该操作没有配置项。"), this);
+    auto label = new QLabel(tr("There is nothing to configure."), this);
     layout->addStretch(1);
     layout->addWidget(label);
     layout->addStretch(1);
@@ -72,18 +78,19 @@ void EmptyToolOptionWidget::setOptions(const OptionContainer& options)
     Q_UNUSED(options)
 }
 
-
-QJsonObject EmptyToolOptionWidget::getOptionsJson() const
-{
-    return {};
-}
-
-void EmptyToolOptionWidget::setOptionsJson(const QJsonObject& json)
-{
-    Q_UNUSED(json)
-}
-
 int EmptyToolOptionWidget::optionJsonVersion() const
 {
     return 1;
+}
+
+QJsonObject EmptyToolOptionWidget::optionsToJson(const OptionContainer& options) const
+{
+    Q_UNUSED(options);
+    Q_UNREACHABLE();
+}
+
+OptionContainer EmptyToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+{
+    Q_UNUSED(json);
+    Q_UNREACHABLE();
 }

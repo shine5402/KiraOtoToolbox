@@ -8,11 +8,20 @@ class RemoveDuplicateModuleOtoListModifyWorker : public OtoListModifyWorker
     Q_OBJECT
 public:
     Q_INVOKABLE RemoveDuplicateModuleOtoListModifyWorker(QObject* parent = nullptr);
-    bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList, const OptionContainer &options) override;
-    OtoEntryList getOrganizeResult() const;
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                OtoEntryList &secondSaveOtoList, const OptionContainer &options) override;
 
 private:
+    // for confirm
     OtoEntryList organizeResult;
+    OtoEntryList toBeRemovedOtoList;
+    OtoEntryList srcOtoList;
+    int precision;
+
+    // OtoListModifyWorker interface
+public:
+    bool needConfirm() const override;
+    QVector<ConfirmMsg> getConfirmMsgs() const override;
 };
 
 #endif // REMOVEDUPLICATEMODULEOTOLISTMODIFYWORKER_H

@@ -5,13 +5,13 @@ OverlapBatchSetOtoListModifyWorker::OverlapBatchSetOtoListModifyWorker(QObject* 
 
 }
 
-bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;
 
     QVector<int> matched;
-    //匹配开头并设置为指定数值
+    //Matching start pattern and set ovl for them
     if (options.getOption("ifSetOverlapStartWith").toBool())
     {
         for (int i = 0; i < resultOtoList.count(); ++i)
@@ -30,7 +30,7 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             }
         }
     }
-    //设置三分之一
+    //Set 1/3
     if (options.getOption("makeOneThird").toBool())
     {
         for (int i = 0; i < resultOtoList.count(); ++i)
@@ -38,10 +38,12 @@ bool OverlapBatchSetOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             if (!matched.contains(i))
             {
                 auto entry = resultOtoList.at(i);
-                entry.setOverlap(entry.preUtterance() / 3);
+                auto result = entry.preUtterance() / 3;
+                if (options.getOption("oneSecondWhenTooSmall").toBool() && result < options.getOption("oneSecondWhenTooSmallValue").toDouble())
+                    result = entry.preUtterance() / 2;
+                entry.setOverlap(result);
                 resultOtoList.replace(i, entry);
             }
         }
     }
-    return true;
 }

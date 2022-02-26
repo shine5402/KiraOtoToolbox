@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <otofilereader.h>
 #include "../dialogs/showotolistdialog.h"
+#include <utils/misc/misc.h>
 
 OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
     QWidget(parent),
@@ -46,9 +47,30 @@ void OtoFileLoadWidget::reset()
     entryListReaded = false;
 
     ui->showOtoListButton->setEnabled(false);
-    ui->countLabel->setText(tr("还未加载原音设定"));
+    ui->countLabel->setText(tr("Oto data has not been loaded"));
     ui->loadOtoWidget->setEnabled(true);
     emit resetted();
+}
+
+void OtoFileLoadWidget::load()
+{
+    loadOtoFile();
+}
+
+void OtoFileLoadWidget::pretendLoaded(const QString& fileName, const OtoEntryList& entryList)
+{
+    ui->openFileNameEdit->setFileName(fileName);
+    this->entryList = entryList;
+    entryListReaded = true;
+    setUpLoadedUI();
+}
+
+void OtoFileLoadWidget::setUpLoadedUI()
+{
+    ui->showOtoListButton->setEnabled(true);
+
+    ui->countLabel->setText(tr("%1 oto entries has been loaded.").arg(entryList.count()));
+    ui->loadOtoWidget->setDisabled(true);
 }
 
 void OtoFileLoadWidget::loadOtoFile()
@@ -56,18 +78,23 @@ void OtoFileLoadWidget::loadOtoFile()
     auto path = ui->openFileNameEdit->fileName();
 
     if (!QFileInfo::exists(path)){
-        QMessageBox::critical(this, tr("文件不存在"), tr("您指定的文件不存在，请检查后再试。"));
+        QMessageBox::critical(this, tr("File not exists"),
+                              tr("The file \"%1\" not exists. Please check and try again.").arg(path));
         return;
     }
 
+    auto codec = Misc::detectCodecAndAskUserIfNotShiftJIS(path, parentWidget());
     OtoFileReader reader(path);
-    entryList = reader.getEntryList();
+    reader.setTextCodec(codec);
+    entryList = reader.read();
+    if (entryList.isEmpty())
+    {
+        QMessageBox::critical(this, {},
+                              tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
+        return;
+    }
     entryListReaded = true;
-
-    ui->showOtoListButton->setEnabled(true);
-
-    ui->countLabel->setText(tr("加载了 %1 条原音设定。").arg(entryList.count()));
-    ui->loadOtoWidget->setDisabled(true);
+    setUpLoadedUI();
 
     emit loaded();
 }

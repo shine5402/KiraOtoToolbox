@@ -12,6 +12,8 @@ RemoveDuplicateOptionWidget::RemoveDuplicateOptionWidget(QWidget *parent) :
     connect(ui->organizeCaseComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->organizeCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->organizeStartFrom1CheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->considerNegativeSuffixCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->respectOriginalNumberOrderCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 RemoveDuplicateOptionWidget::~RemoveDuplicateOptionWidget()
@@ -28,6 +30,8 @@ OptionContainer RemoveDuplicateOptionWidget::getOptions() const
     options.setOption("shouldOrganize", ui->organizeCheckBox->isChecked());
     options.setOption("organizeStartFrom1", ui->organizeStartFrom1CheckBox->isChecked());
     options.setOption("pitchCaseOrganized", ui->organizeCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
+    options.setOption("considerNegativeSuffix", ui->considerNegativeSuffixCheckBox->isChecked());
+    options.setOption("respectOriginalNumberOrder", ui->respectOriginalNumberOrderCheckBox->isChecked());
 
     return options;
 }
@@ -39,6 +43,8 @@ void RemoveDuplicateOptionWidget::setOptions(const OptionContainer& options)
     ui->organizeCheckBox->setChecked(options.getOption("shouldOrganize").toBool());
     ui->organizeStartFrom1CheckBox->setChecked(options.getOption("organizeStartFrom1").toBool());
     ui->organizeCaseComboBox->setCurrentIndex(options.getOption("pitchCaseOrganized").toInt() == OtoEntryFunctions::Upper ? 0 : 1);
+    ui->considerNegativeSuffixCheckBox->setChecked(options.getOption("considerNegativeSuffix").toBool());
+    ui->respectOriginalNumberOrderCheckBox->setChecked(options.getOption("respectOriginalNumberOrder").toBool());
 }
 
 
@@ -50,6 +56,8 @@ QJsonObject RemoveDuplicateOptionWidget::optionsToJson(const OptionContainer& op
     jsonObj.insert("shouldOrganize", options.getOption("shouldOrganize").toBool());
     jsonObj.insert("organizeStartFrom1", options.getOption("organizeStartFrom1").toBool());
     jsonObj.insert("pitchCaseOrganized", options.getOption("pitchCaseOrganized").toInt());
+    jsonObj.insert("considerNegativeSuffix", options.getOption("considerNegativeSuffix").toBool());
+    jsonObj.insert("respectOriginalNumberOrder", options.getOption("respectOriginalNumberOrder").toBool());
     return jsonObj;
 }
 
@@ -61,6 +69,8 @@ OptionContainer RemoveDuplicateOptionWidget::jsonToOptions(const QJsonObject& js
     options.setOption("shouldOrganize", json.value("shouldOrganize").toBool());
     options.setOption("organizeStartFrom1", json.value("organizeStartFrom1").toBool());
     options.setOption("pitchCaseOrganized", json.value("pitchCaseOrganized").toInt());
+    options.setOption("considerNegativeSuffix", json.value("considerNegativeSuffix").toBool());
+    options.setOption("respectOriginalNumberOrder", json.value("respectOriginalNumberOrder").toBool());
     return options;
 }
 

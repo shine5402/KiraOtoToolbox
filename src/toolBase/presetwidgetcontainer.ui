@@ -10,9 +10,6 @@
     <height>416</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="leftMargin">
     <number>0</number>
@@ -44,7 +41,7 @@
      <item>
       <widget class="QToolButton" name="resetButton">
        <property name="toolTip">
-        <string>重置工作设置到预设</string>
+        <string>Reset working options to preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -74,7 +71,7 @@
      <item>
       <widget class="QToolButton" name="renameButton">
        <property name="toolTip">
-        <string>重命名预设</string>
+        <string>Rename current preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -97,7 +94,7 @@
      <item>
       <widget class="QToolButton" name="saveButton">
        <property name="toolTip">
-        <string>保存预设</string>
+        <string>Save(update) current preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -127,7 +124,7 @@
      <item>
       <widget class="QToolButton" name="addButton">
        <property name="toolTip">
-        <string>复制并创建新预设</string>
+        <string>Copy to a new preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -150,7 +147,7 @@
      <item>
       <widget class="QToolButton" name="deleteButton">
        <property name="toolTip">
-        <string>删除预设</string>
+        <string>Remove current preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -180,7 +177,7 @@
      <item>
       <widget class="QToolButton" name="importButton">
        <property name="toolTip">
-        <string>导入预设</string>
+        <string>Import preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -203,7 +200,7 @@
      <item>
       <widget class="QToolButton" name="exportButton">
        <property name="toolTip">
-        <string>导出预设</string>
+        <string>Export preset</string>
        </property>
        <property name="icon">
         <iconset resource="../resources/icon/icon.qrc">
@@ -224,6 +221,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QWidget" name="optionWidget" native="true">

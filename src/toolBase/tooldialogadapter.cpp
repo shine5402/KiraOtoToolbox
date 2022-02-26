@@ -3,12 +3,13 @@
 #include <QMessageBox>
 #include <QSaveFile>
 #include <QTextStream>
-#include <utils/dialogs/showdiffdialog.h>
+#include <kira/dialogs/showdiffdialog.h>
 #include <utils/models/otolistshowvaluechangemodel.h>
-#include <utils/dialogs/tableviewdialog.h>
+#include <kira/dialogs/tableviewdialog.h>
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
+#include <kira/widgets/misc.h>
 #include "presetwidgetcontainer.h"
 
 
@@ -20,38 +21,71 @@ ToolDialogAdapter::ToolDialogAdapter(QObject *parent) : QObject(parent)
 void ToolDialogAdapter::replaceUIWidgets(QLayout* rootLayout)
 {
     Q_ASSERT_X(optionWidgetMetaObj.inherits(&ToolOptionWidget::staticMetaObject), "setupSpecificUIWidgets", "OptionWidget is not set.");
-    auto presetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
+    auto presetWidgetContainer = new PresetWidgetContainer(optionWidgetMetaObj, rootLayout->parentWidget());
     auto optionLayout = rootLayout->parentWidget()->findChild<QLayout*>("optionLayout");
-    Misc::replaceWidget(optionLayout, "presetContainer", presetContainer, rootLayout->parentWidget());
+    replaceWidget(optionLayout, "presetWidgetContainer", presetWidgetContainer, rootLayout->parentWidget());
 }
 
-//Though we can use other approach to prevent the need of dialogParent, we use this overrload to indicate that it will raise a dialog, leaving the other overload reflecting a quiet process.
 bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options, QWidget* dialogParent)
 {
     auto precision = options.getOption("save/precision").toInt();
-    if (doWork(srcOtoList, resultOtoList, secondSaveOtoList, options))
-        return Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
-                                      tr("确认更改"),
-                                      tr("以下显示了根据您的要求要对原音设定数据执行的修改。点击“确定”来确认此修改，点击“取消”以取消本次操作。"),
-                                      dialogParent);
-    return false;
-}
+    try {
+        auto worker = getWorkerInstance();
+        worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+        if (worker->needConfirm())
+        {
+            auto msgs = worker->getConfirmMsgs();
+            for (const auto& msg : qAsConst(msgs)){
+                auto result = msg.userDialog()->exec();
+                if (!worker->isConfirmDialogAccepted(msg.typeId(), result))
+                    return false;
+            }
+        }
+        auto result = Misc::showOtoDiffDialog(srcOtoList, resultOtoList, precision,
+                                              tr("Confirm changes"),
+                                              tr("These are changes that will be applied to oto data. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                                              dialogParent);
+        if (result && worker->needConfirm())
+            worker->commit();
 
-bool ToolDialogAdapter::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
-{
-    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
-    auto worker = qobject_cast<OtoListModifyWorker *>(workerMetaObj.newInstance(Q_ARG(QObject*, this)));
-    return worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
+        return result;
+    }
+    catch (const ToolException& e){
+        QMessageBox msgBox(dialogParent);
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(tr("Error occured while processing. Please check and try again."));
+        msgBox.setInformativeText(e.info());
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        return false;
+    }
+    catch (const std::exception& e){
+        QMessageBox msgBox(dialogParent);
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(tr("Error occured while processing. Please check and try again."));
+        msgBox.setInformativeText(e.what());
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        return false;
+    }
+    catch (...){
+        QMessageBox::critical(dialogParent, {}, tr("Error occured while processing. Please check and try again."));
+        return false;
+    }
+
+    return false;
 }
 
 QString ToolDialogAdapter::getToolName() const
 {
+    qFatal("DEFINE_TOOL_NAME() not used in tool dialog adapter.");
     Q_UNREACHABLE();
     return {};
 }
 
 std::unique_ptr<OtoListModifyWorker> ToolDialogAdapter::getWorkerInstance() const
 {
+    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
     return std::unique_ptr<OtoListModifyWorker>(qobject_cast<OtoListModifyWorker*>(workerMetaObj.newInstance()));
 }
 
@@ -75,16 +109,9 @@ void ToolDialogAdapter::setOptionWidgetMetaObj(const QMetaObject& value)
     optionWidgetMetaObj = value;
 }
 
-
-//void ToolDialogAdapter::replaceOptionWidget(QLayout* rootLayout, ToolOptionWidget* newOptionWidget)
-//{
-//    auto presetContianer = qobject_cast<PresetWidgetContainer*>(rootLayout->parentWidget()->findChild<QWidget*>("presetContainer"));
-//    Misc::replaceWidget(presetContianer->layout(), "optionWidget", newOptionWidget, rootLayout->parentWidget());
-//}
-
 void ToolDialogAdapter::replaceSaveWidget(QLayout* rootLayout, OtoFileSaveWidget* newSaveWidget)
 {
     auto saveWidgetRootLayout = rootLayout->parentWidget()->findChild<QWidget *>("stackedSaveWidget")->findChild<QWidget *>("singleSave")->layout();
-    Misc::replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
+    replaceWidget(saveWidgetRootLayout, "otoSaveWidget", newSaveWidget);
 }
 

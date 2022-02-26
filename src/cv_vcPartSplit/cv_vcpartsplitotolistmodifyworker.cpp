@@ -1,14 +1,15 @@
 #include "cv_vcpartsplitotolistmodifyworker.h"
+#include "utils/misc/misc.h"
 #include <fplus/fplus.hpp>
 #include <QRegularExpression>
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
 CV_VCPartSplitOtoListModifyWorker::CV_VCPartSplitOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
 {
 
 }
 
-bool CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     auto isSeeBeginPatternAsCV = options.getOption("isSeeBeginPatternAsCV").toBool();
     auto seeBeginPatternAsCVContent = options.getOption("seeBeginPatternAsCVContent").toStringList();
@@ -40,10 +41,11 @@ bool CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         return notDividedBySpace || matchedByBeginPattern || matchedByEndPattern;
     };
     auto CVList = fplus::keep_if(isCVPart, emptyDropped);
-    auto VCList = fplus::drop_if(isCVPart, emptyDropped);
+    VCList = fplus::drop_if(isCVPart, emptyDropped);
 
     auto saveOptions = options.extract("save/");
     auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
+    VCExtractedToNewFile = isSecondFileNameUsed;
     if (isSecondFileNameUsed){
         resultOtoList = fplus::append(CVList, emptyPart);
         secondSaveOtoList = VCList;
@@ -51,5 +53,22 @@ bool CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
     else{
         resultOtoList = fplus::concat(QList{CVList, emptyPart, VCList});
     }
-    return true;
 }
+
+
+bool CV_VCPartSplitOtoListModifyWorker::needConfirm() const
+{
+    return VCExtractedToNewFile;
+}
+
+QVector<OtoListModifyWorker::ConfirmMsg> CV_VCPartSplitOtoListModifyWorker::getConfirmMsgs() const
+{
+    return {{Dialog,
+             tr("%1 oto entries, which is recognized as VC part, will be saved to the path you specified.").arg(VCList.count()),
+             std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(Misc::getAskUserWithShowOtoListDialog(VCList,
+                                          tr("VC part extracted"),
+                                          tr("These %1 oto entries will be save to location specified.").arg(VCList.count()),
+                                          nullptr)))
+        }};
+}
+

@@ -6,61 +6,85 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
+    <width>807</width>
     <height>730</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="rootLayout" stretch="0,1,0,0">
    <item>
-    <widget class="QStackedWidget" name="stackedLoadWidget">
-     <property name="currentIndex">
-      <number>0</number>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Load source data</string>
      </property>
-     <widget class="QWidget" name="singleLoad">
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="OtoFileLoadWidget" name="otoLoadWidget" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QStackedWidget" name="stackedLoadWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="singleLoad">
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="OtoFileLoadWidget" name="otoLoadWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="mulptipleLoad">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="OtoFileMultipleLoadWidget" name="otoMultipleLoadWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
+        <widget class="QWidget" name="mulptipleLoad">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="OtoFileMultipleLoadWidget" name="otoMultipleLoadWidget" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -75,61 +99,122 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>行为设定</string>
+      <string>Processing options</string>
      </property>
      <layout class="QVBoxLayout" name="optionLayout">
       <item>
-       <widget class="QWidget" name="presetContainer" native="true"/>
+       <widget class="QWidget" name="presetWidgetContainer" native="true"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="stackedSaveWidget">
-     <property name="enabled">
-      <bool>false</bool>
+    <widget class="QGroupBox" name="saveOptionGroupBox">
+     <property name="title">
+      <string>Saving options</string>
      </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="singleSave">
-      <layout class="QGridLayout" name="saveWidgetLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="multipleSave">
-      <layout class="QGridLayout" name="gridLayout_4">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="OtoFileMultipleSaveWidget" name="otoMultipleSaveWidget" native="true"/>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QWidget" name="saveOptionsContainer" native="true">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QStackedWidget" name="stackedSaveWidget">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="singleSave">
+            <layout class="QGridLayout" name="saveWidgetLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="OtoFileSaveWidget" name="otoSaveWidget" native="true"/>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="multipleSave">
+            <layout class="QGridLayout" name="gridLayout_4">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="OtoFileDirectSaveWidget" name="otoMultipleSaveWidget" native="true"/>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Decimal precision when saving</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="precisionSpinBox">
+             <property name="maximum">
+              <number>5</number>
+             </property>
+             <property name="value">
+              <number>3</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -137,10 +222,10 @@
      <item>
       <widget class="QPushButton" name="switchLoadModeButton">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在&lt;span style=&quot; font-weight:600;&quot;&gt;单文件模式&lt;/span&gt;和&lt;span style=&quot; font-weight:600;&quot;&gt;批处理（多文件）&lt;/span&gt;模式之间切换，切换将会清除之前的打开状态。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switch between &lt;span style=&quot; font-weight:600;&quot;&gt;single file&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;batch (multiple file) &lt;/span&gt;mode. Current open state will be cleared.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>切换打开模式</string>
+        <string>Switch open mode</string>
        </property>
       </widget>
      </item>
@@ -150,7 +235,7 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset|QDialogButtonBox::RestoreDefaults</set>
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
        </property>
       </widget>
      </item>
@@ -178,9 +263,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>OtoFileMultipleSaveWidget</class>
+   <class>OtoFileDirectSaveWidget</class>
    <extends>QWidget</extends>
-   <header>utils/widgets/otofilemultiplesavewidget.h</header>
+   <header>utils/widgets/otofiledirectsavewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

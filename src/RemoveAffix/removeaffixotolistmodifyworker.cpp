@@ -8,7 +8,7 @@ RemoveAffixOtoListModifyWorker::RemoveAffixOtoListModifyWorker(QObject* parent) 
     pitchWorker = new RemovePitchAffixOtoListModifyWorker(this);
 }
 
-bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     OptionContainer newOptions(options);
     if (!options.getOption("removePitchAffix").toBool())
@@ -19,20 +19,17 @@ bool RemoveAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoE
 
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList currentResult;
-    bool success = false;
 
     auto updateResult = [&](){
         lastResult = std::move(currentResult);
         currentResult = {};
     };
 
-    success = specificWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
+    specificWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
     updateResult();
-    success |= pitchWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
+    pitchWorker->doWork(lastResult, currentResult, secondSaveOtoList, newOptions);
 
     resultOtoList = currentResult;
-
-    return success;
 }
 
 RemoveSpecificAffixOtoListModifyWorker* RemoveAffixOtoListModifyWorker::getSpecificWorker() const

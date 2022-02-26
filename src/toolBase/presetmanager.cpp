@@ -1,7 +1,7 @@
 #include "presetmanager.h"
 #include <QStandardPaths>
 #include <QDir>
-#include "utils/misc/fplusAdapter.h"
+#include <kira/lib_helper/fplus_qt_adapter.h>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QCoreApplication>
@@ -28,7 +28,7 @@ QVector<Preset> PresetManager::presets(const QString& targetName) const
 {
     QVector<Preset> result;
     //Add default
-    result.append({QCoreApplication::translate("PresetManager", "默认"), {}, {}, {}});
+    result.append({QCoreApplication::translate("PresetManager", "Default"), {}, {}, {}});
 
     result.append(builtInPresets.value(targetName));
     result.append(userPresets.value(targetName));
@@ -52,7 +52,7 @@ bool PresetManager::exist(const QString& targetName, const Preset& preset) const
 bool PresetManager::isBuiltIn(const QString& targetName, const QString& name) const
 {
     auto inBuiltIn = !fplus::keep_if(std::bind(presetNameEqual, _1, name), builtInPresets.value(targetName)).empty();
-    auto isDefault = name == QCoreApplication::translate("PresetManager", "默认");
+    auto isDefault = name == QCoreApplication::translate("PresetManager", "Default");
     return inBuiltIn || isDefault;
 }
 
@@ -134,7 +134,6 @@ void combinePresetMap(QHash<QString, QVector<Preset>>& dst, const QHash<QString,
 void PresetManager::loadPresets()
 {
     //Load built-in
-    //TODO: make built-in presets have i18n support
     QFile builtInPresetFile(BUILTIN_PRESET_FILE_PATH);
     if (builtInPresetFile.open(QFile::Text | QFile::ReadOnly)){
         builtInPresets = parsePresetJson(builtInPresetFile.readAll());
@@ -177,6 +176,17 @@ void PresetManager::savePresets()
     }
 }
 
+QString Preset::getI18nName(const QLocale& locale) const
+{
+    auto uiLang = locale.uiLanguages();
+    for (const auto& l : qAsConst(uiLang)){
+        if (nameI18nMap.contains(l))
+            return nameI18nMap.value(l);
+    }
+
+    return name;
+}
+
 Preset::Preset(QString name, QJsonObject content, int version, QDateTime lastModified):
     name(std::move(name)), content(std::move(content)), lastModified(std::move(lastModified))
 {
@@ -198,6 +208,9 @@ QJsonObject Preset::getJson(const Preset& preset)
 {
     QJsonObject presetObj;
     presetObj.insert("name", preset.name);
+    for (auto it = preset.nameI18nMap.begin(); it != preset.nameI18nMap.end(); ++it){
+        presetObj.insert("name_" + it.key(), it.value());
+    }
     presetObj.insert("version", preset.version);
     presetObj.insert("lastModified", preset.lastModified.toString(Qt::ISODate));
     presetObj.insert("content", preset.content);
@@ -213,6 +226,14 @@ Preset Preset::fromJson(const QJsonObject& json)
 {
     Preset preset;
     preset.name = json.value("name").toString();
+    auto i18n = fplus::map_keep_if([](const QString& key)->bool{
+        return key.startsWith("name_");
+    }, json.toVariantMap());
+    for (auto it = i18n.begin(); it != i18n.end(); ++it){
+        auto key = it.key();
+        key.remove(0, 5);
+        preset.nameI18nMap.insert(key, it.value().toString());
+    }
     preset.version = json.value("version").toInt();
     preset.lastModified = QDateTime::fromString(json.value("lastModified").toString(), Qt::ISODate);
     preset.content = json.value("content").toObject();

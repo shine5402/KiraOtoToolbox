@@ -10,7 +10,7 @@ ChainInvalidDialogAdapter::ChainInvalidDialogAdapter(QObject* parent) : ToolDial
 
 QString ChainInvalidDialogAdapter::getToolName() const
 {
-    return tr("不存在的工具”");
+    return tr("Unknown tool");
 }
 
 ChainInvalidOptionWidget::ChainInvalidOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
@@ -36,7 +36,8 @@ void ChainInvalidOptionWidget::setOptions(const OptionContainer& options)
 {
     originalOptionsJson = options.getOption("options").toJsonObject();
     originalClassName = options.getOption("originalClassName").toString();
-    label->setText(tr("<p>程序无法在已知的工具列表中找到“%1”，请确认预设文件对应的工具箱版本和可能的拼写错误。</p><p>该项将不会做任何操作。</p>").arg(originalClassName));
+    label->setText(tr("<p>Unknown tool \"%1\". Please check the version of toolbox that generates this preset "
+"or potential typos. </p><p>This step will not take any effect</p>").arg(originalClassName));
 }
 
 QJsonObject ChainInvalidOptionWidget::optionsToJson(const OptionContainer& options) const

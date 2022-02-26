@@ -8,8 +8,8 @@ OtoFileNameEditWithBrowse::OtoFileNameEditWithBrowse(QWidget *parent) : FileName
 void OtoFileNameEditWithBrowse::setParametersByPurpose(const FileNameEditWithBrowse::Purpose& value)
 {
     switch(value){
-        case Open: setParameters(tr("选择一个原音设定文件"),{},tr("原音设定文件 (*.ini);;所有文件 (*.*)"));break;
-        case Save: setParameters(tr("指定保存路径"), {}, tr("原音设定文件 (*.ini);;所有文件 (*.*)"));break;
+        case Open: setParameters(tr("Choose a oto file"),{},tr("Oto file (*.ini);;All files (*.*)"));break;
+        case Save: setParameters(tr("Specify save path"), {}, tr("Oto file (*.ini);;:All files (*.*)"));break;
     }
 }
 

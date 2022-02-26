@@ -6,8 +6,9 @@ NotDoAnythingOptionWidget::NotDoAnythingOptionWidget(QWidget *parent) : ToolOpti
 {
     auto layout = new QVBoxLayout(this);
     setLayout(layout);
-    auto label = new QLabel(tr("该操作没有配置项。\n"
-"请注意，本工具直接输出输入的源数据（即“什么都不做”），但是你可以使用本工具来控制保存选项。"), this);
+    auto label = new QLabel(tr("There is nothing to configure.\n"
+"ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing), "
+"but you can adjust save options with this tool."), this);
     layout->addStretch(1);
     layout->addWidget(label);
     layout->addStretch(1);

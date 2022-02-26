@@ -4,6 +4,7 @@
 #include "removeduplicateotolistmodifyworker.h"
 #include "removeAffix/removespecificaffixotolistmodifyworker.h"
 #include "removeAffix/removepitchaffixotolistmodifyworker.h"
+#include "utils/misc/misc.h"
 
 
 RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
@@ -11,11 +12,14 @@ RemoveDuplicateModuleOtoListModifyWorker::RemoveDuplicateModuleOtoListModifyWork
 
 }
 
-bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
+    //For confirm msg dialog
+    this->srcOtoList = srcOtoList;
+    precision = options.getOption("save/precision").toInt();
+
     OtoEntryList lastResult = srcOtoList;
     OtoEntryList currentResult;
-    bool success = false;
 
     auto updateResult = [&](){
         lastResult = std::move(currentResult);
@@ -23,46 +27,46 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     };
 
     RemoveAffixOtoListModifyWorker removeAffixWorker;
-    success |= removeAffixWorker.doWork(lastResult, currentResult, secondSaveOtoList, options.extract("affixRemove/"));
+    removeAffixWorker.doWork(lastResult, currentResult, secondSaveOtoList, options.extract("affixRemove/"));
     updateResult();
 
     if (options.getOption("shouldOrganize").toBool()){
         OrgnaizeDuplicateOtoListModifyWorker orgnaizeWorker;
-        success |= orgnaizeWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
+        orgnaizeWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
         organizeResult = currentResult;
         updateResult();
     }
 
-    //为之后加回被忽略词缀做准备
+    //Prepare for add affix later
     auto beforeRemoveDuplicate = lastResult;
 
     RemoveDuplicateOtoListModifyWorker removeDuplicateWorker;
-    success |= removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
+    removeDuplicateWorker.doWork(lastResult, currentResult, secondSaveOtoList, options);
 
-    //将词缀加回
+    //Add affix back
     auto specificRemovedInfos = removeAffixWorker.getSpecificWorker()->getRemovedStringInfos();
     auto pitchRemovedInfos = removeAffixWorker.getPitchWorker()->getRemovedStringInfos();
     for (auto& i : (pitchRemovedInfos + specificRemovedInfos)){
         auto& currentOto = beforeRemoveDuplicate[i.id()];
         auto newAlias = [&]() -> QString{
-                switch (i.type()) {
+            switch (i.type()) {
                 case RemovedStringInfo::Prefix :{
-                return i.value() + currentOto.alias();
-    }
+                    return i.value() + currentOto.alias();
+                }
                 case RemovedStringInfo::Suffix : {
-                return currentOto.alias() + i.value();
-    }
-    }
-                return {};
-    }();
+                    return currentOto.alias() + i.value();
+                }
+            }
+            return {};
+        }();
         currentOto.setAlias(newAlias);
     }
 
     updateResult();
     currentResult = beforeRemoveDuplicate;
 
-    //重新删除重复项
-    OtoEntryList toBeRemovedOtoList;
+    //Remove duplicated entries
+    toBeRemovedOtoList.clear();
     auto removedID = removeDuplicateWorker.getRemovedIDs();
     for (auto i : std::as_const(removedID))
     {
@@ -76,10 +80,33 @@ bool RemoveDuplicateModuleOtoListModifyWorker::doWork(const OtoEntryList& srcOto
     }
 
     resultOtoList = currentResult;
-    return success;
 }
 
-OtoEntryList RemoveDuplicateModuleOtoListModifyWorker::getOrganizeResult() const
+bool RemoveDuplicateModuleOtoListModifyWorker::needConfirm() const
 {
-    return organizeResult;
+    return (!organizeResult.isEmpty()) || (!toBeRemovedOtoList.isEmpty());
+}
+
+QVector<OtoListModifyWorker::ConfirmMsg> RemoveDuplicateModuleOtoListModifyWorker::getConfirmMsgs() const
+{
+    QVector<OtoListModifyWorker::ConfirmMsg> result;
+    if (!organizeResult.isEmpty())
+    {
+        result.append({Dialog,
+                       tr("Result of organizing duplicate entries"),
+                       std::shared_ptr<QDialog>(Misc::getOtoDiffDialog(srcOtoList, organizeResult, precision, tr("Result of organizing duplicate entries"),
+                       tr("The emphasized entries will be renamed, in which unneeded ones will be removed in next step. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
+                       nullptr,
+                       Misc::ValueChangeModel))});
+    }
+
+    if (!toBeRemovedOtoList.isEmpty()){
+        result.append({Dialog,
+                      tr("Oto entries to remove"),
+                      std::shared_ptr<QDialog>(Misc::getAskUserWithShowOtoListDialog(toBeRemovedOtoList, tr("Oto entries to remove"),
+                       tr("These %1 oto entries will be removed, or be saved to the specified file. Click \"OK\" to confirm, \"Cancel\" to discard these changes.").arg(toBeRemovedOtoList.count()),
+                       nullptr))});
+    }
+
+    return result;
 }

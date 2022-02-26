@@ -5,7 +5,8 @@ RemoveDuplicateOtoListModifyWorker::RemoveDuplicateOtoListModifyWorker(QObject* 
 
 }
 
-bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     resultOtoList = srcOtoList;
     QStringList compareStringList;
@@ -17,7 +18,7 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     QStringList digitSuffixList;
     for (int i = 0; i < srcOtoList.count(); ++i)
     {
-        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i));
+        auto suffix = OtoEntryFunctions::getDigitSuffix(compareStringList.at(i), nullptr, options.getOption("considerNegativeSuffix").toBool());
         digitSuffixList.append(suffix);
         compareStringList.replace(i, OtoEntryFunctions::removeSuffix(compareStringList.at(i), suffix));
     }
@@ -28,8 +29,7 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
     {
         compareStringMap.insert(compareStringList.at(i), i);
     }
-    //删除重复项
-    //检查重复并确认待删除项
+
     if (options.getOption("maxDuplicateCount").toInt() != 0) {
 
         removedIDs.clear();
@@ -56,8 +56,6 @@ bool RemoveDuplicateOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, 
             resultOtoList.removeOne(i);
         }
     }
-
-    return true;
 }
 
 QList<int> RemoveDuplicateOtoListModifyWorker::getRemovedIDs() const

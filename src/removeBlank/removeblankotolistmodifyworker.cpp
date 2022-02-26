@@ -5,7 +5,7 @@ RemoveBlankOtoListModifyWorker::RemoveBlankOtoListModifyWorker(QObject* parent) 
 
 }
 
-bool RemoveBlankOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void RemoveBlankOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -21,5 +21,4 @@ bool RemoveBlankOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoE
             resultOtoList.append(i);
         }
     }
-    return true;
 }

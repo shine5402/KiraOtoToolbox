@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ReplaceFileNameOptionWidget</class>
+ <widget class="QWidget" name="ReplaceFileNameOptionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>721</width>
+    <height>318</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="ReplaceRulesWidget" name="rulesWidget" native="true"/>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="interpretBySystemEncodingCheckBox">
+     <property name="text">
+      <string>Use system encoding to interpret Shift-JIS encoding when accessing WAV by filenames (useful for gibberish filenames).</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ReplaceRulesWidget</class>
+   <extends>QWidget</extends>
+   <header>utils/widgets/replaceruleswidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -26,7 +26,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>要执行的操作：</string>
+      <string>Processing steps:</string>
      </property>
     </widget>
    </item>
@@ -35,14 +35,14 @@
      <item>
       <widget class="QPushButton" name="addButton">
        <property name="text">
-        <string>添加</string>
+        <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="removeButton">
        <property name="text">
-        <string>移除</string>
+        <string>Remove</string>
        </property>
       </widget>
      </item>
@@ -56,14 +56,14 @@
      <item>
       <widget class="QPushButton" name="moveUpButton">
        <property name="text">
-        <string>上移</string>
+        <string>Move up</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="moveDownButton">
        <property name="text">
-        <string>下移</string>
+        <string>Move down</string>
        </property>
       </widget>
      </item>
@@ -77,7 +77,7 @@
      <item>
       <widget class="QPushButton" name="adjustSettingsButton">
        <property name="text">
-        <string>调整设置</string>
+        <string>Adjust settings</string>
        </property>
       </widget>
      </item>

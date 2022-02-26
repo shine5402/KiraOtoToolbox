@@ -6,15 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>625</height>
+    <width>760</width>
+    <height>649</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>shine_5402 的 oto 工具箱</string>
+  <property name="minimumSize">
+   <size>
+    <width>650</width>
+    <height>350</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -40,26 +46,143 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
-         <height>601</height>
+         <width>760</width>
+         <height>649</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="leftMargin">
+         <number>16</number>
+        </property>
+        <property name="topMargin">
+         <number>16</number>
+        </property>
+        <property name="rightMargin">
+         <number>16</number>
+        </property>
+        <property name="bottomMargin">
+         <number>16</number>
+        </property>
         <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>242</height>
-           </size>
-          </property>
-         </spacer>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="logoLabel">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="resources/logo/logo.qrc">:/logo/light</pixmap>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="langButton">
+            <property name="text">
+             <string>Language</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="uiThemeButton">
+            <property name="text">
+             <string>UI Theme</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="helpButton">
+            <property name="text">
+             <string>Help</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="toolLayout"/>
+         <widget class="QGroupBox" name="argInfoBlock">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QLabel" name="argIconLabel">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>36</width>
+                 <height>36</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>36</width>
+                 <height>36</height>
+                </size>
+               </property>
+               <property name="pixmap">
+                <pixmap resource="resources/icon/icon.qrc">:/icon/console</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="argInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <spacer name="verticalSpacer">
@@ -68,8 +191,32 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>241</height>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QWidget" name="" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QVBoxLayout" name="toolLayout"/>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -80,73 +227,10 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menu_File">
-    <property name="title">
-     <string>文件(&amp;F)</string>
-    </property>
-    <addaction name="actionExit"/>
-    <addaction name="actionDebug"/>
-   </widget>
-   <widget class="QMenu" name="menu_Help">
-    <property name="title">
-     <string>帮助(&amp;H)</string>
-    </property>
-    <addaction name="actionAbout"/>
-    <addaction name="actionAbout_Qt"/>
-    <addaction name="separator"/>
-    <addaction name="actionUpdate"/>
-    <addaction name="actionSend_feedback"/>
-    <addaction name="separator"/>
-    <addaction name="actionDonate"/>
-   </widget>
-   <addaction name="menu_File"/>
-   <addaction name="menu_Help"/>
-  </widget>
-  <action name="actionExit">
-   <property name="text">
-    <string>退出</string>
-   </property>
-  </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>关于</string>
-   </property>
-  </action>
-  <action name="actionAbout_Qt">
-   <property name="text">
-    <string>关于 Qt</string>
-   </property>
-  </action>
-  <action name="actionDonate">
-   <property name="text">
-    <string>捐赠</string>
-   </property>
-  </action>
-  <action name="actionUpdate">
-   <property name="text">
-    <string>获得更新</string>
-   </property>
-  </action>
-  <action name="actionDebug">
-   <property name="text">
-    <string>Debug</string>
-   </property>
-  </action>
-  <action name="actionSend_feedback">
-   <property name="text">
-    <string>提交反馈</string>
-   </property>
-  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources/logo/logo.qrc"/>
+  <include location="resources/icon/icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

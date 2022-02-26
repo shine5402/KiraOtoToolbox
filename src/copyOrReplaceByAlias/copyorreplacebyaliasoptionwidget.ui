@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CopyOrReplaceByAliasOptionWidget</class>
+ <widget class="QWidget" name="CopyOrReplaceByAliasOptionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>799</width>
+    <height>379</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="ReplaceRulesWidget" name="rulesWidget" native="true"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Behavior:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="behaviorCopyRadioButton">
+       <property name="text">
+        <string>Copy to new entry</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">behaviorButtonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="behaviorReplaceRadioButton">
+       <property name="text">
+        <string>Replace original entry</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">behaviorButtonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Match strategy:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QComboBox" name="matchStrategyComboBox">
+       <property name="toolTip">
+        <string>&lt;p&gt;Control how match works when there are multiple replace rules.&lt;/p&gt;
+&lt;p&gt;With alias &quot;a&quot; and rules [&quot;a&quot;-&gt;&quot;ac&quot;, &quot;a&quot;-&gt;&quot;ab&quot;], output will be like:
+&lt;ul&gt;
+&lt;li&gt;Match first then stop: &quot;ac&quot;&lt;/li&gt;
+&lt;li&gt;Match all and replace all matches: &quot;abc&quot; (1st rule get &quot;ac&quot;, then 2nd rule make it into &quot;abc&quot;)&lt;/li&gt;
+&lt;li&gt;Match all in parallel and copy all matches (copy mode only): [&quot;a&quot;, &quot;ac&quot;, &quot;ab&quot;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;</string>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Match first then stop</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Match all and replace all matches</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Match all in parallel and copy all matches (copy mode only)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ReplaceRulesWidget</class>
+   <extends>QWidget</extends>
+   <header>utils/widgets/replaceruleswidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="behaviorButtonGroup"/>
+ </buttongroups>
+</ui>

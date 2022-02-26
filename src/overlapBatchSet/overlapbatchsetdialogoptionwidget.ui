@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>858</width>
-    <height>411</height>
+    <height>443</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -28,7 +28,7 @@
      <item>
       <widget class="QCheckBox" name="setStartWithCheckBox">
        <property name="text">
-        <string>开头为以下内容之一时，将Ovl设置为</string>
+        <string>Set Ovl as this, when its alias beginning with these</string>
        </property>
       </widget>
      </item>
@@ -82,7 +82,7 @@
       <item>
        <widget class="QCheckBox" name="matchStartOtoCheckBox">
         <property name="text">
-         <string>同时也匹配开头是“- ”+上述内容的别名</string>
+         <string>Also match aliases beginning &quot;- &quot; + these pattern</string>
         </property>
        </widget>
       </item>
@@ -92,8 +92,72 @@
    <item>
     <widget class="QCheckBox" name="oneThirdCheckBox">
      <property name="text">
-      <string>将上述操作影响范围之外的Ovl三分之一化</string>
+      <string>Set Ovl as 1/3 for entries not included above</string>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QCheckBox" name="oneSecondWhenTooSmallCheckbox">
+          <property name="text">
+           <string>... but set as 1/2 when result is smaller than</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="oneSecondWhenTooSmallSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>99999.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -102,7 +166,7 @@
   <customwidget>
    <class>StringListModifyWidget</class>
    <extends>QWidget</extends>
-   <header>utils/widgets/stringlistmodifywidget.h</header>
+   <header location="global">kira/widgets/stringlistmodifywidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
@@ -137,6 +201,38 @@
     <hint type="destinationlabel">
      <x>766</x>
      <y>15</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>oneThirdCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>387</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>163</x>
+     <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>oneSecondWhenTooSmallCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>oneSecondWhenTooSmallSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>772</x>
+     <y>427</y>
     </hint>
    </hints>
   </connection>

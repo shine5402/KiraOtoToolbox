@@ -6,7 +6,8 @@ SetAliasOtoListModifyWorker::SetAliasOtoListModifyWorker(QObject* parent) : OtoL
 }
 
 
-bool SetAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void SetAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                         OtoEntryList& secondSaveOtoList, const OptionContainer& options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -81,6 +82,4 @@ bool SetAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
         currentAlias.replace("%r", newAlias.value(i, ""));
         resultOtoList[i].setAlias(currentAlias);
     }
-
-    return true;
 }

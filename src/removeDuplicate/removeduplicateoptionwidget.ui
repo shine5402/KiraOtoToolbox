@@ -29,7 +29,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>比较时……</string>
+      <string>When comparing...</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
@@ -50,7 +50,7 @@
      <item>
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>最大重复数量（0为不限制）</string>
+        <string>Maximum duplicate count (0 for no limit)</string>
        </property>
       </widget>
      </item>
@@ -80,10 +80,33 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="considerNegativeSuffixCheckBox">
+     <property name="text">
+      <string>Also consider negative numbers</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="organizeCheckBox">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Assgin number suffix for duplicated entries in order, and unify their pitch names' letter case.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Organize duplicate entries</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QWidget" name="widget_3" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_11">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="leftMargin">
-       <number>0</number>
+       <number>20</number>
       </property>
       <property name="topMargin">
        <number>0</number>
@@ -95,67 +118,56 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="organizeCheckBox">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;按照顺序重新整理重复项的重复编号，并统一音阶名的音名字母。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
+       <widget class="QCheckBox" name="respectOriginalNumberOrderCheckBox">
         <property name="text">
-         <string>整理重复项</string>
-        </property>
-        <property name="checked">
-         <bool>false</bool>
+         <string>Respect original number order</string>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
       <item>
        <widget class="QCheckBox" name="organizeStartFrom1CheckBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
         <property name="text">
-         <string>重复项从1开始编号，而不是从2</string>
+         <string>Begining with 1 not 2 when assigning order suffix</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_7">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>整理后音名字母：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="organizeCaseComboBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <property name="text">
-          <string>大写</string>
-         </property>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Pitch names' case after orgnaizing</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>小写</string>
-         </property>
+         <widget class="QComboBox" name="organizeCaseComboBox">
+          <item>
+           <property name="text">
+            <string>UPPER</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>lower</string>
+           </property>
+          </item>
+         </widget>
         </item>
-       </widget>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -175,48 +187,16 @@
   <connection>
    <sender>organizeCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>organizeStartFrom1CheckBox</receiver>
+   <receiver>widget_3</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>521</y>
+     <x>109</x>
+     <y>407</y>
     </hint>
     <hint type="destinationlabel">
-     <x>594</x>
-     <y>521</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>organizeCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_7</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>76</x>
-     <y>510</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>669</x>
-     <y>502</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>organizeCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>organizeCaseComboBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>66</x>
-     <y>521</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>757</x>
-     <y>509</y>
+     <x>5</x>
+     <y>438</y>
     </hint>
    </hints>
   </connection>

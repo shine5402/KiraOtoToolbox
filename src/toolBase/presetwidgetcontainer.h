@@ -21,8 +21,9 @@ public:
 
     ToolOptionWidget* optionWidget() const;
 
-    //This function would override working options, and make state dirty. Used by chain tool.
+    ///This function would override working options, and make state dirty.
     void setWorkingOptions(OptionContainer options);
+    void reset();
 
 private slots:
     void resetToPreset();
@@ -48,7 +49,7 @@ private:
     void setComboBoxItemTextDirtyState(int id, bool dirty);
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;
-    bool checkCurrentPresetBuiltIn();//Would warn user about check result
+    bool checkCurrentPresetBuiltInForUserModify();//Would warn user about check result
     void doSavePreset();
 };
 

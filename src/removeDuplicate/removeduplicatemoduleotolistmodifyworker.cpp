@@ -94,7 +94,7 @@ QVector<OtoListModifyWorker::ConfirmMsg> RemoveDuplicateModuleOtoListModifyWorke
     {
         result.append({Dialog,
                        tr("Result of organizing duplicate entries"),
-                       std::shared_ptr<QDialog>(Misc::getOtoDiffDialog(srcOtoList, organizeResult, precision, tr("Result of removing duplicate entries"),
+                       std::shared_ptr<QDialog>(Misc::getOtoDiffDialog(srcOtoList, organizeResult, precision, tr("Result of organizing duplicate entries"),
                        tr("The emphasized entries will be renamed, in which unneeded ones will be removed in next step. Click \"OK\" to confirm, \"Cancel\" to discard these changes."),
                        nullptr,
                        Misc::ValueChangeModel))});

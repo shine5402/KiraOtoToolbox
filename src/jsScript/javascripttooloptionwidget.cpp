@@ -35,6 +35,9 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent) :
     qDebug() << "Actual Monospace font" << QFontInfo(font).family();
 
     ui->jsTextEdit->setTabStopDistance(ui->jsTextEdit->fontMetrics().horizontalAdvance("    "));//4 space
+
+    connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 JavaScriptToolOptionWidget::~JavaScriptToolOptionWidget()

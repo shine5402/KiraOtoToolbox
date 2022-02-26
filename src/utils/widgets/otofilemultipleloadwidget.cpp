@@ -4,7 +4,7 @@
 #include "../dialogs/showotolistdialog.h"
 #include "utils/misc/misc.h"
 #include <QMessageBox>
-#include <otofilereader.h>
+#include <OtoUtil/otofilereader.h>
 
 OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
     QWidget(parent),

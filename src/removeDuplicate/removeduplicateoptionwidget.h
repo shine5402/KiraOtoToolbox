@@ -2,7 +2,7 @@
 #define REMOVEDUPLICATEDIALOGOPTIONWIDGET_H
 
 #include <QWidget>
-#include <otoentry.h>
+#include <OtoUtil/otoentry.h>
 #include "toolBase/tooloptionwidget.h"
 
 namespace Ui {

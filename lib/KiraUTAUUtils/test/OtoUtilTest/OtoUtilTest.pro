@@ -1,0 +1,16 @@
+QT += testlib
+QT -= gui
+
+CONFIG += qt console warn_on depend_includepath testcase
+CONFIG -= app_bundle
+
+TEMPLATE = app
+
+include(include.pri)
+
+SOURCES +=  tst_otoutiltest.cpp \
+
+HEADERS += \
+
+RESOURCES += \
+    fileToTest.qrc

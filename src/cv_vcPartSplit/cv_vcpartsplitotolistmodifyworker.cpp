@@ -51,7 +51,7 @@ void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
         secondSaveOtoList = VCList;
     }
     else{
-        resultOtoList = fplus::concat(QList{CVList, emptyPart, VCList});
+        resultOtoList = fplus::concat(QVector{CVList, emptyPart, VCList});
     }
 }
 

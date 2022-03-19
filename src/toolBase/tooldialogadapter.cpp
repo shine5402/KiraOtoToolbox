@@ -86,7 +86,7 @@ QString ToolDialogAdapter::getToolName() const
 std::unique_ptr<OtoListModifyWorker> ToolDialogAdapter::getWorkerInstance() const
 {
     Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
-    return std::unique_ptr<OtoListModifyWorker>(qobject_cast<OtoListModifyWorker*>(workerMetaObj.newInstance()));
+    return std::unique_ptr<OtoListModifyWorker>(qobject_cast<OtoListModifyWorker*>(workerMetaObj.newInstance(nullptr)));
 }
 
 void ToolDialogAdapter::setWorkerMetaObj(const QMetaObject& value)

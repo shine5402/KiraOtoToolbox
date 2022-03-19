@@ -7,7 +7,7 @@ class VowelCrossfadingOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit VowelCrossfadingOtoListModifyWorker(QObject* parent);
+    Q_INVOKABLE explicit VowelCrossfadingOtoListModifyWorker(QObject* parent = nullptr);
 
     void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
                 OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;

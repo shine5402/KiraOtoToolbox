@@ -15,6 +15,7 @@ void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
     auto seeBeginPatternAsCVContent = options.getOption("seeBeginPatternAsCVContent").toStringList();
     auto isSeeEndPatternAsCV = options.getOption("isSeeEndPatternAsCV").toBool();
     auto seeEndPatternAsCVContent = options.getOption("seeEndPatternAsCVContent").toStringList();
+    auto shouldCopyCVasStartOto = options.getOption("copyCVtoStartOto").toBool();
 
     auto isAliasEmpty = [](const OtoEntry& entry) -> bool{
         return entry.alias().isEmpty();
@@ -43,15 +44,27 @@ void CV_VCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
     auto CVList = fplus::keep_if(isCVPart, emptyDropped);
     VCList = fplus::drop_if(isCVPart, emptyDropped);
 
+    OtoEntryList startList;
+    if (shouldCopyCVasStartOto) {
+        startList = fplus::transform([](auto entry){
+            entry.setAlias("- " + entry.alias());
+            return entry;
+        }, fplus::keep_if([&](const auto& entry){
+            return fplus::find_first_by([&](const auto& entryInter){
+                return entryInter.alias() == "- " + entry.alias();
+            }, srcOtoList).is_nothing();
+        }, CVList));
+    }
+
     auto saveOptions = options.extract("save/");
     auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
     VCExtractedToNewFile = isSecondFileNameUsed;
     if (isSecondFileNameUsed){
-        resultOtoList = fplus::append(CVList, emptyPart);
+        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart});
         secondSaveOtoList = VCList;
     }
     else{
-        resultOtoList = fplus::concat(QList{CVList, emptyPart, VCList});
+        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart, VCList});
     }
 }
 

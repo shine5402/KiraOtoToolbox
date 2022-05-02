@@ -50,6 +50,13 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="copyCVtoStartOtoCheckBox">
+     <property name="text">
+      <string>Copy CV part to &quot;- CV&quot; in CV List (Ignoring items whose coresponding &quot;- CV&quot; exists)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entries with emtpy alias will be seen as CV part.&lt;/p&gt;&lt;p&gt;CV part and VC part will be saved in same file with CV on top and VC on bottom if you not checking &amp;quot;Extract VC part to&amp;quot;. If you do check, only CV part will be keeped in normal save location (the first line). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

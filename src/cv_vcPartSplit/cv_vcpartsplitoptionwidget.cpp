@@ -13,6 +13,7 @@ CV_VCPartSplitOptionWidget::CV_VCPartSplitOptionWidget(QWidget *parent) :
     connect(ui->seeBeginPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->seeEndPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->seeEndPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->copyCVtoStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 CV_VCPartSplitOptionWidget::~CV_VCPartSplitOptionWidget()
@@ -27,6 +28,7 @@ OptionContainer CV_VCPartSplitOptionWidget::getOptions() const
     options.setOption("seeBeginPatternAsCVContent", ui->seeBeginPatternAsCVContentWidget->getData());
     options.setOption("isSeeEndPatternAsCV", ui->seeEndPatternAsCVCheckBox->isChecked());
     options.setOption("seeEndPatternAsCVContent", ui->seeEndPatternAsCVContentWidget->getData());
+    options.setOption("copyCVtoStartOto", ui->copyCVtoStartOtoCheckBox->isChecked());
     return options;
 }
 
@@ -36,6 +38,7 @@ void CV_VCPartSplitOptionWidget::setOptions(const OptionContainer& options)
     ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent").toStringList());
     ui->seeEndPatternAsCVCheckBox->setChecked(options.getOption("isSeeEndPatternAsCV").toBool());
     ui->seeEndPatternAsCVContentWidget->setData(options.getOption("seeEndPatternAsCVContent").toStringList());
+    ui->copyCVtoStartOtoCheckBox->setChecked(options.getOption("copyCVtoStartOto").toBool());
 }
 
 
@@ -46,6 +49,7 @@ QJsonObject CV_VCPartSplitOptionWidget::optionsToJson(const OptionContainer& opt
     jsonObj.insert("seeBeginPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeBeginPatternAsCVContent").toStringList()));
     jsonObj.insert("isSeeEndPatternAsCV", options.getOption("isSeeEndPatternAsCV").toBool());
     jsonObj.insert("seeEndPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeEndPatternAsCVContent").toStringList()));
+    jsonObj.insert("copyCVtoStartOto", options.getOption("copyCVtoStartOto").toBool());
     return jsonObj;
 }
 
@@ -56,6 +60,7 @@ OptionContainer CV_VCPartSplitOptionWidget::jsonToOptions(const QJsonObject& jso
     options.setOption("seeBeginPatternAsCVContent", getStringListFromJSONObject(json, "seeBeginPatternAsCVContent"));
     options.setOption("isSeeEndPatternAsCV", json.value("isSeeEndPatternAsCV").toBool());
     options.setOption("seeEndPatternAsCVContent", getStringListFromJSONObject(json, "seeEndPatternAsCVContent"));
+    options.setOption("copyCVtoStartOto", json.value("copyCVtoStartOto").toBool());
     return options;
 }
 

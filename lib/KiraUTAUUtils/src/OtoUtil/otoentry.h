@@ -147,8 +147,11 @@ private:
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(OtoEntry::OtoParameters);
 Q_DECLARE_METATYPE(OtoEntry)
-
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 using OtoEntryList = QList<OtoEntry>;
+#else
+using OtoEntryList = QVector<OtoEntry>;
+#endif
 Q_DECLARE_METATYPE(OtoEntryList)
 namespace OtoEntryFunctions {
     Q_NAMESPACE

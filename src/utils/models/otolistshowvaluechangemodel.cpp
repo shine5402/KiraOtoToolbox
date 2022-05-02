@@ -72,7 +72,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
     auto meta = QMetaEnum::fromType<OtoEntry::OtoParameter>();
     for (int i = 0; i < meta.keyCount(); ++i) {
         auto changeDoubleShowPrecision = [&](QVariant parameter) -> QVariant{
-            if (parameter.type() == QVariant::Double)
+            if (parameter.typeId() == QMetaType::Double)
             {
                 return QString::number(parameter.toDouble(),'f', precision);
             }
@@ -90,7 +90,7 @@ QVariant OtoListShowValueChangeModel::data(const QModelIndex &index, int role) c
         };
                     auto oldParameter = oldOto.getParameter(currentFlag);
                     auto newParameter = newOto.getParameter(currentFlag);
-                    if (oldParameter.type() == QVariant::Double && newParameter.type() == QVariant::Double)
+                    if (oldParameter.typeId() == QMetaType::Double && newParameter.typeId() == QMetaType::Double)
             {
                     return !doubleEqual(oldParameter.toDouble(), newParameter.toDouble(), precision);
         }

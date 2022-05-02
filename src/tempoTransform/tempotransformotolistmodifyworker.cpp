@@ -45,5 +45,5 @@ void TempoTransformOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, O
     fplus::group_by([](const OtoEntry& lhs, const OtoEntry& rhs)->bool{
         return lhs.fileName() == rhs.fileName();
     }, stdSrc));
-    resultOtoList = QVector(stdResult.begin(), stdResult.end());
+    resultOtoList = QList(stdResult.begin(), stdResult.end());
 }

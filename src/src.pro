@@ -2,7 +2,9 @@ QT       += core gui concurrent network qml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17 file_copies
+greaterThan(QT_MAJOR_VERSION, 5): QT += core5compat
+
+CONFIG += c++17
 
 TARGET = KiraOtoToolbox
 

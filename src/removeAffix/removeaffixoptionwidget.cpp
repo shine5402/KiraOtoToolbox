@@ -71,9 +71,9 @@ void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
     auto topPitch = options.getOption("topPitch", "C7").toString();
 
     ui->bottomPitchComboBox->setCurrentText(bottomPitch.at(0));
-    ui->bottomPitchSpinBox->setValue(bottomPitch.midRef(1,1).toInt());
+    ui->bottomPitchSpinBox->setValue(bottomPitch.mid(1,1).toInt());
     ui->topPitchComboBox->setCurrentText(topPitch.at(0));
-    ui->topPitchSpinBox->setValue(topPitch.midRef(1,1).toInt());
+    ui->topPitchSpinBox->setValue(topPitch.mid(1,1).toInt());
 
     ui->pitchCaseSensitiveCheckBox->setChecked(options.getOption("pitchCaseSensitive").value<Qt::CaseSensitivity>() == Qt::CaseSensitive  ? true : false);
     ui->pitchCaseComboBox->setCurrentIndex(options.getOption("pitchCase").toInt());

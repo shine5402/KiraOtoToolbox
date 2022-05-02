@@ -1,4 +1,5 @@
 #include "setaliasotolistmodifyworker.h"
+#include <QRegularExpression>
 
 SetAliasOtoListModifyWorker::SetAliasOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
 {
@@ -45,7 +46,7 @@ void SetAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
 
         //remove specific string
         if (options.getOption("strShouldRemoveIsRegex").toBool())
-            currentAlias.remove(QRegExp(options.getOption("strShouldRemove").toString()));
+            currentAlias.remove(QRegularExpression(options.getOption("strShouldRemove").toString()));
         else
             currentAlias.remove(options.getOption("strShouldRemove").toString());
         workingAliasList.append(currentAlias);

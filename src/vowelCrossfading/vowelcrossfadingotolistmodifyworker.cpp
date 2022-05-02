@@ -36,7 +36,7 @@ void VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList,
         auto preUtterance = options.getOption("CVPreUtterance").toDouble();
         auto overlap = options.getOption("CVOverlap").toDouble();
         auto matchList = CVList + longRecordingList;
-        QMutableVectorIterator it(resultOtoList);
+        QMutableListIterator it(resultOtoList);
         while (it.hasNext()){
             auto entry = it.next();
             if (containsAlias(matchList, it.value().alias()))

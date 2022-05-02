@@ -156,7 +156,7 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
 
             for (int i = 0; i < textLayout.lineCount(); ++i){
                 auto currentLine = textLayout.lineAt(i);
-                stream << textLayout.text().midRef(currentLine.textStart(), currentLine.textLength()) << Qt::endl;
+                stream << textLayout.text().mid(currentLine.textStart(), currentLine.textLength()) << Qt::endl;
             }
 
             msgLabel->setText(wrappedMsg);

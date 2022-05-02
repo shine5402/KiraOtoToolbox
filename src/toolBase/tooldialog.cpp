@@ -46,7 +46,7 @@ ToolDialog::ToolDialog(ToolDialogAdapter* adapter, QWidget *parent) :
     //askOtoData callback handle
     connect(optionWidget, &ToolOptionWidget::askOtoData, optionWidget, [this](int askId){
          if (isSingleMode())
-             optionWidget->askOtoDataCallback(askId, QVector({ui->otoLoadWidget->getEntryList()}));
+             optionWidget->askOtoDataCallback(askId, QList({ui->otoLoadWidget->getEntryList()}));
          else
              optionWidget->askOtoDataCallback(askId, ui->otoMultipleLoadWidget->entryLists());
     });

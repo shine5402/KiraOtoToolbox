@@ -81,7 +81,7 @@ bool ReplaceRulesMultiLineEditorDialog::isValid() const
     auto targetData = ui->targetPatternEdit->toPlainText().split("\n");
     auto strategyData = ui->strategyEdit->toPlainText().split("\n");
 
-    if (fplus::unique(QVector{matchData.count(), targetData.count(), strategyData.count()}).count() != 1)
+    if (fplus::unique(QList{matchData.count(), targetData.count(), strategyData.count()}).count() != 1)
         return false;
     if (!fplus::reduce([](bool lhs, bool rhs)->bool{
                       return lhs && rhs;

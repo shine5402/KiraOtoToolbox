@@ -20,7 +20,7 @@ void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
     Q_ASSERT(behaviorCopy ^ behaviorReplace);
 
     resultOtoList = srcOtoList;
-    QMutableVectorIterator it(resultOtoList);
+    QMutableListIterator it(resultOtoList);
     while (it.hasNext()){
         auto curr = it.next();
         auto matched = false;

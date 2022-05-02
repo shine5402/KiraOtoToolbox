@@ -407,8 +407,8 @@ QStringList OtoEntryFunctions::getPitchStringRange(const QString& bottomPitch, c
         return {};
 
     bool bottomOctaveConvertOk, topOctaveConvertOk;
-    auto bottomOctave = bottomPitch.midRef(1).toInt(&bottomOctaveConvertOk);
-    auto topOctave = topPitch.midRef(1).toInt(&topOctaveConvertOk);
+    auto bottomOctave = bottomPitch.mid(1).toInt(&bottomOctaveConvertOk);
+    auto topOctave = topPitch.mid(1).toInt(&topOctaveConvertOk);
 
     if (!(bottomOctaveConvertOk && topOctaveConvertOk))
         return {};

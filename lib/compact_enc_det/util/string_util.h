@@ -18,9 +18,9 @@
 #define UTIL_STRING_UTIL_H_
 
 #include <string.h>
-
+#undef strcasecmp
+#undef strncasecmp
 namespace base {
-
 #if defined(_WIN32)
 // Compare the two strings s1 and s2 without regard to case using
 // the current locale; returns 0 if they are equal, 1 if s1 > s2, and -1 if

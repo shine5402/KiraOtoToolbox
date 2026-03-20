@@ -1,5 +1,5 @@
 #include "replacerule.h"
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 #include "utils/misc/misc.h"
 #include "qjsonarray.h"
 #include <QRegularExpression>

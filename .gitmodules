@@ -1,0 +1,4 @@
+[submodule "src/3rdparty/kfr"]
+	path = src/3rdparty/kfr
+	url = git@github.com:shine5402/kfr.git
+	branch = kirawavtar

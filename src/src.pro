@@ -24,6 +24,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    otoUtils/otoentry.cpp \
+    otoUtils/otofilereader.cpp \
+    3rdparty/diff-match-patch/diff_match_patch.cpp \
+    utils/darkmode.cpp \
+    utils/filesystem.cpp \
+    utils/stringfunc.cpp \
+    utils/updatechecker.cpp \
+    utils/dialogs/listviewdialog.cpp \
+    utils/dialogs/showdiffdialog.cpp \
+    utils/dialogs/showhtmldialog.cpp \
+    utils/dialogs/tableviewdialog.cpp \
+    utils/i18n/translation.cpp \
+    utils/i18n/translationmanager.cpp \
+    utils/widgets/atleastonecheckedbuttongroup.cpp \
+    utils/widgets/dirnameeditwithbrowse.cpp \
+    utils/widgets/filenameeditwithbrowse.cpp \
+    utils/widgets/misc.cpp \
+    utils/widgets/qballontip.cpp \
+    utils/widgets/stringlistmodifywidget.cpp \
     chain/chaindialogadapter.cpp \
     chain/chaininvaliddialogadapter.cpp \
     chain/chainotolistmodifyworker.cpp \
@@ -120,6 +139,30 @@ SOURCES += \
     vowelCrossfading/vowelcrossfadingotolistmodifyworker.cpp
 
 HEADERS += \
+    otoUtils/otoentry.h \
+    otoUtils/otofilereader.h \
+    3rdparty/diff-match-patch/diff_match_patch.h \
+    3rdparty/mapbox/eternal.hpp \
+    utils/base64.h \
+    utils/darkmode.h \
+    utils/filesystem.h \
+    utils/setoperations.h \
+    utils/stringfunc.h \
+    utils/updatechecker.h \
+    utils/dialogs/listviewdialog.h \
+    utils/dialogs/showdiffdialog.h \
+    utils/dialogs/showhtmldialog.h \
+    utils/dialogs/tableviewdialog.h \
+    utils/i18n/translation.h \
+    utils/i18n/translationmanager.h \
+    utils/lib_helper/fplus_qt_adapter.h \
+    utils/lib_helper/kfr_helper.h \
+    utils/widgets/atleastonecheckedbuttongroup.h \
+    utils/widgets/dirnameeditwithbrowse.h \
+    utils/widgets/filenameeditwithbrowse.h \
+    utils/widgets/misc.h \
+    utils/widgets/qballontip.h \
+    utils/widgets/stringlistmodifywidget.h \
     chain/chaindialogadapter.h \
     chain/chainelement.h \
     chain/chaininvaliddialogadapter.h \
@@ -217,6 +260,10 @@ HEADERS += \
 
 
 FORMS += \
+    utils/dialogs/showdiffdialog.ui \
+    utils/dialogs/showhtmldialog.ui \
+    utils/widgets/filenameeditwithbrowse.ui \
+    utils/widgets/stringlistmodifywidget.ui \
     convertPlusMinusRight/convertplusminusrightoptionwidget.ui \
     copyOrReplaceByAlias/copyorreplacebyaliasoptionwidget.ui \
     jsScript/javascripttooloptionwidget.ui \

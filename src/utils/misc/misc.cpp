@@ -1,8 +1,8 @@
 #include "misc.h"
 #include <QDialog>
-#include <kira/dialogs/showdiffdialog.h>
+#include "utils/dialogs/showdiffdialog.h"
 #include <utils/models/otolistshowvaluechangemodel.h>
-#include <kira/dialogs/tableviewdialog.h>
+#include "utils/dialogs/tableviewdialog.h"
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"

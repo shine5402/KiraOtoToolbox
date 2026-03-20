@@ -3,13 +3,13 @@
 #include <QMessageBox>
 #include <QSaveFile>
 #include <QTextStream>
-#include <kira/dialogs/showdiffdialog.h>
+#include "utils/dialogs/showdiffdialog.h"
 #include <utils/models/otolistshowvaluechangemodel.h>
-#include <kira/dialogs/tableviewdialog.h>
+#include "utils/dialogs/tableviewdialog.h"
 #include <QTimer>
 #include <utils/dialogs/showotolistdialog.h>
 #include "utils/misc/misc.h"
-#include <kira/widgets/misc.h>
+#include "utils/widgets/misc.h"
 #include "presetwidgetcontainer.h"
 
 

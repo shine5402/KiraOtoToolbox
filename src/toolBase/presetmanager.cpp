@@ -1,7 +1,7 @@
 #include "presetmanager.h"
 #include <QStandardPaths>
 #include <QDir>
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QCoreApplication>

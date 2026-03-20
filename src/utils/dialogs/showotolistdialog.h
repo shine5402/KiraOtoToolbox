@@ -2,9 +2,9 @@
 #define SHOWOTOLISTDIALOG_H
 
 #include <QDialog>
-#include <OtoUtil/otoentry.h>
+#include "otoUtils/otoentry.h"
 #include "../models/otolistmodel.h"
-#include <kira/dialogs/tableviewdialog.h>
+#include "utils/dialogs/tableviewdialog.h"
 #include <QDialogButtonBox>
 
 class ShowOtoListDialog : public TableViewDialog

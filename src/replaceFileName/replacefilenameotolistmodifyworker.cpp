@@ -1,8 +1,8 @@
 #include "replacefilenameotolistmodifyworker.h"
 #include "utils/misc/misc.h"
 #include "utils/widgets/replacerule.h"
-#include <kira/lib_helper/fplus_qt_adapter.h>
-#include <kira/dialogs/tableviewdialog.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
+#include "utils/dialogs/tableviewdialog.h"
 #include "filenamereplacemaptablemodel.h"
 #include <QTextStream>
 

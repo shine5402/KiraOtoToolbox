@@ -1,7 +1,7 @@
 #include "replacerulesmultilineeditordialog.h"
 #include "ui_replacerulesmultilineeditordialog.h"
 #include <QScrollBar>
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 #include <QMessageBox>
 
 ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *parent) :

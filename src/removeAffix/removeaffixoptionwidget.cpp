@@ -1,9 +1,9 @@
 #include "removeaffixoptionwidget.h"
 #include "ui_removeaffixoptionwidget.h"
-#include <kira/widgets/atleastonecheckedbuttongroup.h>
-#include <OtoUtil/otoentry.h>
+#include "utils/widgets/atleastonecheckedbuttongroup.h"
+#include "otoUtils/otoentry.h"
 #include <QJsonArray>
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 
 RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),

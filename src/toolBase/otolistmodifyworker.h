@@ -2,7 +2,7 @@
 #define OTOPROCESSOR_H
 
 #include <QObject>
-#include <OtoUtil/otoentry.h>
+#include "otoUtils/otoentry.h"
 #include "optioncontainer.h"
 #include "toolexception.h"
 #include <QDialog>

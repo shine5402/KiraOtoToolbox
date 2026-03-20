@@ -1,9 +1,9 @@
 #include "convertplusminusrightotolistmodifyworker.h"
 #include "utils/misc/misc.h"
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 #include <QDir>
 #include <QFileInfo>
-#include <kira/lib_helper/kfr_helper.h>
+#include "utils/lib_helper/kfr_helper.h"
 #include <QTextEncoder>
 #include <QTextDecoder>
 #include <memory>

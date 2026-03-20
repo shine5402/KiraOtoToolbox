@@ -2,7 +2,7 @@
 #include "ui_otofileloadwidget.h"
 
 #include <QMessageBox>
-#include <OtoUtil/otofilereader.h>
+#include "otoUtils/otofilereader.h"
 #include "../dialogs/showotolistdialog.h"
 #include <utils/misc/misc.h>
 

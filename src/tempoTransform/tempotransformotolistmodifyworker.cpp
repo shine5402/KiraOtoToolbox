@@ -1,5 +1,5 @@
 #include "tempotransformotolistmodifyworker.h"
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 
 TempoTransformOtoListModifyWorker::TempoTransformOtoListModifyWorker(QObject *parent)
     : OtoListModifyWorker{parent}

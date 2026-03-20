@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QVariant>
-#include "OtoUtil/otoentry.h"
+#include "otoUtils/otoentry.h"
 #include "optioncontainer.h"
 #include <QJsonObject>
 
@@ -50,7 +50,7 @@ public:
     OptionContainer jsonToOptions(const QJsonObject& json) const override;
 };
 
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 #define getStringListFromJSONObject(jsonObj, key) QStringList(fplus::transform([](QVariant value)->QString{return value.toString();}, jsonObj.value(key).toArray().toVariantList()))
 
 #endif // TOOLOPTIONWIDGET_H

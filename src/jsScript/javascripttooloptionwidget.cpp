@@ -1,5 +1,5 @@
 #include "javascripttooloptionwidget.h"
-#include "kira/darkmode.h"
+#include "utils/darkmode.h"
 #include "ui_javascripttooloptionwidget.h"
 #include <QScrollBar>
 #include <QTextStream>

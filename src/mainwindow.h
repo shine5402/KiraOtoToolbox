@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <kira/darkmode.h>
+#include "utils/darkmode.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE

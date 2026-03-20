@@ -4,10 +4,10 @@
 #include "presetmanager.h"
 #include <QMessageBox>
 #include <QInputDialog>
-#include <kira/widgets/qballontip.h>
+#include "utils/widgets/qballontip.h"
 #include <QFileDialog>
 #include <QJsonDocument>
-#include <kira/i18n/translationmanager.h>
+#include "utils/i18n/translationmanager.h"
 
 namespace {
     const auto dirtyFlag = QStringLiteral("[*] ");

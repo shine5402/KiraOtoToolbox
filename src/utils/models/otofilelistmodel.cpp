@@ -1,5 +1,5 @@
 #include "otofilelistmodel.h"
-#include <kira/lib_helper/fplus_qt_adapter.h>
+#include "utils/lib_helper/fplus_qt_adapter.h"
 
 OtoFileListModel::OtoFileListModel(QObject *parent)
     : QAbstractTableModel(parent)

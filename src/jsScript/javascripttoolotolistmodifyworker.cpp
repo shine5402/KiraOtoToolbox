@@ -1,11 +1,11 @@
 #include "javascripttoolotolistmodifyworker.h"
-#include "kira/dialogs/showhtmldialog.h"
-#include "kira/dialogs/tableviewdialog.h"
+#include "utils/dialogs/showhtmldialog.h"
+#include "utils/dialogs/tableviewdialog.h"
 #include "replaceFileName/filenamereplacemaptablemodel.h"
 #include "utils/misc/misc.h"
 #include <QJSEngine>
 #include <QDir>
-#include <kira/lib_helper/kfr_helper.h>
+#include "utils/lib_helper/kfr_helper.h"
 
 
 

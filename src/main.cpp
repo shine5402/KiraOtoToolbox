@@ -4,7 +4,7 @@
 #include "initFuncs.h"
 #include <QSplashScreen>
 #include <QLocale>
-#include <kira/darkmode.h>
+#include "utils/darkmode.h"
 #include <QFontDatabase>
 
 int main(int argc, char *argv[])

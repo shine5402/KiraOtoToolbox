@@ -13,10 +13,10 @@
 #include <QGroupBox>
 #include <QDesktopServices>
 #include <QUrl>
-#include <kira/i18n/translationmanager.h>
+#include "utils/i18n/translationmanager.h"
 #include <QSettings>
-#include <kira/darkmode.h>
-#include <kira/updatechecker.h>
+#include "utils/darkmode.h"
+#include "utils/updatechecker.h"
 
 void MainWindow::setArgInfoBlock()
 {

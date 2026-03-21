@@ -129,7 +129,7 @@ void MainWindow::createToolSelectorUI()
 
     connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup, [toolButtonGroup, this](QAbstractButton* button){
         auto tools = ToolManager::getManager()->getTools();
-        auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), this);
+        auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), nullptr);
         dialog->setAttribute(Qt::WA_DeleteOnClose, true);
         dialog->open();
     });

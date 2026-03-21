@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "utils/darkmode.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -39,7 +38,6 @@ private:
 
 private slots:
     void showAboutDialog();
-    void fitUIToDarkMode(DarkMode::Mode curr);
     // QWidget interface
 protected:
     void changeEvent(QEvent*) override;

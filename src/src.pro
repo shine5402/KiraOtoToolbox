@@ -27,7 +27,6 @@ SOURCES += \
     otoUtils/otoentry.cpp \
     otoUtils/otofilereader.cpp \
     3rdparty/diff-match-patch/diff_match_patch.cpp \
-    utils/darkmode.cpp \
     utils/filesystem.cpp \
     utils/stringfunc.cpp \
     utils/updatechecker.cpp \
@@ -144,7 +143,6 @@ HEADERS += \
     3rdparty/diff-match-patch/diff_match_patch.h \
     3rdparty/mapbox/eternal.hpp \
     utils/base64.h \
-    utils/darkmode.h \
     utils/filesystem.h \
     utils/setoperations.h \
     utils/stringfunc.h \

@@ -1,5 +1,4 @@
 #include "javascripttooloptionwidget.h"
-#include "utils/darkmode.h"
 #include "ui_javascripttooloptionwidget.h"
 #include <QScrollBar>
 #include <QTextStream>
@@ -13,8 +12,7 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent) :
     ui->setupUi(this);
 
     auto lineNumPalette = ui->lineNumberTextEdit->palette();
-    auto lineNumBg = DarkMode::getCurrentMode() == DarkMode::LIGHT ? lineNumPalette.color(QPalette::Base).darker(110) : lineNumPalette.color(QPalette::Base).lighter();
-    lineNumPalette.setColor(QPalette::Base, lineNumBg);
+    lineNumPalette.setColor(QPalette::Base, lineNumPalette.color(QPalette::Base).darker(110));
     ui->lineNumberTextEdit->setPalette(lineNumPalette);
 
     auto lineNumVScrollBar = ui->lineNumberTextEdit->verticalScrollBar();

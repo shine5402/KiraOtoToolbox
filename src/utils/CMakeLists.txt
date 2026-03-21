@@ -1,6 +1,5 @@
 # Core utility files (absorbed from KiraCommonUtils)
 target_sources(KiraOtoToolbox PRIVATE
-    darkmode.cpp darkmode.h
     filesystem.cpp filesystem.h
     stringfunc.cpp stringfunc.h
     updatechecker.cpp updatechecker.h

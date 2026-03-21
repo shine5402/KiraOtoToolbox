@@ -15,7 +15,6 @@
 #include <QUrl>
 #include "utils/i18n/translationmanager.h"
 #include <QSettings>
-#include "utils/darkmode.h"
 #include "utils/updatechecker.h"
 
 void MainWindow::setArgInfoBlock()
@@ -70,12 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //create language menu
     ui->langButton->setMenu(TranslationManager::getManager()->getI18nMenu());
-
-    //darkMode
-    ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());
-    auto darkModeObserver = DarkMode::getObserver();
-    connect(darkModeObserver, &DarkMode::Observer::darkModeChanged, this, &MainWindow::fitUIToDarkMode);
-    fitUIToDarkMode(DarkMode::getCurrentMode());
 
     //Help menu
     auto helpMenu = createHelpMenu();
@@ -221,28 +214,6 @@ files in the program, then also delete it here.</p>
 }
 
 
-void MainWindow::fitUIToDarkMode(DarkMode::Mode curr)
-{
-    if (curr == DarkMode::LIGHT)
-    {
-        ui->logoLabel->setPixmap(QPixmap(":/logo/light"));
-        ui->argIconLabel->setPixmap(QPixmap(":/icon/console"));
-        auto argInfoPalette = QPalette();
-        argInfoPalette.setColor(QPalette::WindowText, QColor("#004970"));
-        argInfoPalette.setColor(QPalette::Text, QColor("#004970"));
-        ui->argInfoLabel->setPalette(argInfoPalette);
-    }
-    else
-    {
-        ui->logoLabel->setPixmap(QPixmap(":/logo/dark"));
-        ui->argIconLabel->setPixmap(QPixmap(":/icon/console_dark"));
-        auto argInfoPalette = QPalette();
-        argInfoPalette.setColor(QPalette::WindowText, QColor("#9fe1ff"));
-        argInfoPalette.setColor(QPalette::Text, QColor("#9fe1ff"));
-        ui->argInfoLabel->setPalette(argInfoPalette);
-    }
-}
-
 void MainWindow::changeEvent(QEvent* event)
 {
     if (event->type() == QEvent::LanguageChange)
@@ -250,7 +221,6 @@ void MainWindow::changeEvent(QEvent* event)
         ui->retranslateUi(this);
         createToolSelectorUI();
         setArgInfoBlock();
-        ui->uiThemeButton->setMenu(DarkMode::getDarkModeSettingMenu());//trigger a text reset
         ui->helpButton->menu()->deleteLater();
         ui->helpButton->setMenu(createHelpMenu());
     }

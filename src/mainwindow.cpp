@@ -16,6 +16,7 @@
 #include "utils/i18n/translationmanager.h"
 #include <QSettings>
 #include "utils/updatechecker.h"
+#include "utils/widgets/svgwidget.h"
 
 void MainWindow::setArgInfoBlock()
 {
@@ -61,6 +62,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
+
+    // Replace the placeholder logoLabel with an SvgWidget that handles
+    // HiDPI rendering and dark/light mode switching automatically.
+    auto *logoWidget = new SvgWidget(QStringLiteral(":/logo/light"), QStringLiteral(":/logo/dark"), this);
+    logoWidget->setFixedHeight(48);
+    auto *logoLayout = qobject_cast<QHBoxLayout*>(ui->logoLabel->parentWidget()->layout());
+    if (!logoLayout)
+        logoLayout = qobject_cast<QHBoxLayout*>(ui->logoLabel->parent()->findChild<QHBoxLayout*>());
+    if (logoLayout) {
+        logoLayout->replaceWidget(ui->logoLabel, logoWidget);
+    }
+    ui->logoLabel->hide();
+    ui->logoLabel->deleteLater();
 
     setArgInfoBlock();
 

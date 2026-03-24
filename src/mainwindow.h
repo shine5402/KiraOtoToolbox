@@ -10,6 +10,7 @@ QT_END_NAMESPACE
 class Translation;
 class QButtonGroup;
 class QGroupBox;
+class SvgWidget;
 
 namespace UpdateChecker {
     class GithubReleaseChecker;

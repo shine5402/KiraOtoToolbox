@@ -70,9 +70,6 @@
             <property name="text">
              <string/>
             </property>
-            <property name="pixmap">
-             <pixmap resource="resources/logo/logo.qrc">:/logo/light</pixmap>
-            </property>
            </widget>
           </item>
           <item>

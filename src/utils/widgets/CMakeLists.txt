@@ -18,5 +18,6 @@ target_sources(KiraOtoToolbox PRIVATE
     replacerulesmodel.cpp replacerulesmodel.h
     replacerulesmultilineeditordialog.cpp replacerulesmultilineeditordialog.h replacerulesmultilineeditordialog.ui
     replaceruleswidget.cpp replaceruleswidget.h replaceruleswidget.ui
+    svgwidget.cpp svgwidget.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

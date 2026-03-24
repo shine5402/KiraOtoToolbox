@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Gui Widgets Concurrent Network Qml LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Gui Widgets Concurrent Network Qml Svg LinguistTools)
 
 qt_standard_project_setup(
     I18N_SOURCE_LANGUAGE en

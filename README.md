@@ -6,7 +6,7 @@ A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank label
 
 ## Basic Workflow
 
-![workflow](rm-img/workflow.gif)
+![workflow](docs/images/workflow.gif)
 
 1. Choose the tool you want to use
 2. Load oto.ini file to process (you can drag file into path input)
@@ -15,7 +15,7 @@ A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank label
 
 ## Tools
 
-![](rm-img/tools.png)
+![](docs/images/tools.png)
 
 KiraOtoToolbox comes with a set of tools to fit certain needs in oto's editing.
 
@@ -98,13 +98,13 @@ You can also write your own code with the tool "Javascript scripting" when our t
 
 ### Preset system
 
-![](rm-img/preset-system.gif)
+![](docs/images/preset-system.gif)
 
 All tools in KiraOtoToolbox can have presets, and a bunch of them comes with some handy built-in ones. You can also export your preset and import others' ones.
 
 ### Process a batch of files
 
-![](rm-img/batch-mode.gif)
+![](docs/images/batch-mode.gif)
 
 You can switch to the batch mode in the tool and process multiple files with the same options. Combined with "Perform multiple actions" tool, it can be very fast and powerful.
 
@@ -112,19 +112,19 @@ By the way, you can drag a batch of file into path input in batch mode.
 
 ### Control decimal precision on saving
 
-![](rm-img/decimal-precision.png)
+![](docs/images/decimal-precision.png)
 
 You can control decimal precision for fields in saving options.
 
 ### Encoding detecting
 
-![](rm-img/encoding-detect.png)
+![](docs/images/encoding-detect.png)
 
 You may have oto.ini that is not saved using Shift-JIS (they should, but some programs don't get it). KiraOtoToolbox will detect them when loading and tell you to read using their actual encoding.
 
 ### Drop-on-program/setParam support
 
-![](rm-img/cli-param.png)
+![](docs/images/cli-param.png)
 
 ...or it should be called as "CLI parameter mode". When opened with paths in CLI parameter, KiraOtoToolbox will use them as input path automatically. You can drag files on KiraOtoToolbox to trigger this.
 
@@ -132,19 +132,19 @@ setParam has support to pass file path to its plugins. The plugin.txt to support
 
 ### Dark mode
 
-![](rm-img/dark-mode.gif)
+![](docs/images/dark-mode.gif)
 
 You can switch between light/dark ui mode.
 
 ### i18n support
 
-![](rm-img/i18n.gif)
+![](docs/images/i18n.gif)
 
 KiraOtoToolbox can be translated into languages. Currently, only English and Simplified Chinese are present.
 
 ### Check update
 
-![](rm-img/check-update.png)
+![](docs/images/check-update.png)
 
 KiraOtoToolbox will check if their is new version automatically.
 

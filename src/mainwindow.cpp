@@ -42,15 +42,15 @@ QMenu* MainWindow::createHelpMenu()
     auto aboutQtAction = helpMenu->addAction(tr("About Qt"));
     connect(aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
     helpMenu->addSeparator();
-    helpMenu->addMenu(UpdateChecker::createMenuForSchedule());
+    helpMenu->addAction(UpdateChecker::createAutoCheckAction());
     auto checkUpdateAction = helpMenu->addAction(tr("Check update now"));
     connect(checkUpdateAction, &QAction::triggered, this, [this](){
-        UpdateChecker::checkManully(updateChecker);
+        UpdateChecker::checkManually(updateChecker);
     });
     helpMenu->addSeparator();
-    auto feedbackAction = helpMenu->addAction(tr("Provide feedback"));
-    connect(feedbackAction, &QAction::triggered, this, [](){
-        QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/Shine5402OtoToolBox/issues"});
+    auto homepageAction = helpMenu->addAction(tr("Project homepage"));
+    connect(homepageAction, &QAction::triggered, this, [](){
+        QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/KiraOtoToolbox"});
     });
 
     return helpMenu;
@@ -74,7 +74,6 @@ MainWindow::MainWindow(QWidget *parent)
         logoLayout->replaceWidget(ui->logoLabel, logoWidget);
     }
     ui->logoLabel->hide();
-    ui->logoLabel->deleteLater();
 
     setArgInfoBlock();
 
@@ -95,13 +94,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateChecker = new UpdateChecker::GithubReleaseChecker("shine5402", "KiraOtoToolbox", this);
     UpdateChecker::triggerScheduledCheck(updateChecker);
-#ifndef NDEBUG
-    auto debugAction = new QAction("Debug", this);
-    connect(debugAction, &QAction::triggered, debugAction, [](){
-
-    });
-    helpMenu->addAction(debugAction);
-#endif
 }
 
 void MainWindow::createToolSelectorUI()

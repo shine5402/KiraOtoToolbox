@@ -1,5 +1,5 @@
 #include "javascripttoolotolistmodifyworker.h"
-#include "utils/dialogs/showhtmldialog.h"
+#include "utils/dialogs/commonhtmldialog.h"
 #include "utils/dialogs/tableviewdialog.h"
 #include "replaceFileName/filenamereplacemaptablemodel.h"
 #include "utils/misc/misc.h"
@@ -97,7 +97,7 @@ QVector<OtoListModifyWorker::ConfirmMsg> JavaScriptToolOtoListModifyWorker::getC
 
     //console output
     if (!consoleOutput.isEmpty()){
-        auto dialog = new ShowHTMLDialog;
+        auto dialog = new CommonHtmlDialog;
         dialog->setMarkdown(consoleOutput);
         dialog->setLabel(tr("Console output when running script:"));
         dialog->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);

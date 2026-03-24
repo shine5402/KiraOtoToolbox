@@ -1,56 +1,97 @@
 #include "utils/i18n/translationmanager.h"
+
+#include <QAction>
 #include <QCoreApplication>
 #include <QDir>
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
-#include "utils/lib_helper/fplus_qt_adapter.h"
-#include <QAction>
-#include <QObject>
 #include <QSettings>
+#include <algorithm>
 
-TranslationManager* TranslationManager::instance = nullptr;
+using namespace Qt::StringLiterals;
 
-TranslationManager* TranslationManager::getManager()
+TranslationManager *TranslationManager::s_instance = nullptr;
+
+TranslationManager *TranslationManager::getManager()
 {
-    if (!instance)
-        instance = new TranslationManager;
-    return instance;
+    if (!s_instance)
+        s_instance = new TranslationManager;
+    return s_instance;
 }
 
 TranslationManager::TranslationManager()
 {
-    auto metaFilePath = QDir{qApp->applicationDirPath()}.filePath("translations/translations.json");
-    auto metaFile = QFile{metaFilePath};
-    if (!metaFile.open(QFile::Text | QFile::ReadOnly))
-        return;
-    auto metaFileContent = metaFile.readAll();
-    auto array = QJsonDocument::fromJson(metaFileContent).array();
-    translations = fplus::keep_if([](const Translation& elem)->bool{
-        return elem.isValid();
-    }, fplus::transform([](const QJsonValue& value)->Translation{
-        auto tr = Translation::fromJson(value.toObject());
-        tr.setTranslationFilenames(fplus::transform([](const QString& fileName)->QString{
-            return QDir{qApp->applicationDirPath()}.filePath("translations/" + fileName);
-        },
-        tr.translationFilenames()));
-        return tr;
-    }, array));
+    // Enumerate available translations from the resource folder.
+    // qt_add_translations() embeds .qm files as resources under :/i18n/.
+    QDir i18nDir(":/i18n");
+    QStringList qmFiles = i18nDir.entryList(QStringList() << "KiraOtoToolbox_*.qm", QDir::Files);
 
-    getTranslationFor(getLocaleUserSetting()).install();
+    for (const QString &fileName : qmFiles) {
+        // Extract locale string from filename (e.g., "KiraOtoToolbox_zh_CN.qm" -> "zh_CN")
+        QString localeName = fileName;
+        localeName.remove("KiraOtoToolbox_").remove(".qm");
+
+        QLocale locale(localeName);
+        if (locale.language() != QLocale::C) {
+            m_supportedLocales.append(locale);
+        }
+    }
+
+    // Install user's preferred translation
+    installTranslation(getLocaleUserSetting());
 }
 
-void TranslationManager::setLangActionChecked(QMenu* i18nMenu, const Translation& translation) const
+QList<QLocale> TranslationManager::supportedLocales() const
 {
-    auto actions = i18nMenu->actions();
-    for (auto action : qAsConst(actions)){
-        auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
-        action->setChecked(currTr == translation);
+    return m_supportedLocales;
+}
+
+QLocale TranslationManager::currentLocale() const
+{
+    return m_currentLocale;
+}
+
+bool TranslationManager::installTranslation(const QLocale &locale)
+{
+    // Remove previous translator if any
+    if (m_translator) {
+        qApp->removeTranslator(m_translator);
+        delete m_translator;
+        m_translator = nullptr;
+    }
+
+    // If locale is not in supported list (or is default English), keep English
+    bool isSupported = std::ranges::any_of(m_supportedLocales,
+                                           [&locale](const QLocale &l) { return l.language() == locale.language(); });
+
+    if (!isSupported) {
+        m_currentLocale = QLocale(QLocale::English);
+        return true;
+    }
+
+    // Load translation from embedded resources at :/i18n
+    m_translator = new QTranslator(qApp);
+    if (m_translator->load(locale, u"KiraOtoToolbox"_s, u"_"_s, u":/i18n"_s)) {
+        qApp->installTranslator(m_translator);
+        m_currentLocale = locale;
+        return true;
+    } else {
+        qDebug() << "Failed to load translation for locale:" << locale.bcp47Name();
+        delete m_translator;
+        m_translator = nullptr;
+        m_currentLocale = QLocale(QLocale::English);
+        return false;
     }
 }
 
-void TranslationManager::saveUserLocaleSetting(QLocale locale) const
+void TranslationManager::setLangActionChecked(QMenu *i18nMenu, const QLocale &locale) const
+{
+    auto actions = i18nMenu->actions();
+    for (auto action : std::as_const(actions)) {
+        auto actionLocale = action->data().value<QLocale>();
+        action->setChecked(actionLocale == locale);
+    }
+}
+
+void TranslationManager::saveUserLocaleSetting(const QLocale &locale) const
 {
     QSettings settings;
     settings.setValue("locale", locale);
@@ -62,66 +103,37 @@ QLocale TranslationManager::getLocaleUserSetting() const
     return settings.value("locale", QLocale::system()).value<QLocale>();
 }
 
-QVector<Translation> TranslationManager::getTranslations() const
+QMenu *TranslationManager::getI18nMenu()
 {
-    return translations;
-}
+    if (m_i18nMenu)
+        return m_i18nMenu;
 
-Translation TranslationManager::getTranslation(int i) const
-{
-    if (i == -1)
-        return {};
-    return translations.at(i);
-}
+    m_i18nMenu = new QMenu("Language");
 
+    // Add supported translations
+    for (const auto &locale : std::as_const(m_supportedLocales)) {
+        auto getActionText = [&](const QLocale &loc) {
+            if (loc.language() == QLocale::English) {
+                return QStringLiteral("English (%1) (%2)")
+                    .arg(QLocale::territoryToString(loc.territory()), loc.bcp47Name());
+            }
+            return QStringLiteral("%1 [%2] (%3)")
+                .arg(QLocale::languageToString(loc.language()), loc.nativeLanguageName(), loc.bcp47Name());
+        };
 
-Translation TranslationManager::getTranslationFor(const QLocale& locale) const
-{
-    return fplus::get_just_or_default(fplus::find_first_by([&locale](const Translation& translation)->bool{
-        return translation.locale() == locale;
-    }, translations));
-}
-
-int TranslationManager::getCurrentInstalledTranslationID() const
-{
-    auto result = fplus::find_first_idx_by([](const Translation& elem)->bool{
-        return elem == Translation::getCurrentInstalled();
-    }, translations);
-    return result.is_just() ? result.unsafe_get_just() : -1;
-}
-
-Translation TranslationManager::getCurrentInstalled() const
-{
-    return Translation::getCurrentInstalled();
-}
-
-QMenu* TranslationManager::getI18nMenu()
-{
-    if (i18nMenu)
-        return i18nMenu;
-
-    auto translations = TranslationManager::getManager()->getTranslations();
-    i18nMenu = new QMenu("Language");
-    auto defaultLang = new QAction("English, built-in", i18nMenu);
-    defaultLang->setData(-1);
-    defaultLang->setCheckable(true);
-    i18nMenu->addAction(defaultLang);
-
-    for (auto i = 0; i < translations.count(); ++i)
-    {
-        auto l = translations.at(i);
-        auto langAction = new QAction(QLatin1String("%1 (%2), by %3").arg(QLocale::languageToString(l.locale().language()),l.locale().bcp47Name(),l.author()), i18nMenu);
-        langAction->setData(i);
+        auto langAction = new QAction(getActionText(locale), m_i18nMenu);
+        langAction->setData(QVariant::fromValue(locale));
         langAction->setCheckable(true);
-        i18nMenu->addAction(langAction);
+        m_i18nMenu->addAction(langAction);
     }
-    QObject::connect(i18nMenu, &QMenu::triggered, i18nMenu, [this](QAction* action){
-        auto translation = getTranslation(action->data().toInt());
-        translation.install();
-        setLangActionChecked(i18nMenu, translation);
-        saveUserLocaleSetting(translation.locale());
+
+    QObject::connect(m_i18nMenu, &QMenu::triggered, m_i18nMenu, [this](QAction *action) {
+        auto locale = action->data().value<QLocale>();
+        installTranslation(locale);
+        setLangActionChecked(m_i18nMenu, locale);
+        saveUserLocaleSetting(locale);
     });
 
-    setLangActionChecked(i18nMenu, getCurrentInstalled());
-    return i18nMenu;
+    setLangActionChecked(m_i18nMenu, m_currentLocale);
+    return m_i18nMenu;
 }

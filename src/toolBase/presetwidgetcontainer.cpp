@@ -291,7 +291,7 @@ void PresetWidgetContainer::reloadComboBoxItems()
     //Get presets and put their name into combobox
     ui->presetComboBox->addItems(fplus::transform([this](const Preset& preset)->QString{
         //So for built-in presets, it will show like "Preset 1 [Built-in]"
-        return tr("%1%2").arg(preset.getI18nName(Translation::getCurrentInstalled().locale()), PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]") : "");
+        return tr("%1%2").arg(preset.getI18nName(TranslationManager::getManager()->currentLocale()), PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]") : "");
     }, PresetManager::getManager()->presets(targetName())).toList());
     //ui->presetComboBox->setCurrentText(currPreset.name);
 }

@@ -23,10 +23,8 @@ add_tool_test(test_chain
     ${CMAKE_SOURCE_DIR}/src/utils/i18n/TranslationManager.cpp
     ${CMAKE_SOURCE_DIR}/src/utils/misc/MiscUtils.cpp
     ${CMAKE_SOURCE_DIR}/src/utils/misc/Misc.cpp
-    ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch/diff_match_patch.cpp
-)
+    )
 
-target_include_directories(test_chain PRIVATE
-    ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch
-)
+target_link_libraries(test_chain PRIVATE dtl)
+
 target_link_libraries(test_chain PRIVATE compact_enc_det)

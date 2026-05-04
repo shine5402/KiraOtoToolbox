@@ -611,7 +611,7 @@ along with this program.  If not, see &lt;a href=&quot;https://www.gnu.org/licen
 &lt;ul&gt;
 &lt;li&gt;Qt %2, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.kfrlib.com/&quot;&gt;KFR - Fast, modern C++ DSP framework&lt;/a&gt;, under GNU GPL v2+&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/cubicdaiya/dtl&quot;&gt;dtl (Diff Template Library)&lt;/a&gt;, Copyright (c) 2015 Tatsuhiko Kubo, under the BSD 3-Clause License&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/compact_enc_det&quot;&gt;compact_enc_det&lt;/a&gt;, Copyright 2016 Google Inc., under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waqar144/QSourceHighlite&quot;&gt;QSourceHighlite&lt;/a&gt;, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License&lt;/li&gt;
@@ -643,7 +643,7 @@ along with this program.  If not, see &lt;a href=&quot;https://www.gnu.org/licen
 &lt;ul&gt;
 &lt;li&gt;Qt %2, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.kfrlib.com/&quot;&gt;KFR - Fast, modern C++ DSP framework&lt;/a&gt;, under GNU GPL v2+&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/cubicdaiya/dtl&quot;&gt;dtl (Diff Template Library)&lt;/a&gt;, Copyright (c) 2015 Tatsuhiko Kubo, under the BSD 3-Clause License&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/compact_enc_det&quot;&gt;compact_enc_det&lt;/a&gt;, Copyright 2016 Google Inc., under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waqar144/QSourceHighlite&quot;&gt;QSourceHighlite&lt;/a&gt;, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License&lt;/li&gt;

@@ -36,13 +36,9 @@ target_include_directories(QSourceHighlite PUBLIC ${LIB_ROOT}/QSourceHighlite/in
 target_link_libraries(QSourceHighlite PRIVATE Qt6::Core Qt6::Gui)
 set_target_properties(QSourceHighlite PROPERTIES AUTOMOC ON)
 
-# diff-match-patch (text diff library)
-add_library(diff_match_patch STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/diff-match-patch/diff_match_patch.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/diff-match-patch/diff_match_patch.h
-)
-target_include_directories(diff_match_patch PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/diff-match-patch)
-target_link_libraries(diff_match_patch PRIVATE Qt6::Core)
+# dtl (Diff Template Library) — header-only line diff
+add_library(dtl INTERFACE)
+target_include_directories(dtl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/dtl)
 
 # mapbox/eternal.hpp (header-only compile-time map)
 add_library(mapbox_eternal INTERFACE)

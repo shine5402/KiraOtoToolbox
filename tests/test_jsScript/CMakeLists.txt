@@ -16,7 +16,6 @@ add_tool_test(test_jsScript
     ${CMAKE_SOURCE_DIR}/src/utils/widgets/QBalloonTip.cpp
     ${CMAKE_SOURCE_DIR}/src/utils/i18n/TranslationManager.cpp
     ${CMAKE_SOURCE_DIR}/src/replaceFileName/FileNameReplaceMapTableModel.cpp
-    ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch/diff_match_patch.cpp
     ${CMAKE_SOURCE_DIR}/src/toolBase/ToolManager.cpp
     ${CMAKE_SOURCE_DIR}/src/toolBase/ToolDialogAdapter.cpp
     ${CMAKE_SOURCE_DIR}/src/toolBase/ToolException.cpp
@@ -29,10 +28,10 @@ add_tool_test(test_jsScript
 )
 
 target_include_directories(test_jsScript PRIVATE
-    ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch
     ${CMAKE_SOURCE_DIR}/src/3rdparty
 )
 target_link_libraries(test_jsScript PRIVATE
+    dtl
     compact_enc_det
     QSourceHighlite
     kfr kfr_dsp kfr_io

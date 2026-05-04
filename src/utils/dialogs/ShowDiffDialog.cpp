@@ -6,7 +6,64 @@
 #include <QMessageBox>
 #include <QtConcurrent/QtConcurrent>
 
-#include "3rdparty/diff-match-patch/diff_match_patch.h"
+#include <dtl/dtl.hpp>
+
+#include <string>
+#include <vector>
+
+namespace {
+
+enum Operation { DELETE, INSERT, EQUAL };
+
+struct Diff {
+    Operation operation;
+    QString text;
+};
+
+QList<Diff> computeLineDiff(const QString &source, const QString &result)
+{
+    const QStringList srcLines = source.split(QChar{u'\n'});
+    const QStringList resLines = result.split(QChar{u'\n'});
+
+    std::vector<std::string> srcStrs;
+    std::vector<std::string> resStrs;
+    srcStrs.reserve(srcLines.size());
+    resStrs.reserve(resLines.size());
+    for (const auto &line : srcLines)
+        srcStrs.push_back(line.toStdString());
+    for (const auto &line : resLines)
+        resStrs.push_back(line.toStdString());
+
+    dtl::Diff<std::string> d(srcStrs, resStrs);
+    d.compose();
+
+    QList<Diff> diffs;
+    for (const auto &sesElem : d.getSes().getSequence()) {
+        Operation op;
+        switch (sesElem.second.type) {
+        case dtl::SES_ADD:
+            op = INSERT;
+            break;
+        case dtl::SES_DELETE:
+            op = DELETE;
+            break;
+        default:
+            op = EQUAL;
+            break;
+        }
+
+        QString text = QString::fromStdString(sesElem.first) + QChar{u'\n'};
+
+        if (!diffs.isEmpty() && diffs.last().operation == op) {
+            diffs.last().text += text;
+        } else {
+            diffs.append({op, text});
+        }
+    }
+    return diffs;
+}
+
+} // namespace
 
 ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString &title, const QString &message,
                                QDialogButtonBox::StandardButtons standardButtons, QWidget *parent)
@@ -61,9 +118,7 @@ void ShowDiffDialog::startDiffCalc()
 
     bool isLightTheme = palette().color(QPalette::Window).lightness() > 128;
     auto future = QtConcurrent::run([&, isLightTheme]() -> QString { // returns diff's prettyHtml
-        diff_match_patch dmp;
-        // TODO:Use a parameter to determine which mode should be used
-        auto diff = dmp.diff_lineMode(source, result, std::numeric_limits<clock_t>::max());
+        auto diff = computeLineDiff(source, result);
         auto prettyHtml = [isLightTheme](const auto &diffs) -> auto {
             QString html;
             QString text;

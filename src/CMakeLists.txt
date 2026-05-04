@@ -1,7 +1,7 @@
 add_subdirectory(3rdparty)
 
 qt_add_executable(KiraOtoToolbox
-    Main.cpp
+    main.cpp
     InitFuncs.cpp InitFuncs.h
     MainWindow.cpp MainWindow.h MainWindow.ui
 )
@@ -70,7 +70,13 @@ if(WIN32)
 endif()
 
 if(APPLE)
+    set(app_icon "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon/appIcon.icns")
+    target_sources(KiraOtoToolbox PRIVATE "${app_icon}")
+    set_source_files_properties("${app_icon}" PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
     set_target_properties(KiraOtoToolbox PROPERTIES
+        MACOSX_BUNDLE_ICON_FILE "appIcon.icns"
         MACOSX_BUNDLE_GUI_IDENTIFIER "top.shine5402.KiraOtoToolbox"
     )
 endif()

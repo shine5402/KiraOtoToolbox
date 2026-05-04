@@ -1,13 +1,13 @@
 #include "JavaScriptToolOptionWidget.h"
 #include "ui_JavaScriptToolOptionWidget.h"
+
 #include <QScrollBar>
 #include <QTextStream>
-#include <qsourcehighliter.h>
 #include <QtDebug>
+#include <qsourcehighliter.h>
 
-JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::JavaScriptToolOptionWidget)
+JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::JavaScriptToolOptionWidget)
 {
     ui->setupUi(this);
 
@@ -23,7 +23,8 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent) :
     connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &JavaScriptToolOptionWidget::refillLineNumbers);
     connect(ui->jsTextEdit, &QPlainTextEdit::cursorPositionChanged, this, &JavaScriptToolOptionWidget::syncCursors);
 
-    highlighter = new QSourceHighlite::QSourceHighliter(ui->jsTextEdit->document(), QSourceHighlite::QSourceHighliter::Monokai);
+    highlighter =
+        new QSourceHighlite::QSourceHighliter(ui->jsTextEdit->document(), QSourceHighlite::QSourceHighliter::Monokai);
     highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeJs);
 
     auto font = QFont("Jetbrains Mono");
@@ -32,7 +33,7 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent) :
     ui->jsTextEdit->setFont(font);
     qDebug() << "Actual Monospace font" << QFontInfo(font).family();
 
-    ui->jsTextEdit->setTabStopDistance(ui->jsTextEdit->fontMetrics().horizontalAdvance("    "));//4 space
+    ui->jsTextEdit->setTabStopDistance(ui->jsTextEdit->fontMetrics().horizontalAdvance("    ")); // 4 space
 
     connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ToolOptionWidget::userSettingsChanged);
@@ -48,7 +49,7 @@ void JavaScriptToolOptionWidget::refillLineNumbers()
     QString content;
     QTextStream stream(&content);
     auto count = ui->jsTextEdit->document()->blockCount();
-    for (auto i = 1; i <= count; ++i){
+    for (auto i = 1; i <= count; ++i) {
         stream << i;
         if (i < count)
             stream << Qt::endl;
@@ -64,12 +65,10 @@ void JavaScriptToolOptionWidget::refillLineNumbers()
 void JavaScriptToolOptionWidget::syncCursors()
 {
     auto cursor = ui->lineNumberTextEdit->textCursor();
-    cursor.setPosition(ui->lineNumberTextEdit->document()->findBlockByNumber(
-                           ui->jsTextEdit->textCursor().blockNumber()
-                           ).position());
+    cursor.setPosition(
+        ui->lineNumberTextEdit->document()->findBlockByNumber(ui->jsTextEdit->textCursor().blockNumber()).position());
     ui->lineNumberTextEdit->setTextCursor(cursor);
 }
-
 
 OptionContainer JavaScriptToolOptionWidget::getOptions() const
 {
@@ -81,14 +80,14 @@ OptionContainer JavaScriptToolOptionWidget::getOptions() const
     return options;
 }
 
-void JavaScriptToolOptionWidget::setOptions(const OptionContainer& options)
+void JavaScriptToolOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->jsTextEdit->document()->setPlainText(options.getOption("script").toString());
     syncCursors();
     ui->interpretBySystemEncodingCheckBox->setChecked(options.getOption("interpretBySystemEncoding").toBool());
 }
 
-QJsonObject JavaScriptToolOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject JavaScriptToolOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
@@ -98,7 +97,7 @@ QJsonObject JavaScriptToolOptionWidget::optionsToJson(const OptionContainer& opt
     return json;
 }
 
-OptionContainer JavaScriptToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer JavaScriptToolOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

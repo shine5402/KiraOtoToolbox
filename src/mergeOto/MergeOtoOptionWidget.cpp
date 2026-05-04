@@ -1,9 +1,7 @@
 #include "MergeOtoOptionWidget.h"
 #include "ui_MergeOtoOptionWidget.h"
 
-MergeOtoOptionWidget::MergeOtoOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::MergeOtoOptionWidget)
+MergeOtoOptionWidget::MergeOtoOptionWidget(QWidget *parent) : ToolOptionWidget(parent), ui(new Ui::MergeOtoOptionWidget)
 {
     ui->setupUi(this);
 
@@ -15,7 +13,6 @@ MergeOtoOptionWidget::~MergeOtoOptionWidget()
 {
     delete ui;
 }
-
 
 OptionContainer MergeOtoOptionWidget::getOptions() const
 {
@@ -36,37 +33,44 @@ OptionContainer MergeOtoOptionWidget::getOptions() const
     return result;
 }
 
-void MergeOtoOptionWidget::setOptions(const OptionContainer& options)
+void MergeOtoOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->otherOtoLoadWidget->reset();
     auto otherOtoLoaded = options.getOption("otherOtoLoaded").toBool();
-    if (otherOtoLoaded){
+    if (otherOtoLoaded) {
         auto otherOtoFileName = options.getOption("otherOtoFileName").toString();
         auto otherOtoList = options.getOption("otherOtoList").value<OtoEntryList>();
         ui->otherOtoLoadWidget->pretendLoaded(otherOtoFileName, otherOtoList);
     }
-    auto mergeStrtegy = (MergeStrategy) options.getOption("mergeStrategy", Replace).toInt();
+    auto mergeStrtegy = (MergeStrategy)options.getOption("mergeStrategy", Replace).toInt();
 
-    switch (mergeStrtegy){
-    case Replace: ui->replaceButton->setChecked(true);break;
-    case Skip: ui->skipButton->setChecked(true);break;
-    case KeepAll: ui->keepAllButton->setChecked(true);break;
-    default: Q_UNREACHABLE();
+    switch (mergeStrtegy) {
+    case Replace:
+        ui->replaceButton->setChecked(true);
+        break;
+    case Skip:
+        ui->skipButton->setChecked(true);
+        break;
+    case KeepAll:
+        ui->keepAllButton->setChecked(true);
+        break;
+    default:
+        Q_UNREACHABLE();
     }
 }
 
-QJsonObject MergeOtoOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject MergeOtoOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
-    auto mergeStrtegy = (MergeStrategy) options.getOption("mergeStrategy", Replace).toInt();
+    auto mergeStrtegy = (MergeStrategy)options.getOption("mergeStrategy", Replace).toInt();
     jsonObj.insert("mergeStrtegy", mergeStrtegy);
     return jsonObj;
 }
 
-OptionContainer MergeOtoOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer MergeOtoOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer result;
-    auto mergeStrtegy = (MergeStrategy) json.value("mergeStrategy").toInt(Replace);
+    auto mergeStrtegy = (MergeStrategy)json.value("mergeStrategy").toInt(Replace);
     result.setOption("mergeStrtegy", mergeStrtegy);
     return result;
 }

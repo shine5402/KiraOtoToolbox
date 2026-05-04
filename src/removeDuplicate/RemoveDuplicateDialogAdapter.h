@@ -2,6 +2,7 @@
 #define REMOVEDUPLICATEDIALOGADAPTER_H
 
 #include <QWidget>
+
 #include "toolBase/ToolDialogAdapter.h"
 
 class RemoveDuplicateDialogAdapter : public ToolDialogAdapter

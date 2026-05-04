@@ -2,9 +2,11 @@
 #define OTOFILELISTDIFFMODEL_H
 
 #include <QAbstractTableModel>
+
 #include "otoUtils/OtoEntry.h"
 
-struct OtoFileInfoWithPrevious{
+struct OtoFileInfoWithPrevious
+{
     QString fileName;
     OtoEntryList entryList;
     OtoEntryList previousEntryList;
@@ -27,16 +29,16 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     QVector<OtoFileInfoWithPrevious> datas() const;
-    void setDatas(const QVector<OtoFileInfoWithPrevious>& datas);
+    void setDatas(const QVector<OtoFileInfoWithPrevious> &datas);
 
-    void addData(const QString& fileName, const OtoEntryList& entryList, const OtoEntryList& previousEntryList);
+    void addData(const QString &fileName, const OtoEntryList &entryList, const OtoEntryList &previousEntryList);
     void deleteData(int index);
     void reset();
 
 private:
     QVector<OtoFileInfoWithPrevious> m_datas;
     const QStringList headerList = {tr("Path"), tr("Current oto entry count"), tr("Previous oto entry count")};
-    enum Columns{FileName, Count, PreCount};
+    enum Columns { FileName, Count, PreCount };
 };
 
 #endif // OTOFILELISTDIFFMODEL_H

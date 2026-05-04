@@ -7,9 +7,9 @@ class SetAliasOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE SetAliasOtoListModifyWorker(QObject* parent = nullptr);
-    void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
+    Q_INVOKABLE SetAliasOtoListModifyWorker(QObject *parent = nullptr);
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
+                const OptionContainer &options) override;
 };
 
 #endif // SETALIASOTOLISTMODIFYWORKER_H

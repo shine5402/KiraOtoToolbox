@@ -1,7 +1,8 @@
 #include "ChainStepsModel.h"
+
 #include "toolBase/ToolDialogAdapter.h"
 
-ChainStepsModel::ChainStepsModel(const QVector<ChainElement>& steps, QObject *parent)
+ChainStepsModel::ChainStepsModel(const QVector<ChainElement> &steps, QObject *parent)
     : QAbstractListModel(parent), steps(steps)
 {
 }
@@ -21,9 +22,8 @@ QVariant ChainStepsModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole)
-    {
-        if (index.row() < steps.count()){
+    if (role == Qt::DisplayRole) {
+        if (index.row() < steps.count()) {
             return steps.at(index.row()).toolName();
         }
     }
@@ -35,7 +35,7 @@ int ChainStepsModel::stepCount() const
     return steps.count();
 }
 
-void ChainStepsModel::addStep(const ChainElement& step)
+void ChainStepsModel::addStep(const ChainElement &step)
 {
     beginInsertRows(QModelIndex{}, steps.count(), steps.count());
     steps.append(step);
@@ -51,7 +51,7 @@ void ChainStepsModel::removeStep(int index)
 
 void ChainStepsModel::moveUpStep(int index)
 {
-    if (index > 0){
+    if (index > 0) {
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index - 1);
         std::swap(steps[index], steps[index - 1]);
         endMoveRows();
@@ -60,24 +60,24 @@ void ChainStepsModel::moveUpStep(int index)
 
 void ChainStepsModel::moveDownStep(int index)
 {
-    if (index < steps.count() - 1){
+    if (index < steps.count() - 1) {
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index + 2);
         std::swap(steps[index], steps[index + 1]);
         endMoveRows();
     }
 }
 
-const ChainElement& ChainStepsModel::getStep(int index) const
+const ChainElement &ChainStepsModel::getStep(int index) const
 {
     return steps.at(index);
 }
 
-void ChainStepsModel::setStep(int index, const ChainElement& value)
+void ChainStepsModel::setStep(int index, const ChainElement &value)
 {
     steps[index] = value;
 }
 
-void ChainStepsModel::setStepOptions(int index, const OptionContainer& value)
+void ChainStepsModel::setStepOptions(int index, const OptionContainer &value)
 {
     steps[index].options = value;
 }
@@ -87,7 +87,7 @@ QVector<ChainElement> ChainStepsModel::getSteps() const
     return steps;
 }
 
-void ChainStepsModel::setSteps(const QVector<ChainElement>& value)
+void ChainStepsModel::setSteps(const QVector<ChainElement> &value)
 {
     beginResetModel();
     steps = value;

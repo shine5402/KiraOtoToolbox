@@ -2,7 +2,7 @@
 #define NOTDOANYTHINGOPTIONWIDGET_H
 
 #include "toolBase/ToolOptionWidget.h"
-//TODO:migrate with emptyoptionwidget?
+// TODO:migrate with emptyoptionwidget?
 class NotDoAnythingOptionWidget : public ToolOptionWidget
 {
     Q_OBJECT
@@ -12,10 +12,10 @@ public:
     // ToolOptionWidget interface
 public:
     OptionContainer getOptions() const override;
-    void setOptions(const OptionContainer& options) override;
+    void setOptions(const OptionContainer &options) override;
 
-    QJsonObject optionsToJson(const OptionContainer& options) const override;
-    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    QJsonObject optionsToJson(const OptionContainer &options) const override;
+    OptionContainer jsonToOptions(const QJsonObject &json) const override;
     int optionJsonVersion() const override;
 };
 

@@ -1,19 +1,16 @@
 #include "OtoFileListWithPreviousModel.h"
 
-OtoFileListWithPreviousModel::OtoFileListWithPreviousModel(QObject *parent)
-    : QAbstractTableModel(parent)
+OtoFileListWithPreviousModel::OtoFileListWithPreviousModel(QObject *parent) : QAbstractTableModel(parent)
 {
 }
 
 QVariant OtoFileListWithPreviousModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    {
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         return headerList.at(section);
     }
 
-    if (orientation == Qt::Vertical && role == Qt::DisplayRole)
-    {
+    if (orientation == Qt::Vertical && role == Qt::DisplayRole) {
         return QString::number(section + 1);
     }
     return {};
@@ -40,18 +37,17 @@ QVariant OtoFileListWithPreviousModel::data(const QModelIndex &index, int role) 
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole){
-        if (index.column() == Columns::FileName){
+    if (role == Qt::DisplayRole) {
+        if (index.column() == Columns::FileName) {
             return m_datas.at(index.row()).fileName;
         }
-        if (index.column() == Columns::Count){
+        if (index.column() == Columns::Count) {
             return m_datas.at(index.row()).entryList.count();
         }
-        if (index.column() == Columns::PreCount){
+        if (index.column() == Columns::PreCount) {
             return m_datas.at(index.row()).previousEntryList.count();
         }
     }
-
 
     return QVariant();
 }
@@ -61,12 +57,13 @@ QVector<OtoFileInfoWithPrevious> OtoFileListWithPreviousModel::datas() const
     return m_datas;
 }
 
-void OtoFileListWithPreviousModel::setDatas(const QVector<OtoFileInfoWithPrevious>& datas)
+void OtoFileListWithPreviousModel::setDatas(const QVector<OtoFileInfoWithPrevious> &datas)
 {
     m_datas = datas;
 }
 
-void OtoFileListWithPreviousModel::addData(const QString& fileName, const OtoEntryList& entryList, const OtoEntryList& previousEntryList)
+void OtoFileListWithPreviousModel::addData(const QString &fileName, const OtoEntryList &entryList,
+                                           const OtoEntryList &previousEntryList)
 {
     beginInsertRows(QModelIndex{}, rowCount(), rowCount());
     m_datas.append(OtoFileInfoWithPrevious{fileName, entryList, previousEntryList});

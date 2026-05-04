@@ -1,31 +1,29 @@
-#include <kira/widgets/misc.h>
-#include <QWidget>
 #include <QLayout>
 #include <QStackedWidget>
+#include <QWidget>
+#include <kira/widgets/misc.h>
 
-void replaceWidget(QLayout* parentLayout, const QString& widgetName, QWidget* newWidget, QWidget* newParent)
+void replaceWidget(QLayout *parentLayout, const QString &widgetName, QWidget *newWidget, QWidget *newParent)
 {
-    auto oldWidget = parentLayout->parentWidget()->findChild<QWidget*>(widgetName);
-    if (oldWidget){
+    auto oldWidget = parentLayout->parentWidget()->findChild<QWidget *>(widgetName);
+    if (oldWidget) {
         newWidget->setParent(newParent ? newParent : parentLayout->parentWidget());
         auto previousWidget = parentLayout->replaceWidget(oldWidget, newWidget);
-        if (previousWidget){
+        if (previousWidget) {
             oldWidget->deleteLater();
             delete previousWidget;
         }
     }
 }
 
-void refreshStackedWidgetSize(QStackedWidget* stackedWidget)
+void refreshStackedWidgetSize(QStackedWidget *stackedWidget)
 {
-    for (int i = 0; i < stackedWidget->count(); i++){
+    for (int i = 0; i < stackedWidget->count(); i++) {
         auto currentWidget = stackedWidget->widget(i);
         auto sizePolicy = currentWidget->sizePolicy();
-        if (i != stackedWidget->currentIndex())
-        {
+        if (i != stackedWidget->currentIndex()) {
             sizePolicy.setVerticalPolicy(QSizePolicy::Ignored);
-        }
-        else{
+        } else {
             sizePolicy.setVerticalPolicy(QSizePolicy::Preferred);
         }
         stackedWidget->widget(i)->setSizePolicy(sizePolicy);

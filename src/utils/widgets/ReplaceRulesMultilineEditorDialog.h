@@ -1,11 +1,11 @@
 #ifndef REPLACERULESMULTILINEEDITORDIALOG_H
 #define REPLACERULESMULTILINEEDITORDIALOG_H
-#include "ReplaceRule.h"
-
 #include <QDialog>
 
+#include "ReplaceRule.h"
+
 namespace Ui {
-    class ReplaceRulesMultiLineEditorDialog;
+class ReplaceRulesMultiLineEditorDialog;
 }
 
 class ReplaceRulesMultiLineEditorDialog : public QDialog

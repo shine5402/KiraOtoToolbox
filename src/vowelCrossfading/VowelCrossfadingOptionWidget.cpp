@@ -1,28 +1,30 @@
 #include "VowelCrossfadingOptionWidget.h"
 #include "ui_VowelCrossfadingOptionWidget.h"
 
-VowelCrossfadingOptionWidget::VowelCrossfadingOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::VowelCrossfadingOptionWidget)
+VowelCrossfadingOptionWidget::VowelCrossfadingOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::VowelCrossfadingOptionWidget)
 {
     ui->setupUi(this);
 
-    connect(ui->CVStringListModifyWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->VStringListModifyWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->LongRecordingPatternStringListModifyWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->CVStringListModifyWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
+    connect(ui->VStringListModifyWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
+    connect(ui->LongRecordingPatternStringListModifyWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->doCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVpreutteranceSpinBox, &QDoubleSpinBox::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVoverlapSpinBox, &QDoubleSpinBox::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVBehavoirButtonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->doVVOverlapIncreaseCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->removeNumberSuffixWhenMatchingCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeNumberSuffixWhenMatchingCheckBox, &QCheckBox::stateChanged, this,
+            &ToolOptionWidget::userSettingsChanged);
 }
 
 VowelCrossfadingOptionWidget::~VowelCrossfadingOptionWidget()
 {
     delete ui;
 }
-
 
 OptionContainer VowelCrossfadingOptionWidget::getOptions() const
 {
@@ -42,7 +44,7 @@ OptionContainer VowelCrossfadingOptionWidget::getOptions() const
     return options;
 }
 
-void VowelCrossfadingOptionWidget::setOptions(const OptionContainer& options)
+void VowelCrossfadingOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->CVStringListModifyWidget->setData(options.getOption("CVList").toStringList());
     ui->VStringListModifyWidget->setData(options.getOption("VList").toStringList());
@@ -53,16 +55,18 @@ void VowelCrossfadingOptionWidget::setOptions(const OptionContainer& options)
     ui->overrideRadioButton->setChecked(options.getOption("CVBehaviourOverride").toBool());
     ui->copyRadioButton->setChecked(options.getOption("CVBehaviourCopy").toBool());
     ui->doVVOverlapIncreaseCheckBox->setChecked(options.getOption("VVOverlapIncrease").toBool());
-    ui->removeNumberSuffixWhenMatchingCheckBox->setChecked(options.getOption("removeNumberSuffixWhenMatching").toBool());
+    ui->removeNumberSuffixWhenMatchingCheckBox->setChecked(
+        options.getOption("removeNumberSuffixWhenMatching").toBool());
 }
 
-QJsonObject VowelCrossfadingOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject VowelCrossfadingOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
     json.insert("CVList", QJsonArray::fromStringList(options.getOption("CVList").toStringList()));
     json.insert("VList", QJsonArray::fromStringList(options.getOption("VList").toStringList()));
-    json.insert("longRecordingPattern", QJsonArray::fromStringList(options.getOption("longRecordingPattern").toStringList()));
+    json.insert("longRecordingPattern",
+                QJsonArray::fromStringList(options.getOption("longRecordingPattern").toStringList()));
     json.insert("doCVCrossfading", options.getOption("doCVCrossfading").toBool());
     json.insert("CVPreUtterance", options.getOption("CVPreUtterance").toDouble());
     json.insert("CVOverlap", options.getOption("CVOverlap").toDouble());
@@ -74,7 +78,7 @@ QJsonObject VowelCrossfadingOptionWidget::optionsToJson(const OptionContainer& o
     return json;
 }
 
-OptionContainer VowelCrossfadingOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer VowelCrossfadingOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

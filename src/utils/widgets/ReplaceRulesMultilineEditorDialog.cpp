@@ -1,12 +1,13 @@
 #include "ReplaceRulesMultilineEditorDialog.h"
 #include "ui_ReplaceRulesMultilineEditorDialog.h"
-#include <QScrollBar>
-#include "utils/lib_helper/FPlusQtAdapter.h"
-#include <QMessageBox>
 
-ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ReplaceRulesMultiLineEditorDialog)
+#include <QMessageBox>
+#include <QScrollBar>
+
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *parent)
+    : QDialog(parent), ui(new Ui::ReplaceRulesMultiLineEditorDialog)
 {
     ui->setupUi(this);
 
@@ -22,7 +23,6 @@ ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *pa
 
     connect(strategyPatternScrollBar, &QScrollBar::valueChanged, matchPatternScrollBar, &QScrollBar::setValue);
     connect(strategyPatternScrollBar, &QScrollBar::valueChanged, targetPatternScrollBar, &QScrollBar::setValue);
-
 }
 
 ReplaceRulesMultiLineEditorDialog::~ReplaceRulesMultiLineEditorDialog()
@@ -40,7 +40,7 @@ QVector<ReplaceRule> ReplaceRulesMultiLineEditorDialog::rules() const
         return {};
 
     QVector<ReplaceRule> result;
-    auto getStrategy = [](const QString& str)->ReplaceRule::MatchStrategy{
+    auto getStrategy = [](const QString &str) -> ReplaceRule::MatchStrategy {
         if (str == "e")
             return ReplaceRule::Exact;
         else if (str == "p")
@@ -50,7 +50,7 @@ QVector<ReplaceRule> ReplaceRulesMultiLineEditorDialog::rules() const
         else
             Q_UNREACHABLE();
     };
-    for (auto i = 0; i < matchData.count(); ++i){
+    for (auto i = 0; i < matchData.count(); ++i) {
         result.append({matchData.at(i), targetData.at(i), getStrategy(strategyData.at(i))});
     }
     return result;
@@ -58,21 +58,29 @@ QVector<ReplaceRule> ReplaceRulesMultiLineEditorDialog::rules() const
 
 void ReplaceRulesMultiLineEditorDialog::setRules(QVector<ReplaceRule> rules)
 {
-    ui->matchPatternEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
-        return rule.matchPattern();
-    }, rules).toList().join("\n"));
-    ui->targetPatternEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
-        return rule.targetPattern();
-    }, rules).toList().join("\n"));
-    ui->strategyEdit->setPlainText(fplus::transform([](const ReplaceRule& rule)->QString{
-        switch (rule.strategy())
-        {
-            case ReplaceRule::Exact: return "e";
-            case ReplaceRule::Partial: return "p";
-            case ReplaceRule::Regex: return "r";
-        }
-        Q_UNREACHABLE();
-    }, rules).toList().join("\n"));
+    ui->matchPatternEdit->setPlainText(
+        fplus::transform([](const ReplaceRule &rule) -> QString { return rule.matchPattern(); }, rules)
+            .toList()
+            .join("\n"));
+    ui->targetPatternEdit->setPlainText(
+        fplus::transform([](const ReplaceRule &rule) -> QString { return rule.targetPattern(); }, rules)
+            .toList()
+            .join("\n"));
+    ui->strategyEdit->setPlainText(fplus::transform(
+                                       [](const ReplaceRule &rule) -> QString {
+                                           switch (rule.strategy()) {
+                                           case ReplaceRule::Exact:
+                                               return "e";
+                                           case ReplaceRule::Partial:
+                                               return "p";
+                                           case ReplaceRule::Regex:
+                                               return "r";
+                                           }
+                                           Q_UNREACHABLE();
+                                       },
+                                       rules)
+                                       .toList()
+                                       .join("\n"));
 }
 
 bool ReplaceRulesMultiLineEditorDialog::isValid() const
@@ -83,21 +91,21 @@ bool ReplaceRulesMultiLineEditorDialog::isValid() const
 
     if (fplus::unique(QList{matchData.count(), targetData.count(), strategyData.count()}).count() != 1)
         return false;
-    if (!fplus::reduce([](bool lhs, bool rhs)->bool{
-                      return lhs && rhs;
-}, true,fplus::transform([](const QString& str)->bool{
-                    return QStringList{"e", "p", "r"}.contains(str);
-}, strategyData)))
+    if (!fplus::reduce(
+            [](bool lhs, bool rhs) -> bool { return lhs && rhs; }, true,
+            fplus::transform([](const QString &str) -> bool { return QStringList{"e", "p", "r"}.contains(str); },
+                             strategyData)))
         return false;
 
     return true;
 }
 
-
 void ReplaceRulesMultiLineEditorDialog::accept()
 {
-    if (!isValid()){
-        QMessageBox::critical(this, {}, tr("The given data is invalid.\nIt may be caused by not identical line count or invalid strategy string.\nPlease check and try again."));
+    if (!isValid()) {
+        QMessageBox::critical(this, {},
+                              tr("The given data is invalid.\nIt may be caused by not identical line count or invalid "
+                                 "strategy string.\nPlease check and try again."));
         return;
     }
     return QDialog::accept();

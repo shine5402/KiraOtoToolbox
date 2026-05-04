@@ -1,37 +1,35 @@
 #ifndef REPLACERULE_H
 #define REPLACERULE_H
 
-#include <QString>
 #include <QCoreApplication>
+#include <QString>
 
 class ReplaceRule
 {
     Q_DECLARE_TR_FUNCTIONS(CopyOrReplaceByAliasRule)
 public:
-    enum MatchStrategy{
-        Exact = 0, Partial, Regex
-    };
+    enum MatchStrategy { Exact = 0, Partial, Regex };
 
     ReplaceRule(QString matchPattern, QString targetPattern, MatchStrategy strategy);
     ReplaceRule();
 
     QString matchPattern() const;
-    void setMatchPattern(const QString& value);
+    void setMatchPattern(const QString &value);
 
     QString targetPattern() const;
-    void setTargetPattern(const QString& value);
+    void setTargetPattern(const QString &value);
 
     MatchStrategy strategy() const;
-    void setStrategy(const MatchStrategy& value);
+    void setStrategy(const MatchStrategy &value);
     static QString getStrategyString(MatchStrategy strategy);
 
-    bool operator==(const ReplaceRule& other) const;
+    bool operator==(const ReplaceRule &other) const;
 
-    bool match(const QString& alias) const;
-    QString replace(const QString& alias) const;
+    bool match(const QString &alias) const;
+    QString replace(const QString &alias) const;
 
-    static QJsonArray rulesToJson(const QVector<ReplaceRule>& rules);
-    static QVector<ReplaceRule> jsonToRules(const QJsonArray& ruleJsonArray);
+    static QJsonArray rulesToJson(const QVector<ReplaceRule> &rules);
+    static QVector<ReplaceRule> jsonToRules(const QJsonArray &ruleJsonArray);
 
 private:
     QString matchPattern_;

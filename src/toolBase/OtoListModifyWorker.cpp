@@ -1,14 +1,16 @@
 #include "OtoListModifyWorker.h"
-#include "utils/models/OtoListModel.h"
-#include "utils/dialogs/ShowOtoListDialog.h"
+
 #include <QMessageBox>
+
+#include "utils/dialogs/ShowOtoListDialog.h"
+#include "utils/models/OtoListModel.h"
 
 OtoListModifyWorker::OtoListModifyWorker(QObject *parent) : QObject(parent)
 {
-
 }
 
-void OtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void OtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                                 OtoEntryList &secondSaveOtoList, const OptionContainer &options)
 {
     Q_UNUSED(srcOtoList)
     Q_UNUSED(resultOtoList)
@@ -30,25 +32,21 @@ QVector<OtoListModifyWorker::ConfirmMsg> OtoListModifyWorker::getConfirmMsgs() c
 
 bool OtoListModifyWorker::isConfirmDialogAccepted(int msgTypeId, int dialogResult) const
 {
-    if (msgTypeId == Dialog){
+    if (msgTypeId == Dialog) {
         return dialogResult == QDialog::Accepted;
     }
-    if (msgTypeId == MessageBox)
-    {
-        return dialogResult == QMessageBox::Ok ||
-                dialogResult == QMessageBox::Open ||
-                dialogResult == QMessageBox::Save ||
-                dialogResult == QMessageBox::SaveAll ||
-                dialogResult == QMessageBox::Yes ||
-                dialogResult == QMessageBox::YesToAll ||
-                dialogResult == QMessageBox::Retry;
+    if (msgTypeId == MessageBox) {
+        return dialogResult == QMessageBox::Ok || dialogResult == QMessageBox::Open ||
+               dialogResult == QMessageBox::Save || dialogResult == QMessageBox::SaveAll ||
+               dialogResult == QMessageBox::Yes || dialogResult == QMessageBox::YesToAll ||
+               dialogResult == QMessageBox::Retry;
     }
     return false;
 }
 
 void OtoListModifyWorker::commit()
 {
-    //Do nothing
+    // Do nothing
 }
 
 int OtoListModifyWorker::ConfirmMsg::typeId() const
@@ -74,7 +72,7 @@ std::shared_ptr<QDialog> OtoListModifyWorker::ConfirmMsg::generateUserDialogFrom
     msgBox->setInformativeText(brief_);
     msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
-    return std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(msgBox));
+    return std::shared_ptr<QDialog>(dynamic_cast<QDialog *>(msgBox));
 }
 
 bool OtoListModifyWorker::ConfirmMsg::isGeneratedUseDialogAccepted(int dialogResult)
@@ -87,12 +85,12 @@ void OtoListModifyWorker::ConfirmMsg::setTypeId(int newTypeId)
     typeId_ = newTypeId;
 }
 
-void OtoListModifyWorker::ConfirmMsg::setBrief(const QString& newBrief)
+void OtoListModifyWorker::ConfirmMsg::setBrief(const QString &newBrief)
 {
     brief_ = newBrief;
 }
 
-void OtoListModifyWorker::ConfirmMsg::setUserDialog(const std::shared_ptr<QDialog>& newUserDialog)
+void OtoListModifyWorker::ConfirmMsg::setUserDialog(const std::shared_ptr<QDialog> &newUserDialog)
 {
     userDialog_ = newUserDialog;
 }

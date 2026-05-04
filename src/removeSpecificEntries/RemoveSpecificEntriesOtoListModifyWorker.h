@@ -7,9 +7,9 @@ class RemoveSpecificEntriesOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit RemoveSpecificEntriesOtoListModifyWorker(QObject* parent = nullptr);
-    void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
+    Q_INVOKABLE explicit RemoveSpecificEntriesOtoListModifyWorker(QObject *parent = nullptr);
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
+                const OptionContainer &options) override;
 };
 
 #endif // REMOVESPECIFICENTRIESOTOLISTMODIFYWORKER_H

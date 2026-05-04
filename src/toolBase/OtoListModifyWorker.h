@@ -1,19 +1,20 @@
 #ifndef OTOPROCESSOR_H
 #define OTOPROCESSOR_H
 
+#include <QDialog>
 #include <QObject>
-#include "otoUtils/OtoEntry.h"
+
 #include "OptionContainer.h"
 #include "ToolException.h"
-#include <QDialog>
+#include "otoUtils/OtoEntry.h"
 
 class OtoListModifyWorker : public QObject
 {
     Q_OBJECT
 public:
     Q_INVOKABLE explicit OtoListModifyWorker(QObject *parent = nullptr);
-    virtual void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList,
-                               const OptionContainer& options);
+    virtual void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
+                        const OptionContainer &options);
 
     /*
      * If you need user to confirm extra things during processing other than save in the end,
@@ -23,10 +24,14 @@ public:
      */
     virtual bool needConfirm() const;
 
-    class ConfirmMsg {
+    class ConfirmMsg
+    {
     public:
-        ConfirmMsg(){};
-        ConfirmMsg(int typeId, QString brief, std::shared_ptr<QDialog> userDialog = {}):typeId_(typeId), brief_(std::move(brief)), userDialog_(std::move(userDialog)){}
+        ConfirmMsg() {};
+        ConfirmMsg(int typeId, QString brief, std::shared_ptr<QDialog> userDialog = {})
+            : typeId_(typeId), brief_(std::move(brief)), userDialog_(std::move(userDialog))
+        {
+        }
         int typeId() const;
         QString brief() const;
         std::shared_ptr<QDialog> userDialog() const;
@@ -35,25 +40,21 @@ public:
         static bool isGeneratedUseDialogAccepted(int dialogResult);
         void setTypeId(int newTypeId);
 
-        void setBrief(const QString& newBrief);
+        void setBrief(const QString &newBrief);
 
-        void setUserDialog(const std::shared_ptr<QDialog>& newUserDialog);
+        void setUserDialog(const std::shared_ptr<QDialog> &newUserDialog);
 
     private:
         int typeId_ = Dialog;
         QString brief_;
         std::shared_ptr<QDialog> userDialog_;
-
     };
     virtual QVector<ConfirmMsg> getConfirmMsgs() const;
-    enum ConfirmMsgTypeId {
-        Dialog = 0, MessageBox
-    };
+    enum ConfirmMsgTypeId { Dialog = 0, MessageBox };
     virtual bool isConfirmDialogAccepted(int msgTypeId, int dialogResult) const;
 
-    virtual void commit();//should save last doWork status in Worker instance itself
-    //TODO: secondSaveUsage
-
+    virtual void commit(); // should save last doWork status in Worker instance itself
+    // TODO: secondSaveUsage
 };
 
 #endif // OTOPROCESSOR_H

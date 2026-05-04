@@ -3,11 +3,10 @@
 PreCenteredChangeValueOtoListModifyWorker::PreCenteredChangeValueOtoListModifyWorker(QObject *parent)
     : OtoListModifyWorker{parent}
 {
-
 }
 
-void PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                                                       OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                                                       OtoEntryList &secondSaveOtoList, const OptionContainer &options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -20,14 +19,14 @@ void PreCenteredChangeValueOtoListModifyWorker::doWork(const OtoEntryList& srcOt
     auto changeRight = options.getOption("changeRight").toBool();
     auto right = options.getOption("right").toDouble();
     resultOtoList = {};
-    for (const auto& entry : srcOtoList){
+    for (const auto &entry : srcOtoList) {
         auto newEntry = entry;
-        if (changePreutterance){
+        if (changePreutterance) {
             auto preDiff = entry.preUtterance() - preutterance;
             auto newLeft = preDiff + entry.left();
             newEntry.setLeft(newLeft >= 0 ? newLeft : entry.left());
             newEntry.setPreUtterance(newLeft >= 0 ? preutterance : entry.preUtterance());
-            //To ensure new const field still have same relative position to pre
+            // To ensure new const field still have same relative position to pre
             newEntry.setConsonant(entry.consonant() - preDiff);
         }
         if (changeConstField)

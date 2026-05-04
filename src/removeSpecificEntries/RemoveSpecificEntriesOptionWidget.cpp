@@ -1,9 +1,8 @@
 #include "RemoveSpecificEntriesOptionWidget.h"
 #include "ui_RemoveSpecificEntriesOptionWidget.h"
 
-RemoveSpecificEntriesOptionWidget::RemoveSpecificEntriesOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::RemoveSpecificEntriesOptionWidget)
+RemoveSpecificEntriesOptionWidget::RemoveSpecificEntriesOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::RemoveSpecificEntriesOptionWidget)
 {
     ui->setupUi(this);
 
@@ -36,20 +35,26 @@ OptionContainer RemoveSpecificEntriesOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveSpecificEntriesOptionWidget::setOptions(const OptionContainer& options)
+void RemoveSpecificEntriesOptionWidget::setOptions(const OptionContainer &options)
 {
-    auto matchStrategy = (MatchStrategy) options.getOption("matchStrategy", Exact).toInt();
-    switch (matchStrategy){
-    case Exact:ui->exactRadioButton->setChecked(true);break;
-    case Partial:ui->partialRadioButton->setChecked(true);break;
-    case Regex:ui->regexRadioButton->setChecked(true);break;
+    auto matchStrategy = (MatchStrategy)options.getOption("matchStrategy", Exact).toInt();
+    switch (matchStrategy) {
+    case Exact:
+        ui->exactRadioButton->setChecked(true);
+        break;
+    case Partial:
+        ui->partialRadioButton->setChecked(true);
+        break;
+    case Regex:
+        ui->regexRadioButton->setChecked(true);
+        break;
     }
 
     ui->patternLineEdit->setText(options.getOption("pattern").toString());
     ui->caseSensitiveCheckBox->setChecked(options.getOption("caseSensitive").toBool());
 }
 
-QJsonObject RemoveSpecificEntriesOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject RemoveSpecificEntriesOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
@@ -60,7 +65,7 @@ QJsonObject RemoveSpecificEntriesOptionWidget::optionsToJson(const OptionContain
     return json;
 }
 
-OptionContainer RemoveSpecificEntriesOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer RemoveSpecificEntriesOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

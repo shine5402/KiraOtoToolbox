@@ -2,11 +2,11 @@
 #define OTOFILEDIRECTSAVEWIDGET_H
 
 #include <QWidget>
+
 #include "OtoFileSaveWidgetAbstract.h"
 
-
 namespace Ui {
-    class OtoFileDirectSaveWidget;
+class OtoFileDirectSaveWidget;
 }
 
 class OtoFileDirectSaveWidget : public OtoFileSaveWidgetAbstract
@@ -26,14 +26,14 @@ private:
 public:
     bool isSecondFileNameAvailable() const;
     void setSecondFileNameAvailable(bool value);
-    void setSecondFileNameCheckBoxText(const QString& text);
+    void setSecondFileNameCheckBoxText(const QString &text);
     QString secondFileNameUsage() const;
-    void setSecondFileNameUsage(const QString& value);
+    void setSecondFileNameUsage(const QString &value);
 
     // OtoFileSaveWidgetAbstract interface
 public:
     OptionContainer getOptions() const;
-    void setOptions(const OptionContainer& options);
+    void setOptions(const OptionContainer &options);
 };
 
 #endif // OTOFILEMULTIPLESAVEWIDGET_H

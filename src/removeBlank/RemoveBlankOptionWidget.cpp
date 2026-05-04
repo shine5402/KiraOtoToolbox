@@ -3,7 +3,7 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 
-RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
+RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget *parent) : ToolOptionWidget(parent)
 {
     ignoreRightCheckBox = new QCheckBox(tr("Ignore negative right value"), this);
     ignoreRightCheckBox->setToolTip(tr("When all value other than right beging 0, see this oto entry as empty."));
@@ -12,7 +12,7 @@ RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget* parent) : ToolOptionWi
 
     auto layout = new QVBoxLayout(this);
 
-    layout->setContentsMargins(0,0,0,0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(ignoreRightCheckBox);
     layout->addStretch();
 
@@ -26,20 +26,19 @@ OptionContainer RemoveBlankOptionWidget::getOptions() const
     return options;
 }
 
-void RemoveBlankOptionWidget::setOptions(const OptionContainer& options)
+void RemoveBlankOptionWidget::setOptions(const OptionContainer &options)
 {
     ignoreRightCheckBox->setChecked(options.getOption("ignoreRight").toBool());
 }
 
-
-QJsonObject RemoveBlankOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject RemoveBlankOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("ignoreRight", options.getOption("ignoreRight").toBool());
     return jsonObj;
 }
 
-OptionContainer RemoveBlankOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer RemoveBlankOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("ignoreRight", json.value("ignoreRight").toBool());

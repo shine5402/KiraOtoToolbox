@@ -1,17 +1,19 @@
 #include "ReplaceRulesModel.h"
 
-ReplaceRulesModel::ReplaceRulesModel(QObject *parent)
-    : QAbstractTableModel(parent)
+ReplaceRulesModel::ReplaceRulesModel(QObject *parent) : QAbstractTableModel(parent)
 {
 }
 
 QVariant ReplaceRulesModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole){
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-            case 0:return tr("Matching pattern");
-            case 1:return tr("Replacing target");
-            case 2:return tr("Matching strategy");
+        case 0:
+            return tr("Matching pattern");
+        case 1:
+            return tr("Replacing target");
+        case 2:
+            return tr("Matching strategy");
         }
     }
 
@@ -39,21 +41,27 @@ QVariant ReplaceRulesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole){
+    if (role == Qt::DisplayRole) {
         auto currentRule = rules.at(index.row());
-        switch (index.column()){
-            case 0:return currentRule.matchPattern();
-            case 1:return currentRule.targetPattern();
-            case 2:return ReplaceRule::getStrategyString(currentRule.strategy());
+        switch (index.column()) {
+        case 0:
+            return currentRule.matchPattern();
+        case 1:
+            return currentRule.targetPattern();
+        case 2:
+            return ReplaceRule::getStrategyString(currentRule.strategy());
         }
     }
 
-    if (role == Qt::EditRole){
+    if (role == Qt::EditRole) {
         auto currentRule = rules.at(index.row());
-        switch (index.column()){
-            case 0:return currentRule.matchPattern();
-            case 1:return currentRule.targetPattern();
-            case 2:return currentRule.strategy();
+        switch (index.column()) {
+        case 0:
+            return currentRule.matchPattern();
+        case 1:
+            return currentRule.targetPattern();
+        case 2:
+            return currentRule.strategy();
         }
     }
 
@@ -63,13 +71,20 @@ QVariant ReplaceRulesModel::data(const QModelIndex &index, int role) const
 bool ReplaceRulesModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (data(index, role) != value) {
-        if (role == Qt::EditRole){
+        if (role == Qt::EditRole) {
             auto currentRule = rules.at(index.row());
             switch (index.column()) {
-                case 0:currentRule.setMatchPattern(value.toString());break;
-                case 1:currentRule.setTargetPattern(value.toString());break;
-                case 2:currentRule.setStrategy((ReplaceRule::MatchStrategy) value.toInt());break;
-                default:return false;
+            case 0:
+                currentRule.setMatchPattern(value.toString());
+                break;
+            case 1:
+                currentRule.setTargetPattern(value.toString());
+                break;
+            case 2:
+                currentRule.setStrategy((ReplaceRule::MatchStrategy)value.toInt());
+                break;
+            default:
+                return false;
             }
             rules[index.row()] = currentRule;
             emit dataChanged(index, index);
@@ -84,7 +99,7 @@ Qt::ItemFlags ReplaceRulesModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    return Qt::ItemIsEditable | Qt::ItemNeverHasChildren |Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    return Qt::ItemIsEditable | Qt::ItemNeverHasChildren | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
 QVector<ReplaceRule> ReplaceRulesModel::getRules() const
@@ -92,14 +107,14 @@ QVector<ReplaceRule> ReplaceRulesModel::getRules() const
     return rules;
 }
 
-void ReplaceRulesModel::setRules(const QVector<ReplaceRule>& value)
+void ReplaceRulesModel::setRules(const QVector<ReplaceRule> &value)
 {
     beginResetModel();
     rules = value;
     endResetModel();
 }
 
-void ReplaceRulesModel::appendRule(const ReplaceRule& rule)
+void ReplaceRulesModel::appendRule(const ReplaceRule &rule)
 {
     beginInsertRows({}, rules.count(), rules.count());
 
@@ -123,7 +138,7 @@ bool ReplaceRulesModel::removeRule(int index)
 
 void ReplaceRulesModel::moveUpRule(int index)
 {
-    if (index > 0){
+    if (index > 0) {
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index - 1);
         std::swap(rules[index], rules[index - 1]);
         endMoveRows();
@@ -132,7 +147,7 @@ void ReplaceRulesModel::moveUpRule(int index)
 
 void ReplaceRulesModel::moveDownRule(int index)
 {
-    if (index < rules.count() - 1){
+    if (index < rules.count() - 1) {
         beginMoveRows(QModelIndex{}, index, index, QModelIndex{}, index + 2);
         std::swap(rules[index], rules[index + 1]);
         endMoveRows();

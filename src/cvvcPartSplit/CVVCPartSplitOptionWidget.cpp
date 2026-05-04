@@ -1,18 +1,21 @@
 #include "CVVCPartSplitOptionWidget.h"
 #include "ui_CVVCPartSplitOptionWidget.h"
+
 #include <QJsonArray>
+
 #include "utils/lib_helper/FPlusQtAdapter.h"
 
-CVVCPartSplitOptionWidget::CVVCPartSplitOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::CVVCPartSplitOptionWidget)
+CVVCPartSplitOptionWidget::CVVCPartSplitOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::CVVCPartSplitOptionWidget)
 {
     ui->setupUi(this);
 
     connect(ui->seeBeginPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->seeBeginPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeBeginPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->seeEndPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->seeEndPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeEndPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->copyCVtoStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
@@ -32,7 +35,7 @@ OptionContainer CVVCPartSplitOptionWidget::getOptions() const
     return options;
 }
 
-void CVVCPartSplitOptionWidget::setOptions(const OptionContainer& options)
+void CVVCPartSplitOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->seeBeginPatternAsCVCheckBox->setChecked(options.getOption("isSeeBeginPatternAsCV").toBool());
     ui->seeBeginPatternAsCVContentWidget->setData(options.getOption("seeBeginPatternAsCVContent").toStringList());
@@ -41,19 +44,20 @@ void CVVCPartSplitOptionWidget::setOptions(const OptionContainer& options)
     ui->copyCVtoStartOtoCheckBox->setChecked(options.getOption("copyCVtoStartOto").toBool());
 }
 
-
-QJsonObject CVVCPartSplitOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject CVVCPartSplitOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("isSeeBeginPatternAsCV", options.getOption("isSeeBeginPatternAsCV").toBool());
-    jsonObj.insert("seeBeginPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeBeginPatternAsCVContent").toStringList()));
+    jsonObj.insert("seeBeginPatternAsCVContent",
+                   QJsonArray::fromStringList(options.getOption("seeBeginPatternAsCVContent").toStringList()));
     jsonObj.insert("isSeeEndPatternAsCV", options.getOption("isSeeEndPatternAsCV").toBool());
-    jsonObj.insert("seeEndPatternAsCVContent", QJsonArray::fromStringList(options.getOption("seeEndPatternAsCVContent").toStringList()));
+    jsonObj.insert("seeEndPatternAsCVContent",
+                   QJsonArray::fromStringList(options.getOption("seeEndPatternAsCVContent").toStringList()));
     jsonObj.insert("copyCVtoStartOto", options.getOption("copyCVtoStartOto").toBool());
     return jsonObj;
 }
 
-OptionContainer CVVCPartSplitOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer CVVCPartSplitOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("isSeeBeginPatternAsCV", json.value("isSeeBeginPatternAsCV").toBool());

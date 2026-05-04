@@ -1,13 +1,14 @@
 #include "RemoveAffixOptionWidget.h"
 #include "ui_RemoveAffixOptionWidget.h"
-#include "utils/widgets/AtLeastOneCheckedButtonGroup.h"
-#include "otoUtils/OtoEntry.h"
-#include <QJsonArray>
-#include "utils/lib_helper/FPlusQtAdapter.h"
 
-RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::RemoveAffixOptionWidget)
+#include <QJsonArray>
+
+#include "otoUtils/OtoEntry.h"
+#include "utils/lib_helper/FPlusQtAdapter.h"
+#include "utils/widgets/AtLeastOneCheckedButtonGroup.h"
+
+RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::RemoveAffixOptionWidget)
 {
     ui->setupUi(this);
     auto group = new AtLeastOneCheckedButtonGroup(this);
@@ -21,12 +22,16 @@ RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent) :
     connect(ui->ignorePitchSuffixCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->pitchPrefixCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->pitchSuffixCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->bottomPitchComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->bottomPitchSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->topPitchComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->bottomPitchComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
+    connect(ui->bottomPitchSpinBox, qOverload<int>(&QSpinBox::valueChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
+    connect(ui->topPitchComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->topPitchSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->pitchCaseSensitiveCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->pitchCaseComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->pitchCaseComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
 }
 
 RemoveAffixOptionWidget::~RemoveAffixOptionWidget()
@@ -47,15 +52,19 @@ OptionContainer RemoveAffixOptionWidget::getOptions() const
     options.setOption("removePitchPrefix", ui->pitchPrefixCheckBox->isChecked());
     options.setOption("removePitchSuffix", ui->pitchSuffixCheckBox->isChecked());
 
-    options.setOption("bottomPitch", QString("%1%2").arg(ui->bottomPitchComboBox->currentText()).arg(ui->bottomPitchSpinBox->value()));
-    options.setOption("topPitch", QString("%1%2").arg(ui->topPitchComboBox->currentText()).arg(ui->topPitchSpinBox->value()));
-    options.setOption("pitchCaseSensitive",ui->pitchCaseSensitiveCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-    options.setOption("pitchCase", ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
+    options.setOption("bottomPitch",
+                      QString("%1%2").arg(ui->bottomPitchComboBox->currentText()).arg(ui->bottomPitchSpinBox->value()));
+    options.setOption("topPitch",
+                      QString("%1%2").arg(ui->topPitchComboBox->currentText()).arg(ui->topPitchSpinBox->value()));
+    options.setOption("pitchCaseSensitive",
+                      ui->pitchCaseSensitiveCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+    options.setOption("pitchCase",
+                      ui->pitchCaseComboBox->currentIndex() == 0 ? OtoEntryFunctions::Upper : OtoEntryFunctions::Lower);
 
     return options;
 }
 
-void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
+void RemoveAffixOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->specificPrefixCheckBox->setChecked(options.getOption("removePrefix").toBool());
     ui->prefixListWidget->setData(options.getOption("prefixList").toStringList());
@@ -71,15 +80,16 @@ void RemoveAffixOptionWidget::setOptions(const OptionContainer& options)
     auto topPitch = options.getOption("topPitch", "C7").toString();
 
     ui->bottomPitchComboBox->setCurrentText(bottomPitch.at(0));
-    ui->bottomPitchSpinBox->setValue(bottomPitch.mid(1,1).toInt());
+    ui->bottomPitchSpinBox->setValue(bottomPitch.mid(1, 1).toInt());
     ui->topPitchComboBox->setCurrentText(topPitch.at(0));
-    ui->topPitchSpinBox->setValue(topPitch.mid(1,1).toInt());
+    ui->topPitchSpinBox->setValue(topPitch.mid(1, 1).toInt());
 
-    ui->pitchCaseSensitiveCheckBox->setChecked(options.getOption("pitchCaseSensitive").value<Qt::CaseSensitivity>() == Qt::CaseSensitive  ? true : false);
+    ui->pitchCaseSensitiveCheckBox->setChecked(
+        options.getOption("pitchCaseSensitive").value<Qt::CaseSensitivity>() == Qt::CaseSensitive ? true : false);
     ui->pitchCaseComboBox->setCurrentIndex(options.getOption("pitchCase").toInt());
 }
 
-QJsonObject RemoveAffixOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject RemoveAffixOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("removePrefix", options.getOption("removePrefix").toBool());
@@ -96,7 +106,7 @@ QJsonObject RemoveAffixOptionWidget::optionsToJson(const OptionContainer& option
     return jsonObj;
 }
 
-OptionContainer RemoveAffixOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer RemoveAffixOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("removePrefix", json.value("removePrefix").toBool());

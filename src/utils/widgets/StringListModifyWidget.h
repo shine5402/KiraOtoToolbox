@@ -1,11 +1,11 @@
 #ifndef STRINGLISTMODIFYWIDGET_H
 #define STRINGLISTMODIFYWIDGET_H
 
-#include <QWidget>
 #include <QStringListModel>
+#include <QWidget>
 
 namespace Ui {
-    class StringListModifyWidget;
+class StringListModifyWidget;
 }
 
 class StringListModifyWidget : public QWidget
@@ -16,14 +16,15 @@ public:
     ~StringListModifyWidget();
 
     QStringList getData() const;
-    void setData(const QStringList& value);
+    void setData(const QStringList &value);
 
 protected:
-    void changeEvent(QEvent* event) override;
+    void changeEvent(QEvent *event) override;
+
 private:
     Ui::StringListModifyWidget *ui;
 
-    QStringListModel* model = new QStringListModel();
+    QStringListModel *model = new QStringListModel();
 
 private slots:
     void addRow();

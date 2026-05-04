@@ -1,17 +1,16 @@
 #include "utils/dialogs/ShowDiffDialog.h"
 #include "ui_ShowDiffDialog.h"
+
 #include <QFuture>
 #include <QFutureWatcher>
-#include <QtConcurrent/QtConcurrent>
-#include "3rdparty/diff-match-patch/diff_match_patch.h"
 #include <QMessageBox>
+#include <QtConcurrent/QtConcurrent>
 
-ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& title,
-                               const QString& message, QDialogButtonBox::StandardButtons standardButtons,
-                               QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ShowDiffDialog),
-    source(std::move(source)), result(std::move(result))
+#include "3rdparty/diff-match-patch/diff_match_patch.h"
+
+ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString &title, const QString &message,
+                               QDialogButtonBox::StandardButtons standardButtons, QWidget *parent)
+    : QDialog(parent), ui(new Ui::ShowDiffDialog), source(std::move(source)), result(std::move(result))
 {
     ui->setupUi(this);
 
@@ -23,13 +22,12 @@ ShowDiffDialog::ShowDiffDialog(QString source, QString result, const QString& ti
     ui->resultTextEdit->setPlainText(this->result);
 }
 
-void ShowDiffDialog::setMessage(const QString& message)
+void ShowDiffDialog::setMessage(const QString &message)
 {
-    if (!message.isEmpty()){
+    if (!message.isEmpty()) {
         ui->messageLabel->setVisible(true);
         ui->messageLabel->setText(message);
-    }
-    else
+    } else
         ui->messageLabel->setVisible(false);
 }
 
@@ -52,43 +50,40 @@ int ShowDiffDialog::exec()
 
 void ShowDiffDialog::startDiffCalc()
 {
-    if (source.isEmpty() || result.isEmpty()){
+    if (source.isEmpty() || result.isEmpty()) {
         ui->diffTextEdit->setText(tr("Either source or result is empty. No need for diff."));
         return;
     }
-    if (source == result){
+    if (source == result) {
         ui->diffTextEdit->setText(tr("Source and result is same. No need for diff."));
         return;
     }
 
     bool isLightTheme = palette().color(QPalette::Window).lightness() > 128;
-    auto future = QtConcurrent::run([&, isLightTheme]() -> QString { //returns diff's prettyHtml
+    auto future = QtConcurrent::run([&, isLightTheme]() -> QString { // returns diff's prettyHtml
         diff_match_patch dmp;
-        //TODO:Use a parameter to determine which mode should be used
+        // TODO:Use a parameter to determine which mode should be used
         auto diff = dmp.diff_lineMode(source, result, std::numeric_limits<clock_t>::max());
-        auto prettyHtml = [isLightTheme](const auto& diffs) -> auto{
+        auto prettyHtml = [isLightTheme](const auto &diffs) -> auto {
             QString html;
             QString text;
-            foreach(Diff aDiff, diffs) {
+            foreach (Diff aDiff, diffs) {
                 text = aDiff.text;
-                text.replace("&", "&amp;").replace("<", "&lt;")
-                        .replace(">", "&gt;").replace("\n", "<br>");
+                text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>");
                 switch (aDiff.operation) {
-                    case INSERT:
-                        html += QStringLiteral("<ins style=\"background:%1;text-decoration:underline;\">")
-                                .arg(isLightTheme ? "#e6ffe6" : "#147314")
-                                + text
-                                + QStringLiteral("</ins>");
-                        break;
-                    case DELETE:
-                        html += QStringLiteral("<del style=\"background:%1;text-decoration:line-through;\">")
-                                .arg(isLightTheme ? "#ffe6e6" : "#B40000")
-                                + text
-                                + QStringLiteral("</del>");
-                        break;
-                    case EQUAL:
-                        html += QStringLiteral("<span>") + text + QStringLiteral("</span>");
-                        break;
+                case INSERT:
+                    html += QStringLiteral("<ins style=\"background:%1;text-decoration:underline;\">")
+                                .arg(isLightTheme ? "#e6ffe6" : "#147314") +
+                            text + QStringLiteral("</ins>");
+                    break;
+                case DELETE:
+                    html += QStringLiteral("<del style=\"background:%1;text-decoration:line-through;\">")
+                                .arg(isLightTheme ? "#ffe6e6" : "#B40000") +
+                            text + QStringLiteral("</del>");
+                    break;
+                case EQUAL:
+                    html += QStringLiteral("<span>") + text + QStringLiteral("</span>");
+                    break;
                 }
             }
             return html;
@@ -108,19 +103,19 @@ void ShowDiffDialog::handleDiffCalcFinished()
 {
     ui->diffProgressLabel->setText(tr("Diff calculation is completed."));
     try {
-    ui->diffTextEdit->setHtml(watcher->result());
-    }
-    catch (std::exception* e){
+        ui->diffTextEdit->setHtml(watcher->result());
+    } catch (std::exception *e) {
         QMessageBox::critical(this, {}, tr("Error occured when calculating difference. Error info: %1").arg(e->what()));
         qCritical() << "(Diff Dialog) Exception occured in diff method. what():" << e->what();
     }
 
-    catch (...) {
+    catch (...)
+    {
         QMessageBox::critical(this, {}, tr("Error occured when calculating difference."));
         qCritical() << "(Diff Dialog) Exception occured in diff method.";
     }
 
-    ui->tabWidget->setCurrentIndex(2);//2 for diff tab.
+    ui->tabWidget->setCurrentIndex(2); // 2 for diff tab.
 }
 
 ShowDiffDialog::~ShowDiffDialog()

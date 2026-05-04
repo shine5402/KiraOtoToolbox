@@ -1,18 +1,18 @@
 #include "ReplaceRulesWidget.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
-#include "ReplaceRulesMultilineEditorDialog.h"
-#include "ReplaceRulesDelegate.h"
-#include <QDialog>
-#include <QFormLayout>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QDialogButtonBox>
-#include <QMessageBox>
 #include "ui_ReplaceRulesWidget.h"
 
-ReplaceRulesWidget::ReplaceRulesWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ReplaceRulesWidget)
+#include <QComboBox>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QMessageBox>
+
+#include "ReplaceRulesDelegate.h"
+#include "ReplaceRulesMultilineEditorDialog.h"
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+ReplaceRulesWidget::ReplaceRulesWidget(QWidget *parent) : QWidget(parent), ui(new Ui::ReplaceRulesWidget)
 {
     ui->setupUi(this);
 
@@ -26,7 +26,8 @@ ReplaceRulesWidget::ReplaceRulesWidget(QWidget *parent) :
     connect(ui->multiLineEditButton, &QPushButton::clicked, this, &ReplaceRulesWidget::multiLineEdit);
     connect(ui->moveUpButton, &QPushButton::clicked, this, &ReplaceRulesWidget::moveUpRule);
     connect(ui->moveDownButton, &QPushButton::clicked, this, &ReplaceRulesWidget::moveDownRule);
-    connect(ui->sortByMatchPatternLengthButton, &QPushButton::clicked, this, &ReplaceRulesWidget::sortRuleByMatchPatternLength);
+    connect(ui->sortByMatchPatternLengthButton, &QPushButton::clicked, this,
+            &ReplaceRulesWidget::sortRuleByMatchPatternLength);
 
     connect(model, &QAbstractItemModel::dataChanged, this, &ReplaceRulesWidget::rulesChanged);
 }
@@ -41,7 +42,7 @@ QVector<ReplaceRule> ReplaceRulesWidget::getRules() const
     return model->getRules();
 }
 
-void ReplaceRulesWidget::setRules(const QVector<ReplaceRule>& value)
+void ReplaceRulesWidget::setRules(const QVector<ReplaceRule> &value)
 {
     model->setRules(value);
     emit rulesChanged();
@@ -57,11 +58,9 @@ void ReplaceRulesWidget::addRule()
     auto targetPatternEdit = new QLineEdit(dialog);
     formLayout->addRow(tr("Replacing target"), targetPatternEdit);
     auto strategyComboBox = new QComboBox(dialog);
-    strategyComboBox->addItems({
-                                   ReplaceRule::getStrategyString(ReplaceRule::Exact),
-                                   ReplaceRule::getStrategyString(ReplaceRule::Partial),
-                                   ReplaceRule::getStrategyString(ReplaceRule::Regex)
-                               });
+    strategyComboBox->addItems({ReplaceRule::getStrategyString(ReplaceRule::Exact),
+                                ReplaceRule::getStrategyString(ReplaceRule::Partial),
+                                ReplaceRule::getStrategyString(ReplaceRule::Regex)});
     formLayout->addRow(tr("Matching strategy"), strategyComboBox);
 
     auto label = new QLabel(tr("Specify details of the new rule below."), dialog);
@@ -75,9 +74,9 @@ void ReplaceRulesWidget::addRule()
     rootLayout->addWidget(buttonBox);
 
     auto ok = dialog->exec();
-    if (ok == QDialog::Accepted){
+    if (ok == QDialog::Accepted) {
         model->appendRule({matchPatternEdit->text(), targetPatternEdit->text(),
-                           (ReplaceRule::MatchStrategy) strategyComboBox->currentIndex()});
+                           (ReplaceRule::MatchStrategy)strategyComboBox->currentIndex()});
         emit rulesChanged();
     }
 }
@@ -88,9 +87,12 @@ void ReplaceRulesWidget::removeRule()
         return;
 
     auto currentRule = model->getRules().at(ui->ruleTableView->currentIndex().row());
-    auto reply = QMessageBox::question(this, {}, tr("<p>Are you sure to remove current rule?</p>"
-"<p>Matching pattern: %1<br>Replacing target: %2<br>Strategy: %3</p>").arg(currentRule.matchPattern(), currentRule.targetPattern(), ReplaceRule::getStrategyString(currentRule.strategy())));
-    if (reply == QMessageBox::Yes){
+    auto reply = QMessageBox::question(this, {},
+                                       tr("<p>Are you sure to remove current rule?</p>"
+                                          "<p>Matching pattern: %1<br>Replacing target: %2<br>Strategy: %3</p>")
+                                           .arg(currentRule.matchPattern(), currentRule.targetPattern(),
+                                                ReplaceRule::getStrategyString(currentRule.strategy())));
+    if (reply == QMessageBox::Yes) {
         model->removeRule(ui->ruleTableView->currentIndex().row());
         emit rulesChanged();
     }
@@ -101,8 +103,7 @@ void ReplaceRulesWidget::multiLineEdit()
     auto dialog = new ReplaceRulesMultiLineEditorDialog(this);
     dialog->setRules(model->getRules());
     auto reply = dialog->exec();
-    if (reply == QDialog::Accepted)
-    {
+    if (reply == QDialog::Accepted) {
         model->setRules(dialog->rules());
         emit rulesChanged();
     }
@@ -123,7 +124,7 @@ void ReplaceRulesWidget::moveDownRule()
 
 void ReplaceRulesWidget::sortRuleByMatchPatternLength()
 {
-    setRules(fplus::sort_by([](const ReplaceRule& lhs, const ReplaceRule& rhs)->bool{
-        return lhs.matchPattern().count() > rhs.matchPattern().count();
-    }, model->getRules()));
+    setRules(fplus::sort_by([](const ReplaceRule &lhs, const ReplaceRule &rhs)
+                                -> bool { return lhs.matchPattern().count() > rhs.matchPattern().count(); },
+                            model->getRules()));
 }

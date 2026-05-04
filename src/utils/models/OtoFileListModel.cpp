@@ -1,20 +1,18 @@
 #include "OtoFileListModel.h"
+
 #include "utils/lib_helper/FPlusQtAdapter.h"
 
-OtoFileListModel::OtoFileListModel(QObject *parent)
-    : QAbstractTableModel(parent)
+OtoFileListModel::OtoFileListModel(QObject *parent) : QAbstractTableModel(parent)
 {
 }
 
 QVariant OtoFileListModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    {
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         return headerList.at(section);
     }
 
-    if (orientation == Qt::Vertical && role == Qt::DisplayRole)
-    {
+    if (orientation == Qt::Vertical && role == Qt::DisplayRole) {
         return QString::number(section + 1);
     }
     return {};
@@ -41,21 +39,19 @@ QVariant OtoFileListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole){
-        if (index.column() == Columns::FileName){
+    if (role == Qt::DisplayRole) {
+        if (index.column() == Columns::FileName) {
             if (index.row() == m_datas.count())
                 return tr("(Total)");
             return m_datas.at(index.row()).fileName;
         }
-        if (index.column() == Columns::Count){
+        if (index.column() == Columns::Count) {
             if (index.row() == m_datas.count())
-                return fplus::sum(fplus::transform([](const OtoFileInfo& list)->int{
-                    return list.entryList.count();
-                }, m_datas));
+                return fplus::sum(
+                    fplus::transform([](const OtoFileInfo &list) -> int { return list.entryList.count(); }, m_datas));
             return m_datas.at(index.row()).entryList.count();
         }
     }
-
 
     return QVariant();
 }
@@ -65,7 +61,7 @@ OtoFileInfo OtoFileListModel::data(int index)
     return m_datas.at(index);
 }
 
-void OtoFileListModel::addData(const QString& fileName, const OtoEntryList& entryList)
+void OtoFileListModel::addData(const QString &fileName, const OtoEntryList &entryList)
 {
     beginInsertRows(QModelIndex{}, rowCount(), rowCount());
     m_datas.append(OtoFileInfo{fileName, entryList});
@@ -93,4 +89,3 @@ QVector<OtoFileInfo> OtoFileListModel::datas() const
 {
     return m_datas;
 }
-

@@ -1,8 +1,10 @@
 #include "ChainInvalidDialogAdapter.h"
-#include "../notdoanything/notdoanythingotolistmodifyworker.h"
+
 #include <QLabel>
 
-ChainInvalidDialogAdapter::ChainInvalidDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
+#include "../notdoanything/notdoanythingotolistmodifyworker.h"
+
+ChainInvalidDialogAdapter::ChainInvalidDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {
     setOptionWidgetMetaObj(ChainInvalidOptionWidget::staticMetaObject);
     setWorkerMetaObj(NotDoAnythingOtoListModifyWorker::staticMetaObject);
@@ -13,7 +15,7 @@ QString ChainInvalidDialogAdapter::getToolName() const
     return tr("Unknown tool");
 }
 
-ChainInvalidOptionWidget::ChainInvalidOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
+ChainInvalidOptionWidget::ChainInvalidOptionWidget(QWidget *parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);
 
@@ -23,7 +25,6 @@ ChainInvalidOptionWidget::ChainInvalidOptionWidget(QWidget* parent) : ToolOption
     setLayout(layout);
 }
 
-
 OptionContainer ChainInvalidOptionWidget::getOptions() const
 {
     OptionContainer options;
@@ -32,15 +33,16 @@ OptionContainer ChainInvalidOptionWidget::getOptions() const
     return options;
 }
 
-void ChainInvalidOptionWidget::setOptions(const OptionContainer& options)
+void ChainInvalidOptionWidget::setOptions(const OptionContainer &options)
 {
     originalOptionsJson = options.getOption("options").toJsonObject();
     originalClassName = options.getOption("originalClassName").toString();
     label->setText(tr("<p>Unknown tool \"%1\". Please check the version of toolbox that generates this preset "
-"or potential typos. </p><p>This step will not take any effect</p>").arg(originalClassName));
+                      "or potential typos. </p><p>This step will not take any effect</p>")
+                       .arg(originalClassName));
 }
 
-QJsonObject ChainInvalidOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject ChainInvalidOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("originalClassName", options.getOption("originalClassName").toString());
@@ -48,7 +50,7 @@ QJsonObject ChainInvalidOptionWidget::optionsToJson(const OptionContainer& optio
     return jsonObj;
 }
 
-OptionContainer ChainInvalidOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer ChainInvalidOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("originalClassName", json.value("originalClassName").toString());

@@ -1,4 +1,5 @@
 #include "AddAffixOptionWidget.h"
+
 #include <QFormLayout>
 
 AddAffixOptionWidget::AddAffixOptionWidget(QWidget *parent) : ToolOptionWidget(parent)
@@ -22,15 +23,13 @@ OptionContainer AddAffixOptionWidget::getOptions() const
     return options;
 }
 
-void AddAffixOptionWidget::setOptions(const OptionContainer& options)
+void AddAffixOptionWidget::setOptions(const OptionContainer &options)
 {
     prefixEdit->setText(options.getOption("prefix").toString());
     suffixEdit->setText(options.getOption("suffix").toString());
 }
 
-
-
-QJsonObject AddAffixOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject AddAffixOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
 
@@ -40,14 +39,13 @@ QJsonObject AddAffixOptionWidget::optionsToJson(const OptionContainer& options) 
     return jsonObj;
 }
 
-OptionContainer AddAffixOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer AddAffixOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("prefix", json.value("prefix"));
     options.getOption("suffix", json.value("suffix"));
     return options;
 }
-
 
 int AddAffixOptionWidget::optionJsonVersion() const
 {

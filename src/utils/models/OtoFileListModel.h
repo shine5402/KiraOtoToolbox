@@ -2,9 +2,11 @@
 #define OTOFILEMULTIPLELOADOTOFILELISTMODEL_H
 
 #include <QAbstractTableModel>
+
 #include "otoUtils/OtoEntry.h"
 
-struct OtoFileInfo{
+struct OtoFileInfo
+{
     QString fileName;
     OtoEntryList entryList;
 };
@@ -26,7 +28,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     OtoFileInfo data(int index);
 
-    void addData(const QString& fileName, const OtoEntryList& entryList);
+    void addData(const QString &fileName, const OtoEntryList &entryList);
     void deleteData(int index);
 
     void reset();
@@ -35,7 +37,7 @@ public:
 private:
     QVector<OtoFileInfo> m_datas;
     const QStringList headerList = {tr("Path"), tr("Oto entry count")};
-    enum Columns{FileName, Count};
+    enum Columns { FileName, Count };
 signals:
     void dataChanged();
 };

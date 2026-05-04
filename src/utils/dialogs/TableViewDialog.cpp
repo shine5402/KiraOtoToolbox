@@ -1,8 +1,9 @@
 #include "utils/dialogs/TableViewDialog.h"
+
 #include <QVBoxLayout>
 
-TableViewDialog::TableViewDialog(QWidget* parent, QAbstractTableModel* model, const QString& title,
-                                 const QString& labelText, QDialogButtonBox::StandardButtons standardButtons)
+TableViewDialog::TableViewDialog(QWidget *parent, QAbstractTableModel *model, const QString &title,
+                                 const QString &labelText, QDialogButtonBox::StandardButtons standardButtons)
     : QDialog(parent)
 {
     setWindowTitle(title);
@@ -23,7 +24,7 @@ TableViewDialog::TableViewDialog(QWidget* parent, QAbstractTableModel* model, co
     setLayout(layout);
 }
 
-void TableViewDialog::setLabel(const QString& text)
+void TableViewDialog::setLabel(const QString &text)
 {
     label->setText(text);
     if (text.isEmpty())
@@ -37,12 +38,12 @@ void TableViewDialog::setStandardButtons(QDialogButtonBox::StandardButtons butto
     buttonBox->setStandardButtons(buttons);
 }
 
-QAbstractTableModel* TableViewDialog::getModel() const
+QAbstractTableModel *TableViewDialog::getModel() const
 {
-    return dynamic_cast<QAbstractTableModel*>(tableView->model());
+    return dynamic_cast<QAbstractTableModel *>(tableView->model());
 }
 
-void TableViewDialog::setModel(QAbstractTableModel* value)
+void TableViewDialog::setModel(QAbstractTableModel *value)
 {
     tableView->setModel(value);
 }

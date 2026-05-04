@@ -2,13 +2,12 @@
 #include "ui_OtoFileLoadWidget.h"
 
 #include <QMessageBox>
-#include "otoUtils/OtoFileReader.h"
+
 #include "../dialogs/showotolistdialog.h"
+#include "otoUtils/OtoFileReader.h"
 #include "utils/misc/Misc.h"
 
-OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::OtoFileLoadWidget)
+OtoFileLoadWidget::OtoFileLoadWidget(QWidget *parent) : QWidget(parent), ui(new Ui::OtoFileLoadWidget)
 {
     ui->setupUi(this);
     connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileLoadWidget::loadOtoFile);
@@ -20,7 +19,7 @@ OtoFileLoadWidget::~OtoFileLoadWidget()
     delete ui;
 }
 
-void OtoFileLoadWidget::setFileName(const QString& fileName)
+void OtoFileLoadWidget::setFileName(const QString &fileName)
 {
     ui->openFileNameEdit->setFileName(fileName);
 }
@@ -57,7 +56,7 @@ void OtoFileLoadWidget::load()
     loadOtoFile();
 }
 
-void OtoFileLoadWidget::pretendLoaded(const QString& fileName, const OtoEntryList& entryList)
+void OtoFileLoadWidget::pretendLoaded(const QString &fileName, const OtoEntryList &entryList)
 {
     ui->openFileNameEdit->setFileName(fileName);
     this->entryList = entryList;
@@ -77,7 +76,7 @@ void OtoFileLoadWidget::loadOtoFile()
 {
     auto path = ui->openFileNameEdit->fileName();
 
-    if (!QFileInfo::exists(path)){
+    if (!QFileInfo::exists(path)) {
         QMessageBox::critical(this, tr("File not exists"),
                               tr("The file \"%1\" not exists. Please check and try again.").arg(path));
         return;
@@ -87,10 +86,8 @@ void OtoFileLoadWidget::loadOtoFile()
     OtoFileReader reader(path);
     reader.setTextCodec(codec);
     entryList = reader.read();
-    if (entryList.isEmpty())
-    {
-        QMessageBox::critical(this, {},
-                              tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
+    if (entryList.isEmpty()) {
+        QMessageBox::critical(this, {}, tr("The given file \"%1\" is empty, or contains invalid data only.").arg(path));
         return;
     }
     entryListReaded = true;
@@ -101,6 +98,6 @@ void OtoFileLoadWidget::loadOtoFile()
 
 void OtoFileLoadWidget::showOtoListDialog()
 {
-    auto dialog = new ShowOtoListDialog(&entryList ,this);
+    auto dialog = new ShowOtoListDialog(&entryList, this);
     dialog->open();
 }

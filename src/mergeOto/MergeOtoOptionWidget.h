@@ -2,10 +2,11 @@
 #define MERGEOTOOPTIONWIDGET_H
 
 #include <QWidget>
+
 #include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
-    class MergeOtoOptionWidget;
+class MergeOtoOptionWidget;
 }
 
 class MergeOtoOptionWidget : public ToolOptionWidget
@@ -16,9 +17,7 @@ public:
     Q_INVOKABLE explicit MergeOtoOptionWidget(QWidget *parent = nullptr);
     ~MergeOtoOptionWidget();
 
-    enum MergeStrategy{
-        Replace = 0, Skip, KeepAll
-    };
+    enum MergeStrategy { Replace = 0, Skip, KeepAll };
 
 private:
     Ui::MergeOtoOptionWidget *ui;
@@ -26,9 +25,9 @@ private:
     // ToolOptionWidget interface
 public:
     OptionContainer getOptions() const override;
-    void setOptions(const OptionContainer& options) override;
-    QJsonObject optionsToJson(const OptionContainer& options) const override;
-    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    void setOptions(const OptionContainer &options) override;
+    QJsonObject optionsToJson(const OptionContainer &options) const override;
+    OptionContainer jsonToOptions(const QJsonObject &json) const override;
     int optionJsonVersion() const override;
 };
 

@@ -1,9 +1,7 @@
 #include "SetAliasOptionWidget.h"
 #include "ui_SetAliasOptionWidget.h"
 
-SetAliasOptionWidget::SetAliasOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::SetAliasOptionWidget)
+SetAliasOptionWidget::SetAliasOptionWidget(QWidget *parent) : ToolOptionWidget(parent), ui(new Ui::SetAliasOptionWidget)
 {
     ui->setupUi(this);
 
@@ -23,7 +21,6 @@ SetAliasOptionWidget::~SetAliasOptionWidget()
     delete ui;
 }
 
-
 OptionContainer SetAliasOptionWidget::getOptions() const
 {
     OptionContainer options;
@@ -36,7 +33,7 @@ OptionContainer SetAliasOptionWidget::getOptions() const
     return options;
 }
 
-void SetAliasOptionWidget::setOptions(const OptionContainer& options)
+void SetAliasOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->ruleLineEdit->setText(options.getOption("renamingRule").toString());
     ui->headCutSpinBox->setValue(options.getOption("cutHeadCount").toInt());
@@ -46,8 +43,7 @@ void SetAliasOptionWidget::setOptions(const OptionContainer& options)
     ui->emptyOnlyCheckBox->setChecked(options.getOption("onlyForEmpty").toBool());
 }
 
-
-QJsonObject SetAliasOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject SetAliasOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
     jsonObj.insert("renamingRule", options.getOption("renamingRule").toString());
@@ -59,7 +55,7 @@ QJsonObject SetAliasOptionWidget::optionsToJson(const OptionContainer& options) 
     return jsonObj;
 }
 
-OptionContainer SetAliasOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer SetAliasOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
     options.setOption("renamingRule", json.value("renamingRule").toString());

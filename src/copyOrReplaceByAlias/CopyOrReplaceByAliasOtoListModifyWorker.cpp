@@ -1,14 +1,14 @@
 #include "CopyOrReplaceByAliasOtoListModifyWorker.h"
+
 #include "utils/widgets/ReplaceRule.h"
 
-CopyOrReplaceByAliasOtoListModifyWorker::CopyOrReplaceByAliasOtoListModifyWorker(QObject* parent):OtoListModifyWorker(parent)
+CopyOrReplaceByAliasOtoListModifyWorker::CopyOrReplaceByAliasOtoListModifyWorker(QObject *parent)
+    : OtoListModifyWorker(parent)
 {
-
 }
 
-
-void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                                                     OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                                                     OtoEntryList &secondSaveOtoList, const OptionContainer &options)
 {
     Q_UNUSED(secondSaveOtoList)
 
@@ -21,23 +21,23 @@ void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList& srcOtoL
 
     resultOtoList = srcOtoList;
     QMutableListIterator it(resultOtoList);
-    while (it.hasNext()){
+    while (it.hasNext()) {
         auto curr = it.next();
         auto matched = false;
-        for (const auto& rule : qAsConst(rules)){
+        for (const auto &rule : qAsConst(rules)) {
             auto origAlias = curr.alias();
-            if (rule.match(curr.alias())){
+            if (rule.match(curr.alias())) {
                 matched |= true;
                 curr.setAlias(rule.replace(curr.alias()));
-                if (opStrategy == 0)   //Match first then stop
+                if (opStrategy == 0) // Match first then stop
                     break;
-                if (opStrategy == 2){  //Match all in parallel and copy all matches (copy mode only)
+                if (opStrategy == 2) { // Match all in parallel and copy all matches (copy mode only)
                     it.insert(curr);
                     curr.setAlias(origAlias);
                 }
             }
         }
-        if (opStrategy != 2 && matched)//Match all and replace all matches
+        if (opStrategy != 2 && matched) // Match all and replace all matches
         {
             if (behaviorCopy)
                 it.insert(curr);

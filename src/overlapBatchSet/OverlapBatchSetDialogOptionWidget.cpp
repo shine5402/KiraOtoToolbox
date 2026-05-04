@@ -1,29 +1,32 @@
 #include "OverlapBatchSetDialogOptionWidget.h"
 #include "ui_OverlapBatchSetDialogOptionWidget.h"
-#include <QInputDialog>
-#include <QMessageBox>
+
 #include <QFileDialog>
-#include <QJsonDocument>
+#include <QInputDialog>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <QMessageBox>
 #include <QSpinBox>
 
-OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::OverlapBatchSetDialogOptionWidget)
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::OverlapBatchSetDialogOptionWidget)
 {
     ui->setupUi(this);
 
     connect(ui->setStartWithCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->setStartWithSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->setStartWithSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->oneThirdCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->matchStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->setStartWithListWidget, &StringListModifyWidget::dataModified, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->setStartWithListWidget, &StringListModifyWidget::dataModified, this,
+            &ToolOptionWidget::userSettingsChanged);
     connect(ui->oneSecondWhenTooSmallCheckbox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->oneSecondWhenTooSmallSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->oneSecondWhenTooSmallSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
+            &ToolOptionWidget::userSettingsChanged);
 }
-
 
 OverlapBatchSetDialogOptionWidget::~OverlapBatchSetDialogOptionWidget()
 {
@@ -44,7 +47,7 @@ OptionContainer OverlapBatchSetDialogOptionWidget::getOptions() const
     return options;
 }
 
-void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& options)
+void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->setStartWithCheckBox->setChecked(options.getOption("ifSetOverlapStartWith").toBool());
     ui->setStartWithSpinBox->setValue(options.getOption("overlapStartWith").toDouble());
@@ -58,13 +61,14 @@ void OverlapBatchSetDialogOptionWidget::setOptions(const OptionContainer& option
     ui->oneSecondWhenTooSmallSpinBox->setValue(options.getOption("oneSecondWhenTooSmallValue").toDouble());
 }
 
-QJsonObject OverlapBatchSetDialogOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject OverlapBatchSetDialogOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject jsonObj;
 
     jsonObj.insert("ifSetOverlapStartWith", options.getOption("ifSetOverlapStartWith").toBool());
     jsonObj.insert("overlapStartWith", options.getOption("overlapStartWith").toDouble());
-    jsonObj.insert("startWithPatternList", QJsonArray::fromStringList(options.getOption("startWithPatternList").toStringList()));
+    jsonObj.insert("startWithPatternList",
+                   QJsonArray::fromStringList(options.getOption("startWithPatternList").toStringList()));
     jsonObj.insert("ifMatchStartOto", options.getOption("ifMatchStartOto").toBool());
     jsonObj.insert("makeOneThird", options.getOption("makeOneThird").toBool());
     jsonObj.insert("oneSecondWhenTooSmall", options.getOption("oneSecondWhenTooSmall").toBool());
@@ -73,7 +77,7 @@ QJsonObject OverlapBatchSetDialogOptionWidget::optionsToJson(const OptionContain
     return jsonObj;
 }
 
-OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer OverlapBatchSetDialogOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

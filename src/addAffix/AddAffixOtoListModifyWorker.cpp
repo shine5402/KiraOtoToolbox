@@ -1,12 +1,11 @@
 #include "AddAffixOtoListModifyWorker.h"
 
-AddAffixOtoListModifyWorker::AddAffixOtoListModifyWorker(QObject* parent) : OtoListModifyWorker(parent)
+AddAffixOtoListModifyWorker::AddAffixOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
 {
-
 }
 
-void AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                                         OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+void AddAffixOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                                         OtoEntryList &secondSaveOtoList, const OptionContainer &options)
 {
     Q_UNUSED(secondSaveOtoList)
     resultOtoList = srcOtoList;
@@ -14,8 +13,7 @@ void AddAffixOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntr
     auto prefix = options.getOption("prefix").toString();
     auto suffix = options.getOption("suffix").toString();
 
-    for (auto& i : resultOtoList)
-    {
+    for (auto &i : resultOtoList) {
         i.setAlias(prefix + i.alias() + suffix);
     }
 }

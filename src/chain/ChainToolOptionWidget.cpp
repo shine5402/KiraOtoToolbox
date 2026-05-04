@@ -1,22 +1,23 @@
 #include "ChainToolOptionWidget.h"
 #include "ui_ChainToolOptionWidget.h"
-#include "utils/dialogs/ListViewDialog.h"
-#include "ChainStepsModel.h"
+
 #include <QDialogButtonBox>
 #include <QGroupBox>
-#include "toolBase/ToolManager.h"
-#include <fplus/fplus.hpp>
-#include "utils/lib_helper/FPlusQtAdapter.h"
 #include <QJsonArray>
-#include "toolBase/ToolDialogAdapter.h"
 #include <QMessageBox>
-#include "ChainInvalidDialogAdapter.h"
-#include "toolBase/ToolOptionWidget.h"
-#include "toolBase/PresetWidgetContainer.h"
+#include <fplus/fplus.hpp>
 
-ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::ChainToolOptionWidget)
+#include "ChainInvalidDialogAdapter.h"
+#include "ChainStepsModel.h"
+#include "toolBase/PresetWidgetContainer.h"
+#include "toolBase/ToolDialogAdapter.h"
+#include "toolBase/ToolManager.h"
+#include "toolBase/ToolOptionWidget.h"
+#include "utils/dialogs/ListViewDialog.h"
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::ChainToolOptionWidget)
 {
     ui->setupUi(this);
     stepsModel = new ChainStepsModel({}, this);
@@ -26,7 +27,8 @@ ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     connect(ui->removeButton, &QPushButton::clicked, this, &ChainToolOptionWidget::removeCurrentStep);
     connect(ui->moveUpButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveUpCurrentStep);
     connect(ui->moveDownButton, &QPushButton::clicked, this, &ChainToolOptionWidget::moveDownCurrentStep);
-    connect(ui->adjustSettingsButton, &QPushButton::clicked, this, qOverload<>(&ChainToolOptionWidget::openStepSettings));
+    connect(ui->adjustSettingsButton, &QPushButton::clicked, this,
+            qOverload<>(&ChainToolOptionWidget::openStepSettings));
     connect(ui->toolListView, &QListView::doubleClicked, this, qOverload<>(&ChainToolOptionWidget::openStepSettings));
 }
 
@@ -43,51 +45,51 @@ OptionContainer ChainToolOptionWidget::getOptions() const
     return options;
 }
 
-void ChainToolOptionWidget::setOptions(const OptionContainer& options)
+void ChainToolOptionWidget::setOptions(const OptionContainer &options)
 {
     stepsModel->setSteps(options.getOption("steps").value<QVector<ChainElement>>());
 }
 
-QJsonObject ChainToolOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject ChainToolOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonArray jsonArray;
     auto steps = options.getOption("steps").value<QVector<ChainElement>>();
-    for (const auto& step: std::as_const(steps)){
+    for (const auto &step : std::as_const(steps)) {
         QJsonObject stepJsonObj;
         stepJsonObj.insert("stepAdapterClassName", step.tool.toolAdapterMetaObj.className());
         stepJsonObj.insert("options", std::unique_ptr<ToolOptionWidget>(step.tool.getToolOptionWidgetInstance(nullptr))
-                           ->optionsToJson(step.options));
+                                          ->optionsToJson(step.options));
         jsonArray.append(stepJsonObj);
     }
     return {{"steps", jsonArray}};
 }
 
-OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     auto registeredTools = ToolManager::getManager()->getTools();
-    QHash<QString, int> knownToolMap;//className to registerId
-    for (auto i = 0; i < registeredTools.count(); ++i){
+    QHash<QString, int> knownToolMap; // className to registerId
+    for (auto i = 0; i < registeredTools.count(); ++i) {
         knownToolMap.insert(registeredTools.at(i).toolAdapterMetaObj.className(), i);
     }
 
     auto stepsJsonArray = json.value("steps").toArray();
     QVector<ChainElement> steps;
-    for (const auto& stepJson : std::as_const(stepsJsonArray)){
+    for (const auto &stepJson : std::as_const(stepsJsonArray)) {
         auto obj = stepJson.toObject();
         auto className = obj.value("stepAdapterClassName").toString();
 
-        //If invalid tool in preset exists here
-        if (className == "ChainInvalidDialogAdapter")
-        {
+        // If invalid tool in preset exists here
+        if (className == "ChainInvalidDialogAdapter") {
             auto originalOptionsJson = obj.value("options").toObject();
             auto originalClassName = obj.value("originalClassName").toString();
-            //These two insert would act like replace. And if it still not exists, we would convert it to invalid below.
+            // These two insert would act like replace. And if it still not exists, we would convert it to invalid
+            // below.
             obj.insert("className", originalClassName);
             obj.insert("options", originalOptionsJson);
         }
 
-        //If there is an unknown tool
-        if (!knownToolMap.contains(className)){
+        // If there is an unknown tool
+        if (!knownToolMap.contains(className)) {
             OptionContainer options;
             options.setOption("originalClassName", className);
             options.setOption("options", obj.value("options").toObject());
@@ -96,7 +98,8 @@ OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject& json) co
         }
 
         auto tool = registeredTools.at(knownToolMap.value(className));
-        auto options = std::unique_ptr<ToolOptionWidget>(tool.getToolOptionWidgetInstance(nullptr))->jsonToOptions(obj.value("options").toObject());
+        auto options = std::unique_ptr<ToolOptionWidget>(tool.getToolOptionWidgetInstance(nullptr))
+                           ->jsonToOptions(obj.value("options").toObject());
         steps.append({tool.toolAdapterMetaObj, options});
     }
     OptionContainer options;
@@ -118,20 +121,20 @@ void ChainToolOptionWidget::setCurrentRow(int row)
 {
     auto selectionModel = ui->toolListView->selectionModel();
     selectionModel->setCurrentIndex(selectionModel->model()->index(row, 0, QModelIndex{}),
-                                    QItemSelectionModel::Clear | QItemSelectionModel::SelectCurrent | QItemSelectionModel::Rows);
+                                    QItemSelectionModel::Clear | QItemSelectionModel::SelectCurrent |
+                                        QItemSelectionModel::Rows);
 }
 
 void ChainToolOptionWidget::addStep()
 {
     auto registeredTools = ToolManager::getManager()->getTools();
-    auto availableTools = fplus::transform([](Tool tool)->ChainElement{
-            return {tool, {}};
-    }, registeredTools);
+    auto availableTools = fplus::transform([](Tool tool) -> ChainElement { return {tool, {}}; }, registeredTools);
     auto model = new ChainStepsModel(availableTools, this);
-    auto dialog = new ListViewDialog(this, model, tr("Choose tool"), tr("Please choose an available tool for the new processing step."), QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    auto dialog = new ListViewDialog(this, model, tr("Choose tool"),
+                                     tr("Please choose an available tool for the new processing step."),
+                                     QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     dialog->setDoubleClickAsAccept(true);
-    if (dialog->exec() == QDialog::Accepted)
-    {
+    if (dialog->exec() == QDialog::Accepted) {
         stepsModel->addStep(availableTools.at(dialog->currentRow()));
         openStepSettings(stepsModel->stepCount() - 1);
         emit userSettingsChanged();
@@ -159,16 +162,14 @@ void ChainToolOptionWidget::moveDownCurrentStep()
 void ChainToolOptionWidget::openStepSettings(int index)
 {
     Q_ASSERT(!pendingStepSetting.ptrDialog);
-    if (pendingStepSetting.ptrDialog)
-    {
+    if (pendingStepSetting.ptrDialog) {
         return;
     }
 
     auto dialog = new QDialog(this);
     dialog->setModal(true);
-    dialog->setWindowTitle(tr("Change options fot \"%1\" (at %2)")
-                           .arg(stepsModel->getStep(index).toolName(),
-                                QString::number(index + 1)));
+    dialog->setWindowTitle(
+        tr("Change options fot \"%1\" (at %2)").arg(stepsModel->getStep(index).toolName(), QString::number(index + 1)));
 
     auto dialogLayout = new QVBoxLayout(dialog);
 
@@ -177,7 +178,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
     dialogLayout->addWidget(groupBox);
     constexpr auto GROUPBOX_INDEX = 0;
     constexpr auto GROUPBOX_STRETCH = 1;
-    dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH);//让GroupBox的权重变大
+    dialogLayout->setStretch(GROUPBOX_INDEX, GROUPBOX_STRETCH); // 让GroupBox的权重变大
 
     auto groupBoxLayout = new QVBoxLayout(groupBox);
     auto optionWidgetMetaObj = stepsModel->getStep(index).tool.getToolOptionWidgetMetaObj();
@@ -195,7 +196,7 @@ void ChainToolOptionWidget::openStepSettings(int index)
 
     dialog->setLayout(dialogLayout);
 
-    dialog->setAttribute(Qt::WA_DeleteOnClose, false);//As we will need its member's info later.
+    dialog->setAttribute(Qt::WA_DeleteOnClose, false); // As we will need its member's info later.
 
     connect(dialog, &QDialog::finished, this, &ChainToolOptionWidget::handleStepSettingsDone);
 
@@ -207,18 +208,18 @@ void ChainToolOptionWidget::openStepSettings(int index)
 
 void ChainToolOptionWidget::openStepSettings()
 {
-    if (getCurrentRow() >= 0 && getCurrentRow() < stepsModel->stepCount()){
+    if (getCurrentRow() >= 0 && getCurrentRow() < stepsModel->stepCount()) {
         openStepSettings(getCurrentRow());
     }
 }
 
 void ChainToolOptionWidget::handleStepSettingsDone(int result)
 {
-    if (result == QDialog::Accepted){
-        stepsModel->setStepOptions(pendingStepSetting.index, pendingStepSetting.ptrPresetWidgetContainer->optionWidget()->getOptions());
+    if (result == QDialog::Accepted) {
+        stepsModel->setStepOptions(pendingStepSetting.index,
+                                   pendingStepSetting.ptrPresetWidgetContainer->optionWidget()->getOptions());
         emit userSettingsChanged();
     }
     pendingStepSetting.ptrDialog->deleteLater();
     pendingStepSetting = {};
 }
-

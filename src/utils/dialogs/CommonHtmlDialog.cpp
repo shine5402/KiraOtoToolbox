@@ -1,9 +1,7 @@
 #include "utils/dialogs/CommonHtmlDialog.h"
 #include "ui_CommonHtmlDialog.h"
 
-CommonHtmlDialog::CommonHtmlDialog(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::CommonHtmlDialog)
+CommonHtmlDialog::CommonHtmlDialog(QWidget *parent) : QDialog(parent), ui(new Ui::CommonHtmlDialog)
 {
     ui->setupUi(this);
     setLabel({});

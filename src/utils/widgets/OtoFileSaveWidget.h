@@ -2,10 +2,11 @@
 #define OTOFILESAVEWIDGET_H
 
 #include <QWidget>
+
 #include "OtoFileSaveWidgetAbstract.h"
 
 namespace Ui {
-    class OtoFileSaveWidget;
+class OtoFileSaveWidget;
 }
 
 class OtoFileSaveWidget : public OtoFileSaveWidgetAbstract
@@ -18,10 +19,10 @@ public:
 
     bool isSecondFileNameAvailable() const;
     void setSecondFileNameAvailable(bool value);
-    void setSecondFileNameCheckBoxText(const QString& text);
+    void setSecondFileNameCheckBoxText(const QString &text);
 
     QString secondFileNameUsage() const;
-    void setSecondFileNameUsage(const QString& value);
+    void setSecondFileNameUsage(const QString &value);
 
 private:
     Ui::OtoFileSaveWidget *ui;
@@ -32,21 +33,22 @@ private:
     // OtoFileSaveWidgetAbstract interface
 public:
     OptionContainer getOptions() const;
-    void setOptions(const OptionContainer& options);
+    void setOptions(const OptionContainer &options);
 };
 
-class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget {
+class OtoFileSaveWidgetWithSecondFileName : public OtoFileSaveWidget
+{
     Q_OBJECT
 
 public:
     explicit OtoFileSaveWidgetWithSecondFileName(QWidget *parent = nullptr);
 };
 
-class OtoFileSaveWidgetWithSecondFileNameAsDeleted : public OtoFileSaveWidgetWithSecondFileName {
+class OtoFileSaveWidgetWithSecondFileNameAsDeleted : public OtoFileSaveWidgetWithSecondFileName
+{
     Q_OBJECT
 
 public:
     explicit OtoFileSaveWidgetWithSecondFileNameAsDeleted(QWidget *parent = nullptr);
 };
 #endif // OTOFILESAVEWIDGET_H
-

@@ -4,7 +4,9 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class QButtonGroup;
@@ -12,7 +14,7 @@ class QGroupBox;
 class SvgWidget;
 
 namespace UpdateChecker {
-    class GithubReleaseChecker;
+class GithubReleaseChecker;
 }
 
 class MainWindow : public QMainWindow
@@ -27,20 +29,20 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QMenu* i18nMenu = nullptr;
-    QVector<QObject*> toolButtonsLayoutResources;
+    QMenu *i18nMenu = nullptr;
+    QVector<QObject *> toolButtonsLayoutResources;
 
     void setArgInfoBlock();
 
-    QMenu* createHelpMenu();
+    QMenu *createHelpMenu();
 
-    UpdateChecker::GithubReleaseChecker* updateChecker;
+    UpdateChecker::GithubReleaseChecker *updateChecker;
 
 private slots:
     void showAboutDialog();
     // QWidget interface
 protected:
-    void changeEvent(QEvent*) override;
+    void changeEvent(QEvent *) override;
 };
 #ifndef NDEBUG
 

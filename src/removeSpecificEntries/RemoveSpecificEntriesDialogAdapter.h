@@ -7,7 +7,7 @@ class RemoveSpecificEntriesDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit RemoveSpecificEntriesDialogAdapter(QObject* parent);
+    Q_INVOKABLE explicit RemoveSpecificEntriesDialogAdapter(QObject *parent);
     DEFINE_TOOL_NAME("Remove specific entries")
 };
 

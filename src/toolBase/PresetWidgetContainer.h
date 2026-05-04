@@ -2,11 +2,12 @@
 #define PRESETWIDGETCONTAINER_H
 
 #include <QWidget>
-#include "PresetManager.h"
+
 #include "OptionContainer.h"
+#include "PresetManager.h"
 
 namespace Ui {
-    class PresetWidgetContainer;
+class PresetWidgetContainer;
 }
 
 class ToolOptionWidget;
@@ -16,19 +17,19 @@ class PresetWidgetContainer : public QWidget
     Q_OBJECT
 
 public:
-    explicit PresetWidgetContainer(const QMetaObject& optionWidgetMetaObj, QWidget *parent = nullptr);
+    explicit PresetWidgetContainer(const QMetaObject &optionWidgetMetaObj, QWidget *parent = nullptr);
     ~PresetWidgetContainer();
 
-    ToolOptionWidget* optionWidget() const;
+    ToolOptionWidget *optionWidget() const;
 
-    ///This function would override working options, and make state dirty.
+    /// This function would override working options, and make state dirty.
     void setWorkingOptions(OptionContainer options);
     void reset();
 
 private slots:
     void resetToPreset();
     void renamePreset();
-    void savePreset();//or updatePreset()?
+    void savePreset(); // or updatePreset()?
     void addPreset();
     void deletePreset();
     void importPreset();
@@ -40,7 +41,7 @@ private:
     QString targetName() const;
     Ui::PresetWidgetContainer *ui;
     QMetaObject optionWidgetMetaObj;
-    ToolOptionWidget* optionWidget_;
+    ToolOptionWidget *optionWidget_;
 
     void reloadComboBoxItems();
 
@@ -49,7 +50,7 @@ private:
     void setComboBoxItemTextDirtyState(int id, bool dirty);
     Preset getCurrentPreset() const;
     bool isCurrentPresetBuiltIn() const;
-    bool checkCurrentPresetBuiltInForUserModify();//Would warn user about check result
+    bool checkCurrentPresetBuiltInForUserModify(); // Would warn user about check result
     void doSavePreset();
 };
 

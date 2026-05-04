@@ -1,12 +1,10 @@
-#include <kira/widgets/stringlistmodifywidget.h>
 #include "ui_stringlistmodifywidget.h"
 
 #include <QInputDialog>
 #include <QMessageBox>
+#include <kira/widgets/stringlistmodifywidget.h>
 
-StringListModifyWidget::StringListModifyWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::StringListModifyWidget)
+StringListModifyWidget::StringListModifyWidget(QWidget *parent) : QWidget(parent), ui(new Ui::StringListModifyWidget)
 {
     ui->setupUi(this);
     ui->listView->setModel(model);
@@ -25,16 +23,15 @@ QStringList StringListModifyWidget::getData() const
     return model->stringList();
 }
 
-void StringListModifyWidget::setData(const QStringList& value)
+void StringListModifyWidget::setData(const QStringList &value)
 {
     model->setStringList(value);
     emit dataModified();
 }
 
-void StringListModifyWidget::changeEvent(QEvent* event)
+void StringListModifyWidget::changeEvent(QEvent *event)
 {
-    if (event->type() == QEvent::LanguageChange)
-    {
+    if (event->type() == QEvent::LanguageChange) {
         ui->retranslateUi(this);
     }
 }
@@ -42,12 +39,11 @@ void StringListModifyWidget::changeEvent(QEvent* event)
 void StringListModifyWidget::addRow()
 {
     bool ok;
-    auto str = QInputDialog::getText(this, tr("Input new value"), tr("Input the new string to append"), QLineEdit::Normal, {}, &ok);
-    if (ok)
-    {
-        if (str.isEmpty())
-        {
-            QMessageBox::critical(this, tr("Input is empty"),tr("Input is empty. The list remains unchanged."));
+    auto str = QInputDialog::getText(this, tr("Input new value"), tr("Input the new string to append"),
+                                     QLineEdit::Normal, {}, &ok);
+    if (ok) {
+        if (str.isEmpty()) {
+            QMessageBox::critical(this, tr("Input is empty"), tr("Input is empty. The list remains unchanged."));
             return;
         }
         model->insertRow(model->rowCount());
@@ -65,10 +61,10 @@ void StringListModifyWidget::deleteCurrentRow()
 void StringListModifyWidget::openMultiLineEdit()
 {
     bool ok = false;
-    auto result = QInputDialog::getMultiLineText(this, tr("Input data"), tr("Input what to apply for the list. One data per line."), getData().join("\n"), &ok);
-    if (ok)
-    {
-        setData(result.split("\n",Qt::SkipEmptyParts));
+    auto result = QInputDialog::getMultiLineText(
+        this, tr("Input data"), tr("Input what to apply for the list. One data per line."), getData().join("\n"), &ok);
+    if (ok) {
+        setData(result.split("\n", Qt::SkipEmptyParts));
         emit dataModified();
     }
 }

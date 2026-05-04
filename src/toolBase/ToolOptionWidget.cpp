@@ -1,10 +1,10 @@
 #include "ToolOptionWidget.h"
-#include <QVBoxLayout>
+
 #include <QLabel>
+#include <QVBoxLayout>
 
 ToolOptionWidget::ToolOptionWidget(QWidget *parent) : QWidget(parent)
 {
-
 }
 
 OptionContainer ToolOptionWidget::getOptions() const
@@ -13,7 +13,7 @@ OptionContainer ToolOptionWidget::getOptions() const
     return {};
 }
 
-void ToolOptionWidget::setOptions(const OptionContainer& options)
+void ToolOptionWidget::setOptions(const OptionContainer &options)
 {
     Q_UNREACHABLE();
     Q_UNUSED(options)
@@ -24,18 +24,18 @@ QJsonObject ToolOptionWidget::getOptionsJson() const
     return optionsToJson(getOptions());
 }
 
-void ToolOptionWidget::setOptionsJson(const QJsonObject& json)
+void ToolOptionWidget::setOptionsJson(const QJsonObject &json)
 {
     setOptions(jsonToOptions(json));
 }
 
-QJsonObject ToolOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject ToolOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     Q_UNREACHABLE();
     Q_UNUSED(options);
 }
 
-OptionContainer ToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer ToolOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     Q_UNREACHABLE();
     Q_UNUSED(json);
@@ -46,19 +46,19 @@ int ToolOptionWidget::optionJsonVersion() const
     Q_UNREACHABLE();
 }
 
-QJsonObject ToolOptionWidget::updateOptionJsonFrom(int version, const QJsonObject& json) const
+QJsonObject ToolOptionWidget::updateOptionJsonFrom(int version, const QJsonObject &json) const
 {
     Q_UNUSED(version);
     return json;
 }
 
-void ToolOptionWidget::askOtoDataCallback(int askId, const QVector<OtoEntryList>& contents)
+void ToolOptionWidget::askOtoDataCallback(int askId, const QVector<OtoEntryList> &contents)
 {
     Q_UNUSED(contents);
     Q_UNUSED(askId);
 }
 
-EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget* parent) : ToolOptionWidget(parent)
+EmptyToolOptionWidget::EmptyToolOptionWidget(QWidget *parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);
     setLayout(layout);
@@ -73,7 +73,7 @@ OptionContainer EmptyToolOptionWidget::getOptions() const
     return {};
 }
 
-void EmptyToolOptionWidget::setOptions(const OptionContainer& options)
+void EmptyToolOptionWidget::setOptions(const OptionContainer &options)
 {
     Q_UNUSED(options)
 }
@@ -83,13 +83,13 @@ int EmptyToolOptionWidget::optionJsonVersion() const
     return 1;
 }
 
-QJsonObject EmptyToolOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject EmptyToolOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     Q_UNUSED(options);
     Q_UNREACHABLE();
 }
 
-OptionContainer EmptyToolOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer EmptyToolOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     Q_UNUSED(json);
     Q_UNREACHABLE();

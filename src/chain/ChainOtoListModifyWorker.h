@@ -7,9 +7,9 @@ class ChainOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE ChainOtoListModifyWorker(QObject* parent = nullptr);
-    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
-                OtoEntryList &secondSaveOtoList, const OptionContainer &options) override;
+    Q_INVOKABLE ChainOtoListModifyWorker(QObject *parent = nullptr);
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
+                const OptionContainer &options) override;
     bool needConfirm() const override;
     QVector<ConfirmMsg> getConfirmMsgs() const override;
     bool isConfirmDialogAccepted(int msgTypeId, int dialogResult) const override;

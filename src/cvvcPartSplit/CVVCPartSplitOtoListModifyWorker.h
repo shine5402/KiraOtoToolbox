@@ -8,13 +8,14 @@ class CVVCPartSplitOtoListModifyWorker : public OtoListModifyWorker
     Q_OBJECT
 public:
     Q_INVOKABLE explicit CVVCPartSplitOtoListModifyWorker(QObject *parent = nullptr);
-    void doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
-                OtoEntryList& secondSaveOtoList, const OptionContainer& options) override;
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
+                const OptionContainer &options) override;
 
     bool needConfirm() const override;
     QVector<ConfirmMsg> getConfirmMsgs() const override;
+
 private:
-    //dry-run states, for confirm
+    // dry-run states, for confirm
     bool VCExtractedToNewFile = false;
     OtoEntryList VCList;
 };

@@ -1,8 +1,9 @@
 #include "RemoveBlankDialogAdapter.h"
-#include "RemoveBlankOtoListModifyWorker.h"
-#include "RemoveBlankOptionWidget.h"
 
-RemoveBlankDialogAdapter::RemoveBlankDialogAdapter(QObject* parent) : ToolDialogAdapter(parent)
+#include "RemoveBlankOptionWidget.h"
+#include "RemoveBlankOtoListModifyWorker.h"
+
+RemoveBlankDialogAdapter::RemoveBlankDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {
     setWorkerMetaObj(RemoveBlankOtoListModifyWorker::staticMetaObject);
     setOptionWidgetMetaObj(RemoveBlankOptionWidget::staticMetaObject);

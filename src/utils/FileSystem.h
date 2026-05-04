@@ -3,7 +3,7 @@
 
 #include <QString>
 
-//TODO: make universal for other file extension
+// TODO: make universal for other file extension
 QStringList getAbsoluteWAVFileNamesUnder(QString rootDirName, bool recursive = false);
 
 #endif // KIRA_FILESYSTEM_H

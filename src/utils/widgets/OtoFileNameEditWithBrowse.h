@@ -2,6 +2,7 @@
 #define OTOFILENAMEEDITWITHBROWSE_H
 
 #include <QWidget>
+
 #include "utils/widgets/FileNameEditWithBrowse.h"
 
 class OtoFileNameEditWithBrowse : public FileNameEditWithBrowse
@@ -9,18 +10,19 @@ class OtoFileNameEditWithBrowse : public FileNameEditWithBrowse
     Q_OBJECT
 public:
     explicit OtoFileNameEditWithBrowse(QWidget *parent = nullptr);
-    void setParametersByPurpose(const Purpose& value);
+    void setParametersByPurpose(const Purpose &value);
 signals:
-
 };
 
-class OtoFileNameEditWithOpenBrowse : public OtoFileNameEditWithBrowse {
+class OtoFileNameEditWithOpenBrowse : public OtoFileNameEditWithBrowse
+{
     Q_OBJECT
 public:
     explicit OtoFileNameEditWithOpenBrowse(QWidget *parent = nullptr);
 };
 
-class OtoFileNameEditWithSaveBrowse : public OtoFileNameEditWithBrowse {
+class OtoFileNameEditWithSaveBrowse : public OtoFileNameEditWithBrowse
+{
     Q_OBJECT
 public:
     explicit OtoFileNameEditWithSaveBrowse(QWidget *parent = nullptr);

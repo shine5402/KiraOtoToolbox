@@ -1,13 +1,14 @@
 #ifndef OVERLAPBATCHSETDIALOGOPTIONWIDGET_H
 #define OVERLAPBATCHSETDIALOGOPTIONWIDGET_H
 
+#include <QStringListModel>
 #include <QWidget>
+
 #include "otoUtils/OtoEntry.h"
 #include "toolBase/ToolOptionWidget.h"
-#include <QStringListModel>
 
 namespace Ui {
-    class OverlapBatchSetDialogOptionWidget;
+class OverlapBatchSetDialogOptionWidget;
 }
 
 class OverlapBatchSetDialogOptionWidget : public ToolOptionWidget
@@ -19,10 +20,10 @@ public:
     ~OverlapBatchSetDialogOptionWidget();
 
     OptionContainer getOptions() const override;
-    void setOptions(const OptionContainer& options) override;
+    void setOptions(const OptionContainer &options) override;
 
-    QJsonObject optionsToJson(const OptionContainer& options) const override;
-    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    QJsonObject optionsToJson(const OptionContainer &options) const override;
+    OptionContainer jsonToOptions(const QJsonObject &json) const override;
     int optionJsonVersion() const override;
 
 private:

@@ -1,11 +1,12 @@
 #ifndef REPLACERULESWIDGET_H
 #define REPLACERULESWIDGET_H
 
-#include "ReplaceRulesModel.h"
 #include <QWidget>
 
+#include "ReplaceRulesModel.h"
+
 namespace Ui {
-    class ReplaceRulesWidget;
+class ReplaceRulesWidget;
 }
 
 class ReplaceRulesWidget : public QWidget
@@ -17,7 +18,7 @@ public:
     ~ReplaceRulesWidget();
 
     QVector<ReplaceRule> getRules() const;
-    void setRules(const QVector<ReplaceRule>& value);
+    void setRules(const QVector<ReplaceRule> &value);
 
 private slots:
     void addRule();
@@ -29,7 +30,7 @@ private slots:
 
 private:
     Ui::ReplaceRulesWidget *ui;
-    ReplaceRulesModel* model;
+    ReplaceRulesModel *model;
 
 signals:
     void rulesChanged();

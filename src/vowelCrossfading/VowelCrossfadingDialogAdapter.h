@@ -7,7 +7,7 @@ class VowelCrossfadingDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit VowelCrossfadingDialogAdapter(QObject* parent = nullptr);
+    Q_INVOKABLE explicit VowelCrossfadingDialogAdapter(QObject *parent = nullptr);
     DEFINE_TOOL_NAME("Vowel crossfading")
 };
 

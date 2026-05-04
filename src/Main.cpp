@@ -1,10 +1,10 @@
-#include "MainWindow.h"
-
 #include <QApplication>
-#include "InitFuncs.h"
-#include <QSplashScreen>
-#include <QLocale>
 #include <QFontDatabase>
+#include <QLocale>
+#include <QSplashScreen>
+
+#include "InitFuncs.h"
+#include "MainWindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    //For js tool
+    // For js tool
     QFontDatabase::addApplicationFont(":/font/JetBrainsMono-Regular.ttf");
 
     splashScr.finish(&w);

@@ -1,18 +1,15 @@
 #include "SvgWidget.h"
 
+#include <QEvent>
 #include <QPainter>
 #include <QPalette>
-#include <QEvent>
 
-SvgWidget::SvgWidget(QWidget *parent)
-    : QWidget(parent)
+SvgWidget::SvgWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
 SvgWidget::SvgWidget(const QString &lightResource, const QString &darkResource, QWidget *parent)
-    : QWidget(parent)
-    , m_lightResource(lightResource)
-    , m_darkResource(darkResource)
+    : QWidget(parent), m_lightResource(lightResource), m_darkResource(darkResource)
 {
     updateRenderer();
 }

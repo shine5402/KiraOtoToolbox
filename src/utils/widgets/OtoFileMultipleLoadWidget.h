@@ -1,12 +1,13 @@
 #ifndef OTOFILEMULTIPLEOPENWIDGET_H
 #define OTOFILEMULTIPLEOPENWIDGET_H
 
-#include <QWidget>
-#include "../models/otofilelistmodel.h"
 #include <QItemSelection>
+#include <QWidget>
+
+#include "../models/otofilelistmodel.h"
 
 namespace Ui {
-    class OtoFileMultipleLoadWidget;
+class OtoFileMultipleLoadWidget;
 }
 
 class OtoFileMultipleLoadWidget : public QWidget
@@ -20,7 +21,7 @@ public:
     int count() const;
     QVector<OtoEntryList> entryLists() const;
     QStringList fileNames() const;
-    void loadFiles(const QStringList& fileNames);
+    void loadFiles(const QStringList &fileNames);
     void disableModify();
 
 private slots:
@@ -28,10 +29,11 @@ private slots:
     void appendOtoFile();
     void removeOtoFile();
     void onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+
 private:
     Ui::OtoFileMultipleLoadWidget *ui;
     int currentRow();
-    OtoFileListModel* model = new OtoFileListModel;
+    OtoFileListModel *model = new OtoFileListModel;
     void refreshButtonEnableState();
 signals:
     void dataChanged();

@@ -1,40 +1,40 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-#include "toolBase/ToolDialog.h"
-#include "removeDuplicate/RemoveDuplicateDialogAdapter.h"
-#include "overlapBatchSet/OverlapBatchSetDialogAdapter.h"
-#include <QMessageBox>
-#include "removeAffix/RemoveAffixDialogAdapter.h"
-#include "addAffix/AddAffixDialogAdapter.h"
-#include "toolBase/ToolManager.h"
-#include <QPushButton>
 #include <QButtonGroup>
-#include <QGroupBox>
 #include <QDesktopServices>
-#include <QUrl>
-#include "utils/i18n/TranslationManager.h"
+#include <QGroupBox>
+#include <QMessageBox>
+#include <QPushButton>
 #include <QSettings>
+#include <QUrl>
+
+#include "addAffix/AddAffixDialogAdapter.h"
+#include "overlapBatchSet/OverlapBatchSetDialogAdapter.h"
+#include "removeAffix/RemoveAffixDialogAdapter.h"
+#include "removeDuplicate/RemoveDuplicateDialogAdapter.h"
+#include "toolBase/ToolDialog.h"
+#include "toolBase/ToolManager.h"
 #include "utils/UpdateChecker.h"
+#include "utils/i18n/TranslationManager.h"
 #include "utils/widgets/SvgWidget.h"
 
 void MainWindow::setArgInfoBlock()
 {
     auto args = qApp->arguments();
 
-    if (args.count() < 2)
-    {
+    if (args.count() < 2) {
         ui->argInfoBlock->hide();
-    }
-    else
-    {
+    } else {
         args.removeFirst();
         ui->argInfoLabel->setText(tr("<p>It seems like that these filepaths provided in arguments. <br/>"
-                                     "These paths will be used as tool's oto data input.</p><code><ul style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>").arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
+                                     "These paths will be used as tool's oto data input.</p><code><ul "
+                                     "style='margin-left:15px;-qt-list-indent:0;'><li>%1</li></ul></code>")
+                                      .arg(args.count() > 1 ? args.join("</li><li>") : args.at(0)));
     }
 }
 
-QMenu* MainWindow::createHelpMenu()
+QMenu *MainWindow::createHelpMenu()
 {
     auto helpMenu = new QMenu(tr("Help"), this);
     auto aboutAction = helpMenu->addAction(tr("About"));
@@ -44,21 +44,16 @@ QMenu* MainWindow::createHelpMenu()
     helpMenu->addSeparator();
     helpMenu->addAction(UpdateChecker::createAutoCheckAction());
     auto checkUpdateAction = helpMenu->addAction(tr("Check update now"));
-    connect(checkUpdateAction, &QAction::triggered, this, [this](){
-        UpdateChecker::checkManually(updateChecker);
-    });
+    connect(checkUpdateAction, &QAction::triggered, this, [this]() { UpdateChecker::checkManually(updateChecker); });
     helpMenu->addSeparator();
     auto homepageAction = helpMenu->addAction(tr("Project homepage"));
-    connect(homepageAction, &QAction::triggered, this, [](){
-        QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/KiraOtoToolbox"});
-    });
+    connect(homepageAction, &QAction::triggered, this,
+            []() { QDesktopServices::openUrl(QUrl{"https://github.com/shine5402/KiraOtoToolbox"}); });
 
     return helpMenu;
 }
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
@@ -67,9 +62,9 @@ MainWindow::MainWindow(QWidget *parent)
     // HiDPI rendering and dark/light mode switching automatically.
     auto *logoWidget = new SvgWidget(QStringLiteral(":/logo/light"), QStringLiteral(":/logo/dark"), this);
     logoWidget->setFixedHeight(48);
-    auto *logoLayout = qobject_cast<QHBoxLayout*>(ui->logoLabel->parentWidget()->layout());
+    auto *logoLayout = qobject_cast<QHBoxLayout *>(ui->logoLabel->parentWidget()->layout());
     if (!logoLayout)
-        logoLayout = qobject_cast<QHBoxLayout*>(ui->logoLabel->parent()->findChild<QHBoxLayout*>());
+        logoLayout = qobject_cast<QHBoxLayout *>(ui->logoLabel->parent()->findChild<QHBoxLayout *>());
     if (logoLayout) {
         logoLayout->replaceWidget(ui->logoLabel, logoWidget);
     }
@@ -77,17 +72,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     setArgInfoBlock();
 
-    //Create tool selector ui
+    // Create tool selector ui
     createToolSelectorUI();
 
-    //create language menu
+    // create language menu
     ui->langButton->setMenu(TranslationManager::getManager()->getI18nMenu());
 
-    //Help menu
+    // Help menu
     auto helpMenu = createHelpMenu();
     ui->helpButton->setMenu(helpMenu);
 
-    //set window titie
+    // set window titie
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
     if (QStringLiteral(GIT_BRANCH) == QStringLiteral("dev"))
         setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
@@ -98,12 +93,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::createToolSelectorUI()
 {
-    if (!toolButtonsLayoutResources.isEmpty())
-    {
-        for (auto i : qAsConst(toolButtonsLayoutResources)){
-            auto widget = qobject_cast<QWidget*>(i);
-            if (widget)
-            {
+    if (!toolButtonsLayoutResources.isEmpty()) {
+        for (auto i : qAsConst(toolButtonsLayoutResources)) {
+            auto widget = qobject_cast<QWidget *>(i);
+            if (widget) {
                 ui->toolLayout->removeWidget(widget);
             }
             i->deleteLater();
@@ -117,49 +110,49 @@ void MainWindow::createToolSelectorUI()
     auto availableTools = ToolManager::getManager()->getTools();
     auto toolGroups = ToolManager::getManager()->getToolGroups();
     auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
-    for (int groupID = 0; groupID < groups.count(); ++groupID){
+    for (int groupID = 0; groupID < groups.count(); ++groupID) {
         auto group = groups.at(groupID);
-        auto groupBox = new QGroupBox(group.isEmpty() ? tr("Uncategorized") : QCoreApplication::translate("TOOL_TYPE", group.toStdString().c_str()), this);
+        auto groupBox =
+            new QGroupBox(group.isEmpty() ? tr("Uncategorized")
+                                          : QCoreApplication::translate("TOOL_TYPE", group.toStdString().c_str()),
+                          this);
         toolButtonsLayoutResources.append(groupBox);
         auto groupBoxLayout = new QVBoxLayout(groupBox);
         auto tools = toolGroups.values(group);
         std::reverse(tools.begin(), tools.end());
-        for (const auto& tool : tools)
-        {
+        for (const auto &tool : tools) {
             auto button = new QPushButton(tool.toolName(), groupBox);
             toolButtonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
-        ui->toolLayout->insertWidget(groupID, groupBox);//1 stands for behind first spacer in ui layout
+        ui->toolLayout->insertWidget(groupID, groupBox); // 1 stands for behind first spacer in ui layout
     }
 
-    connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup, [toolButtonGroup, this](QAbstractButton* button){
-        auto tools = ToolManager::getManager()->getTools();
-        auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), nullptr);
-        dialog->setAttribute(Qt::WA_DeleteOnClose, true);
-        dialog->open();
-    });
-
-
-
+    connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup,
+            [toolButtonGroup, this](QAbstractButton *button) {
+                auto tools = ToolManager::getManager()->getTools();
+                auto dialog = new ToolDialog(tools.at(toolButtonGroup->id(button)).getAdapterInstance(this), nullptr);
+                dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+                dialog->open();
+            });
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-
 }
 
 void MainWindow::showAboutDialog()
 {
     auto isBeta = QStringLiteral(GIT_BRANCH) == QStringLiteral("dev");
-    QString versionStr = tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
+    QString versionStr =
+        tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
             .arg(qApp->applicationVersion(), GIT_BRANCH, GIT_HASH, isBeta ? "-beta" : "", __DATE__, __TIME__);
     if (isBeta)
         versionStr += tr("<p style=\"color:orange\">You are using a BETA build. "
                          "<b>Use it at your own risk.</b>"
                          " If any problems occured, please provide feedback on Github Issues.</p>");
-    //To make a about msgBox
+    // To make a about msgBox
     auto msgBox = new QMessageBox(this);
     msgBox->setAttribute(Qt::WA_DeleteOnClose);
     QIcon icon = windowIcon();
@@ -210,20 +203,18 @@ files in the program, then also delete it here.</p>
 </ul>
 
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>. JetBrains Mono font is included under the Apache License, Version 2.0.</p>
-)"
-).arg(versionStr, QT_VERSION_STR));
-    //To make msgBox wider
-    QSpacerItem* horizontalSpacer = new QSpacerItem(width(), 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    QGridLayout* layout = (QGridLayout*)msgBox->layout();
+)")
+                        .arg(versionStr, QT_VERSION_STR));
+    // To make msgBox wider
+    QSpacerItem *horizontalSpacer = new QSpacerItem(width(), 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    QGridLayout *layout = (QGridLayout *)msgBox->layout();
     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
     msgBox->exec();
 }
 
-
-void MainWindow::changeEvent(QEvent* event)
+void MainWindow::changeEvent(QEvent *event)
 {
-    if (event->type() == QEvent::LanguageChange)
-    {
+    if (event->type() == QEvent::LanguageChange) {
         ui->retranslateUi(this);
         createToolSelectorUI();
         setArgInfoBlock();

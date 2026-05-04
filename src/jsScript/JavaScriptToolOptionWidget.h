@@ -2,14 +2,15 @@
 #define JAVASCRIPTTOOLOPTIONWIDGET_H
 
 #include <QWidget>
+
 #include "toolBase/ToolOptionWidget.h"
 
 namespace QSourceHighlite {
-    class QSourceHighliter;
+class QSourceHighliter;
 }
 
 namespace Ui {
-    class JavaScriptToolOptionWidget;
+class JavaScriptToolOptionWidget;
 }
 
 class JavaScriptToolOptionWidget : public ToolOptionWidget
@@ -26,15 +27,14 @@ private slots:
 
 private:
     Ui::JavaScriptToolOptionWidget *ui;
-    QSourceHighlite::QSourceHighliter* highlighter;
-
+    QSourceHighlite::QSourceHighliter *highlighter;
 
     // ToolOptionWidget interface
 public:
     OptionContainer getOptions() const override;
-    void setOptions(const OptionContainer& options) override;
-    QJsonObject optionsToJson(const OptionContainer& options) const override;
-    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    void setOptions(const OptionContainer &options) override;
+    QJsonObject optionsToJson(const OptionContainer &options) const override;
+    OptionContainer jsonToOptions(const QJsonObject &json) const override;
     int optionJsonVersion() const override;
 };
 

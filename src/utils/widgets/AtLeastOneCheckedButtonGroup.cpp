@@ -1,44 +1,52 @@
 #include "utils/widgets/AtLeastOneCheckedButtonGroup.h"
-#include <QButtonGroup>
-#include "utils/widgets/QBalloonTip.h"
-#include <QStyle>
+
 #include <QApplication>
+#include <QButtonGroup>
+#include <QStyle>
+
+#include "utils/widgets/QBalloonTip.h"
 
 AtLeastOneCheckedButtonGroup::AtLeastOneCheckedButtonGroup(QObject *parent) : QObject(parent)
 {
     groupInside = new QButtonGroup(this);
     groupInside->setExclusive(false);
     connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonClicked));
-    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonClicked));
+    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), this,
+            qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonClicked));
     connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonPressed));
-    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonPressed), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonPressed));
+    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonPressed), this,
+            qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonPressed));
     connect(groupInside, &QButtonGroup::idClicked, this, qOverload<int>(&AtLeastOneCheckedButtonGroup::buttonReleased));
-    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonReleased), this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonReleased));
-    connect(groupInside, &QButtonGroup::idToggled, this, qOverload<int, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
-    connect(groupInside, qOverload<QAbstractButton *, bool>(&QButtonGroup::buttonToggled), this, qOverload<QAbstractButton *, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
-    connect(this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonClicked), this, &AtLeastOneCheckedButtonGroup::checkCheckedState);
+    connect(groupInside, qOverload<QAbstractButton *>(&QButtonGroup::buttonReleased), this,
+            qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonReleased));
+    connect(groupInside, &QButtonGroup::idToggled, this,
+            qOverload<int, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
+    connect(groupInside, qOverload<QAbstractButton *, bool>(&QButtonGroup::buttonToggled), this,
+            qOverload<QAbstractButton *, bool>(&AtLeastOneCheckedButtonGroup::buttonToggled));
+    connect(this, qOverload<QAbstractButton *>(&AtLeastOneCheckedButtonGroup::buttonClicked), this,
+            &AtLeastOneCheckedButtonGroup::checkCheckedState);
 }
 
-void AtLeastOneCheckedButtonGroup::addButton(QAbstractButton* button, int id)
+void AtLeastOneCheckedButtonGroup::addButton(QAbstractButton *button, int id)
 {
     groupInside->addButton(button, id);
 }
 
-QAbstractButton* AtLeastOneCheckedButtonGroup::button(int id) const
+QAbstractButton *AtLeastOneCheckedButtonGroup::button(int id) const
 {
     return groupInside->button(id);
 }
 
-QList<QAbstractButton*> AtLeastOneCheckedButtonGroup::buttons() const
+QList<QAbstractButton *> AtLeastOneCheckedButtonGroup::buttons() const
 {
     return groupInside->buttons();
 }
 
-QList<QAbstractButton*> AtLeastOneCheckedButtonGroup::checkedButtons() const
+QList<QAbstractButton *> AtLeastOneCheckedButtonGroup::checkedButtons() const
 {
-    QList<QAbstractButton*> result;
+    QList<QAbstractButton *> result;
     const auto buttons_ = buttons();
-    for (auto b : buttons_){
+    for (auto b : buttons_) {
         if (b->isChecked())
             result.append(b);
     }
@@ -49,23 +57,23 @@ QList<int> AtLeastOneCheckedButtonGroup::checkedIds() const
 {
     auto buttons = checkedButtons();
     QList<int> result;
-    for (auto b : buttons){
+    for (auto b : buttons) {
         result.append(id(b));
     }
     return result;
 }
 
-int AtLeastOneCheckedButtonGroup::id(QAbstractButton* button) const
+int AtLeastOneCheckedButtonGroup::id(QAbstractButton *button) const
 {
     return groupInside->id(button);
 }
 
-void AtLeastOneCheckedButtonGroup::checkCheckedState(QAbstractButton* button)
+void AtLeastOneCheckedButtonGroup::checkCheckedState(QAbstractButton *button)
 {
-    if (checkedButtons().count() < 1){
-    QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxWarning),
-    tr("Must choose at least one"), tr("You should keep at least one option to be chosen."), button, QCursor::pos(), 3000);
-    button->toggle();
+    if (checkedButtons().count() < 1) {
+        QBalloonTip::showBalloon(qApp->style()->standardIcon(QStyle::SP_MessageBoxWarning),
+                                 tr("Must choose at least one"),
+                                 tr("You should keep at least one option to be chosen."), button, QCursor::pos(), 3000);
+        button->toggle();
     }
 }
-

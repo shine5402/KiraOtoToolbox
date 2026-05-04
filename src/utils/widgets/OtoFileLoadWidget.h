@@ -2,10 +2,11 @@
 #define OTOFILELOADWIDGET_H
 
 #include <QWidget>
+
 #include "otoUtils/OtoEntry.h"
 
 namespace Ui {
-    class OtoFileLoadWidget;
+class OtoFileLoadWidget;
 }
 
 class OtoFileLoadWidget : public QWidget
@@ -16,19 +17,19 @@ public:
     explicit OtoFileLoadWidget(QWidget *parent = nullptr);
     ~OtoFileLoadWidget();
 
-    void setFileName(const QString& fileName);
+    void setFileName(const QString &fileName);
     QString fileName() const;
     OtoEntryList getEntryList() const;
     bool isEntryListReaded() const;
     void reset();
     void load();
 
-    void pretendLoaded(const QString& fileName, const OtoEntryList& entryList);
+    void pretendLoaded(const QString &fileName, const OtoEntryList &entryList);
+
 private:
     Ui::OtoFileLoadWidget *ui;
     OtoEntryList entryList = {};
     bool entryListReaded = false;
-
 
     void setUpLoadedUI();
 private slots:

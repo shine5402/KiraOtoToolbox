@@ -2,5 +2,4 @@
 
 OtoFileSaveWidgetAbstract::OtoFileSaveWidgetAbstract(QWidget *parent) : QWidget(parent)
 {
-
 }

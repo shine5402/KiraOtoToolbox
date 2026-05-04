@@ -1,41 +1,40 @@
 #include "CopyOrReplaceByAliasOptionWidget.h"
-#include "qstringliteral.h"
 #include "ui_CopyOrReplaceByAliasOptionWidget.h"
-#include "utils/misc/Misc.h"
+
+#include <QComboBox>
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QLineEdit>
-#include <QComboBox>
-#include <QDialogButtonBox>
 #include <QMessageBox>
 
-CopyOrReplaceByAliasOptionWidget::CopyOrReplaceByAliasOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::CopyOrReplaceByAliasOptionWidget)
+#include "qstringliteral.h"
+#include "utils/misc/Misc.h"
+
+CopyOrReplaceByAliasOptionWidget::CopyOrReplaceByAliasOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::CopyOrReplaceByAliasOptionWidget)
 {
     ui->setupUi(this);
 
     connect(ui->rulesWidget, &ReplaceRulesWidget::rulesChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->behaviorButtonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
 
-    connect(ui->behaviorButtonGroup, &QButtonGroup::idToggled, this, [this](){
+    connect(ui->behaviorButtonGroup, &QButtonGroup::idToggled, this, [this]() {
         auto curr = ui->matchStrategyComboBox->currentIndex();
         ui->matchStrategyComboBox->clear();
-        if (ui->behaviorCopyRadioButton->isChecked()){
-            ui->matchStrategyComboBox->addItems({QStringLiteral("Match first then stop"),
-                                                 QStringLiteral("Match all and replace all matches"),
-                                                 QStringLiteral("Match all in parallel and copy all matches (copy mode only)")});
+        if (ui->behaviorCopyRadioButton->isChecked()) {
+            ui->matchStrategyComboBox->addItems(
+                {QStringLiteral("Match first then stop"), QStringLiteral("Match all and replace all matches"),
+                 QStringLiteral("Match all in parallel and copy all matches (copy mode only)")});
             ui->matchStrategyComboBox->setCurrentIndex(curr);
         }
-        if (ui->behaviorReplaceRadioButton->isChecked()){
-            ui->matchStrategyComboBox->addItems({QStringLiteral("Match first then stop"),
-                                                 QStringLiteral("Match all and replace all matches")});
+        if (ui->behaviorReplaceRadioButton->isChecked()) {
+            ui->matchStrategyComboBox->addItems(
+                {QStringLiteral("Match first then stop"), QStringLiteral("Match all and replace all matches")});
             ui->matchStrategyComboBox->setCurrentIndex(curr < 2 ? curr : 0);
         }
-
     });
 }
-
 
 CopyOrReplaceByAliasOptionWidget::~CopyOrReplaceByAliasOptionWidget()
 {
@@ -54,7 +53,7 @@ OptionContainer CopyOrReplaceByAliasOptionWidget::getOptions() const
     return options;
 }
 
-void CopyOrReplaceByAliasOptionWidget::setOptions(const OptionContainer& options)
+void CopyOrReplaceByAliasOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->rulesWidget->setRules(options.getOption("rules").value<QVector<ReplaceRule>>());
     ui->behaviorCopyRadioButton->setChecked(options.getOption("behaviorCopy", false).toBool());
@@ -62,7 +61,7 @@ void CopyOrReplaceByAliasOptionWidget::setOptions(const OptionContainer& options
     ui->matchStrategyComboBox->setCurrentIndex(options.getOption("opStrategy").toInt());
 }
 
-QJsonObject CopyOrReplaceByAliasOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject CopyOrReplaceByAliasOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
@@ -76,7 +75,7 @@ QJsonObject CopyOrReplaceByAliasOptionWidget::optionsToJson(const OptionContaine
     return json;
 }
 
-OptionContainer CopyOrReplaceByAliasOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer CopyOrReplaceByAliasOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 
@@ -95,12 +94,11 @@ int CopyOrReplaceByAliasOptionWidget::optionJsonVersion() const
     return 2;
 }
 
-
-QJsonObject CopyOrReplaceByAliasOptionWidget::updateOptionJsonFrom(int version, const QJsonObject& json) const
+QJsonObject CopyOrReplaceByAliasOptionWidget::updateOptionJsonFrom(int version, const QJsonObject &json) const
 {
     auto result = json;
-    if (version == 1){
-        result.insert("opStrategy", 1);//Match all and replace all matches, in nightly 20220212
+    if (version == 1) {
+        result.insert("opStrategy", 1); // Match all and replace all matches, in nightly 20220212
     }
     return result;
 }

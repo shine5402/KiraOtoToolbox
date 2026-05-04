@@ -1,6 +1,7 @@
 #include "NotDoAnythingDialogAdapter.h"
-#include "NotDoAnythingOtoListModifyWorker.h"
+
 #include "NotDoAnythingOptionWidget.h"
+#include "NotDoAnythingOtoListModifyWorker.h"
 
 NotDoAnythingDialogAdapter::NotDoAnythingDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {

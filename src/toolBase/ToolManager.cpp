@@ -2,20 +2,18 @@
 
 ToolManager::ToolManager(QObject *parent) : QObject(parent)
 {
-
 }
 
-ToolManager* ToolManager::getManager()
+ToolManager *ToolManager::getManager()
 {
     return manager;
 }
 
-void ToolManager::registerTool(const QString& group, const Tool& tool)
+void ToolManager::registerTool(const QString &group, const Tool &tool)
 {
     tools.append(tool);
     toolGroups.insert(group, tool);
-    if (!toolGroupNames.contains(group))
-    {
+    if (!toolGroupNames.contains(group)) {
         toolGroupNames.append(group);
     }
 }
@@ -26,7 +24,7 @@ void ToolManager::unRegisterTool(int i)
     unRegisterTool(tool);
 }
 
-void ToolManager::unRegisterTool(const Tool& tool)
+void ToolManager::unRegisterTool(const Tool &tool)
 {
     auto group = toolGroups.key(tool);
     toolGroups.remove(group, tool);
@@ -50,5 +48,4 @@ QStringList ToolManager::getToolGroupNamesInRegisterOrder() const
     return toolGroupNames;
 }
 
-
-ToolManager* ToolManager::manager = new ToolManager();
+ToolManager *ToolManager::manager = new ToolManager();

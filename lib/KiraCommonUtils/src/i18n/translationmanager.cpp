@@ -1,18 +1,18 @@
-#include <kira/i18n/translationmanager.h>
+#include <QAction>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
-#include <QJsonDocument>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
-#include <kira/lib_helper/fplus_qt_adapter.h>
-#include <QAction>
 #include <QObject>
 #include <QSettings>
+#include <kira/i18n/translationmanager.h>
+#include <kira/lib_helper/fplus_qt_adapter.h>
 
-TranslationManager* TranslationManager::instance = nullptr;
+TranslationManager *TranslationManager::instance = nullptr;
 
-TranslationManager* TranslationManager::getManager()
+TranslationManager *TranslationManager::getManager()
 {
     if (!instance)
         instance = new TranslationManager;
@@ -27,24 +27,27 @@ TranslationManager::TranslationManager()
         return;
     auto metaFileContent = metaFile.readAll();
     auto array = QJsonDocument::fromJson(metaFileContent).array();
-    translations = fplus::keep_if([](const Translation& elem)->bool{
-        return elem.isValid();
-    }, fplus::transform([](const QJsonValue& value)->Translation{
-        auto tr = Translation::fromJson(value.toObject());
-        tr.setTranslationFilenames(fplus::transform([](const QString& fileName)->QString{
-            return QDir{qApp->applicationDirPath()}.filePath("translations/" + fileName);
-        },
-        tr.translationFilenames()));
-        return tr;
-    }, array));
+    translations =
+        fplus::keep_if([](const Translation &elem) -> bool { return elem.isValid(); },
+                       fplus::transform(
+                           [](const QJsonValue &value) -> Translation {
+                               auto tr = Translation::fromJson(value.toObject());
+                               tr.setTranslationFilenames(fplus::transform(
+                                   [](const QString &fileName) -> QString {
+                                       return QDir{qApp->applicationDirPath()}.filePath("translations/" + fileName);
+                                   },
+                                   tr.translationFilenames()));
+                               return tr;
+                           },
+                           array));
 
     getTranslationFor(getLocaleUserSetting()).install();
 }
 
-void TranslationManager::setLangActionChecked(QMenu* i18nMenu, const Translation& translation) const
+void TranslationManager::setLangActionChecked(QMenu *i18nMenu, const Translation &translation) const
 {
     auto actions = i18nMenu->actions();
-    for (auto action : qAsConst(actions)){
+    for (auto action : qAsConst(actions)) {
         auto currTr = TranslationManager::getManager()->getTranslation(action->data().toInt());
         action->setChecked(currTr == translation);
     }
@@ -74,19 +77,16 @@ Translation TranslationManager::getTranslation(int i) const
     return translations.at(i);
 }
 
-
-Translation TranslationManager::getTranslationFor(const QLocale& locale) const
+Translation TranslationManager::getTranslationFor(const QLocale &locale) const
 {
-    return fplus::get_just_or_default(fplus::find_first_by([&locale](const Translation& translation)->bool{
-        return translation.locale() == locale;
-    }, translations));
+    return fplus::get_just_or_default(fplus::find_first_by(
+        [&locale](const Translation &translation) -> bool { return translation.locale() == locale; }, translations));
 }
 
 int TranslationManager::getCurrentInstalledTranslationID() const
 {
-    auto result = fplus::find_first_idx_by([](const Translation& elem)->bool{
-        return elem == Translation::getCurrentInstalled();
-    }, translations);
+    auto result = fplus::find_first_idx_by(
+        [](const Translation &elem) -> bool { return elem == Translation::getCurrentInstalled(); }, translations);
     return result.is_just() ? result.unsafe_get_just() : -1;
 }
 
@@ -95,7 +95,7 @@ Translation TranslationManager::getCurrentInstalled() const
     return Translation::getCurrentInstalled();
 }
 
-QMenu* TranslationManager::getI18nMenu()
+QMenu *TranslationManager::getI18nMenu()
 {
     if (i18nMenu)
         return i18nMenu;
@@ -107,15 +107,17 @@ QMenu* TranslationManager::getI18nMenu()
     defaultLang->setCheckable(true);
     i18nMenu->addAction(defaultLang);
 
-    for (auto i = 0; i < translations.count(); ++i)
-    {
+    for (auto i = 0; i < translations.count(); ++i) {
         auto l = translations.at(i);
-        auto langAction = new QAction(QLatin1String("%1 (%2), by %3").arg(QLocale::languageToString(l.locale().language()),l.locale().bcp47Name(),l.author()), i18nMenu);
+        auto langAction =
+            new QAction(QLatin1String("%1 (%2), by %3")
+                            .arg(QLocale::languageToString(l.locale().language()), l.locale().bcp47Name(), l.author()),
+                        i18nMenu);
         langAction->setData(i);
         langAction->setCheckable(true);
         i18nMenu->addAction(langAction);
     }
-    QObject::connect(i18nMenu, &QMenu::triggered, i18nMenu, [this](QAction* action){
+    QObject::connect(i18nMenu, &QMenu::triggered, i18nMenu, [this](QAction *action) {
         auto translation = getTranslation(action->data().toInt());
         translation.install();
         setLangActionChecked(i18nMenu, translation);

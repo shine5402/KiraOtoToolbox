@@ -1,9 +1,8 @@
 #include "ReplaceFileNameOptionWidget.h"
 #include "ui_ReplaceFileNameOptionWidget.h"
 
-ReplaceFileNameOptionWidget::ReplaceFileNameOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::ReplaceFileNameOptionWidget)
+ReplaceFileNameOptionWidget::ReplaceFileNameOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::ReplaceFileNameOptionWidget)
 {
     ui->setupUi(this);
 
@@ -16,7 +15,6 @@ ReplaceFileNameOptionWidget::~ReplaceFileNameOptionWidget()
     delete ui;
 }
 
-
 OptionContainer ReplaceFileNameOptionWidget::getOptions() const
 {
     OptionContainer options;
@@ -27,13 +25,13 @@ OptionContainer ReplaceFileNameOptionWidget::getOptions() const
     return options;
 }
 
-void ReplaceFileNameOptionWidget::setOptions(const OptionContainer& options)
+void ReplaceFileNameOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->rulesWidget->setRules(options.getOption("rules").value<QVector<ReplaceRule>>());
     ui->interpretBySystemEncodingCheckBox->setChecked(options.getOption("interpretBySystemEncoding").toBool());
 }
 
-QJsonObject ReplaceFileNameOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject ReplaceFileNameOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
@@ -45,7 +43,7 @@ QJsonObject ReplaceFileNameOptionWidget::optionsToJson(const OptionContainer& op
     return json;
 }
 
-OptionContainer ReplaceFileNameOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer ReplaceFileNameOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

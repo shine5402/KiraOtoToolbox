@@ -1,9 +1,8 @@
 #include "OtoFileDirectSaveWidget.h"
 #include "ui_OtoFileDirectSaveWidget.h"
 
-OtoFileDirectSaveWidget::OtoFileDirectSaveWidget(QWidget *parent) :
-    OtoFileSaveWidgetAbstract(parent),
-    ui(new Ui::OtoFileDirectSaveWidget)
+OtoFileDirectSaveWidget::OtoFileDirectSaveWidget(QWidget *parent)
+    : OtoFileSaveWidgetAbstract(parent), ui(new Ui::OtoFileDirectSaveWidget)
 {
     ui->setupUi(this);
 }
@@ -29,7 +28,7 @@ void OtoFileDirectSaveWidget::setSecondFileNameAvailable(bool value)
     Q_UNUSED(value);
 }
 
-void OtoFileDirectSaveWidget::setSecondFileNameCheckBoxText(const QString& text)
+void OtoFileDirectSaveWidget::setSecondFileNameCheckBoxText(const QString &text)
 {
     Q_UNREACHABLE();
     Q_UNUSED(text);
@@ -40,7 +39,7 @@ QString OtoFileDirectSaveWidget::secondFileNameUsage() const
     Q_UNREACHABLE();
 }
 
-void OtoFileDirectSaveWidget::setSecondFileNameUsage(const QString& value)
+void OtoFileDirectSaveWidget::setSecondFileNameUsage(const QString &value)
 {
     Q_UNREACHABLE();
     Q_UNUSED(value);
@@ -52,14 +51,12 @@ OptionContainer OtoFileDirectSaveWidget::getOptions() const
     options.setOption("isSaveToSrc", true);
     options.setOption("isSaveToCustom", false);
     options.setOption("isSecondFileNameUsed", false);
-    //options.setOption("precision", ui->precisionSpinBox->value());
+    // options.setOption("precision", ui->precisionSpinBox->value());
     return options;
 }
 
-void OtoFileDirectSaveWidget::setOptions(const OptionContainer& options)
+void OtoFileDirectSaveWidget::setOptions(const OptionContainer &options)
 {
-    //ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
+    // ui->precisionSpinBox->setValue(options.getOption("precision", 3).toInt());
     Q_UNUSED(options)
 }
-
-

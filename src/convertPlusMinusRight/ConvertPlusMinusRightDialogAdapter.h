@@ -7,7 +7,7 @@ class ConvertPlusMinusRightDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE ConvertPlusMinusRightDialogAdapter(QObject* parent = nullptr);
+    Q_INVOKABLE ConvertPlusMinusRightDialogAdapter(QObject *parent = nullptr);
     DEFINE_TOOL_NAME("Convert ±right value")
 };
 

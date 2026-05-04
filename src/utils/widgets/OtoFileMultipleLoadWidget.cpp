@@ -1,23 +1,23 @@
 #include "OtoFileMultipleLoadWidget.h"
 #include "ui_OtoFileMultipleLoadWidget.h"
 
-#include "../dialogs/showotolistdialog.h"
-#include "utils/misc/Misc.h"
 #include <QMessageBox>
-#include "otoUtils/OtoFileReader.h"
 
-OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::OtoFileMultipleLoadWidget)
+#include "../dialogs/showotolistdialog.h"
+#include "otoUtils/OtoFileReader.h"
+#include "utils/misc/Misc.h"
+
+OtoFileMultipleLoadWidget::OtoFileMultipleLoadWidget(QWidget *parent)
+    : QWidget(parent), ui(new Ui::OtoFileMultipleLoadWidget)
 {
     ui->setupUi(this);
     ui->otoFileTableView->setModel(model);
-    connect(model, qOverload<>(&OtoFileListModel::dataChanged),
-            this, &OtoFileMultipleLoadWidget::dataChanged);
+    connect(model, qOverload<>(&OtoFileListModel::dataChanged), this, &OtoFileMultipleLoadWidget::dataChanged);
     connect(ui->loadButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::appendOtoFile);
     connect(ui->removeButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::removeOtoFile);
     connect(ui->showContentButton, &QPushButton::clicked, this, &OtoFileMultipleLoadWidget::showOtoList);
-    connect(ui->otoFileTableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &OtoFileMultipleLoadWidget::onSelectionChanged);
+    connect(ui->otoFileTableView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &OtoFileMultipleLoadWidget::onSelectionChanged);
 
     ui->openFileNameEdit->setMultipleMode(true);
 
@@ -34,10 +34,9 @@ void OtoFileMultipleLoadWidget::reset()
     model->reset();
 }
 
-
 int OtoFileMultipleLoadWidget::count() const
 {
-    //As we have a (total) item at the end
+    // As we have a (total) item at the end
     return model->rowCount() - 1;
 }
 
@@ -46,7 +45,7 @@ QVector<OtoEntryList> OtoFileMultipleLoadWidget::entryLists() const
     QVector<OtoEntryList> result;
 
     auto datas = model->datas();
-    for (const auto& data : datas){
+    for (const auto &data : datas) {
         result.append(data.entryList);
     }
 
@@ -58,23 +57,23 @@ QStringList OtoFileMultipleLoadWidget::fileNames() const
     QStringList result;
 
     auto datas = model->datas();
-    for (const auto& data : datas){
+    for (const auto &data : datas) {
         result.append(data.fileName);
     }
 
     return result;
 }
 
-void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
+void OtoFileMultipleLoadWidget::loadFiles(const QStringList &fileNames)
 {
-    for (const auto &fileName : fileNames){
-        if (!QFileInfo::exists(fileName)){
-            QMessageBox::critical(this, tr("File not exists"), tr("The file \"%1\" not exists. Please check and try again.").arg(fileName));
+    for (const auto &fileName : fileNames) {
+        if (!QFileInfo::exists(fileName)) {
+            QMessageBox::critical(this, tr("File not exists"),
+                                  tr("The file \"%1\" not exists. Please check and try again.").arg(fileName));
             continue;
         }
 
-        if (this->fileNames().contains(fileName))
-        {
+        if (this->fileNames().contains(fileName)) {
             QMessageBox::warning(this, tr("Has been readed"), tr("\"%1\" oto entries has been loaded.").arg(fileName));
             continue;
         }
@@ -85,9 +84,9 @@ void OtoFileMultipleLoadWidget::loadFiles(const QStringList& fileNames)
 
         auto entryList = reader.read();
 
-        if (entryList.isEmpty())
-        {
-            QMessageBox::critical(this, {}, tr("The given file \"%1\" is empty, or contains invalid data only.").arg(fileName));
+        if (entryList.isEmpty()) {
+            QMessageBox::critical(this, {},
+                                  tr("The given file \"%1\" is empty, or contains invalid data only.").arg(fileName));
             continue;
         }
 
@@ -111,7 +110,7 @@ void OtoFileMultipleLoadWidget::showOtoList()
     auto currentList = new OtoEntryList(model->data(currentRow()).entryList);
     auto dialog = new ShowOtoListDialog(currentList, this);
     dialog->open();
-    connect(dialog, &QObject::destroyed, [currentList](){delete currentList;});
+    connect(dialog, &QObject::destroyed, [currentList]() { delete currentList; });
 }
 
 void OtoFileMultipleLoadWidget::appendOtoFile()
@@ -126,26 +125,26 @@ void OtoFileMultipleLoadWidget::appendOtoFile()
 
 void OtoFileMultipleLoadWidget::removeOtoFile()
 {
-    if (model->rowCount() > 0){
+    if (model->rowCount() > 0) {
         QSet<int> selectedRowsSet;
         auto selectedIndexes = ui->otoFileTableView->selectionModel()->selection().indexes();
-        for (auto index : qAsConst(selectedIndexes)){
+        for (auto index : qAsConst(selectedIndexes)) {
             selectedRowsSet.insert(index.row());
         }
         auto selectedRows = selectedRowsSet.values();
         std::sort(selectedRows.begin(), selectedRows.end(), std::greater<>());
 
-        for (auto i : selectedRows){
+        for (auto i : selectedRows) {
             model->deleteData(i);
         }
     }
 }
 
-void OtoFileMultipleLoadWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected)
+void OtoFileMultipleLoadWidget::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     Q_UNUSED(deselected)
     refreshButtonEnableState();
-    //Prevent showing multiple list
+    // Prevent showing multiple list
     ui->showContentButton->setEnabled(ui->showContentButton->isEnabled() && selected.count() <= 1);
 }
 

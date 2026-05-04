@@ -2,6 +2,7 @@
 #define TOOLDIALOG_H
 
 #include <QDialog>
+
 #include "otoUtils/OtoEntry.h"
 #include "toolBase/ToolDialogAdapter.h"
 
@@ -10,7 +11,7 @@ class QStackedWidget;
 class PresetWidgetContainer;
 
 namespace Ui {
-    class ToolDialog;
+class ToolDialog;
 }
 
 class ToolDialog : public QDialog
@@ -18,7 +19,7 @@ class ToolDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ToolDialog(ToolDialogAdapter* adapter, QWidget *parent = nullptr);
+    explicit ToolDialog(ToolDialogAdapter *adapter, QWidget *parent = nullptr);
     ~ToolDialog();
     bool isBatchMode() const;
     bool isSingleMode() const;
@@ -35,20 +36,24 @@ private slots:
     void buttonBoxClicked(QAbstractButton *button);
 
     void refreshOptionWidgetEnableState();
+
 private:
     Ui::ToolDialog *ui;
     void reAssignWidgetHandles();
-    ToolDialogAdapter* adapter;
-    ToolOptionWidget* optionWidget;
-    PresetWidgetContainer* presetWidgetContainer;
-    bool doWork(const OtoEntryList& srcList, const QString& srcFileName, const OptionContainer& options, QWidget* dialogParent);
-    bool doWork(const QVector<OtoEntryList>& srcLists, const QStringList srcFileNames, const OptionContainer& options, QWidget* dialogParent);
+    ToolDialogAdapter *adapter;
+    ToolOptionWidget *optionWidget;
+    PresetWidgetContainer *presetWidgetContainer;
+    bool doWork(const OtoEntryList &srcList, const QString &srcFileName, const OptionContainer &options,
+                QWidget *dialogParent);
+    bool doWork(const QVector<OtoEntryList> &srcLists, const QStringList srcFileNames, const OptionContainer &options,
+                QWidget *dialogParent);
     constexpr static auto singleModePageIndex = 0;
     constexpr static auto batchModePageIndex = 1;
-    void refreshStackedWidgetSize(QStackedWidget* stackedWidget);
+    void refreshStackedWidgetSize(QStackedWidget *stackedWidget);
 
     void switchModePrivate(int pageIndex);
-    static bool saveOtoFileWithErrorInform(const OtoEntryList& entryList, int decimalAccuracy, const QString& fileName, const QString& usage, QWidget* dialogParent);
+    static bool saveOtoFileWithErrorInform(const OtoEntryList &entryList, int decimalAccuracy, const QString &fileName,
+                                           const QString &usage, QWidget *dialogParent);
 };
 
 #endif // TOOLDIALOG_H

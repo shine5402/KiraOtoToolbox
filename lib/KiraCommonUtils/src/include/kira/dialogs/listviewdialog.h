@@ -2,19 +2,21 @@
 #define LISTVIEWDIALOG_H
 
 #include <QDialog>
-#include <QListView>
 #include <QDialogButtonBox>
 #include <QLabel>
+#include <QListView>
 
 class ListViewDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ListViewDialog(QWidget* parent = nullptr, QAbstractListModel* model = nullptr, const QString& title = {}, const QString& labelText = {}, QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::Ok);
-    void setLabel(const QString& text);
+    ListViewDialog(QWidget *parent = nullptr, QAbstractListModel *model = nullptr, const QString &title = {},
+                   const QString &labelText = {},
+                   QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::Ok);
+    void setLabel(const QString &text);
     void setStandardButtons(QDialogButtonBox::StandardButtons buttons);
-    QAbstractListModel* getModel() const;
-    void setModel(QAbstractListModel* value);
+    QAbstractListModel *getModel() const;
+    void setModel(QAbstractListModel *value);
     QSize sizeHint() const override;
 
     int currentRow() const;
@@ -30,10 +32,10 @@ public:
     void setDoubleClickAsAccept(bool value);
 
 protected:
-    QAbstractListModel* model = nullptr;
-    QLabel* label = new QLabel(this);
-    QListView* listView = new QListView(this);
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(this);
+    QAbstractListModel *model = nullptr;
+    QLabel *label = new QLabel(this);
+    QListView *listView = new QListView(this);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
     bool doubleClickAsAccept = false;
 
 private slots:

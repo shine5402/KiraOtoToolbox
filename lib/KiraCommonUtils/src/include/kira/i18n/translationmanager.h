@@ -1,7 +1,8 @@
 #ifndef TRANSLATIONMANAGER_H
 #define TRANSLATIONMANAGER_H
-#include "translation.h"
 #include <QMenu>
+
+#include "translation.h"
 
 class TranslationManager
 {
@@ -11,28 +12,26 @@ public:
      * And it will install user's preferred translation when getManager() being called first time.
      * So don't forget to set Application's name and organization before first call.
      */
-    static TranslationManager* getManager();
+    static TranslationManager *getManager();
 
     QVector<Translation> getTranslations() const;
     Translation getTranslation(int i) const;
-    Translation getTranslationFor(const QLocale& locale) const;
+    Translation getTranslationFor(const QLocale &locale) const;
     int getCurrentInstalledTranslationID() const;
     Translation getCurrentInstalled() const;
 
-    QMenu* getI18nMenu();
+    QMenu *getI18nMenu();
 
 private:
-    static TranslationManager* instance;
+    static TranslationManager *instance;
     TranslationManager();
-    QMenu* i18nMenu = nullptr;
+    QMenu *i18nMenu = nullptr;
 
     QVector<Translation> translations;
 
-    void setLangActionChecked(QMenu* i18nMenu, const Translation& translation) const;
+    void setLangActionChecked(QMenu *i18nMenu, const Translation &translation) const;
     void saveUserLocaleSetting(QLocale locale) const;
     QLocale getLocaleUserSetting() const;
 };
-
-
 
 #endif // TRANSLATIONMANAGER_H

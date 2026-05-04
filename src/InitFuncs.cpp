@@ -1,29 +1,32 @@
 #include "InitFuncs.h"
-#include "removeDuplicate/RemoveDuplicateDialogAdapter.h"
-#include "overlapBatchSet/OverlapBatchSetDialogAdapter.h"
-#include "removeAffix/RemoveAffixDialogAdapter.h"
+
+#include <QCoreApplication>
+
 #include "addAffix/AddAffixDialogAdapter.h"
 #include "addAffix/AddAffixOtoListModifyWorker.h"
+#include "chain/ChainDialogAdapter.h"
+#include "convertPlusMinusRight/ConvertPlusMinusRightDialogAdapter.h"
+#include "copyOrReplaceByAlias/CopyOrReplaceByAliasDialogAdapter.h"
+#include "cvvcPartSplit/CVVCPartSplitToolDialogAdapter.h"
+#include "jsScript/JavaScriptToolDialogAdapter.h"
+#include "mergeOto/MergeOtoDialogAdapter.h"
+#include "notdoanything/NotDoAnythingDialogAdapter.h"
+#include "overlapBatchSet/OverlapBatchSetDialogAdapter.h"
+#include "preCenteredChangeValue/PreCenteredChangeValueAdapter.h"
+#include "removeAffix/RemoveAffixDialogAdapter.h"
 #include "removeBlank/RemoveBlankDialogAdapter.h"
 #include "removeBlank/RemoveBlankOtoListModifyWorker.h"
-#include "chain/ChainDialogAdapter.h"
-#include "notdoanything/NotDoAnythingDialogAdapter.h"
-#include "cvvcPartSplit/CVVCPartSplitToolDialogAdapter.h"
+#include "removeDuplicate/RemoveDuplicateDialogAdapter.h"
+#include "removeSpecificEntries/RemoveSpecificEntriesDialogAdapter.h"
+#include "replaceFileName/ReplaceFileNameAdapter.h"
 #include "setAlias/SetAliasDialogAdapter.h"
-#include "mergeOto/MergeOtoDialogAdapter.h"
-#include <QCoreApplication>
+#include "tempoTransform/TempoTransformDialogAdapter.h"
 #include "trimAroundSpecificValue/TrimAroundSpecificValueDialogAdapter.h"
 #include "vowelCrossfading/VowelCrossfadingDialogAdapter.h"
-#include "removeSpecificEntries/RemoveSpecificEntriesDialogAdapter.h"
-#include "copyOrReplaceByAlias/CopyOrReplaceByAliasDialogAdapter.h"
-#include "convertPlusMinusRight/ConvertPlusMinusRightDialogAdapter.h"
-#include "preCenteredChangeValue/PreCenteredChangeValueAdapter.h"
-#include "tempoTransform/TempoTransformDialogAdapter.h"
-#include "replaceFileName/ReplaceFileNameAdapter.h"
-#include "jsScript/JavaScriptToolDialogAdapter.h"
 
-#define REGISTER_TOOL(type, adapter_class) \
-    ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type), adapter_class::staticMetaObject)
+#define REGISTER_TOOL(type, adapter_class)                                                                             \
+    ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type),                            \
+                                            adapter_class::staticMetaObject)
 
 void registerTools()
 {

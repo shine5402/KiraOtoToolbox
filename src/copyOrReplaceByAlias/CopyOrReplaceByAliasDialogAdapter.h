@@ -7,7 +7,7 @@ class CopyOrReplaceByAliasDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit CopyOrReplaceByAliasDialogAdapter(QObject* parent);
+    Q_INVOKABLE explicit CopyOrReplaceByAliasDialogAdapter(QObject *parent);
     DEFINE_TOOL_NAME("Copy/Replace by alias")
 };
 

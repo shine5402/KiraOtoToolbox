@@ -8,17 +8,17 @@ FileNameReplaceMapTableModel::FileNameReplaceMapTableModel(QHash<QString, QStrin
 
 QVariant FileNameReplaceMapTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (role == Qt::DisplayRole){
-        if (orientation == Qt::Orientation::Horizontal)
-        {
-            switch (section){
-                case 0: return tr("Original file name");
-                case 1: return tr("New file name");
-                default: Q_UNREACHABLE();
+    if (role == Qt::DisplayRole) {
+        if (orientation == Qt::Orientation::Horizontal) {
+            switch (section) {
+            case 0:
+                return tr("Original file name");
+            case 1:
+                return tr("New file name");
+            default:
+                Q_UNREACHABLE();
             }
-        }
-        else
-        {
+        } else {
             return section + 1;
         }
     }
@@ -46,11 +46,14 @@ QVariant FileNameReplaceMapTableModel::data(const QModelIndex &index, int role) 
     if (!index.isValid())
         return QVariant();
 
-    if (role == Qt::DisplayRole){
-        switch (index.column()){
-            case 0: return keys.at(index.row());
-            case 1: return replaceMap.value(keys.at(index.row()));
-            default: Q_UNREACHABLE();
+    if (role == Qt::DisplayRole) {
+        switch (index.column()) {
+        case 0:
+            return keys.at(index.row());
+        case 1:
+            return replaceMap.value(keys.at(index.row()));
+        default:
+            Q_UNREACHABLE();
         }
     }
     return QVariant();

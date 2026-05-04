@@ -2,6 +2,7 @@
 #define REPLACERULESMODEL_H
 
 #include <QAbstractTableModel>
+
 #include "ReplaceRule.h"
 
 class ReplaceRulesModel : public QAbstractTableModel
@@ -12,9 +13,9 @@ public:
     explicit ReplaceRulesModel(QObject *parent = nullptr);
 
     QVector<ReplaceRule> getRules() const;
-    void setRules(const QVector<ReplaceRule>& value);
+    void setRules(const QVector<ReplaceRule> &value);
 
-    void appendRule(const ReplaceRule& rule);
+    void appendRule(const ReplaceRule &rule);
     bool removeRule(int index);
     void moveUpRule(int index);
     void moveDownRule(int index);
@@ -29,10 +30,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     // Editable:
-    bool setData(const QModelIndex &index, const QVariant &value,
-                 int role = Qt::EditRole) override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
-    Qt::ItemFlags flags(const QModelIndex& index) const override;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 private:
     QVector<ReplaceRule> rules;

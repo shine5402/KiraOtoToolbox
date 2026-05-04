@@ -42,45 +42,38 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include <kira/widgets/qballontip.h>
+#include <QBitmap>
 #include <QLabel>
-#include <QPushButton>
 #include <QLayout>
+#include <QPainter>
+#include <QPainterPath>
+#include <QPushButton>
 #include <QScreen>
+#include <QStyle>
 #include <QTextLayout>
 #include <QTextStream>
-#include <QPainter>
-#include <QStyle>
-#include <QPainterPath>
-#include <QBitmap>
+#include <kira/widgets/qballontip.h>
 
 //////////////////////////////////////////////////////////////////////
-QBalloonTip* QBalloonTip::showBalloon(const QIcon &icon, const QString &title,
-                              const QString &message, QWidget *target,
-                              QPoint pos, int timeout, bool showArrow)
+QBalloonTip *QBalloonTip::showBalloon(const QIcon &icon, const QString &title, const QString &message, QWidget *target,
+                                      QPoint pos, int timeout, bool showArrow)
 {
     if (message.isEmpty() && title.isEmpty())
         return nullptr;
 
-    if (pos.isNull())
-    {
-        pos= target->mapToGlobal(QPoint{target->width() / 2,
-                                        target->height() / 2});
+    if (pos.isNull()) {
+        pos = target->mapToGlobal(QPoint{target->width() / 2, target->height() / 2});
     }
 
     auto balloonTip = new QBalloonTip(icon, title, message, target);
     if (timeout < 0)
-        timeout = 10000; //10 s default
+        timeout = 10000; // 10 s default
     balloonTip->balloon(pos, timeout, showArrow);
     return balloonTip;
 }
 
-QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
-                         const QString &message, QWidget *target)
-    : QWidget(target, Qt::ToolTip),
-      target(target),
-      timerId(-1),
-      showArrow(true)
+QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title, const QString &message, QWidget *target)
+    : QWidget(target, Qt::ToolTip), target(target), timerId(-1), showArrow(true)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     QObject::connect(target, SIGNAL(destroyed()), this, SLOT(close()));
@@ -128,10 +121,10 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
                 opt.setWrapMode(QTextOption::WrapAnywhere);
                 control->document()->setDefaultTextOption(opt);
             } */
-            // The Qt team uses QLabel's private implementation part above to make QLabel's wrap behaviour into QTextOption::WrapAnywhere,
-            // when horizonal space is not enough. It's weird why standard QLabel does not provide API to change its wrap behaviour though.
-            // Since we can not use this trick here, there is a workaround below.
-            // Basicly we are layout the text in our own with the help of QTextLayout.
+            // The Qt team uses QLabel's private implementation part above to make QLabel's wrap behaviour into
+            // QTextOption::WrapAnywhere, when horizonal space is not enough. It's weird why standard QLabel does not
+            // provide API to change its wrap behaviour though. Since we can not use this trick here, there is a
+            // workaround below. Basicly we are layout the text in our own with the help of QTextLayout.
             QTextLayout textLayout;
             textLayout.setText(message);
             auto opt = textLayout.textOption();
@@ -154,7 +147,7 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
             QString wrappedMsg;
             QTextStream stream(&wrappedMsg);
 
-            for (int i = 0; i < textLayout.lineCount(); ++i){
+            for (int i = 0; i < textLayout.lineCount(); ++i) {
                 auto currentLine = textLayout.lineAt(i);
                 stream << textLayout.text().mid(currentLine.textStart(), currentLine.textLength()) << Qt::endl;
             }
@@ -192,15 +185,14 @@ QBalloonTip::QBalloonTip(const QIcon &icon, const QString &title,
     layout->setContentsMargins(3, 3, 3, 3);
     setLayout(layout);
 
-//    QPalette pal = palette();
-//    pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
-//    pal.setColor(QPalette::WindowText, Qt::black);
-//    setPalette(pal);
+    //    QPalette pal = palette();
+    //    pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
+    //    pal.setColor(QPalette::WindowText, Qt::black);
+    //    setPalette(pal);
 }
 
 QBalloonTip::~QBalloonTip()
 {
-
 }
 
 void QBalloonTip::paintEvent(QPaintEvent *)
@@ -214,7 +206,7 @@ void QBalloonTip::resizeEvent(QResizeEvent *ev)
     QWidget::resizeEvent(ev);
 }
 
-void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
+void QBalloonTip::balloon(const QPoint &pos, int msecs, bool showArrow)
 {
     this->showArrow = showArrow;
     QRect scr = target->screen()->geometry();
@@ -224,7 +216,8 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
     bool arrowAtTop = (pos.y() + sizeHint_.height() + arrowHeight < scr.height());
     bool arrowAtLeft = (pos.x() + sizeHint_.width() - arrowOffset < scr.width());
     constexpr auto margin = 8;
-    setContentsMargins(border + margin,  border + (arrowAtTop ? arrowHeight : 0) + margin, border + margin, border + (arrowAtTop ? 0 : arrowHeight) + margin);
+    setContentsMargins(border + margin, border + (arrowAtTop ? arrowHeight : 0) + margin, border + margin,
+                       border + (arrowAtTop ? 0 : arrowHeight) + margin);
     updateGeometry();
     sizeHint_ = sizeHint();
 
@@ -259,9 +252,9 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
         move(qMin(pos.x() - sizeHint_.width() + arrowOffset, scr.right() - sizeHint_.width() - 2), pos.y());
     }
     path.lineTo(mr - roundCorner, mt);
-    path.arcTo(QRect(mr - roundCorner*2, mt, roundCorner*2, roundCorner*2), 90, -90);
+    path.arcTo(QRect(mr - roundCorner * 2, mt, roundCorner * 2, roundCorner * 2), 90, -90);
     path.lineTo(mr, mb - roundCorner);
-    path.arcTo(QRect(mr - roundCorner*2, mb - roundCorner*2, roundCorner*2, roundCorner*2), 0, -90);
+    path.arcTo(QRect(mr - roundCorner * 2, mb - roundCorner * 2, roundCorner * 2, roundCorner * 2), 0, -90);
     if (!arrowAtTop && !arrowAtLeft) {
         if (showArrow) {
             path.lineTo(mr - arrowOffset, mb);
@@ -279,9 +272,9 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
         move(qMax(pos.x() - arrowOffset, scr.x() + 2), pos.y() - sizeHint_.height());
     }
     path.lineTo(ml + roundCorner, mb);
-    path.arcTo(QRect(ml, mb - roundCorner*2, roundCorner*2, roundCorner*2), -90, -90);
+    path.arcTo(QRect(ml, mb - roundCorner * 2, roundCorner * 2, roundCorner * 2), -90, -90);
     path.lineTo(ml, mt + roundCorner);
-    path.arcTo(QRect(ml, mt, roundCorner*2, roundCorner*2), 180, -90);
+    path.arcTo(QRect(ml, mt, roundCorner * 2, roundCorner * 2), 180, -90);
 
     // Set the mask
     QBitmap bitmap = QBitmap(sizeHint());
@@ -307,7 +300,7 @@ void QBalloonTip::balloon(const QPoint& pos, int msecs, bool showArrow)
 void QBalloonTip::mousePressEvent(QMouseEvent *e)
 {
     close();
-    if(e->button() == Qt::LeftButton)
+    if (e->button() == Qt::LeftButton)
         emit messageClicked();
 }
 

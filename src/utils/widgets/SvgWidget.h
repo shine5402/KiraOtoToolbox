@@ -1,8 +1,8 @@
 #ifndef SVGWIDGET_H
 #define SVGWIDGET_H
 
-#include <QWidget>
 #include <QSvgRenderer>
+#include <QWidget>
 
 // A widget that renders an SVG resource, maintaining aspect ratio and
 // respecting HiDPI. Supports swapping between two resource paths

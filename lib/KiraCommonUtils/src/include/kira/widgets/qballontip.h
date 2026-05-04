@@ -49,24 +49,22 @@ class QBalloonTip : public QWidget
 {
     Q_OBJECT
 public:
-    static QBalloonTip* showBalloon(const QIcon &icon, const QString &title,
-                                    const QString &msg, QWidget *target,
+    static QBalloonTip *showBalloon(const QIcon &icon, const QString &title, const QString &msg, QWidget *target,
                                     QPoint pos = {}, int timeout = -1, bool showArrow = true);
 signals:
     void messageClicked();
-    
+
 private:
-    QBalloonTip(const QIcon &icon, const QString &title,
-                const QString &msg, QWidget *target);
+    QBalloonTip(const QIcon &icon, const QString &title, const QString &msg, QWidget *target);
     ~QBalloonTip();
-    void balloon(const QPoint&, int, bool);
-    
+    void balloon(const QPoint &, int, bool);
+
 protected:
     void paintEvent(QPaintEvent *) override;
     void resizeEvent(QResizeEvent *) override;
     void mousePressEvent(QMouseEvent *e) override;
     void timerEvent(QTimerEvent *e) override;
-    
+
 private:
     QWidget *target;
     QPixmap pixmap;

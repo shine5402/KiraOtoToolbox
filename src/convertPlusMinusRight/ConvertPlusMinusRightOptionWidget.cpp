@@ -1,9 +1,8 @@
 #include "ConvertPlusMinusRightOptionWidget.h"
 #include "ui_ConvertPlusMinusRightOptionWidget.h"
 
-ConvertPlusMinusRightOptionWidget::ConvertPlusMinusRightOptionWidget(QWidget *parent) :
-    ToolOptionWidget(parent),
-    ui(new Ui::ConvertPlusMinusRightOptionWidget)
+ConvertPlusMinusRightOptionWidget::ConvertPlusMinusRightOptionWidget(QWidget *parent)
+    : ToolOptionWidget(parent), ui(new Ui::ConvertPlusMinusRightOptionWidget)
 {
     ui->setupUi(this);
 
@@ -29,14 +28,14 @@ OptionContainer ConvertPlusMinusRightOptionWidget::getOptions() const
     return options;
 }
 
-void ConvertPlusMinusRightOptionWidget::setOptions(const OptionContainer& options)
+void ConvertPlusMinusRightOptionWidget::setOptions(const OptionContainer &options)
 {
     ui->positiveRadioButton->setChecked(options.getOption("savePositive").toBool());
     ui->negativeRadioButton->setChecked(options.getOption("saveNegative").toBool());
     ui->interpretBySystemEncodingCheckBox->setChecked(options.getOption("interpretBySystemEncoding").toBool());
 }
 
-QJsonObject ConvertPlusMinusRightOptionWidget::optionsToJson(const OptionContainer& options) const
+QJsonObject ConvertPlusMinusRightOptionWidget::optionsToJson(const OptionContainer &options) const
 {
     QJsonObject json;
 
@@ -47,7 +46,7 @@ QJsonObject ConvertPlusMinusRightOptionWidget::optionsToJson(const OptionContain
     return json;
 }
 
-OptionContainer ConvertPlusMinusRightOptionWidget::jsonToOptions(const QJsonObject& json) const
+OptionContainer ConvertPlusMinusRightOptionWidget::jsonToOptions(const QJsonObject &json) const
 {
     OptionContainer options;
 

@@ -1,7 +1,9 @@
-#include <kira/dialogs/listviewdialog.h>
 #include <QVBoxLayout>
+#include <kira/dialogs/listviewdialog.h>
 
-ListViewDialog::ListViewDialog(QWidget* parent, QAbstractListModel* model, const QString& title, const QString& labelText, QDialogButtonBox::StandardButtons standardButtons) : QDialog(parent)
+ListViewDialog::ListViewDialog(QWidget *parent, QAbstractListModel *model, const QString &title,
+                               const QString &labelText, QDialogButtonBox::StandardButtons standardButtons)
+    : QDialog(parent)
 {
     setWindowTitle(title);
 
@@ -26,7 +28,7 @@ ListViewDialog::ListViewDialog(QWidget* parent, QAbstractListModel* model, const
     setLayout(layout);
 }
 
-void ListViewDialog::setLabel(const QString& text)
+void ListViewDialog::setLabel(const QString &text)
 {
     label->setText(text);
     if (text.isEmpty())
@@ -40,12 +42,12 @@ void ListViewDialog::setStandardButtons(QDialogButtonBox::StandardButtons button
     buttonBox->setStandardButtons(buttons);
 }
 
-QAbstractListModel* ListViewDialog::getModel() const
+QAbstractListModel *ListViewDialog::getModel() const
 {
     return model;
 }
 
-void ListViewDialog::setModel(QAbstractListModel* value)
+void ListViewDialog::setModel(QAbstractListModel *value)
 {
     model = value;
 }
@@ -64,7 +66,7 @@ QList<int> ListViewDialog::selectedRows() const
 {
     QList<int> result;
     auto selectedIndexes = listView->selectionModel()->selectedIndexes();
-    for (auto i : std::as_const(selectedIndexes)){
+    for (auto i : std::as_const(selectedIndexes)) {
         result.append(i.isValid() ? i.row() : -1);
     }
     return result;

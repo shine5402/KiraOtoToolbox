@@ -21,7 +21,7 @@ public:
 
 private:
     QHash<QString, QString> replaceMap;
-    QStringList keys;//cache for performance
+    QStringList keys; // cache for performance
 };
 
 #endif // FILENAMEREPLACEMAPTABLEMODEL_H

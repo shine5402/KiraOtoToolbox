@@ -7,7 +7,7 @@ class ChainDialogAdapter : public ToolDialogAdapter
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE ChainDialogAdapter(QObject* parent = nullptr);
+    Q_INVOKABLE ChainDialogAdapter(QObject *parent = nullptr);
     DEFINE_TOOL_NAME("Perform multiple actions")
 };
 

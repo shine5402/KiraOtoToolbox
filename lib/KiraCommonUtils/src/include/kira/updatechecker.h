@@ -8,48 +8,45 @@
 
 class QNetworkAccessManager;
 
-namespace UpdateChecker
+namespace UpdateChecker {
+Q_NAMESPACE
+
+class Checker : public QObject
 {
-    Q_NAMESPACE
+    Q_OBJECT
+public:
+    explicit Checker(QObject *parent = nullptr) : QObject(parent) {}
+    virtual void triggerUpdateCheck(QVersionNumber current = {}) = 0;
 
-    class Checker : public QObject {
-        Q_OBJECT
-    public:
-        explicit Checker(QObject* parent = nullptr) : QObject(parent) {}
-        virtual void triggerUpdateCheck(QVersionNumber current = {}) = 0;
-
-    signals:
-        void updateAvailable(const QVersionNumber& newVersion,
-                             const QString& msgBody,
-                             const QUrl& updateUrl);
-        void alreadyUpToDate();
-        void errorOccurred(const QString& msg);
-    };
-
-    class GithubReleaseChecker : public Checker {
-        Q_OBJECT
-    public:
-        GithubReleaseChecker(QString owner, QString repo, QObject* parent = nullptr)
-            : Checker(parent), owner(std::move(owner)), repo(std::move(repo)) {};
-        virtual void triggerUpdateCheck(QVersionNumber current = {});
-
-    private:
-        QString owner;
-        QString repo;
-        static QNetworkAccessManager* networkMgr;
-    };
-
-    enum Schedule {
-        EVERYRUN = 0, DAILY, WEEKLY, MONTHLY, DISABLED
-    };
-    Q_ENUM_NS(Schedule)
-
-    Schedule getSchedule();
-    void setSchedule(Schedule value);
-    QMenu* createMenuForSchedule();
-
-    void checkManully(Checker* checker);
-    void triggerScheduledCheck(Checker* checker);
+signals:
+    void updateAvailable(const QVersionNumber &newVersion, const QString &msgBody, const QUrl &updateUrl);
+    void alreadyUpToDate();
+    void errorOccurred(const QString &msg);
 };
+
+class GithubReleaseChecker : public Checker
+{
+    Q_OBJECT
+public:
+    GithubReleaseChecker(QString owner, QString repo, QObject *parent = nullptr)
+        : Checker(parent), owner(std::move(owner)), repo(std::move(repo)) {};
+    virtual void triggerUpdateCheck(QVersionNumber current = {});
+
+private:
+    QString owner;
+    QString repo;
+    static QNetworkAccessManager *networkMgr;
+};
+
+enum Schedule { EVERYRUN = 0, DAILY, WEEKLY, MONTHLY, DISABLED };
+Q_ENUM_NS(Schedule)
+
+Schedule getSchedule();
+void setSchedule(Schedule value);
+QMenu *createMenuForSchedule();
+
+void checkManully(Checker *checker);
+void triggerScheduledCheck(Checker *checker);
+}; // namespace UpdateChecker
 
 #endif // UPDATECHECKER_H

@@ -1,6 +1,7 @@
 #include "SetAliasDialogAdapter.h"
-#include "SetAliasOtoListModifyWorker.h"
+
 #include "SetAliasOptionWidget.h"
+#include "SetAliasOtoListModifyWorker.h"
 
 SetAliasDialogAdapter::SetAliasDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {

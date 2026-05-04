@@ -2,6 +2,7 @@
 #define OTOFILESAVEWIDGETABSTRACT_H
 
 #include <QWidget>
+
 #include "toolBase/OptionContainer.h"
 
 class OtoFileSaveWidgetAbstract : public QWidget
@@ -15,10 +16,10 @@ public:
 
     virtual bool isSecondFileNameAvailable() const = 0;
     virtual void setSecondFileNameAvailable(bool value) = 0;
-    virtual void setSecondFileNameCheckBoxText(const QString& text) = 0;
+    virtual void setSecondFileNameCheckBoxText(const QString &text) = 0;
 
     virtual QString secondFileNameUsage() const = 0;
-    virtual void setSecondFileNameUsage(const QString& value) = 0;
+    virtual void setSecondFileNameUsage(const QString &value) = 0;
 };
 
 #endif // OTOFILESAVEWIDGETABSTRACT_H

@@ -7,7 +7,7 @@ class ConvertPlusMinusRightOtoListModifyWorker : public OtoListModifyWorker
 {
     Q_OBJECT
 public:
-    class FileNotFoundException : ToolException
+    class FileNotFoundException : public ToolException
     {
     public:
         FileNotFoundException(const QString &fileName)
@@ -19,7 +19,7 @@ public:
         QString fileName_;
     };
 
-    class FileCannotReadException : ToolException
+    class FileCannotReadException : public ToolException
     {
     public:
         FileCannotReadException(const QString &fileName)
@@ -32,7 +32,7 @@ public:
         QString fileName_;
     };
 
-    class InvalidRightValue : ToolException
+    class InvalidRightValue : public ToolException
     {
     public:
         InvalidRightValue(const OtoEntry &entry, double calculatedRight)

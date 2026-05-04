@@ -8,7 +8,7 @@ class NotDoAnythingDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit NotDoAnythingDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Do nothing")
+    DEFINE_TOOL_NAME("Adjust decimal precision")
 };
 
 #endif // NOTDOANYTHINGDIALOGADAPTER_H

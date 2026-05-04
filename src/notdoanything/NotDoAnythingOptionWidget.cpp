@@ -8,8 +8,8 @@ NotDoAnythingOptionWidget::NotDoAnythingOptionWidget(QWidget *parent) : ToolOpti
     auto layout = new QVBoxLayout(this);
     setLayout(layout);
     auto label = new QLabel(tr("There is nothing to configure.\n"
-                               "ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing), "
-                               "but you can adjust save options with this tool."),
+                               "Use this tool to adjust decimal precision via save options. "
+                               "No other processing will be applied to the input."),
                             this);
     layout->addStretch(1);
     layout->addWidget(label);

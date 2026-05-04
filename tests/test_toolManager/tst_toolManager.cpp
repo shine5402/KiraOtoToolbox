@@ -84,7 +84,7 @@ void TestToolManager::testToolName()
         mgr->unRegisterTool(0);
 
     mgr->registerTool("Test", Tool(NotDoAnythingDialogAdapter::staticMetaObject));
-    QCOMPARE(mgr->getTools().first().toolName(), QString("Do nothing"));
+    QCOMPARE(mgr->getTools().first().toolName(), QString("Adjust decimal precision"));
 }
 
 void TestToolManager::testGetWorkerInstance()

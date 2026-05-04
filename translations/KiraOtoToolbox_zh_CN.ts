@@ -723,10 +723,8 @@ Should we use this encoding to read this file?
     <name>NotDoAnythingOptionWidget</name>
     <message>
         <location filename="../../src/notdoanything/notdoanythingoptionwidget.cpp" line="9"/>
-        <source>There is nothing to configure.
-ATTENTION: This tool will simply forward the input to output (a.k.a. do nothing), but you can adjust save options with this tool.</source>
-        <translation>该操作没有配置项。
-&quot;请注意，本工具直接输出输入的源数据（即“什么都不做”），但是你可以使用本工具来控制保存选项。</translation>
+        <source>Use this tool to adjust decimal precision via save options. No other processing will be applied to the input.</source>
+        <translation type="unfinished">使用此工具通过保存选项调整小数精度。不会对输入数据做任何其他处理。</translation>
     </message>
 </context>
 <context>
@@ -1935,8 +1933,8 @@ Please check and try again.</source>
     </message>
     <message>
         <location filename="../../src/notdoanything/notdoanythingdialogadapter.h" line="11"/>
-        <source>Do nothing</source>
-        <translation>什么都不做</translation>
+        <source>Adjust decimal precision</source>
+        <translation type="unfinished">调整小数精度</translation>
     </message>
     <message>
         <location filename="../../src/overlapBatchSet/overlapbatchsetdialogadapter.h" line="11"/>

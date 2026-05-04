@@ -1,9 +1,10 @@
 #include "CVVCPartSplitOtoListModifyWorker.h"
 
 #include <QRegularExpression>
-#include <fplus/fplus.hpp>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <algorithm>
+#include <ranges>
+
 #include "utils/misc/Misc.h"
 
 CVVCPartSplitOtoListModifyWorker::CVVCPartSplitOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
@@ -22,8 +23,10 @@ void CVVCPartSplitOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, Ot
     auto isAliasEmpty = [](const OtoEntry &entry) -> bool {
         return entry.alias().isEmpty();
     };
-    auto emptyDropped = fplus::drop_if(isAliasEmpty, srcOtoList);
-    auto emptyPart = fplus::keep_if(isAliasEmpty, srcOtoList);
+    auto emptyDropped =
+        srcOtoList | std::views::filter(std::not_fn(isAliasEmpty)) | std::ranges::to<OtoEntryList>();
+    auto emptyPart =
+        srcOtoList | std::views::filter(isAliasEmpty) | std::ranges::to<OtoEntryList>();
 
     auto isCVPart = [isSeeBeginPatternAsCV, seeBeginPatternAsCVContent, isSeeEndPatternAsCV,
                      seeEndPatternAsCVContent](const OtoEntry &entry) -> bool {
@@ -44,34 +47,41 @@ void CVVCPartSplitOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, Ot
         }
         return notDividedBySpace || matchedByBeginPattern || matchedByEndPattern;
     };
-    auto CVList = fplus::keep_if(isCVPart, emptyDropped);
-    VCList = fplus::drop_if(isCVPart, emptyDropped);
+    auto CVList =
+        emptyDropped | std::views::filter(isCVPart) | std::ranges::to<OtoEntryList>();
+    VCList =
+        emptyDropped | std::views::filter(std::not_fn(isCVPart)) | std::ranges::to<OtoEntryList>();
 
     OtoEntryList startList;
     if (shouldCopyCVasStartOto) {
-        startList = fplus::transform(
-            [](auto entry) {
+        auto cvWithoutStart =
+            CVList |
+            std::views::filter([&](const auto &entry) {
+                return std::ranges::find_if(
+                           srcOtoList,
+                           [&](const auto &entryInter) { return entryInter.alias() == "- " + entry.alias(); }) ==
+                       srcOtoList.end();
+            }) |
+            std::ranges::to<OtoEntryList>();
+        startList =
+            cvWithoutStart |
+            std::views::transform([](auto entry) {
                 entry.setAlias("- " + entry.alias());
                 return entry;
-            },
-            fplus::keep_if(
-                [&](const auto &entry) {
-                    return fplus::find_first_by(
-                               [&](const auto &entryInter) { return entryInter.alias() == "- " + entry.alias(); },
-                               srcOtoList)
-                        .is_nothing();
-                },
-                CVList));
+            }) |
+            std::ranges::to<OtoEntryList>();
     }
 
     auto saveOptions = options.extract("save/");
     auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
     VCExtractedToNewFile = isSecondFileNameUsed;
     if (isSecondFileNameUsed) {
-        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart});
+        resultOtoList =
+            QList<OtoEntryList>{CVList, startList, emptyPart} | std::views::join | std::ranges::to<OtoEntryList>();
         secondSaveOtoList = VCList;
     } else {
-        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart, VCList});
+        resultOtoList =
+            QList<OtoEntryList>{CVList, startList, emptyPart, VCList} | std::views::join | std::ranges::to<OtoEntryList>();
     }
 }
 

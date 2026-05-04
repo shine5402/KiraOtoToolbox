@@ -1,5 +1,7 @@
 #include "MergeOtoOtoListModifyWorker.h"
 
+#include <algorithm>
+
 #include "MergeOtoOptionWidget.h"
 
 MergeOtoOtoListModifyWorker::MergeOtoOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
@@ -19,11 +21,12 @@ void MergeOtoOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntr
 
     resultOtoList = srcOtoList;
     for (const auto &otherEntry : qAsConst(otherOtoList)) {
-        auto findResult = fplus::find_first_idx_by(
-            [otherEntry](const OtoEntry &srcEntry) { return srcEntry.alias() == otherEntry.alias(); }, resultOtoList);
-        if (findResult.is_just()) {
+        auto it = std::ranges::find_if(
+            resultOtoList, [&otherEntry](const OtoEntry &srcEntry) { return srcEntry.alias() == otherEntry.alias(); });
+        if (it != resultOtoList.end()) {
+            auto idx = std::distance(resultOtoList.begin(), it);
             if (mergeStrtegy == MergeOtoOptionWidget::Replace) {
-                resultOtoList[findResult.unsafe_get_just()] = otherEntry;
+                resultOtoList[idx] = otherEntry;
                 continue;
             } else if (mergeStrtegy == MergeOtoOptionWidget::Skip)
                 continue;

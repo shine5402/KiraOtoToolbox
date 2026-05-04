@@ -1,5 +1,7 @@
 #include "ChainOtoListModifyWorker.h"
 
+#include <algorithm>
+
 #include "ChainElement.h"
 #include "toolBase/ToolManager.h"
 
@@ -59,14 +61,15 @@ bool ChainOtoListModifyWorker::isConfirmDialogAccepted(int msgTypeId, int dialog
     if (msgTypeId == Dialog || msgTypeId == MessageBox)
         return OtoListModifyWorker::isConfirmDialogAccepted(msgTypeId, dialogResult);
 
-    auto worker = fplus::find_first_by(
-        [](const std::shared_ptr<OtoListModifyWorker> &worker) {
-            return fplus::find_first_by([](const ConfirmMsg &msg) { return msg.typeId(); }, worker->getConfirmMsgs())
-                .is_just();
-        },
-        needConfirmWorkers);
-    if (worker.is_just())
-        return worker.unsafe_get_just()->isConfirmDialogAccepted(msgTypeId, dialogResult);
+    auto worker = std::ranges::find_if(needConfirmWorkers,
+                                         [](const std::shared_ptr<OtoListModifyWorker> &w) {
+                                             const auto &msgs = w->getConfirmMsgs();
+                                             return std::ranges::find_if(msgs, [](const ConfirmMsg &msg) {
+                                                        return msg.typeId() != 0;
+                                                    }) != msgs.end();
+                                         });
+    if (worker != needConfirmWorkers.end())
+        return (*worker)->isConfirmDialogAccepted(msgTypeId, dialogResult);
     return false;
 }
 

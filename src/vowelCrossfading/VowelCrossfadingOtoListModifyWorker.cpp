@@ -1,6 +1,6 @@
 #include "VowelCrossfadingOtoListModifyWorker.h"
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <ranges>
 
 VowelCrossfadingOtoListModifyWorker::VowelCrossfadingOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
 {
@@ -16,12 +16,14 @@ void VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList,
     auto CVList = options.getOption("CVList").toStringList();
     auto VList = options.getOption("VList").toStringList();
     auto longRecordingPattern = options.getOption("longRecordingPattern").toStringList();
-    auto longRecordingList = fplus::unique(fplus::transform_and_concat(
-        [longRecordingPattern](const QString &alias) -> QList<QString> {
-            return fplus::transform([alias](QString pattern) -> QString { return pattern.replace("%a", alias); },
-                                    longRecordingPattern);
-        },
-        CVList + VList));
+    QSet<QString> longRecordingSet;
+    auto combinedList = CVList + VList;
+    for (const auto &alias : combinedList) {
+        for (auto pattern : longRecordingPattern) {
+            longRecordingSet.insert(pattern.replace("%a", alias));
+        }
+    }
+    auto longRecordingList = longRecordingSet.values();
 
     auto containsAlias = [&](const QStringList &patterns, const QString &alias) -> bool {
         return patterns.contains(alias) || (options.getOption("removeNumberSuffixWhenMatching").toBool() &&
@@ -52,19 +54,20 @@ void VowelCrossfadingOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList,
     }
 
     if (options.getOption("VVOverlapIncrease").toBool()) {
-        auto VVList = fplus::transform_and_concat(
-            [VList](const QString &CV) -> QList<QString> {
-                return fplus::transform([CV](const QString &V) -> QString { return V + " " + CV; }, VList);
-            },
-            CVList);
+        auto VVList =
+            CVList | std::views::transform([VList](const QString &CV) {
+                return VList | std::views::transform([CV](const QString &V) -> QString { return V + " " + CV; }) |
+                       std::ranges::to<QStringList>();
+            }) |
+            std::views::join | std::ranges::to<QStringList>();
 
-        resultOtoList = fplus::transform(
-            [VVList, containsAlias](OtoEntry entry) {
+        resultOtoList =
+            resultOtoList | std::views::transform([VVList, containsAlias](OtoEntry entry) {
                 if (containsAlias(VVList, entry.alias())) {
                     entry.setOverlap(entry.preUtterance() / 2);
                 }
                 return entry;
-            },
-            resultOtoList);
+            }) |
+            std::ranges::to<OtoEntryList>();
     }
 }

@@ -1,6 +1,7 @@
 #include "TempoTransformOtoListModifyWorker.h"
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <numeric>
+#include <ranges>
 
 TempoTransformOtoListModifyWorker::TempoTransformOtoListModifyWorker(QObject *parent) : OtoListModifyWorker{parent}
 {
@@ -14,38 +15,59 @@ void TempoTransformOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, O
     auto offset = options.getOption("offset").toDouble();
     auto fromTempo = options.getOption("fromTempo").toDouble();
     auto toTempo = options.getOption("toTempo").toDouble();
-    // TODO: extract to OtoEntry itself
     auto absolutePre = [](const OtoEntry &entry) -> double {
         return entry.left() + entry.preUtterance();
     };
     auto stdSrc = std::vector(srcOtoList.begin(), srcOtoList.end());
-    auto stdResult = fplus::transform_and_concat(
-        [&](const std::vector<OtoEntry> &entrys) -> std::vector<OtoEntry> {
-            auto distances = fplus::transform(
-                [&](const std::pair<OtoEntry, OtoEntry> &pair) -> double {
-                    return absolutePre(pair.second) - absolutePre(pair.first);
-                },
-                fplus::zipWithNext(entrys));
-            auto newDistances = fplus::transform(
-                [&](double distance) -> double {
-                    auto ratio = fromTempo / toTempo;
-                    return distance * ratio;
-                },
-                distances);
-            auto diff =
-                fplus::zip_with([](double lhs, double rhs) -> double { return lhs - rhs; }, newDistances, distances);
-            diff.insert(diff.begin(), 0.0);
-            return fplus::transform(
-                [&](const std::pair<OtoEntry, double> &pair) -> OtoEntry {
-                    auto entry = pair.first;
-                    entry.setLeft(entry.left() + pair.second + offset);
-                    if (entry.right() > 0)
-                        entry.setRight(entry.right() - (pair.second + offset));
-                    return entry;
-                },
-                fplus::zip(entrys, diff));
-        },
-        fplus::group_by(
-            [](const OtoEntry &lhs, const OtoEntry &rhs) -> bool { return lhs.fileName() == rhs.fileName(); }, stdSrc));
+
+    // Group by fileName (entries are assumed sorted by fileName in oto.ini)
+    std::vector<std::vector<OtoEntry>> groups;
+    for (std::size_t i = 0; i < stdSrc.size();) {
+        std::size_t j = i + 1;
+        while (j < stdSrc.size() && stdSrc[j].fileName() == stdSrc[i].fileName())
+            ++j;
+        groups.emplace_back(stdSrc.begin() + i, stdSrc.begin() + j);
+        i = j;
+    }
+
+    std::vector<OtoEntry> stdResult;
+    for (const auto &entrys : groups) {
+        auto distances =
+            entrys | std::views::adjacent<2> |
+            std::views::transform([&](const auto &pair) -> double {
+                const auto &[a, b] = pair;
+                return absolutePre(b) - absolutePre(a);
+            }) |
+            std::ranges::to<std::vector<double>>();
+
+        auto ratio = fromTempo / toTempo;
+        auto newDistances =
+            distances | std::views::transform([&](double d) -> double { return d * ratio; }) |
+            std::ranges::to<std::vector<double>>();
+
+        auto diff =
+            std::views::zip(newDistances, distances) |
+            std::views::transform([](const auto &pair) -> double {
+                const auto &[lhs, rhs] = pair;
+                return lhs - rhs;
+            }) |
+            std::ranges::to<std::vector<double>>();
+        diff.insert(diff.begin(), 0.0);
+
+        auto transformed =
+            std::views::zip(entrys, diff) |
+            std::views::transform([&](const auto &pair) -> OtoEntry {
+                const auto &[entry, d] = pair;
+                auto result = entry;
+                result.setLeft(result.left() + d + offset);
+                if (result.right() > 0)
+                    result.setRight(result.right() - (d + offset));
+                return result;
+            }) |
+            std::ranges::to<std::vector<OtoEntry>>();
+
+        stdResult.insert(stdResult.end(), transformed.begin(), transformed.end());
+    }
+
     resultOtoList = QList(stdResult.begin(), stdResult.end());
 }

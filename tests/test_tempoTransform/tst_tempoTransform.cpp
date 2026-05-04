@@ -14,6 +14,7 @@ private slots:
     void testSingleEntryPerFile();
     void testNegativeRight_unchanged();
     void testEmptyInput();
+    void testMultipleEntriesPerFile();
 };
 
 void TestTempoTransform::testIdentityTempo()
@@ -154,6 +155,37 @@ void TestTempoTransform::testEmptyInput()
     });
     worker.doWork({}, result, secondSave, opts);
     QVERIFY(result.isEmpty());
+}
+
+void TestTempoTransform::testMultipleEntriesPerFile()
+{
+    // Three entries in same file spaced 500ms apart → per-group group_by + adjacent + zip
+    // From 120 BPM to 60 BPM: ratio = 120/60 = 2.0 (double speed)
+    TempoTransformOtoListModifyWorker worker;
+    OtoEntryList src;
+    src.append(makeEntry("test.wav", "a", 0.0, 100.0, -100.0, 0.0, 0.0));
+    src.append(makeEntry("test.wav", "b", 500.0, 100.0, -100.0, 0.0, 0.0));
+    src.append(makeEntry("test.wav", "c", 1000.0, 100.0, -100.0, 0.0, 0.0));
+
+    OtoEntryList result, secondSave;
+    auto opts = makeOptions({
+        {"offset", 0.0},
+        {"fromTempo", 120.0},
+        {"toTempo", 60.0},
+    });
+    worker.doWork(src, result, secondSave, opts);
+
+    // absolutePre = left + preUtterance = left + 0 = left
+    // distances: (500-0)=500, (1000-500)=500
+    // new distances: 500*2=1000, 500*2=1000
+    // diff: 1000-500=500, 1000-500=500; prepend 0 → [0, 500, 500]
+    // a: left = 0 + 0 + 0 = 0
+    // b: left = 500 + 500 + 0 = 1000
+    // c: left = 1000 + 500 + 0 = 1500
+    QCOMPARE(result.size(), 3);
+    QCOMPARE(result.at(0).left(), 0.0);
+    QCOMPARE(result.at(1).left(), 1000.0);
+    QCOMPARE(result.at(2).left(), 1500.0);
 }
 
 QTEST_MAIN(TestTempoTransform)

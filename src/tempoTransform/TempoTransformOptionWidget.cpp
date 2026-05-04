@@ -3,7 +3,10 @@
 
 #include <QMessageBox>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <algorithm>
+#include <cmath>
+#include <map>
+#include <ranges>
 
 TempoTransformOptionWidget::TempoTransformOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::TempoTransformOptionWidget)
@@ -79,30 +82,41 @@ void TempoTransformOptionWidget::askOtoDataCallback(int askId, const QVector<Oto
 
         auto stdSrc = std::vector(contents[0].begin(), contents[0].end());
 
+        // Group by fileName
+        std::vector<std::vector<OtoEntry>> groups;
+        for (std::size_t i = 0; i < stdSrc.size();) {
+            std::size_t j = i + 1;
+            while (j < stdSrc.size() && stdSrc[j].fileName() == stdSrc[i].fileName())
+                ++j;
+            groups.emplace_back(stdSrc.begin() + i, stdSrc.begin() + j);
+            i = j;
+        }
+
+        // Collect (floor_distance, count) across all groups
+        std::vector<std::pair<int, std::size_t>> allCounts;
+        for (const auto &entries : groups) {
+            std::map<int, std::size_t> countMap;
+            for (const auto &pair : entries | std::views::adjacent<2>) {
+                const auto &[a, b] = pair;
+                auto distance = absolutePre(b) - absolutePre(a);
+                ++countMap[static_cast<int>(std::floor(distance))];
+            }
+            for (const auto &kv : countMap)
+                allCounts.emplace_back(kv.first, kv.second);
+        }
+
+        if (allCounts.empty()) {
+            QMessageBox::critical(this, {}, tr("We can not guess tempo from the given data."));
+            return;
+        }
+
         auto most_frequent_distance =
-            fplus::maximum_by(
-                [](std::pair<int, std::size_t> lhs, std::pair<int, std::size_t> rhs) -> bool {
-                    return lhs.second < rhs.second;
-                },
-                fplus::transform_and_concat(
-                    [&](const std::vector<OtoEntry> entries) -> std::vector<std::pair<int, std::size_t>> {
-                        return fplus::map_to_pairs(fplus::count_occurrences_by<int(double)>(
-                            fplus::floor, fplus::transform(
-                                              [&](std::pair<OtoEntry, OtoEntry> pair) -> double {
-                                                  return absolutePre(pair.second) - absolutePre(pair.first);
-                                              },
-                                              fplus::zipWithNext(entries))));
-                    },
-                    fplus::group_by([](const OtoEntry &lhs,
-                                       const OtoEntry &rhs) -> bool { return lhs.fileName() == rhs.fileName(); },
-                                    stdSrc)))
-                .first;
+            std::ranges::max_element(allCounts, {}, &std::pair<int, std::size_t>::second)->first;
 
         if (most_frequent_distance <= 0)
             QMessageBox::critical(this, {}, tr("We can not guess tempo from the given data."));
 
-        // Divided by 10 then muliply by 10 means tempos like 122 -> 120.
-        auto guessedTempo = fplus::round(60000.0 / most_frequent_distance / 10) * 10;
+        auto guessedTempo = std::round(60000.0 / most_frequent_distance / 10) * 10;
         ui->fromDoubleSpinBox->setValue(guessedTempo);
     }
 }

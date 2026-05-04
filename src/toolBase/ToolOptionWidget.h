@@ -51,9 +51,14 @@ public:
     OptionContainer jsonToOptions(const QJsonObject &json) const override;
 };
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
 #define getStringListFromJSONObject(jsonObj, key)                                                                      \
-    QStringList(fplus::transform([](QVariant value) -> QString { return value.toString(); },                           \
-                                 jsonObj.value(key).toArray().toVariantList()))
+    [](const QJsonObject &jo, const QString &k) -> QStringList {                                                     \
+        auto arr = jo.value(k).toArray();                                                                             \
+        QStringList result;                                                                                           \
+        result.reserve(arr.size());                                                                                   \
+        for (const auto &v : arr)                                                                                     \
+            result.append(v.toString());                                                                              \
+        return result;                                                                                                \
+    }(jsonObj, key)
 
 #endif // TOOLOPTIONWIDGET_H

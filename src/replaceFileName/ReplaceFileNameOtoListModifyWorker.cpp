@@ -2,9 +2,10 @@
 
 #include <QTextStream>
 
+#include <ranges>
+
 #include "FileNameReplaceMapTableModel.h"
 #include "utils/dialogs/TableViewDialog.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
 #include "utils/misc/Misc.h"
 #include "utils/widgets/ReplaceRule.h"
 
@@ -23,8 +24,10 @@ void ReplaceFileNameOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, 
 
     auto rules = options.getOption("rules").value<QVector<ReplaceRule>>();
 
-    auto fileNames =
-        fplus::unique(fplus::transform([](const OtoEntry &entry) -> QString { return entry.fileName(); }, srcOtoList));
+    QSet<QString> fileNameSet;
+    for (const auto &entry : srcOtoList)
+        fileNameSet.insert(entry.fileName());
+    auto fileNames = fileNameSet.values();
 
     for (const auto &fileName : qAsConst(fileNames)) {
         auto fileInfo = QFileInfo(fileName);
@@ -41,13 +44,13 @@ void ReplaceFileNameOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, 
             replaceMap.insert(fileName, newFileName);
     }
 
-    resultOtoList = fplus::transform(
-        [&](OtoEntry entry) -> OtoEntry {
+    resultOtoList =
+        srcOtoList | std::views::transform([&](OtoEntry entry) -> OtoEntry {
             if (replaceMap.contains(entry.fileName()))
                 entry.setFileName(replaceMap.value(entry.fileName()));
             return entry;
-        },
-        srcOtoList);
+        }) |
+        std::ranges::to<OtoEntryList>();
 }
 
 bool ReplaceFileNameOtoListModifyWorker::needConfirm() const

@@ -7,6 +7,3 @@ add_tool_test(test_removeSpecificEntries
 )
 
 # fplus is header-only but needs include path
-target_include_directories(test_removeSpecificEntries PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
-)

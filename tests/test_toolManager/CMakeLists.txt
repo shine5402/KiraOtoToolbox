@@ -32,7 +32,6 @@ add_tool_test(test_toolManager
 )
 
 target_include_directories(test_toolManager PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
     ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch
 )
 target_link_libraries(test_toolManager PRIVATE compact_enc_det)

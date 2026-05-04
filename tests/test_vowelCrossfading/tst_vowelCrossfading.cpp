@@ -14,6 +14,7 @@ private slots:
     void testVVOverlapIncrease();
     void testNoCrossfading_identity();
     void testEmptyInput();
+    void testNonConsecutiveDuplicateLongRecording();
 };
 
 void TestVowelCrossfading::testCVOverride()
@@ -183,6 +184,35 @@ void TestVowelCrossfading::testEmptyInput()
     });
     worker.doWork({}, result, secondSave, opts);
     QVERIFY(result.isEmpty());
+}
+
+void TestVowelCrossfading::testNonConsecutiveDuplicateLongRecording()
+{
+    // Non-consecutive aliases produce duplicate long-recording patterns → QSet dedup
+    // C1="か" expands via "%a_long" → "か_long"
+    // C2="か" (same CV in non-adjacent position in CVList) → also "か_long" → deduped
+    VowelCrossfadingOtoListModifyWorker worker;
+    OtoEntryList src;
+    src.append(makeEntry("か_long.wav", "か_long", 100.0, 300.0, 2000.0, 500.0, 0.0));
+
+    OtoEntryList result, secondSave;
+    auto opts = makeOptions({
+        {"doCVCrossfading", true},
+        {"CVPreUtterance", 500.0},
+        {"CVOverlap", 150.0},
+        {"CVList", QStringList{"か", "き", "か"}}, // "か" appears twice
+        {"longRecordingPattern", QStringList{"%a_long"}},
+        {"removeNumberSuffixWhenMatching", false},
+        {"CVBehaviourOverride", true},
+        {"CVBehaviourCopy", false},
+        {"VVOverlapIncrease", false},
+        {"VList", QStringList{"か", "き"}},
+    });
+    worker.doWork(src, result, secondSave, opts);
+
+    // "か_long" matches longRecordingList — should be processed exactly once
+    QCOMPARE(result.at(0).preUtterance(), 500.0);
+    QCOMPARE(result.at(0).overlap(), 150.0);
 }
 
 QTEST_MAIN(TestVowelCrossfading)

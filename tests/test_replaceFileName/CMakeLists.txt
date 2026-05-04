@@ -10,6 +10,3 @@ add_tool_test(test_replaceFileName
     ${CMAKE_SOURCE_DIR}/src/replaceFileName/FileNameReplaceMapTableModel.cpp
 )
 
-target_include_directories(test_replaceFileName PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
-)

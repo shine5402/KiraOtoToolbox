@@ -1,6 +1,6 @@
 # --- Third-party libraries ---
-# Note: compact_enc_det, QSourceHighlite, FunctionalPlus currently live in
-# ../../lib/ (git subtrees). They will be moved here as submodules in Phase 4.
+# Note: compact_enc_det and QSourceHighlite currently live in
+# ../../lib/ (git subtrees).
 
 set(LIB_ROOT ${CMAKE_SOURCE_DIR}/lib)
 
@@ -15,10 +15,6 @@ set(KFR_INSTALL_HEADERS OFF CACHE BOOL "" FORCE)
 set(KFR_INSTALL_LIBRARIES OFF CACHE BOOL "" FORCE)
 set(ENABLE_TESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(kfr EXCLUDE_FROM_ALL)
-
-# FunctionalPlus (header-only)
-add_library(FunctionalPlus INTERFACE)
-target_include_directories(FunctionalPlus INTERFACE ${LIB_ROOT}/FunctionalPlus/include)
 
 # compact_enc_det (character encoding detection)
 add_library(compact_enc_det STATIC

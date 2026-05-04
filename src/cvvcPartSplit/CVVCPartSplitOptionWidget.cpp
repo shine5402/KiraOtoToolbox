@@ -3,8 +3,6 @@
 
 #include <QJsonArray>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
-
 CVVCPartSplitOptionWidget::CVVCPartSplitOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::CVVCPartSplitOptionWidget)
 {

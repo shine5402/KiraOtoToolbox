@@ -6,6 +6,3 @@ add_tool_test(test_vowelCrossfading
     ${CMAKE_SOURCE_DIR}/src/otoUtils/OtoEntry.cpp
 )
 
-target_include_directories(test_vowelCrossfading PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
-)

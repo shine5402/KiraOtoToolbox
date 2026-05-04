@@ -6,6 +6,3 @@ add_tool_test(test_mergeOto
     ${CMAKE_SOURCE_DIR}/src/otoUtils/OtoEntry.cpp
 )
 
-target_include_directories(test_mergeOto PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
-)

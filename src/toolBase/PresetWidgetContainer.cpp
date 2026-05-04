@@ -6,6 +6,8 @@
 #include <QJsonDocument>
 #include <QMessageBox>
 
+#include <ranges>
+
 #include "PresetManager.h"
 #include "ToolOptionWidget.h"
 #include "utils/i18n/TranslationManager.h"
@@ -290,16 +292,15 @@ void PresetWidgetContainer::reloadComboBoxItems()
     // auto currPreset = getCurrentPreset();
     ui->presetComboBox->clear();
     // Get presets and put their name into combobox
-    ui->presetComboBox->addItems(
-        fplus::transform(
-            [this](const Preset &preset) -> QString {
-                // So for built-in presets, it will show like "Preset 1 [Built-in]"
-                return tr("%1%2").arg(preset.getI18nName(TranslationManager::getManager()->currentLocale()),
-                                      PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]")
-                                                                                                   : "");
-            },
-            PresetManager::getManager()->presets(targetName()))
-            .toList());
+    auto presetsList = PresetManager::getManager()->presets(targetName());
+    auto items =
+        presetsList | std::views::transform([this](const Preset &preset) -> QString {
+            return tr("%1%2").arg(preset.getI18nName(TranslationManager::getManager()->currentLocale()),
+                                  PresetManager::getManager()->isBuiltIn(targetName(), preset) ? tr(" [Built-in]")
+                                                                                               : "");
+        }) |
+        std::ranges::to<QStringList>();
+    ui->presetComboBox->addItems(items);
     // ui->presetComboBox->setCurrentText(currPreset.name);
 }
 

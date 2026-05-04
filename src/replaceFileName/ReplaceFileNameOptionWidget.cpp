@@ -1,6 +1,8 @@
 #include "ReplaceFileNameOptionWidget.h"
 #include "ui_ReplaceFileNameOptionWidget.h"
 
+#include <QJsonArray>
+
 ReplaceFileNameOptionWidget::ReplaceFileNameOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::ReplaceFileNameOptionWidget)
 {

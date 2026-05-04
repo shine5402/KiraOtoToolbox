@@ -17,7 +17,6 @@ add_tool_test(test_convertPlusMinusRight
 )
 
 target_include_directories(test_convertPlusMinusRight PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
     ${CMAKE_SOURCE_DIR}/src/3rdparty
 )
 target_link_libraries(test_convertPlusMinusRight PRIVATE kfr kfr_dsp kfr_io)

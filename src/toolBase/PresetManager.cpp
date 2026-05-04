@@ -6,8 +6,10 @@
 #include <QJsonDocument>
 #include <QStandardPaths>
 
+#include <algorithm>
+#include <ranges>
+
 #include "ToolOptionWidget.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
 
 PresetManager *PresetManager::instance = nullptr;
 
@@ -16,8 +18,6 @@ static constexpr auto BUILTIN_PRESET_FILE_PATH = ":/presets.json";
 static auto presetNameEqual = [](const Preset &preset, const QString &name) -> bool {
     return preset.name == name;
 };
-
-using namespace std::placeholders;
 
 PresetManager *PresetManager::getManager()
 {
@@ -40,8 +40,11 @@ QVector<Preset> PresetManager::presets(const QString &targetName) const
 
 bool PresetManager::exist(const QString &targetName, const QString &name) const
 {
-    auto inBuiltIn = !fplus::keep_if(std::bind(presetNameEqual, _1, name), builtInPresets.value(targetName)).empty();
-    auto inUser = !fplus::keep_if(std::bind(presetNameEqual, _1, name), userPresets.value(targetName)).empty();
+    const auto &builtInList = builtInPresets.value(targetName);
+    const auto &userList = userPresets.value(targetName);
+    auto inBuiltIn = std::ranges::find_if(builtInList, [&](const Preset &p) { return p.name == name; }) !=
+                     builtInList.end();
+    auto inUser = std::ranges::find_if(userList, [&](const Preset &p) { return p.name == name; }) != userList.end();
 
     return inBuiltIn || inUser;
 }
@@ -53,7 +56,9 @@ bool PresetManager::exist(const QString &targetName, const Preset &preset) const
 
 bool PresetManager::isBuiltIn(const QString &targetName, const QString &name) const
 {
-    auto inBuiltIn = !fplus::keep_if(std::bind(presetNameEqual, _1, name), builtInPresets.value(targetName)).empty();
+    const auto &builtInList = builtInPresets.value(targetName);
+    auto inBuiltIn = std::ranges::find_if(builtInList, [&](const Preset &p) { return p.name == name; }) !=
+                     builtInList.end();
     auto isDefault = name == QCoreApplication::translate("PresetManager", "Default");
     return inBuiltIn || isDefault;
 }
@@ -80,9 +85,11 @@ bool PresetManager::removePreset(const QString &targetName, const QString &name)
         return false;
     // As we check the existance of the element, we should be fine with a direct unsafe_get_just, or there must be a
     // bug.
-    userPresets.find(targetName)
-        ->remove(fplus::find_first_idx_by(std::bind(presetNameEqual, _1, name), userPresets.value(targetName))
-                     .unsafe_get_just());
+    auto &userPresetList = userPresets.find(targetName).value();
+    auto idx = std::distance(
+        userPresetList.begin(),
+        std::ranges::find_if(userPresetList, [&](const Preset &p) { return p.name == name; }));
+    userPresetList.remove(idx);
     savePresets();
     return true;
 }
@@ -96,10 +103,11 @@ bool PresetManager::replacePreset(const QString &targetName, const QString &name
 {
     if (!exist(targetName, name) || isBuiltIn(targetName, name))
         return false;
-    userPresets.find(targetName)
-        ->replace(fplus::find_first_idx_by(std::bind(presetNameEqual, _1, name), userPresets.value(targetName))
-                      .unsafe_get_just(),
-                  value);
+    auto &userPresetList = userPresets.find(targetName).value();
+    auto idx = std::distance(
+        userPresetList.begin(),
+        std::ranges::find_if(userPresetList, [&](const Preset &p) { return p.name == name; }));
+    userPresetList.replace(idx, value);
     savePresets();
     return true;
 }
@@ -168,8 +176,11 @@ void PresetManager::savePresets()
     }
     QJsonArray root;
     for (auto it = userPresets.begin(); it != userPresets.end(); ++it) {
-        auto currUserPresets = fplus::drop_if(
-            [it, this](const Preset &preset) -> bool { return isBuiltIn(it.key(), preset); }, it.value());
+        auto currUserPresets =
+            it.value() |
+            std::views::filter(
+                [it, this](const Preset &preset) -> bool { return !isBuiltIn(it.key(), preset); }) |
+            std::ranges::to<QVector<Preset>>();
         QJsonArray presetArray;
         for (const auto &i : currUserPresets) {
             presetArray.append(i.toJson());
@@ -234,8 +245,12 @@ Preset Preset::fromJson(const QJsonObject &json)
 {
     Preset preset;
     preset.name = json.value("name").toString();
-    auto i18n =
-        fplus::map_keep_if([](const QString &key) -> bool { return key.startsWith("name_"); }, json.toVariantMap());
+    const auto variantMap = json.toVariantMap();
+    QVariantMap i18n;
+    for (auto it = variantMap.begin(); it != variantMap.end(); ++it) {
+        if (it.key().startsWith("name_"))
+            i18n.insert(it.key(), it.value());
+    }
     for (auto it = i18n.begin(); it != i18n.end(); ++it) {
         auto key = it.key();
         key.remove(0, 5);

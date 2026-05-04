@@ -1,6 +1,6 @@
 #include "TrimAroundSpecificValueOtoListModifyWorker.h"
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <ranges>
 
 TrimAroundSpecificValueOtoListModifyWorker::TrimAroundSpecificValueOtoListModifyWorker(QObject *parent)
     : OtoListModifyWorker(parent)
@@ -20,13 +20,13 @@ void TrimAroundSpecificValueOtoListModifyWorker::doWork(const OtoEntryList &srcO
     auto targetValue = options.getOption("targetValue").toDouble();
     auto roundingEdge = std::fabs(options.getOption("roundingRange").toDouble());
 
-    resultOtoList = fplus::transform(
-        [=](const OtoEntry &entry) -> OtoEntry {
+    resultOtoList =
+        srcOtoList | std::views::transform([=](const OtoEntry &entry) -> OtoEntry {
             auto result = entry;
             auto fieldValue = entry.getParameter(field).toDouble();
             if (fieldValue > targetValue - roundingEdge && fieldValue <= targetValue + roundingEdge)
                 result.setParameter(field, targetValue);
             return result;
-        },
-        srcOtoList);
+        }) |
+        std::ranges::to<OtoEntryList>();
 }

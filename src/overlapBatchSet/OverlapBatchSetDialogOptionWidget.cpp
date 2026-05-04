@@ -9,7 +9,6 @@
 #include <QMessageBox>
 #include <QSpinBox>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
 
 OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::OverlapBatchSetDialogOptionWidget)

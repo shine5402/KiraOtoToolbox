@@ -6,7 +6,8 @@
 #include <QTextEncoder>
 #include <memory>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <ranges>
+
 #include "utils/lib_helper/KfrHelper.h"
 #include "utils/misc/Misc.h"
 
@@ -28,8 +29,8 @@ void ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList &srcOto
 
     auto interpretBySystemEncoding = options.getOption("interpretBySystemEncoding").toBool();
 
-    resultOtoList = fplus::transform(
-        [=](OtoEntry entry) -> OtoEntry {
+    resultOtoList =
+        srcOtoList | std::views::transform([=](OtoEntry entry) -> OtoEntry {
             auto fileName =
                 interpretBySystemEncoding ? Misc::getFileNameInSystemEncoding(entry.fileName()) : entry.fileName();
             auto filePath = dir.filePath(fileName);
@@ -55,6 +56,6 @@ void ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList &srcOto
                 entry.setRight(negativeRight);
 
             return entry;
-        },
-        srcOtoList);
+        }) |
+        std::ranges::to<OtoEntryList>();
 }

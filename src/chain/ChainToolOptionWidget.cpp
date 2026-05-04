@@ -5,7 +5,8 @@
 #include <QGroupBox>
 #include <QJsonArray>
 #include <QMessageBox>
-#include <fplus/fplus.hpp>
+
+#include <ranges>
 
 #include "ChainInvalidDialogAdapter.h"
 #include "ChainStepsModel.h"
@@ -14,7 +15,6 @@
 #include "toolBase/ToolManager.h"
 #include "toolBase/ToolOptionWidget.h"
 #include "utils/dialogs/ListViewDialog.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::ChainToolOptionWidget)
@@ -128,7 +128,9 @@ void ChainToolOptionWidget::setCurrentRow(int row)
 void ChainToolOptionWidget::addStep()
 {
     auto registeredTools = ToolManager::getManager()->getTools();
-    auto availableTools = fplus::transform([](Tool tool) -> ChainElement { return {tool, {}}; }, registeredTools);
+    auto availableTools =
+        registeredTools | std::views::transform([](Tool tool) -> ChainElement { return {tool, {}}; }) |
+        std::ranges::to<QVector<ChainElement>>();
     auto model = new ChainStepsModel(availableTools, this);
     auto dialog = new ListViewDialog(this, model, tr("Choose tool"),
                                      tr("Please choose an available tool for the new processing step."),

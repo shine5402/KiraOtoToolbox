@@ -3,7 +3,6 @@
 #include <QRegularExpression>
 
 #include "qjsonarray.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
 #include "utils/misc/Misc.h"
 
 ReplaceRule::ReplaceRule(QString matchPattern, QString targetPattern, ReplaceRule::MatchStrategy strategy)
@@ -95,27 +94,29 @@ QString ReplaceRule::replace(const QString &alias) const
 
 QJsonArray ReplaceRule::rulesToJson(const QVector<ReplaceRule> &rules)
 {
-    return Misc::arrayFromJsonValueVector(fplus::transform(
-        [](const ReplaceRule &rule) -> QJsonValue {
-            QJsonObject ruleJson;
-            ruleJson.insert("matchPattern", rule.matchPattern());
-            ruleJson.insert("targetPattern", rule.targetPattern());
-            ruleJson.insert("strategy", rule.strategy());
-            return ruleJson;
-        },
-        rules));
+    QVector<QJsonValue> jsonValues;
+    jsonValues.reserve(rules.size());
+    for (const auto &rule : rules) {
+        QJsonObject ruleJson;
+        ruleJson.insert("matchPattern", rule.matchPattern());
+        ruleJson.insert("targetPattern", rule.targetPattern());
+        ruleJson.insert("strategy", rule.strategy());
+        jsonValues.append(ruleJson);
+    }
+    return Misc::arrayFromJsonValueVector(jsonValues);
 }
 
 QVector<ReplaceRule> ReplaceRule::jsonToRules(const QJsonArray &ruleJsonArray)
 {
-    return fplus::transform(
-        [](const QJsonValue &value) -> ReplaceRule {
-            auto obj = value.toObject();
-            ReplaceRule rule;
-            rule.setMatchPattern(obj.value("matchPattern").toString());
-            rule.setTargetPattern(obj.value("targetPattern").toString());
-            rule.setStrategy((ReplaceRule::MatchStrategy)obj.value("strategy").toInt());
-            return rule;
-        },
-        ruleJsonArray);
+    QVector<ReplaceRule> result;
+    result.reserve(ruleJsonArray.size());
+    for (const auto &value : ruleJsonArray) {
+        auto obj = value.toObject();
+        ReplaceRule rule;
+        rule.setMatchPattern(obj.value("matchPattern").toString());
+        rule.setTargetPattern(obj.value("targetPattern").toString());
+        rule.setStrategy((ReplaceRule::MatchStrategy)obj.value("strategy").toInt());
+        result.append(rule);
+    }
+    return result;
 }

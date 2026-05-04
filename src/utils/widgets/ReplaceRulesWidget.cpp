@@ -10,7 +10,8 @@
 
 #include "ReplaceRulesDelegate.h"
 #include "ReplaceRulesMultilineEditorDialog.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
+
+#include <algorithm>
 
 ReplaceRulesWidget::ReplaceRulesWidget(QWidget *parent) : QWidget(parent), ui(new Ui::ReplaceRulesWidget)
 {
@@ -124,7 +125,9 @@ void ReplaceRulesWidget::moveDownRule()
 
 void ReplaceRulesWidget::sortRuleByMatchPatternLength()
 {
-    setRules(fplus::sort_by([](const ReplaceRule &lhs, const ReplaceRule &rhs)
-                                -> bool { return lhs.matchPattern().count() > rhs.matchPattern().count(); },
-                            model->getRules()));
+    auto sortedRules = model->getRules();
+    std::ranges::sort(sortedRules, [](const ReplaceRule &lhs, const ReplaceRule &rhs) -> bool {
+        return lhs.matchPattern().count() > rhs.matchPattern().count();
+    });
+    setRules(sortedRules);
 }

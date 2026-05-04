@@ -16,6 +16,7 @@ private slots:
     void testEmptyRules_identity();
     void testOnlyMatchingEntryChanged();
     void testEmptyInput();
+    void testNonConsecutiveDuplicateFilenames();
 };
 
 void TestReplaceFileName::testReplaceExact()
@@ -152,6 +153,32 @@ void TestReplaceFileName::testEmptyInput()
     });
     worker.doWork({}, result, secondSave, opts);
     QVERIFY(result.isEmpty());
+}
+
+void TestReplaceFileName::testNonConsecutiveDuplicateFilenames()
+{
+    // Non-consecutive entries with the same filename → QSet dedup ensures rule applied
+    ReplaceFileNameOtoListModifyWorker worker;
+    OtoEntryList src;
+    src.append(makeEntry("dup.wav", "a", 100.0, 300.0, 1000.0, 150.0, 50.0));
+    src.append(makeEntry("other.wav", "b", 100.0, 300.0, 1000.0, 150.0, 50.0));
+    src.append(makeEntry("dup.wav", "c", 100.0, 300.0, 1000.0, 150.0, 50.0));
+
+    QVector<ReplaceRule> rules;
+    rules.append(ReplaceRule("dup", "changed", ReplaceRule::Exact));
+
+    OtoEntryList result, secondSave;
+    auto opts = makeOptions({
+        {"load/fileName", "/tmp/dummy.ini"},
+        {"rules", QVariant::fromValue(rules)},
+        {"interpretBySystemEncoding", false},
+    });
+    worker.doWork(src, result, secondSave, opts);
+
+    // Both entries with "dup.wav" should be renamed to "changed.wav"
+    QCOMPARE(result.at(0).fileName(), QString("changed.wav"));
+    QCOMPARE(result.at(1).fileName(), QString("other.wav")); // unchanged
+    QCOMPARE(result.at(2).fileName(), QString("changed.wav"));
 }
 
 QTEST_MAIN(TestReplaceFileName)

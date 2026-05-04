@@ -15,7 +15,6 @@ add_tool_test(test_cvvcPartSplit
 )
 
 target_include_directories(test_cvvcPartSplit PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
     ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch
 )
 target_link_libraries(test_cvvcPartSplit PRIVATE compact_enc_det)

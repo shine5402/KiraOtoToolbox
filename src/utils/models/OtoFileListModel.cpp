@@ -1,6 +1,6 @@
 #include "OtoFileListModel.h"
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <numeric>
 
 OtoFileListModel::OtoFileListModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -46,9 +46,12 @@ QVariant OtoFileListModel::data(const QModelIndex &index, int role) const
             return m_datas.at(index.row()).fileName;
         }
         if (index.column() == Columns::Count) {
-            if (index.row() == m_datas.count())
-                return fplus::sum(
-                    fplus::transform([](const OtoFileInfo &list) -> int { return list.entryList.count(); }, m_datas));
+            if (index.row() == m_datas.count()) {
+                int total = 0;
+                for (const auto &info : m_datas)
+                    total += info.entryList.count();
+                return total;
+            }
             return m_datas.at(index.row()).entryList.count();
         }
     }

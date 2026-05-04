@@ -4,7 +4,6 @@
 #include <QJsonArray>
 
 #include "otoUtils/OtoEntry.h"
-#include "utils/lib_helper/FPlusQtAdapter.h"
 #include "utils/widgets/AtLeastOneCheckedButtonGroup.h"
 
 RemoveAffixOptionWidget::RemoveAffixOptionWidget(QWidget *parent)

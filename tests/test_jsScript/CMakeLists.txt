@@ -29,7 +29,6 @@ add_tool_test(test_jsScript
 )
 
 target_include_directories(test_jsScript PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/FunctionalPlus/include
     ${CMAKE_SOURCE_DIR}/src/3rdparty/diff-match-patch
     ${CMAKE_SOURCE_DIR}/src/3rdparty
 )

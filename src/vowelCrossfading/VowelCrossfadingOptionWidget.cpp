@@ -1,6 +1,8 @@
 #include "VowelCrossfadingOptionWidget.h"
 #include "ui_VowelCrossfadingOptionWidget.h"
 
+#include <QJsonArray>
+
 VowelCrossfadingOptionWidget::VowelCrossfadingOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::VowelCrossfadingOptionWidget)
 {

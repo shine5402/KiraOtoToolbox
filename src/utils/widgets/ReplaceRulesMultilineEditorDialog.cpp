@@ -4,7 +4,8 @@
 #include <QMessageBox>
 #include <QScrollBar>
 
-#include "utils/lib_helper/FPlusQtAdapter.h"
+#include <algorithm>
+#include <ranges>
 
 ReplaceRulesMultiLineEditorDialog::ReplaceRulesMultiLineEditorDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::ReplaceRulesMultiLineEditorDialog)
@@ -58,29 +59,30 @@ QVector<ReplaceRule> ReplaceRulesMultiLineEditorDialog::rules() const
 
 void ReplaceRulesMultiLineEditorDialog::setRules(QVector<ReplaceRule> rules)
 {
-    ui->matchPatternEdit->setPlainText(
-        fplus::transform([](const ReplaceRule &rule) -> QString { return rule.matchPattern(); }, rules)
-            .toList()
-            .join("\n"));
-    ui->targetPatternEdit->setPlainText(
-        fplus::transform([](const ReplaceRule &rule) -> QString { return rule.targetPattern(); }, rules)
-            .toList()
-            .join("\n"));
-    ui->strategyEdit->setPlainText(fplus::transform(
-                                       [](const ReplaceRule &rule) -> QString {
-                                           switch (rule.strategy()) {
-                                           case ReplaceRule::Exact:
-                                               return "e";
-                                           case ReplaceRule::Partial:
-                                               return "p";
-                                           case ReplaceRule::Regex:
-                                               return "r";
-                                           }
-                                           Q_UNREACHABLE();
-                                       },
-                                       rules)
-                                       .toList()
-                                       .join("\n"));
+    auto matchPatterns =
+        rules | std::views::transform([](const ReplaceRule &rule) -> QString { return rule.matchPattern(); }) |
+        std::ranges::to<QStringList>();
+    ui->matchPatternEdit->setPlainText(matchPatterns.join("\n"));
+
+    auto targetPatterns =
+        rules | std::views::transform([](const ReplaceRule &rule) -> QString { return rule.targetPattern(); }) |
+        std::ranges::to<QStringList>();
+    ui->targetPatternEdit->setPlainText(targetPatterns.join("\n"));
+
+    auto strategies =
+        rules | std::views::transform([](const ReplaceRule &rule) -> QString {
+            switch (rule.strategy()) {
+            case ReplaceRule::Exact:
+                return "e";
+            case ReplaceRule::Partial:
+                return "p";
+            case ReplaceRule::Regex:
+                return "r";
+            }
+            Q_UNREACHABLE();
+        }) |
+        std::ranges::to<QStringList>();
+    ui->strategyEdit->setPlainText(strategies.join("\n"));
 }
 
 bool ReplaceRulesMultiLineEditorDialog::isValid() const
@@ -89,12 +91,10 @@ bool ReplaceRulesMultiLineEditorDialog::isValid() const
     auto targetData = ui->targetPatternEdit->toPlainText().split("\n");
     auto strategyData = ui->strategyEdit->toPlainText().split("\n");
 
-    if (fplus::unique(QList{matchData.count(), targetData.count(), strategyData.count()}).count() != 1)
+    if (matchData.count() != targetData.count() || targetData.count() != strategyData.count())
         return false;
-    if (!fplus::reduce(
-            [](bool lhs, bool rhs) -> bool { return lhs && rhs; }, true,
-            fplus::transform([](const QString &str) -> bool { return QStringList{"e", "p", "r"}.contains(str); },
-                             strategyData)))
+    if (!std::ranges::all_of(
+            strategyData, [](const QString &str) -> bool { return QStringList{"e", "p", "r"}.contains(str); }))
         return false;
 
     return true;

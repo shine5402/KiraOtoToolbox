@@ -7,6 +7,7 @@
 #include <QtCore/QtCore>
 
 #include "otoUtils/OtoEntry.h"
+#include "utils/misc/MiscUtils.h"
 
 namespace Misc {
 enum ChangeAskDialogType { Determine, ValueChangeModel, Diff };
@@ -25,9 +26,6 @@ bool askUserWithShowOtoList(const OtoEntryList &secondSaveData, const QString &t
 QDialog *getAskUserWithShowOtoListDialog(const OtoEntryList &secondSaveData, const QString &title, const QString &label,
                                          QWidget *dialogParent);
 
-QJsonArray arrayFromJsonValueVector(QVector<QJsonValue> vector);
-
-QString getFileNameInSystemEncoding(const QString &fileName);
 
 /// @returns The actual codec to use when reading
 QTextCodec *detectCodecAndAskUserIfNotShiftJIS(const QString &path, QWidget *dialogParent);

@@ -1,6 +1,6 @@
 # KiraOtoToolbox
 
-![logo](src/resources/logo/logo.svg)
+![logo](resources/logo/logo.svg)
 
 A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank labeling format.
 

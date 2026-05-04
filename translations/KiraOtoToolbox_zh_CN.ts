@@ -522,7 +522,7 @@ These files are already renamed:
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="40"/>
-        <location filename="../../src/mainwindow.cpp" line="169"/>
+        <location filename="../../src/mainwindow.cpp" line="151"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -576,26 +576,20 @@ These files are already renamed:
         <translation>立刻检查更新</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="85"/>
-        <location filename="../../src/mainwindow.cpp" line="87"/>
+        <location filename="../../src/mainwindow.cpp" line="86"/>
         <source>%1 ver.%2</source>
         <translation>%1 版本 %2</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="157"/>
-        <source>&lt;p&gt;Version %1%4, &lt;i&gt;branch: %2, commit: %3, build on %5 %6&lt;i&gt;&lt;/p&gt;</source>
-        <translation>&lt;p&gt;版本 %1%4, &lt;i&gt;分支：%2，提交：%3，构建时间：%5 %6&lt;i&gt;&lt;/p&gt;</translation>
+        <location filename="../../src/mainwindow.cpp" line="146"/>
+        <source>&lt;p&gt;Version %1, &lt;i&gt;build on %2 %3&lt;/i&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;版本 %1，&lt;i&gt;构建时间：%2 %3&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="160"/>
-        <source>&lt;p style=&quot;color:orange&quot;&gt;You are using a BETA build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.&lt;/p&gt;</source>
-        <translation>&lt;p style=&quot;color:orange&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../src/mainwindow.cpp" line="170"/>
-        <source>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
-
-&lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
+        <location filename="../../src/mainwindow.cpp" line="152"/>
+        <source>&lt;p style=&quot;text-align: left;&quot;&gt;&lt;img src=&quot;:/icon/appIcon&quot; width=&quot;64&quot;/&gt;&lt;/p&gt;
+&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
+&lt;p&gt;Copyright 2021-present shine_5402&lt;/p&gt;
 %1
 &lt;h3&gt;About&lt;/h3&gt;
 &lt;p&gt;A toolbox for manipulating &quot;oto.ini&quot;, the voicebank labeling format for UTAU.&lt;/p&gt;
@@ -610,125 +604,53 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.&lt;br&gt;
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;https://www.gnu.org/licenses/&lt;/a&gt;.&lt;br&gt;
-In addition, as a special exception, the copyright holders give
-permission to link the code of portions of this program with the
-OpenSSL library under certain conditions as described in each
-individual source file, and distribute linked combinations
-including the two.&lt;br&gt;
-You must obey the GNU General Public License in all respects
-for all of the code used other than OpenSSL.  If you modify
-file(s) with this exception, you may extend this exception to your
-version of the file(s), but you are not obligated to do so.  If you
-do not wish to do so, delete this exception statement from your
-version.  If you delete this exception statement from all source
-files in the program, then also delete it here.&lt;/p&gt;
+&lt;/p&gt;
 
-&lt;h3&gt;3rd party librarays used by this project&lt;/h3&gt;
+&lt;h3&gt;Acknowledgements&lt;/h3&gt;
+&lt;h4&gt;Third-party libraries&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Qt %2, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/shine5402/KiraUTAUUtils&quot;&gt;KiraUTAUUtils&lt;/a&gt;, shine_5402, under LGPL v3&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/shine5402/KiraCommonUtils&quot;&gt;KiraCommmonUtils&lt;/a&gt;, shine_5402, mainly under the Apache License, Version 2.0&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.kfrlib.com/&quot;&gt;KFR - Fast, modern C++ DSP framework&lt;/a&gt;, under GNU GPL v2+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
-&lt;li&gt;This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (&lt;a href=&apos;http://www.openssl.org&apos;&gt;http://www.openssl.org/&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/compact_enc_det&quot;&gt;compact_enc_det&lt;/a&gt;, Copyright 2016 Google Inc., under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waqar144/QSourceHighlite&quot;&gt;QSourceHighlite&lt;/a&gt;, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Some icons are provided by &lt;a href=&quot;https://icons8.com&quot;&gt;icons8&lt;/a&gt;. JetBrains Mono font is included under the Apache License, Version 2.0.&lt;/p&gt;
 </source>
-        <translation>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
-
-&lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
+        <translation>&lt;p style=&quot;text-align: left;&quot;&gt;&lt;img src=&quot;:/icon/appIcon&quot; width=&quot;64&quot;/&gt;&lt;/p&gt;
+&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
+&lt;p&gt;Copyright 2021-present shine_5402&lt;/p&gt;
 %1
 &lt;h3&gt;关于&lt;/h3&gt;
 &lt;p&gt;一个操作UTAU用声音资料库的原音设定文件oto.ini的工具箱&lt;/p&gt;
-&lt;h3&gt;许可&lt;/h3&gt;
-&lt;p&gt;本程序是自由软件：你可以在遵守由自由软件基金会发布的GNU通用公共许可证版本3（或者更新的版本）的情况下重新分发和/或修改本程序。&lt;br&gt;
-本程序的发布旨在能够派上用场，但是&lt;span style=&quot;font-weight: bold;&quot;&gt;并不对此作出任何担保&lt;/span&gt;；乃至也没有对&lt;span style=&quot;font-weight: bold;&quot;&gt;适销性&lt;/span&gt;或&lt;span style=&quot;font-weight: bold;&quot;&gt;特定用途适用性&lt;/span&gt;的默示担保。参见GNU通用公共许可证来获得更多细节。&lt;br&gt;
-在得到本程序的同时，您应该也收到了一份GNU通用公共许可证的副本。如果没有，请查阅&lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;https://www.gnu.org/licenses/&lt;/a&gt;。&lt;br&gt;
-In addition, as a special exception, the copyright holders give
-permission to link the code of portions of this program with the
-OpenSSL library under certain conditions as described in each
-individual source file, and distribute linked combinations
-including the two.&lt;br&gt;
-You must obey the GNU General Public License in all respects
-for all of the code used other than OpenSSL.  If you modify
-file(s) with this exception, you may extend this exception to your
-version of the file(s), but you are not obligated to do so.  If you
-do not wish to do so, delete this exception statement from your
-version.  If you delete this exception statement from all source
-files in the program, then also delete it here.
+&lt;h3&gt;License&lt;/h3&gt;
+&lt;p&gt; This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.&lt;br&gt;
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.&lt;br&gt;
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;https://www.gnu.org/licenses/&lt;/a&gt;.&lt;br&gt;
 &lt;/p&gt;
 
-&lt;h3&gt;本程序使用的开源软件库&lt;/h3&gt;
+&lt;h3&gt;致谢&lt;/h3&gt;
+&lt;h4&gt;第三方库&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Qt %2, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/shine5402/KiraUTAUUtils&quot;&gt;KiraUTAUUtils&lt;/a&gt;, shine_5402, under LGPL v3&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/shine5402/KiraCommonUtils&quot;&gt;KiraCommmonUtils&lt;/a&gt;, shine_5402, mainly under the Apache License, Version 2.0&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.kfrlib.com/&quot;&gt;KFR - Fast, modern C++ DSP framework&lt;/a&gt;, under GNU GPL v2+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
-&lt;li&gt;This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (&lt;a href=&apos;http://www.openssl.org&apos;&gt;http://www.openssl.org/&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/google/compact_enc_det&quot;&gt;compact_enc_det&lt;/a&gt;, Copyright 2016 Google Inc., under the Apache License, Version 2.0&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waqar144/QSourceHighlite&quot;&gt;QSourceHighlite&lt;/a&gt;, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;本程序使用了来自&lt;a href=&quot;https://icons8.com&quot;&gt;icons8&lt;/a&gt;的图标。JetBrains Mono 字体以 the Apache License, Version 2.0 包括在本程序中。&lt;/p&gt;
 </translation>
-    </message>
-    <message>
-        <source> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;You are using a test build. &lt;b&gt;Use it at your own risk.&lt;/b&gt; If any problems occured, please provide feedback on Github Issues.</source>
-        <translation type="vanished"> (BETA) &lt;/p&gt;&lt;p style=&quot;color:orange&quot;&gt;您使用的是测试版工具，请&lt;b&gt;注意风险和备份&lt;/b&gt;。出现问题请使用Github Issues进行反馈，十分感谢。</translation>
-    </message>
-    <message>
-        <source>&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
-
-&lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Version %1&lt;/p&gt;
-&lt;h3&gt;About&lt;/h3&gt;
-&lt;p&gt;A toolbox for manipulating &quot;oto.ini&quot;, the voicebank labeling format for UTAU.&lt;/p&gt;
-&lt;h3&gt;License&lt;/h3&gt;
-&lt;p&gt; This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.&lt;/p&gt;
-&lt;p&gt;This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.&lt;/p&gt;
-&lt;p&gt;You should have received a copy of the GNU General Public License
-    along with this program.  If not, see &lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;https://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3&gt;3rd party librarays used by this project&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Qt, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
-&lt;li&gt;KiraUTAUUtils, shine_5402, under LGPL v3&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Some icons are provided by &lt;a href=&quot;https://icons8.com&quot;&gt;icons8&lt;/a&gt;.&lt;/p&gt;
-</source>
-        <translation type="vanished">&lt;h2&gt;KiraOtoToolbox&lt;/h2&gt;
-
-&lt;p&gt;Copyright 2021 &lt;a href=&quot;https://shine5402.top/about-me&quot;&gt;shine_5402&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;版本 %1&lt;/p&gt;
-&lt;h3&gt;关于&lt;/h3&gt;
-&lt;p&gt;一个操作UTAU用声音资料库的原音设定文件oto.ini的工具箱&lt;/p&gt;
-&lt;h3&gt;许可&lt;/h3&gt;
-&lt;p&gt;本程序是自由软件：你可以在遵守由自由软件基金会发布的GNU通用公共许可证版本3（或者更新的版本）的情况下重新分发和/或修改本程序。&lt;/p&gt;
-&lt;p&gt;本程序的发布旨在能够派上用场，但是&lt;span style=&quot;font-weight: bold;&quot;&gt;并不对此作出任何担保&lt;/span&gt;；乃至也没有对&lt;span style=&quot;font-weight: bold;&quot;&gt;适销性&lt;/span&gt;或&lt;span style=&quot;font-weight: bold;&quot;&gt;特定用途适用性&lt;/span&gt;的默示担保。参见GNU通用公共许可证来获得更多细节。&lt;/p&gt;
-&lt;p&gt;在得到本程序的同时，您应该也收到了一份GNU通用公共许可证的副本。如果没有，请查阅&lt;a href=&quot;https://www.gnu.org/licenses/&quot;&gt;https://www.gnu.org/licenses/&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h3&gt;本程序使用的开源软件库&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Qt, The Qt Company Ltd, under LGPL v3.&lt;/li&gt;
-&lt;li&gt;KiraUTAUUtils, shine_5402, under LGPL v3&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/google/diff-match-patch&quot;&gt;Diff-Match-Patch&lt;/a&gt;, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/Dobiasd/FunctionalPlus&quot;&gt;FunctionalPlus&lt;/a&gt;, BSL-1.0 License&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本程序使用了来自&lt;a href=&quot;https://icons8.com&quot;&gt;icons8&lt;/a&gt;的图标。&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

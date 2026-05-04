@@ -4,7 +4,7 @@
 #include <QButtonGroup>
 #include <QDesktopServices>
 #include <QGroupBox>
-#include <QMessageBox>
+#include "utils/dialogs/CommonHtmlDialog.h"
 #include <QPushButton>
 #include <QSettings>
 #include <QUrl>
@@ -82,10 +82,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     auto helpMenu = createHelpMenu();
     ui->helpButton->setMenu(helpMenu);
 
-    // set window titie
+    // set window title
     setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
-    if (QStringLiteral(GIT_BRANCH) == QStringLiteral("dev"))
-        setWindowTitle(tr("%1 ver.%2").arg(qApp->applicationName(), qApp->applicationVersion() + " [BETA]"));
 
     updateChecker = new UpdateChecker::GithubReleaseChecker("shine5402", "KiraOtoToolbox", this);
     UpdateChecker::triggerScheduledCheck(updateChecker);
@@ -144,25 +142,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::showAboutDialog()
 {
-    auto isBeta = QStringLiteral(GIT_BRANCH) == QStringLiteral("dev");
     QString versionStr =
-        tr("<p>Version %1%4, <i>branch: %2, commit: %3, build on %5 %6<i></p>")
-            .arg(qApp->applicationVersion(), GIT_BRANCH, GIT_HASH, isBeta ? "-beta" : "", __DATE__, __TIME__);
-    if (isBeta)
-        versionStr += tr("<p style=\"color:orange\">You are using a BETA build. "
-                         "<b>Use it at your own risk.</b>"
-                         " If any problems occured, please provide feedback on Github Issues.</p>");
-    // To make a about msgBox
-    auto msgBox = new QMessageBox(this);
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
-    QIcon icon = windowIcon();
-    QSize size = icon.actualSize(QSize(64, 64));
-    msgBox->setIconPixmap(icon.pixmap(size));
-    msgBox->setWindowTitle(tr("About"));
-    msgBox->setText(tr(
-                        R"(<h2>KiraOtoToolbox</h2>
+        tr("<p>Version %1, <i>build on %2 %3</i></p>")
+            .arg(qApp->applicationVersion().isEmpty() ? "(unknown)" : qApp->applicationVersion(), __DATE__, __TIME__);
 
-<p>Copyright 2021 <a href="https://shine5402.top/about-me">shine_5402</a></p>
+    auto dialog = new CommonHtmlDialog(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setWindowTitle(tr("About"));
+    dialog->setHTML(tr(
+                        R"(<p style="text-align: left;"><img src=":/icon/appIcon" width="64"/></p>
+<h2>KiraOtoToolbox</h2>
+<p>Copyright 2021-present shine_5402</p>
 %1
 <h3>About</h3>
 <p>A toolbox for manipulating "oto.ini", the voicebank labeling format for UTAU.</p>
@@ -177,27 +167,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.<br>
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.<br>
-In addition, as a special exception, the copyright holders give
-permission to link the code of portions of this program with the
-OpenSSL library under certain conditions as described in each
-individual source file, and distribute linked combinations
-including the two.<br>
-You must obey the GNU General Public License in all respects
-for all of the code used other than OpenSSL.  If you modify
-file(s) with this exception, you may extend this exception to your
-version of the file(s), but you are not obligated to do so.  If you
-do not wish to do so, delete this exception statement from your
-version.  If you delete this exception statement from all source
-files in the program, then also delete it here.</p>
+</p>
 
-<h3>3rd party librarays used by this project</h3>
+<h3>Acknowledgements</h3>
+<h4>Third-party libraries</h4>
 <ul>
 <li>Qt %2, The Qt Company Ltd, under LGPL v3.</li>
-<li><a href="https://github.com/shine5402/KiraUTAUUtils">KiraUTAUUtils</a>, shine_5402, under LGPL v3</li>
-<li><a href="https://github.com/shine5402/KiraCommonUtils">KiraCommmonUtils</a>, shine_5402, mainly under the Apache License, Version 2.0</li>
+<li><a href="https://www.kfrlib.com/">KFR - Fast, modern C++ DSP framework</a>, under GNU GPL v2+</li>
 <li><a href="https://github.com/google/diff-match-patch">Diff-Match-Patch</a>, Copyright 2018 The diff-match-patch Authors, under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
-<li>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. (<a href='http://www.openssl.org'>http://www.openssl.org/</a>)</li>
 <li><a href="https://github.com/google/compact_enc_det">compact_enc_det</a>, Copyright 2016 Google Inc., under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Waqar144/QSourceHighlite">QSourceHighlite</a>, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License</li>
 </ul>
@@ -205,11 +183,9 @@ files in the program, then also delete it here.</p>
 <p>Some icons are provided by <a href="https://icons8.com">icons8</a>. JetBrains Mono font is included under the Apache License, Version 2.0.</p>
 )")
                         .arg(versionStr, QT_VERSION_STR));
-    // To make msgBox wider
-    QSpacerItem *horizontalSpacer = new QSpacerItem(width(), 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    QGridLayout *layout = (QGridLayout *)msgBox->layout();
-    layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
-    msgBox->exec();
+    dialog->setStandardButtons(QDialogButtonBox::Ok);
+    dialog->setOpenExternalLinks(true);
+    dialog->exec();
 }
 
 void MainWindow::changeEvent(QEvent *event)

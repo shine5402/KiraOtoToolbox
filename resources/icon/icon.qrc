@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icon">
+        <file alias="appIcon">appIcon.png</file>
         <file>appIcon.ico</file>
         <file alias="add">icons8-add-48.png</file>
         <file alias="export">icons8-export-48.png</file>

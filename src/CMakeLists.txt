@@ -50,11 +50,11 @@ target_link_libraries(KiraOtoToolbox PRIVATE kfr kfr_dsp kfr_io)
 
 # Resources
 target_sources(KiraOtoToolbox PRIVATE
-    resources/font/font.qrc
-    resources/icon/icon.qrc
-    resources/logo/logo.qrc
-    resources/presets/built-in_presets.qrc
-    resources/splashscr/splashscr.qrc
+    ${CMAKE_SOURCE_DIR}/resources/font/font.qrc
+    ${CMAKE_SOURCE_DIR}/resources/icon/icon.qrc
+    ${CMAKE_SOURCE_DIR}/resources/logo/logo.qrc
+    ${CMAKE_SOURCE_DIR}/resources/presets/built-in_presets.qrc
+    ${CMAKE_SOURCE_DIR}/resources/splashscr/splashscr.qrc
 )
 
 # Platform properties
@@ -65,12 +65,12 @@ set_target_properties(KiraOtoToolbox PROPERTIES
 
 if(WIN32)
     set_target_properties(KiraOtoToolbox PROPERTIES
-        QT_TARGET_RC_ICONS resources/icon/appIcon.ico
+        QT_TARGET_RC_ICONS ${CMAKE_SOURCE_DIR}/resources/icon/appIcon.ico
     )
 endif()
 
 if(APPLE)
-    set(app_icon "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon/appIcon.icns")
+    set(app_icon "${CMAKE_SOURCE_DIR}/resources/icon/appIcon.icns")
     target_sources(KiraOtoToolbox PRIVATE "${app_icon}")
     set_source_files_properties("${app_icon}" PROPERTIES
         MACOSX_PACKAGE_LOCATION "Resources"

@@ -1,0 +1,10 @@
+add_tool_test(test_removeAffix
+    tst_removeAffix.cpp
+    ${CMAKE_SOURCE_DIR}/src/removeAffix/RemoveAffixOtoListModifyWorker.cpp
+    ${CMAKE_SOURCE_DIR}/src/removeAffix/RemoveSpecificAffixOtoListModifyWorker.cpp
+    ${CMAKE_SOURCE_DIR}/src/removeAffix/RemovePitchAffixOtoListModifyWorker.cpp
+    ${CMAKE_SOURCE_DIR}/src/removeAffix/RemovedStringInfo.cpp
+    ${CMAKE_SOURCE_DIR}/src/toolBase/OtoListModifyWorker.cpp
+    ${CMAKE_SOURCE_DIR}/src/toolBase/OptionContainer.cpp
+    ${CMAKE_SOURCE_DIR}/src/otoUtils/OtoEntry.cpp
+)

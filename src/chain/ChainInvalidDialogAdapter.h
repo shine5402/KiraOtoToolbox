@@ -1,8 +1,8 @@
 #ifndef CHAININVALIDDIALOGADAPTER_H
 #define CHAININVALIDDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolDialogAdapter.h"
+#include "toolBase/ToolOptionWidget.h"
 
 class ChainInvalidDialogAdapter : public ToolDialogAdapter
 {

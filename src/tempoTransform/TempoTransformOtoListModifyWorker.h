@@ -1,7 +1,7 @@
 #ifndef TEMPOTRANSFORMOTOLISTMODIFYWORKER_H
 #define TEMPOTRANSFORMOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class TempoTransformOtoListModifyWorker : public OtoListModifyWorker
 {

@@ -1,7 +1,7 @@
 #ifndef VOWELCROSSFADINGDIALOGADAPTER_H
 #define VOWELCROSSFADINGDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class VowelCrossfadingDialogAdapter : public ToolDialogAdapter
 {

@@ -1,7 +1,7 @@
 #ifndef CHAINELEMENT_H
 #define CHAINELEMENT_H
 
-#include <toolBase/ToolManager.h>
+#include "toolBase/ToolManager.h"
 
 using ChainElement = ToolWithOptions;
 

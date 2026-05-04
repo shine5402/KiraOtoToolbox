@@ -1,7 +1,7 @@
 #ifndef VOWELCROSSFADINGOTOLISTMODIFYWORKER_H
 #define VOWELCROSSFADINGOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class VowelCrossfadingOtoListModifyWorker : public OtoListModifyWorker
 {

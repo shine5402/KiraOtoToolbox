@@ -1,7 +1,7 @@
 #ifndef ORGANIZEDUPLICATEOTOLISTMODIFYWORKER_H
 #define ORGANIZEDUPLICATEOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 
 class OrganizeDuplicateOtoListModifyWorker : public OtoListModifyWorker

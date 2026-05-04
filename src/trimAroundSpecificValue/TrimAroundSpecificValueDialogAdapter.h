@@ -1,7 +1,7 @@
 #ifndef TRIMAROUNDSPECIFICVALUEDIALOGADAPTER_H
 #define TRIMAROUNDSPECIFICVALUEDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class TrimAroundSpecificValueDialogAdapter : public ToolDialogAdapter
 {

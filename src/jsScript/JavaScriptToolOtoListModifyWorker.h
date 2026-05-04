@@ -2,7 +2,7 @@
 #define JAVASCRIPTTOOLOTOLISTMODIFYWORKER_H
 
 #include <QDir>
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class JavaScriptToolWAVFileAPI : public QObject {
     Q_OBJECT

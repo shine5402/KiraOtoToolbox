@@ -1,7 +1,7 @@
 #ifndef NOTDOANYTHINGOPTIONWIDGET_H
 #define NOTDOANYTHINGOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 //TODO:migrate with emptyoptionwidget?
 class NotDoAnythingOptionWidget : public ToolOptionWidget
 {

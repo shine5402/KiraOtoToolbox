@@ -1,7 +1,7 @@
 #ifndef REMOVESPECIFICENTRIESDIALOGADAPTER_H
 #define REMOVESPECIFICENTRIESDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class RemoveSpecificEntriesDialogAdapter : public ToolDialogAdapter
 {

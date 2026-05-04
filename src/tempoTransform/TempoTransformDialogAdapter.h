@@ -1,7 +1,7 @@
 #ifndef TEMPOTRANSFORMDIALOGADAPTER_H
 #define TEMPOTRANSFORMDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class TempoTransformDialogAdapter : public ToolDialogAdapter
 {

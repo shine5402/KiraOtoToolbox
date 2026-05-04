@@ -1,7 +1,7 @@
 #ifndef REMOVESPECIFICENTRIESOTOLISTMODIFYWORKER_H
 #define REMOVESPECIFICENTRIESOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class RemoveSpecificEntriesOtoListModifyWorker : public OtoListModifyWorker
 {

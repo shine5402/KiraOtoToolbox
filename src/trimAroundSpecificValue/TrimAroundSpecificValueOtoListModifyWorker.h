@@ -1,7 +1,7 @@
 #ifndef TRIMAROUNDSPECIFICVALUEOTOLISTMODIFYWORKER_H
 #define TRIMAROUNDSPECIFICVALUEOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 #include <QObject>
 
 class TrimAroundSpecificValueOtoListModifyWorker : public OtoListModifyWorker

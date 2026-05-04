@@ -1,7 +1,7 @@
 #ifndef SETALIASDIALOGADAPTER_H
 #define SETALIASDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class SetAliasDialogAdapter : public ToolDialogAdapter
 {

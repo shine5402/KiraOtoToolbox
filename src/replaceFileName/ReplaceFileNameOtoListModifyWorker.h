@@ -2,7 +2,7 @@
 #define REPLACEFILENAMEOTOLISTMODIFYWORKER_H
 
 #include <QDir>
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class ReplaceFileNameOtoListModifyWorker : public OtoListModifyWorker
 {

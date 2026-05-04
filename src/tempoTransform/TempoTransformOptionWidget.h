@@ -1,7 +1,7 @@
 #ifndef TEMPOTRANSFORMOPTIONWIDGET_H
 #define TEMPOTRANSFORMOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class TempoTransformOptionWidget;

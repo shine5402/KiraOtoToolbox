@@ -1,7 +1,7 @@
 #ifndef PRECENTEREDCHANGEVALUEOPTIONWIDGET_H
 #define PRECENTEREDCHANGEVALUEOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class PreCenteredChangeValueOptionWidget;

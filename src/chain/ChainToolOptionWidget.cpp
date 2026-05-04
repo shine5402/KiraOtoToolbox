@@ -8,11 +8,11 @@
 #include <fplus/fplus.hpp>
 #include "utils/lib_helper/FPlusQtAdapter.h"
 #include <QJsonArray>
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 #include <QMessageBox>
 #include "ChainInvalidDialogAdapter.h"
-#include <toolBase/ToolOptionWidget.h>
-#include <toolBase/PresetWidgetContainer.h>
+#include "toolBase/ToolOptionWidget.h"
+#include "toolBase/PresetWidgetContainer.h"
 
 ChainToolOptionWidget::ChainToolOptionWidget(QWidget *parent) :
     ToolOptionWidget(parent),

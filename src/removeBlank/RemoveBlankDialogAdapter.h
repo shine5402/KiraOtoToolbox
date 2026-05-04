@@ -1,7 +1,7 @@
 #ifndef REMOVEBLANKDIALOGADAPTER_H
 #define REMOVEBLANKDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class RemoveBlankDialogAdapter : public ToolDialogAdapter
 {

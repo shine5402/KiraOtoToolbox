@@ -1,7 +1,7 @@
 #ifndef REPLACEFILENAMEOPTIONWIDGET_H
 #define REPLACEFILENAMEOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class ReplaceFileNameOptionWidget;

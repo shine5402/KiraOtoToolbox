@@ -1,7 +1,7 @@
 #ifndef JAVASCRIPTTOOLDIALOGADAPTER_H
 #define JAVASCRIPTTOOLDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class JavaScriptToolDialogAdapter : public ToolDialogAdapter
 {

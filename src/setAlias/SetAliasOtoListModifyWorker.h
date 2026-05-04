@@ -1,7 +1,7 @@
 #ifndef SETALIASOTOLISTMODIFYWORKER_H
 #define SETALIASOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class SetAliasOtoListModifyWorker : public OtoListModifyWorker
 {

@@ -1,7 +1,7 @@
 #ifndef PRECENTEREDCHANGEVALUEADAPTER_H
 #define PRECENTEREDCHANGEVALUEADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class PreCenteredChangeValueAdapter : public ToolDialogAdapter
 {

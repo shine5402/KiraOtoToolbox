@@ -2,7 +2,7 @@
 #define REMOVESPECIFICENTRIESOPTIONWIDGET_H
 
 #include <QWidget>
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class RemoveSpecificEntriesOptionWidget;

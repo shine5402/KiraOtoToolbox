@@ -1,7 +1,7 @@
 #ifndef CONVERTPLUSMINUSRIGHTOPTIONWIDGET_H
 #define CONVERTPLUSMINUSRIGHTOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class ConvertPlusMinusRightOptionWidget;

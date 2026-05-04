@@ -1,7 +1,7 @@
 #ifndef COPYORREPLACEBYALIASOTOLISTMODIFYWORKER_H
 #define COPYORREPLACEBYALIASOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class CopyOrReplaceByAliasOtoListModifyWorker : public OtoListModifyWorker
 {

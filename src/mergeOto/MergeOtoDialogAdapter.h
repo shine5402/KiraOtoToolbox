@@ -1,7 +1,7 @@
 #ifndef MERGEOTODIALOGADAPTER_H
 #define MERGEOTODIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class MergeOtoDialogAdapter : public ToolDialogAdapter
 {

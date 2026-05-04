@@ -1,6 +1,6 @@
 #ifndef REMOVEDUPLICATEOTOLISTMODIFYWORKER_H
 #define REMOVEDUPLICATEOTOLISTMODIFYWORKER_H
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 
 class RemoveDuplicateOtoListModifyWorker : public OtoListModifyWorker

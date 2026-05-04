@@ -1,10 +1,10 @@
 #include "Misc.h"
 #include <QDialog>
 #include "utils/dialogs/ShowDiffDialog.h"
-#include <utils/models/OtoListShowValueChangeModel.h>
+#include "utils/models/OtoListShowValueChangeModel.h"
 #include "utils/dialogs/TableViewDialog.h"
 #include <QTimer>
-#include <utils/dialogs/ShowOtoListDialog.h>
+#include "utils/dialogs/ShowOtoListDialog.h"
 #include "utils/misc/Misc.h"
 //#undef UNICODE
 #include <compact_enc_det/compact_enc_det.h>

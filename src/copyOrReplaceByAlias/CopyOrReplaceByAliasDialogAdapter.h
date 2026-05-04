@@ -1,7 +1,7 @@
 #ifndef COPYORREPLACEBYALIASDIALOGADAPTER_H
 #define COPYORREPLACEBYALIASDIALOGADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class CopyOrReplaceByAliasDialogAdapter : public ToolDialogAdapter
 {

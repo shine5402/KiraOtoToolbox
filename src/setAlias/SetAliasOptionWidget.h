@@ -1,7 +1,7 @@
 #ifndef SETALIASOPTIONWIDGET_H
 #define SETALIASOPTIONWIDGET_H
 
-#include <toolBase/ToolOptionWidget.h>
+#include "toolBase/ToolOptionWidget.h"
 
 namespace Ui {
     class SetAliasOptionWidget;

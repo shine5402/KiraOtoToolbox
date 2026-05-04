@@ -1,6 +1,6 @@
 #ifndef ADDAFFIXOTOLISTMODIFYWORKER_H
 #define ADDAFFIXOTOLISTMODIFYWORKER_H
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 #include <QObject>
 

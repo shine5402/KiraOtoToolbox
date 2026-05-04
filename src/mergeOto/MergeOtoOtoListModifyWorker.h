@@ -1,7 +1,7 @@
 #ifndef MERGEOTOOTOLISTMODIFYWORKER_H
 #define MERGEOTOOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class MergeOtoOtoListModifyWorker : public OtoListModifyWorker
 {

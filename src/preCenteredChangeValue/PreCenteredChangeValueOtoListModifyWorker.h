@@ -1,7 +1,7 @@
 #ifndef PRECENTEREDCHANGEVALUEOTOLISTMODIFYWORKER_H
 #define PRECENTEREDCHANGEVALUEOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class PreCenteredChangeValueOtoListModifyWorker : public OtoListModifyWorker
 {

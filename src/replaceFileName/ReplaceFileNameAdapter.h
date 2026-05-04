@@ -1,7 +1,7 @@
 #ifndef REPLACEFILENAMEADAPTER_H
 #define REPLACEFILENAMEADAPTER_H
 
-#include <toolBase/ToolDialogAdapter.h>
+#include "toolBase/ToolDialogAdapter.h"
 
 class ReplaceFileNameAdapter : public ToolDialogAdapter
 {

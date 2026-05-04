@@ -4,10 +4,10 @@
 #include <QSaveFile>
 #include <QTextStream>
 #include "utils/dialogs/ShowDiffDialog.h"
-#include <utils/models/OtoListShowValueChangeModel.h>
+#include "utils/models/OtoListShowValueChangeModel.h"
 #include "utils/dialogs/TableViewDialog.h"
 #include <QTimer>
-#include <utils/dialogs/ShowOtoListDialog.h>
+#include "utils/dialogs/ShowOtoListDialog.h"
 #include "utils/misc/Misc.h"
 #include "utils/widgets/Misc.h"
 #include "PresetWidgetContainer.h"

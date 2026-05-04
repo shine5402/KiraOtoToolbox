@@ -1,7 +1,7 @@
 #ifndef CONVERTPLUSMINUSRIGHTOTOLISTMODIFYWORKER_H
 #define CONVERTPLUSMINUSRIGHTOTOLISTMODIFYWORKER_H
 
-#include <toolBase/OtoListModifyWorker.h>
+#include "toolBase/OtoListModifyWorker.h"
 
 class ConvertPlusMinusRightOtoListModifyWorker : public OtoListModifyWorker
 {

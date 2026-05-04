@@ -1,8 +1,6 @@
 #include <QApplication>
 #include <QFontDatabase>
 #include <QLocale>
-#include <QSplashScreen>
-
 #include "InitFuncs.h"
 #include "MainWindow.h"
 
@@ -15,9 +13,6 @@ int main(int argc, char *argv[])
     a.setOrganizationName("KiraTools");
     a.setApplicationName("KiraOtoToolBox");
 
-    QSplashScreen splashScr(QPixmap(":/splashscr", "png"));
-    splashScr.show();
-
     registerTools();
 
     MainWindow w;
@@ -26,6 +21,5 @@ int main(int argc, char *argv[])
     // For js tool
     QFontDatabase::addApplicationFont(":/font/JetBrainsMono-Regular.ttf");
 
-    splashScr.finish(&w);
     return a.exec();
 }

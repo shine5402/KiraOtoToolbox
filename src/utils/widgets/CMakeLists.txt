@@ -1,24 +1,24 @@
 target_sources(KiraOtoToolbox PRIVATE
     # Absorbed from KiraCommonUtils
-    atleastonecheckedbuttongroup.cpp atleastonecheckedbuttongroup.h
-    dirnameeditwithbrowse.cpp dirnameeditwithbrowse.h
-    filenameeditwithbrowse.cpp filenameeditwithbrowse.h filenameeditwithbrowse.ui
-    misc.cpp misc.h
-    qballontip.cpp qballontip.h
-    stringlistmodifywidget.cpp stringlistmodifywidget.h stringlistmodifywidget.ui
+    AtLeastOneCheckedButtonGroup.cpp AtLeastOneCheckedButtonGroup.h
+    DirNameEditWithBrowse.cpp DirNameEditWithBrowse.h
+    FileNameEditWithBrowse.cpp FileNameEditWithBrowse.h FileNameEditWithBrowse.ui
+    Misc.cpp Misc.h
+    QBalloonTip.cpp QBalloonTip.h
+    StringListModifyWidget.cpp StringListModifyWidget.h StringListModifyWidget.ui
     # Original project widgets
-    otofiledirectsavewidget.cpp otofiledirectsavewidget.h otofiledirectsavewidget.ui
-    otofileloadwidget.cpp otofileloadwidget.h otofileloadwidget.ui
-    otofilemultipleloadwidget.cpp otofilemultipleloadwidget.h otofilemultipleloadwidget.ui
-    otofilenameeditwithbrowse.cpp otofilenameeditwithbrowse.h
-    otofilesavewidget.cpp otofilesavewidget.h otofilesavewidget.ui
-    otofilesavewidgetabstract.cpp otofilesavewidgetabstract.h
-    replacerule.cpp replacerule.h
-    replacerulesdelegate.cpp replacerulesdelegate.h
-    replacerulesmodel.cpp replacerulesmodel.h
-    replacerulesmultilineeditordialog.cpp replacerulesmultilineeditordialog.h replacerulesmultilineeditordialog.ui
-    replaceruleswidget.cpp replaceruleswidget.h replaceruleswidget.ui
-    remoteimagetextbrowser.cpp remoteimagetextbrowser.h
-    svgwidget.cpp svgwidget.h
+    OtoFileDirectSaveWidget.cpp OtoFileDirectSaveWidget.h OtoFileDirectSaveWidget.ui
+    OtoFileLoadWidget.cpp OtoFileLoadWidget.h OtoFileLoadWidget.ui
+    OtoFileMultipleLoadWidget.cpp OtoFileMultipleLoadWidget.h OtoFileMultipleLoadWidget.ui
+    OtoFileNameEditWithBrowse.cpp OtoFileNameEditWithBrowse.h
+    OtoFileSaveWidget.cpp OtoFileSaveWidget.h OtoFileSaveWidget.ui
+    OtoFileSaveWidgetAbstract.cpp OtoFileSaveWidgetAbstract.h
+    ReplaceRule.cpp ReplaceRule.h
+    ReplaceRulesDelegate.cpp ReplaceRulesDelegate.h
+    ReplaceRulesModel.cpp ReplaceRulesModel.h
+    ReplaceRulesMultilineEditorDialog.cpp ReplaceRulesMultilineEditorDialog.h ReplaceRulesMultilineEditorDialog.ui
+    ReplaceRulesWidget.cpp ReplaceRulesWidget.h ReplaceRulesWidget.ui
+    RemoteImageTextBrowser.cpp RemoteImageTextBrowser.h
+    SvgWidget.cpp SvgWidget.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

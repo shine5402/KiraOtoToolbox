@@ -1,0 +1,32 @@
+#ifndef CV_VCPARTSPLITOPTIONWIDGET_H
+#define CV_VCPARTSPLITOPTIONWIDGET_H
+
+#include <QWidget>
+#include "../toolBase/tooloptionwidget.h"
+
+namespace Ui {
+    class CVVCPartSplitOptionWidget;
+}
+
+class CVVCPartSplitOptionWidget : public ToolOptionWidget
+{
+    Q_OBJECT
+
+public:
+    Q_INVOKABLE explicit CVVCPartSplitOptionWidget(QWidget *parent = nullptr);
+    ~CVVCPartSplitOptionWidget();
+
+private:
+    Ui::CVVCPartSplitOptionWidget *ui;
+
+    // ToolOptionWidget interface
+public:
+    OptionContainer getOptions() const override;
+    void setOptions(const OptionContainer& options) override;
+
+    QJsonObject optionsToJson(const OptionContainer& options) const override;
+    OptionContainer jsonToOptions(const QJsonObject& json) const override;
+    int optionJsonVersion() const override;
+};
+
+#endif // CV_VCPARTSPLITOPTIONWIDGET_H

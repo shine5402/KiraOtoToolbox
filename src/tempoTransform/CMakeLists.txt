@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    tempotransformoptionwidget.cpp tempotransformoptionwidget.h tempotransformoptionwidget.ui
-    tempotransformotolistmodifyworker.cpp tempotransformotolistmodifyworker.h
-    tempotransfromdialogadapter.cpp tempotransfromdialogadapter.h
+    TempoTransformOptionWidget.cpp TempoTransformOptionWidget.h TempoTransformOptionWidget.ui
+    TempoTransformOtoListModifyWorker.cpp TempoTransformOtoListModifyWorker.h
+    TempoTransformDialogAdapter.cpp TempoTransformDialogAdapter.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

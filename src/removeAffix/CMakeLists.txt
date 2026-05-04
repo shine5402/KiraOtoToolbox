@@ -1,9 +1,9 @@
 target_sources(KiraOtoToolbox PRIVATE
-    removeaffixdialogadapter.cpp removeaffixdialogadapter.h
-    removeaffixoptionwidget.cpp removeaffixoptionwidget.h removeaffixoptionwidget.ui
-    removeaffixotolistmodifyworker.cpp removeaffixotolistmodifyworker.h
-    removedstringinfo.cpp removedstringinfo.h
-    removepitchaffixotolistmodifyworker.cpp removepitchaffixotolistmodifyworker.h
-    removespecificaffixotolistmodifyworker.cpp removespecificaffixotolistmodifyworker.h
+    RemoveAffixDialogAdapter.cpp RemoveAffixDialogAdapter.h
+    RemoveAffixOptionWidget.cpp RemoveAffixOptionWidget.h RemoveAffixOptionWidget.ui
+    RemoveAffixOtoListModifyWorker.cpp RemoveAffixOtoListModifyWorker.h
+    RemovedStringInfo.cpp RemovedStringInfo.h
+    RemovePitchAffixOtoListModifyWorker.cpp RemovePitchAffixOtoListModifyWorker.h
+    RemoveSpecificAffixOtoListModifyWorker.cpp RemoveSpecificAffixOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

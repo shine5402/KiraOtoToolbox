@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    removespecificentriesdialogadapter.cpp removespecificentriesdialogadapter.h
-    removespecificentriesoptionwidget.cpp removespecificentriesoptionwidget.h removespecificentriesoptionwidget.ui
-    removespecificentriesotolistmodifyworker.cpp removespecificentriesotolistmodifyworker.h
+    RemoveSpecificEntriesDialogAdapter.cpp RemoveSpecificEntriesDialogAdapter.h
+    RemoveSpecificEntriesOptionWidget.cpp RemoveSpecificEntriesOptionWidget.h RemoveSpecificEntriesOptionWidget.ui
+    RemoveSpecificEntriesOtoListModifyWorker.cpp RemoveSpecificEntriesOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

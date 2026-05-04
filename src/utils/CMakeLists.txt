@@ -1,10 +1,10 @@
 # Core utility files (absorbed from KiraCommonUtils)
 target_sources(KiraOtoToolbox PRIVATE
-    filesystem.cpp filesystem.h
-    stringfunc.cpp stringfunc.h
-    updatechecker.cpp updatechecker.h
-    base64.h
-    setoperations.h
+    FileSystem.cpp FileSystem.h
+    StringFunc.cpp StringFunc.h
+    UpdateChecker.cpp UpdateChecker.h
+    Base64.h
+    SetOperations.h
 )
 
 # Subdirectories

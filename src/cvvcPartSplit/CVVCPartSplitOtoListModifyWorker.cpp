@@ -1,0 +1,87 @@
+#include "CVVCPartSplitOtoListModifyWorker.h"
+#include "utils/misc/Misc.h"
+#include <fplus/fplus.hpp>
+#include <QRegularExpression>
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+CVVCPartSplitOtoListModifyWorker::CVVCPartSplitOtoListModifyWorker(QObject *parent) : OtoListModifyWorker(parent)
+{
+
+}
+
+void CVVCPartSplitOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList, OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+{
+    auto isSeeBeginPatternAsCV = options.getOption("isSeeBeginPatternAsCV").toBool();
+    auto seeBeginPatternAsCVContent = options.getOption("seeBeginPatternAsCVContent").toStringList();
+    auto isSeeEndPatternAsCV = options.getOption("isSeeEndPatternAsCV").toBool();
+    auto seeEndPatternAsCVContent = options.getOption("seeEndPatternAsCVContent").toStringList();
+    auto shouldCopyCVasStartOto = options.getOption("copyCVtoStartOto").toBool();
+
+    auto isAliasEmpty = [](const OtoEntry& entry) -> bool{
+        return entry.alias().isEmpty();
+    };
+    auto emptyDropped = fplus::drop_if(isAliasEmpty, srcOtoList);
+    auto emptyPart = fplus::keep_if(isAliasEmpty, srcOtoList);
+
+    auto isCVPart = [isSeeBeginPatternAsCV, seeBeginPatternAsCVContent, isSeeEndPatternAsCV, seeEndPatternAsCVContent](const OtoEntry& entry) -> bool{
+        auto notDividedBySpace = !QRegularExpression{".* .*"}.match(entry.alias()).hasMatch();
+        bool matchedByBeginPattern = false;
+        bool matchedByEndPattern = false;
+        if (isSeeBeginPatternAsCV)
+        {
+            for (const auto& currentPattern : seeBeginPatternAsCVContent){
+                matchedByBeginPattern |= QRegularExpression{QString{"%1 .*"}.arg(currentPattern)}.match(entry.alias()).hasMatch();
+            }
+        }
+        if (isSeeEndPatternAsCV)
+        {
+            for (const auto& currentPattern : seeEndPatternAsCVContent){
+                matchedByEndPattern |= QRegularExpression{QString{".* %1"}.arg(currentPattern)}.match(entry.alias()).hasMatch();
+            }
+        }
+        return notDividedBySpace || matchedByBeginPattern || matchedByEndPattern;
+    };
+    auto CVList = fplus::keep_if(isCVPart, emptyDropped);
+    VCList = fplus::drop_if(isCVPart, emptyDropped);
+
+    OtoEntryList startList;
+    if (shouldCopyCVasStartOto) {
+        startList = fplus::transform([](auto entry){
+            entry.setAlias("- " + entry.alias());
+            return entry;
+        }, fplus::keep_if([&](const auto& entry){
+            return fplus::find_first_by([&](const auto& entryInter){
+                return entryInter.alias() == "- " + entry.alias();
+            }, srcOtoList).is_nothing();
+        }, CVList));
+    }
+
+    auto saveOptions = options.extract("save/");
+    auto isSecondFileNameUsed = saveOptions.getOption("isSecondFileNameUsed").toBool();
+    VCExtractedToNewFile = isSecondFileNameUsed;
+    if (isSecondFileNameUsed){
+        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart});
+        secondSaveOtoList = VCList;
+    }
+    else{
+        resultOtoList = fplus::concat(QList{CVList, startList, emptyPart, VCList});
+    }
+}
+
+
+bool CVVCPartSplitOtoListModifyWorker::needConfirm() const
+{
+    return VCExtractedToNewFile;
+}
+
+QVector<OtoListModifyWorker::ConfirmMsg> CVVCPartSplitOtoListModifyWorker::getConfirmMsgs() const
+{
+    return {{Dialog,
+             tr("%1 oto entries, which is recognized as VC part, will be saved to the path you specified.").arg(VCList.count()),
+             std::shared_ptr<QDialog>(dynamic_cast<QDialog*>(Misc::getAskUserWithShowOtoListDialog(VCList,
+                                          tr("VC part extracted"),
+                                          tr("These %1 oto entries will be save to location specified.").arg(VCList.count()),
+                                          nullptr)))
+        }};
+}
+

@@ -1,7 +1,7 @@
 target_sources(KiraOtoToolbox PRIVATE
-    otofilelistmodel.cpp otofilelistmodel.h
-    otofilelistwithpreviousmodel.cpp otofilelistwithpreviousmodel.h
-    otolistmodel.cpp otolistmodel.h
-    otolistshowvaluechangemodel.cpp otolistshowvaluechangemodel.h
+    OtoFileListModel.cpp OtoFileListModel.h
+    OtoFileListWithPreviousModel.cpp OtoFileListWithPreviousModel.h
+    OtoListModel.cpp OtoListModel.h
+    OtoListShowValueChangeModel.cpp OtoListShowValueChangeModel.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

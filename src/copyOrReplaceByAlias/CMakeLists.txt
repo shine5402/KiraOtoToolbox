@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    copyorreplacebyaliasdialogadapter.cpp copyorreplacebyaliasdialogadapter.h
-    copyorreplacebyaliasoptionwidget.cpp copyorreplacebyaliasoptionwidget.h copyorreplacebyaliasoptionwidget.ui
-    copyorreplacebyaliasotolistmodifyworker.cpp copyorreplacebyaliasotolistmodifyworker.h
+    CopyOrReplaceByAliasDialogAdapter.cpp CopyOrReplaceByAliasDialogAdapter.h
+    CopyOrReplaceByAliasOptionWidget.cpp CopyOrReplaceByAliasOptionWidget.h CopyOrReplaceByAliasOptionWidget.ui
+    CopyOrReplaceByAliasOtoListModifyWorker.cpp CopyOrReplaceByAliasOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

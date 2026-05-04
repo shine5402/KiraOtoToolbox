@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    precenteredchangevalueadapter.cpp precenteredchangevalueadapter.h
-    precenteredchangevalueoptionwidget.cpp precenteredchangevalueoptionwidget.h precenteredchangevalueoptionwidget.ui
-    precenteredchangevalueotolistmodifyworker.cpp precenteredchangevalueotolistmodifyworker.h
+    PreCenteredChangeValueAdapter.cpp PreCenteredChangeValueAdapter.h
+    PreCenteredChangeValueOptionWidget.cpp PreCenteredChangeValueOptionWidget.h PreCenteredChangeValueOptionWidget.ui
+    PreCenteredChangeValueOtoListModifyWorker.cpp PreCenteredChangeValueOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

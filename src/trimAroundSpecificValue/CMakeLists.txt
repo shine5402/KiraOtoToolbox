@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    trimaroundspecificvaluedialogadapter.cpp trimaroundspecificvaluedialogadapter.h
-    trimaroundspecificvalueoptionwidget.cpp trimaroundspecificvalueoptionwidget.h trimaroundspecificvalueoptionwidget.ui
-    trimarounfspecificvalueotolistmodifyworker.cpp trimarounfspecificvalueotolistmodifyworker.h
+    TrimAroundSpecificValueDialogAdapter.cpp TrimAroundSpecificValueDialogAdapter.h
+    TrimAroundSpecificValueOptionWidget.cpp TrimAroundSpecificValueOptionWidget.h TrimAroundSpecificValueOptionWidget.ui
+    TrimAroundSpecificValueOtoListModifyWorker.cpp TrimAroundSpecificValueOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

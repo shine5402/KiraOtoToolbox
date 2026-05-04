@@ -1,9 +1,9 @@
 add_subdirectory(3rdparty)
 
 qt_add_executable(KiraOtoToolbox
-    main.cpp
-    initFuncs.cpp initFuncs.h
-    mainwindow.cpp mainwindow.h mainwindow.ui
+    Main.cpp
+    InitFuncs.cpp InitFuncs.h
+    MainWindow.cpp MainWindow.h MainWindow.ui
 )
 
 # Add module subdirectories
@@ -17,7 +17,7 @@ add_subdirectory(addAffix)
 add_subdirectory(chain)
 add_subdirectory(convertPlusMinusRight)
 add_subdirectory(copyOrReplaceByAlias)
-add_subdirectory(cv_vcPartSplit)
+add_subdirectory(cvvcPartSplit)
 add_subdirectory(jsScript)
 add_subdirectory(mergeOto)
 add_subdirectory(notdoanything)

@@ -1,0 +1,30 @@
+#include "TrimAroundSpecificValueOtoListModifyWorker.h"
+#include "utils/lib_helper/FPlusQtAdapter.h"
+
+TrimAroundSpecificValueOtoListModifyWorker::TrimAroundSpecificValueOtoListModifyWorker(QObject* parent):OtoListModifyWorker(parent)
+{
+
+}
+
+void TrimAroundSpecificValueOtoListModifyWorker::doWork(const OtoEntryList& srcOtoList, OtoEntryList& resultOtoList,
+                                                        OtoEntryList& secondSaveOtoList, const OptionContainer& options)
+{
+    Q_UNUSED(secondSaveOtoList)
+
+    if (!options.exists("field"))
+    {
+        throw ToolException(tr("No field specified"));
+    }
+
+    auto field = (OtoEntry::OtoParameterOrder) options.getOption("field", 2).toInt();
+    auto targetValue = options.getOption("targetValue").toDouble();
+    auto roundingEdge = std::fabs(options.getOption("roundingRange").toDouble());
+
+    resultOtoList = fplus::transform([=](const OtoEntry& entry)->OtoEntry{
+        auto result = entry;
+        auto fieldValue = entry.getParameter(field).toDouble();
+        if (fieldValue > targetValue - roundingEdge && fieldValue <= targetValue + roundingEdge)
+            result.setParameter(field, targetValue);
+        return result;
+    }, srcOtoList);
+}

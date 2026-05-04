@@ -1,0 +1,21 @@
+#ifndef REMOVESPECIFICAFFIXOTOLISTTASK_H
+#define REMOVESPECIFICAFFIXOTOLISTTASK_H
+
+#include "../toolBase/otolistmodifyworker.h"
+#include "RemovedStringInfo.h"
+
+class RemoveSpecificAffixOtoListModifyWorker : public OtoListModifyWorker
+{
+    Q_OBJECT
+public:
+    Q_INVOKABLE explicit RemoveSpecificAffixOtoListModifyWorker(QObject* parent = nullptr);
+    void doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList,
+                OtoEntryList &secondSaveOtoList, const OptionContainer& options) override;
+
+    QVector<RemovedStringInfo> getRemovedStringInfos() const;
+
+private:
+    QVector<RemovedStringInfo> removedStringInfos;
+};
+
+#endif // REMOVESPECIFICAFFIXOTOLISTTASK_H

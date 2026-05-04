@@ -1,7 +1,7 @@
 target_sources(KiraOtoToolbox PRIVATE
-    filenamereplacemaptablemodel.cpp filenamereplacemaptablemodel.h
-    replacefilenameadapter.cpp replacefilenameadapter.h
-    replacefilenameoptionwidget.cpp replacefilenameoptionwidget.h replacefilenameoptionwidget.ui
-    replacefilenameotolistmodifyworker.cpp replacefilenameotolistmodifyworker.h
+    FileNameReplaceMapTableModel.cpp FileNameReplaceMapTableModel.h
+    ReplaceFileNameAdapter.cpp ReplaceFileNameAdapter.h
+    ReplaceFileNameOptionWidget.cpp ReplaceFileNameOptionWidget.h ReplaceFileNameOptionWidget.ui
+    ReplaceFileNameOtoListModifyWorker.cpp ReplaceFileNameOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

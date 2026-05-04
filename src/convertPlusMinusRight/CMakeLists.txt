@@ -1,6 +1,6 @@
 target_sources(KiraOtoToolbox PRIVATE
-    convertplusminusrightdialogadapter.cpp convertplusminusrightdialogadapter.h
-    convertplusminusrightoptionwidget.cpp convertplusminusrightoptionwidget.h convertplusminusrightoptionwidget.ui
-    convertplusminusrightotolistmodifyworker.cpp convertplusminusrightotolistmodifyworker.h
+    ConvertPlusMinusRightDialogAdapter.cpp ConvertPlusMinusRightDialogAdapter.h
+    ConvertPlusMinusRightOptionWidget.cpp ConvertPlusMinusRightOptionWidget.h ConvertPlusMinusRightOptionWidget.ui
+    ConvertPlusMinusRightOtoListModifyWorker.cpp ConvertPlusMinusRightOtoListModifyWorker.h
 )
 target_include_directories(KiraOtoToolbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

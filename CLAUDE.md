@@ -98,3 +98,4 @@ Create a subdirectory under `src/` with three files implementing the adapter, op
 - i18n via Qt `.ts`/`.qm` translation files (`qt_add_translations`); currently English and Simplified Chinese
 - Tool categories are translatable strings (via `QCoreApplication::translate`)
 - Includes use quoted paths relative to `src/`: `"otoUtils/otoentry.h"`, `"utils/darkmode.h"`
+- Use [Conventional Commits](https://www.conventionalcommits.org/) format: `type: description` (e.g., `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`, `style:`, `test:`)

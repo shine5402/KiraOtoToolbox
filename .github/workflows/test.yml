@@ -1,0 +1,102 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            preset: ci-macos
+            platform-preset: macos-relwithdebinfo
+            qt-arch: clang_64
+          - os: windows-latest
+            preset: ci-windows
+            platform-preset: windows-relwithdebinfo
+            qt-arch: win64_msvc2022_64
+          - os: ubuntu-latest
+            preset: ci-linux
+            platform-preset: linux-relwithdebinfo
+            qt-arch: linux_gcc_64
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Ninja (macOS)
+        if: runner.os == 'macOS'
+        run: brew list ninja || brew install ninja
+
+      - name: Install Ninja (Windows)
+        if: runner.os == 'Windows'
+        run: choco install ninja
+
+      - name: Install Ninja and select GCC 14 (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update && sudo apt-get install -y ninja-build
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 100
+
+      - name: Setup MSVC (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install LLVM Clang (macOS)
+        if: runner.os == 'macOS'
+        run: brew install llvm
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.10.2"
+          arch: ${{ matrix.qt-arch }}
+          cache: true
+
+      - name: Generate CI presets
+        shell: python3 {0}
+        run: |
+          import json, os
+          qt_root = os.environ["QT_ROOT_DIR"].replace("\\", "/")
+          preset = "${{ matrix.preset }}"
+          platform_preset = "${{ matrix.platform-preset }}"
+          cache_vars = {"CMAKE_PREFIX_PATH": qt_root, "KIRAOTOTOOLBOX_BUILD_TESTING": "ON"}
+          if "${{ runner.os }}" == "macOS":
+              cache_vars["CMAKE_CXX_COMPILER"] = "/opt/homebrew/opt/llvm/bin/clang++"
+          data = {
+              "version": 8,
+              "configurePresets": [{"name": preset, "inherits": platform_preset, "cacheVariables": cache_vars}],
+              "buildPresets": [{"name": preset, "configurePreset": preset}],
+              "testPresets": [{"name": preset, "configurePreset": preset}],
+          }
+          with open("CMakeUserPresets.json", "w") as f:
+              json.dump(data, f, indent=2)
+
+      - name: Configure
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build
+        run: cmake --build --preset ${{ matrix.preset }}
+
+      - name: Add DLLs to PATH (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          "$env:QT_ROOT_DIR/bin" | Out-File -Append $env:GITHUB_PATH
+
+      - name: Test
+        run: ctest --preset ${{ matrix.preset }} --output-on-failure
+        env:
+          QT_QPA_PLATFORM: ${{ runner.os == 'Linux' && 'offscreen' || '' }}

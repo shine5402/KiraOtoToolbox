@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>top.shine5402.KiraOtoToolbox</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <name>KiraOtoToolbox</name>
+  <summary>Batch processing toolbox for UTAU oto.ini voicebank files</summary>
+  <description>
+    <p>
+      KiraOtoToolbox is a desktop application for manipulating oto.ini files —
+      the voicebank labeling format used by UTAU, a singing voice synthesis engine.
+      It provides 18+ tools for batch processing audio voicebank data,
+      with both GUI and JavaScript scripting support.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Batch edit oto.ini entries with 18+ specialized tools</li>
+      <li>Add, remove, and modify affixes and aliases</li>
+      <li>Merge, split, and deduplicate voicebank data</li>
+      <li>Batch adjust overlap, preutterance, and tempo</li>
+      <li>JavaScript scripting for custom transformations</li>
+      <li>Built-in preset system for repeatable workflows</li>
+      <li>Chain tool for composing sequential operations</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">top.shine5402.KiraOtoToolbox.desktop</launchable>
+
+  <url type="homepage">https://github.com/shine5402/KiraOtoToolbox</url>
+  <url type="bugtracker">https://github.com/shine5402/KiraOtoToolbox/issues</url>
+
+  <developer id="top.shine5402">
+    <name>shine5402</name>
+  </developer>
+
+  <provides>
+    <binary>KiraOtoToolbox</binary>
+  </provides>
+
+  <content_rating type="oars-1.1" />
+
+  <branding>
+    <color type="primary" scheme_preference="light">#4a90d9</color>
+    <color type="primary" scheme_preference="dark">#1c5a9e</color>
+  </branding>
+</component>

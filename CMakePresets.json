@@ -19,6 +19,12 @@
             }
         },
         {
+            "name"     : "_linux-base",
+            "hidden"   : true,
+            "inherits" : "_base",
+            "condition": {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Linux"}
+        },
+        {
             "name"     : "_windows-base",
             "hidden"   : true,
             "inherits" : "_base",
@@ -41,6 +47,21 @@
             }
         },
         {
+            "name"          : "linux-debug",
+            "displayName"   : "Linux Debug",
+            "inherits"      : "_linux-base",
+            "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
+        },
+        {
+            "name"          : "linux-relwithdebinfo",
+            "displayName"   : "Linux RelWithDebInfo",
+            "inherits"      : "_linux-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE"    : "RelWithDebInfo",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/artifact"
+            }
+        },
+        {
             "name"          : "windows-debug",
             "displayName"   : "Windows Debug",
             "inherits"      : "_windows-base",
@@ -59,6 +80,8 @@
     "buildPresets"    : [
         {"name": "macos-debug",            "configurePreset": "macos-debug"           },
         {"name": "macos-relwithdebinfo",   "configurePreset": "macos-relwithdebinfo"  },
+        {"name": "linux-debug",            "configurePreset": "linux-debug"           },
+        {"name": "linux-relwithdebinfo",   "configurePreset": "linux-relwithdebinfo"  },
         {"name": "windows-debug",          "configurePreset": "windows-debug"         },
         {"name": "windows-relwithdebinfo", "configurePreset": "windows-relwithdebinfo"}
     ]

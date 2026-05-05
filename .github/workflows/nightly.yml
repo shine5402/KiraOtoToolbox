@@ -1,0 +1,108 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.check.outputs.should_build }}
+    steps:
+      - name: Check for new commits since last nightly
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Always build on manual trigger
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_build=true" >> "$GITHUB_OUTPUT"
+            echo "Manual trigger — building unconditionally."
+            exit 0
+          fi
+
+          # Get the commit SHA of the latest nightly tag
+          latest_tag=$(gh release list --limit 20 --json tagName \
+            --jq '[.[] | select(.tagName | startswith("nightly-"))][0].tagName // ""')
+          last_nightly_sha=""
+          if [ -n "$latest_tag" ]; then
+            last_nightly_sha=$(gh api repos/${{ github.repository }}/git/ref/tags/"$latest_tag" \
+              -q '.object.sha' 2>/dev/null || true)
+          fi
+
+          # Get current HEAD of main
+          current_sha=$(gh api repos/${{ github.repository }}/git/ref/heads/main -q '.object.sha')
+
+          if [ -z "$last_nightly_sha" ]; then
+            echo "No previous nightly release found — building."
+            echo "should_build=true" >> "$GITHUB_OUTPUT"
+          elif [ "$last_nightly_sha" = "$current_sha" ]; then
+            echo "main ($current_sha) unchanged since last nightly — skipping."
+            echo "should_build=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "New commits on main ($last_nightly_sha -> $current_sha) — building."
+            echo "should_build=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: check
+    if: needs.check.outputs.should_build == 'true'
+    uses: ./.github/workflows/build.yml
+
+  release:
+    needs: [check, build]
+    if: needs.check.outputs.should_build == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          tag="nightly-$(date -u +%Y-%m-%d)"
+
+          # Delete existing release for today if re-triggered
+          if gh release view "$tag" > /dev/null 2>&1; then
+            echo "Release $tag already exists, replacing..."
+            gh release delete "$tag" --yes --cleanup-tag
+          fi
+
+          gh release create "$tag" \
+            --title "Nightly build ($tag)" \
+            --target main \
+            --notes "Automated nightly build from \`main\` branch.
+
+          **Packages included:**
+          - **macOS** (Universal): DMG installer
+          - **Windows** (x64): Inno Setup installer
+          - **Linux** (x86_64): Flatpak bundle" \
+            --prerelease \
+            artifacts/*
+
+      - name: Clean up old nightlies
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # List all nightly releases sorted by date (newest first), skip first 3, delete the rest
+          gh release list --limit 100 --json tagName \
+            --jq '[.[] | select(.tagName | startswith("nightly-"))][3:][].tagName' | \
+            while read -r tag; do
+              echo "Deleting old nightly: $tag"
+              gh release delete "$tag" --yes --cleanup-tag
+            done

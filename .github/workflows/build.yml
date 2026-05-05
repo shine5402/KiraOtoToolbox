@@ -1,0 +1,150 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install tools
+        run: |
+          brew list ninja || brew install ninja
+          brew list create-dmg || brew install create-dmg
+          brew install llvm
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.10.2"
+          arch: clang_64
+          cache: true
+
+      - name: Generate CI presets
+        shell: python3 {0}
+        run: |
+          import json, os
+          qt_root = os.environ["QT_ROOT_DIR"].replace("\\", "/")
+          data = {
+              "version": 8,
+              "configurePresets": [{"name": "ci-macos", "inherits": "macos-relwithdebinfo", "cacheVariables": {"CMAKE_PREFIX_PATH": qt_root, "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++"}}],
+              "buildPresets": [{"name": "ci-macos", "configurePreset": "ci-macos"}],
+          }
+          with open("CMakeUserPresets.json", "w") as f:
+              json.dump(data, f, indent=2)
+
+      - name: Configure
+        run: cmake --preset ci-macos
+
+      - name: Build
+        run: cmake --build --preset ci-macos
+
+      - name: Install
+        run: cmake --install build
+
+      - name: Package DMG
+        run: bash scripts/package-macos.sh
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: KiraOtoToolbox-macOS
+          path: build/KiraOtoToolbox-*.dmg
+          retention-days: 7
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Ninja
+        run: choco install ninja
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.10.2"
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Generate CI presets
+        shell: python3 {0}
+        run: |
+          import json, os
+          qt_root = os.environ["QT_ROOT_DIR"].replace("\\", "/")
+          data = {
+              "version": 8,
+              "configurePresets": [{"name": "ci-windows", "inherits": "windows-relwithdebinfo", "cacheVariables": {"CMAKE_PREFIX_PATH": qt_root}}],
+              "buildPresets": [{"name": "ci-windows", "configurePreset": "ci-windows"}],
+          }
+          with open("CMakeUserPresets.json", "w") as f:
+              json.dump(data, f, indent=2)
+
+      - name: Configure
+        run: cmake --preset ci-windows
+
+      - name: Build
+        run: cmake --build --preset ci-windows
+
+      - name: Install
+        run: cmake --install build
+
+      - name: Install Inno Setup
+        run: choco install innosetup
+
+      - name: Download unofficial Inno Setup translations
+        run: |
+          $langDir = "${env:ProgramFiles(x86)}\Inno Setup 6\Languages"
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl" -OutFile "$langDir\ChineseSimplified.isl"
+
+      - name: Build installer
+        run: iscc scripts\installer-windows.iss
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: KiraOtoToolbox-Windows
+          path: build/KiraOtoToolbox-*-setup.exe
+          retention-days: 7
+
+  build-flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10
+      options: --privileged
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: flatpak/top.shine5402.KiraOtoToolbox.json
+          bundle: KiraOtoToolbox.flatpak
+          upload-bundles: false
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Upload Flatpak
+        uses: actions/upload-artifact@v4
+        with:
+          name: KiraOtoToolbox-Linux-Flatpak
+          path: KiraOtoToolbox.flatpak
+          retention-days: 7

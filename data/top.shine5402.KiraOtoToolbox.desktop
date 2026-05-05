@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=KiraOtoToolbox
+Comment=Batch processing toolbox for UTAU oto.ini voicebank files
+Exec=KiraOtoToolbox
+Icon=top.shine5402.KiraOtoToolbox
+Type=Application
+Categories=AudioVideo;Audio;
+MimeType=text/plain;

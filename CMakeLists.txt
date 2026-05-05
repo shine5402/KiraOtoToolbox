@@ -7,6 +7,8 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Gui Widgets Concurrent Network Qml Svg LinguistTools)
 
+include(GNUInstallDirs)
+
 qt_standard_project_setup(
     I18N_SOURCE_LANGUAGE en
     I18N_TRANSLATED_LANGUAGES zh_CN

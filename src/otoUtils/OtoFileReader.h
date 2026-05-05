@@ -6,9 +6,14 @@
 #include <QList>
 #include <QObject>
 #include <QTextCodec>
-#include <QVector>
 
 #include "OtoEntry.h"
+
+struct OtoReadError {
+    int lineNumber = 0;
+    QString content;
+    OtoEntry::OtoEntryError error = OtoEntry::UnknownError;
+};
 
 class OtoFileReader
 {
@@ -16,7 +21,7 @@ public:
     OtoFileReader(QString fileName, QTextCodec *textCodec = QTextCodec::codecForName("Shift-JIS"),
                   bool keepInvalid = false);
 
-    OtoEntryList read() const;
+    OtoEntryList read();
 
     void setFileName(QString fileName);
     void setTextCodec(QTextCodec *codec);
@@ -25,10 +30,13 @@ public:
     QTextCodec *textCodec() const;
     bool keepInvalid() const;
 
+    QList<OtoReadError> readErrors() const;
+
 private:
     QString fileName_{};
     QTextCodec *textCodec_;
     bool keepInvalid_;
+    QList<OtoReadError> readErrors_;
 };
 
 #endif // OTOFILEREADER_H

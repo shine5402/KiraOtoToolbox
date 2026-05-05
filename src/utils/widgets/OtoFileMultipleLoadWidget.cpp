@@ -84,10 +84,26 @@ void OtoFileMultipleLoadWidget::loadFiles(const QStringList &fileNames)
 
         auto entryList = reader.read();
 
-        if (entryList.isEmpty()) {
-            QMessageBox::critical(this, {},
-                                  tr("The given file \"%1\" is empty, or contains invalid data only.").arg(fileName));
-            continue;
+        const auto &errors = reader.readErrors();
+        if (!errors.isEmpty()) {
+            QStringList errorLines;
+            constexpr int maxDisplay = 20;
+            for (int i = 0; i < errors.size() && i < maxDisplay; i++) {
+                const auto &e = errors[i];
+                auto content = e.content.left(60);
+                if (e.content.size() > 60)
+                    content += QStringLiteral("…");
+                errorLines.append(tr("Line %1: %2 — %3")
+                                      .arg(e.lineNumber)
+                                      .arg(content)
+                                      .arg(OtoEntry::errorString(e.error)));
+            }
+            auto msg = tr("The following lines in \"%1\" could not be parsed and were skipped:").arg(fileName)
+                       + "\n\n" + errorLines.join("\n");
+            if (errors.size() > maxDisplay)
+                msg += "\n" + tr("…and %1 more.").arg(errors.size() - maxDisplay);
+            msg += "\n\n" + tr("These lines will be lost if you save the file.");
+            QMessageBox::warning(this, {}, msg);
         }
 
         model->addData(fileName, entryList);

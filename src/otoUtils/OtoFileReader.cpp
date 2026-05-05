@@ -8,20 +8,26 @@ OtoFileReader::OtoFileReader(QString fileName, QTextCodec *textCodec, bool keepI
 {
 }
 
-OtoEntryList OtoFileReader::read() const
+OtoEntryList OtoFileReader::read()
 {
     OtoEntryList result;
+    readErrors_.clear();
     QFile file(fileName());
     if (file.open(QFile::ReadOnly | QFile::Text)) {
         auto rawData = file.readAll();
         file.close();
         auto data = textCodec()->makeDecoder()->toUnicode(rawData);
         auto otoStringList = data.split("\n", Qt::SkipEmptyParts);
+        int lineNumber = 0;
         for (const auto &otoString : otoStringList) {
+            lineNumber++;
             bool ok = false;
-            auto otoEntry = OtoEntry::fromString(otoString, &ok, nullptr);
-            if ((!ok) && (!keepInvalid()))
+            OtoEntry::OtoEntryError error = OtoEntry::UnknownError;
+            auto otoEntry = OtoEntry::fromString(otoString, &ok, &error);
+            if ((!ok) && (!keepInvalid())) {
+                readErrors_.append({lineNumber, otoString, error});
                 continue;
+            }
             result.append(otoEntry);
         }
         return result;
@@ -57,4 +63,9 @@ QTextCodec *OtoFileReader::textCodec() const
 bool OtoFileReader::keepInvalid() const
 {
     return keepInvalid_;
+}
+
+QList<OtoReadError> OtoFileReader::readErrors() const
+{
+    return readErrors_;
 }

@@ -1,6 +1,6 @@
 add_tool_test(test_toolManager
     tst_toolManager.cpp
-    ${CMAKE_SOURCE_DIR}/src/notdoanything/NotDoAnythingDialogAdapter.cpp
+    ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingDialogAdapter.cpp
     ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingOtoListModifyWorker.cpp
     ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingOptionWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/addAffix/AddAffixDialogAdapter.cpp

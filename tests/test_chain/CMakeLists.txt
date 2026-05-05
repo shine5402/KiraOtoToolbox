@@ -1,7 +1,7 @@
 add_tool_test(test_chain
     tst_chain.cpp
     ${CMAKE_SOURCE_DIR}/src/chain/ChainOtoListModifyWorker.cpp
-    ${CMAKE_SOURCE_DIR}/src/notdoanything/NotDoAnythingDialogAdapter.cpp
+    ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingDialogAdapter.cpp
     ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingOtoListModifyWorker.cpp
     ${CMAKE_SOURCE_DIR}/src/notDoAnything/NotDoAnythingOptionWidget.cpp
     ${CMAKE_SOURCE_DIR}/src/toolBase/ToolManager.cpp

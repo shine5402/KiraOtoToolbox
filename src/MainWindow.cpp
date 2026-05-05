@@ -175,7 +175,6 @@ along with this program.  If not, see <a href="https://www.gnu.org/licenses/">ht
 <li>Qt %2, The Qt Company Ltd, under LGPL v3.</li>
 <li><a href="https://www.kfrlib.com/">KFR - Fast, modern C++ DSP framework</a>, under GNU GPL v2+</li>
 <li><a href="https://github.com/cubicdaiya/dtl">dtl (Diff Template Library)</a>, Copyright (c) 2015 Tatsuhiko Kubo, under the BSD 3-Clause License</li>
-<li><a href="https://github.com/Dobiasd/FunctionalPlus">FunctionalPlus</a>, BSL-1.0 License</li>
 <li><a href="https://github.com/google/compact_enc_det">compact_enc_det</a>, Copyright 2016 Google Inc., under the Apache License, Version 2.0</li>
 <li><a href="https://github.com/Waqar144/QSourceHighlite">QSourceHighlite</a>, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License</li>
 </ul>

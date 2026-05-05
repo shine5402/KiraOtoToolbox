@@ -26,7 +26,6 @@ CMakePresets.json defines macOS (universal binary x86_64;arm64) and Windows pres
 ### Dependencies
 
 - **dr_wav** — WAV file reading, single-header library in `src/3rdparty/dr_libs/`
-- **FunctionalPlus** — header-only, in `lib/FunctionalPlus/`
 - **compact_enc_det** — Google's character encoding detection, in `lib/compact_enc_det/`
 - **QSourceHighlite** — syntax highlighting, in `lib/QSourceHighlite/`
 - **diff-match-patch** — text diff, in `src/3rdparty/diff-match-patch/`
@@ -70,7 +69,7 @@ Create a subdirectory under `src/` with three files implementing the adapter, op
   - `models/` — Qt model classes for oto data
   - `misc/` — miscellaneous helpers
   - `i18n/` — translation manager
-  - `lib_helper/` — FunctionalPlus Qt adapters, WAV duration helper
+  - `lib_helper/` — WAV duration helper
   - Root: darkmode, filesystem, stringfunc, updatechecker, base64, setoperations
 - `src/toolBase/` — base classes for the tool system
 - `src/3rdparty/` — third-party libraries (dr_wav, diff-match-patch)

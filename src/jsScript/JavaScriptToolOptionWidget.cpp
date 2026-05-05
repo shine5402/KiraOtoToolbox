@@ -1,6 +1,8 @@
 #include "JavaScriptToolOptionWidget.h"
 #include "ui_JavaScriptToolOptionWidget.h"
 
+#include <QApplication>
+#include <QEvent>
 #include <QScrollBar>
 #include <QTextStream>
 #include <QtDebug>
@@ -11,10 +13,6 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    auto lineNumPalette = ui->lineNumberTextEdit->palette();
-    lineNumPalette.setColor(QPalette::Base, lineNumPalette.color(QPalette::Base).darker(110));
-    ui->lineNumberTextEdit->setPalette(lineNumPalette);
-
     auto lineNumVScrollBar = ui->lineNumberTextEdit->verticalScrollBar();
     auto jsVScrollBar = ui->jsTextEdit->verticalScrollBar();
     connect(lineNumVScrollBar, &QScrollBar::valueChanged, jsVScrollBar, &QScrollBar::setValue);
@@ -24,8 +22,9 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
     connect(ui->jsTextEdit, &QPlainTextEdit::cursorPositionChanged, this, &JavaScriptToolOptionWidget::syncCursors);
 
     highlighter =
-        new QSourceHighlite::QSourceHighliter(ui->jsTextEdit->document(), QSourceHighlite::QSourceHighliter::Monokai);
+        new QSourceHighlite::QSourceHighliter(ui->jsTextEdit->document());
     highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeJs);
+    applyTheme();
 
     auto font = QFont("Jetbrains Mono");
     font.setStyleHint(QFont::Monospace);
@@ -37,6 +36,29 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
 
     connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ToolOptionWidget::userSettingsChanged);
+}
+
+void JavaScriptToolOptionWidget::changeEvent(QEvent *event)
+{
+    ToolOptionWidget::changeEvent(event);
+    if (event->type() == QEvent::ApplicationPaletteChange || event->type() == QEvent::PaletteChange)
+        applyTheme();
+}
+
+void JavaScriptToolOptionWidget::applyTheme()
+{
+    const auto &appPalette = QApplication::palette();
+    const bool dark = appPalette.color(QPalette::Window).lightness() < 128;
+
+    highlighter->setTheme(dark ? QSourceHighlite::QSourceHighliter::Monokai
+                               : QSourceHighlite::QSourceHighliter::DefaultLight);
+
+    ui->jsTextEdit->setPalette(appPalette);
+
+    auto lineNumPalette = appPalette;
+    const auto base = appPalette.color(QPalette::Base);
+    lineNumPalette.setColor(QPalette::Base, dark ? base.darker(110) : base.lighter(105));
+    ui->lineNumberTextEdit->setPalette(lineNumPalette);
 }
 
 JavaScriptToolOptionWidget::~JavaScriptToolOptionWidget()

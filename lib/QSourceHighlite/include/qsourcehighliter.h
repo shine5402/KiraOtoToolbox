@@ -36,7 +36,8 @@ class QSourceHighliter : public QSyntaxHighlighter
 {
 public:
     enum Themes {
-        Monokai = 1
+        Monokai = 1,
+        DefaultLight = 2
     };
 
     explicit QSourceHighliter(QTextDocument *doc);

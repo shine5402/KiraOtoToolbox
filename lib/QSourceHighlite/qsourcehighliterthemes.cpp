@@ -59,11 +59,29 @@ static QHash<QSourceHighliter::Token, QTextCharFormat> monokai()
     return _formats;
 }
 
+static QHash<QSourceHighliter::Token, QTextCharFormat> defaultLight()
+{
+    QHash<QSourceHighliter::Token, QTextCharFormat> _formats = formats();
+
+    _formats[QSourceHighliter::Token::CodeBlock].setForeground(QColor(0, 0, 0));
+    _formats[QSourceHighliter::Token::CodeKeyWord].setForeground(QColor(0, 0, 255));
+    _formats[QSourceHighliter::Token::CodeString].setForeground(QColor(163, 21, 21));
+    _formats[QSourceHighliter::Token::CodeComment].setForeground(QColor(0, 128, 0));
+    _formats[QSourceHighliter::Token::CodeType].setForeground(QColor(38, 127, 153));
+    _formats[QSourceHighliter::Token::CodeOther].setForeground(QColor(0, 0, 255));
+    _formats[QSourceHighliter::Token::CodeNumLiteral].setForeground(QColor(9, 134, 88));
+    _formats[QSourceHighliter::Token::CodeBuiltIn].setForeground(QColor(121, 94, 38));
+
+    return _formats;
+}
+
 QHash<QSourceHighliter::Token, QTextCharFormat>
         QSourceHighliterTheme::theme(QSourceHighliter::Themes theme) {
     switch (theme) {
     case QSourceHighliter::Themes::Monokai:
         return monokai();
+    case QSourceHighliter::Themes::DefaultLight:
+        return defaultLight();
     default:
         return {};
     }

@@ -21,11 +21,16 @@ public:
     Q_INVOKABLE explicit JavaScriptToolOptionWidget(QWidget *parent = nullptr);
     ~JavaScriptToolOptionWidget();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private slots:
     void refillLineNumbers();
     void syncCursors();
 
 private:
+    void applyTheme();
+
     Ui::JavaScriptToolOptionWidget *ui;
     QSourceHighlite::QSourceHighliter *highlighter;
 

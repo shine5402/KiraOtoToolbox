@@ -8,6 +8,7 @@ add_library(compact_enc_det STATIC
     compact_enc_det/util/languages/languages.cc
 )
 target_include_directories(compact_enc_det PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/compact_enc_det)
+set_target_properties(compact_enc_det PROPERTIES AUTOMOC OFF)
 target_compile_options(compact_enc_det PRIVATE
     $<$<CXX_COMPILER_ID:GNU>:-Wno-narrowing>
     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-c++11-narrowing>
@@ -32,3 +33,4 @@ add_library(dr_lib STATIC
     dr_libs/dr_wav.cpp
 )
 target_include_directories(dr_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+set_target_properties(dr_lib PROPERTIES AUTOMOC OFF)

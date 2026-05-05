@@ -61,9 +61,8 @@ set_target_properties(KiraOtoToolbox PROPERTIES
 )
 
 if(WIN32)
-    set_target_properties(KiraOtoToolbox PROPERTIES
-        QT_TARGET_RC_ICONS ${CMAKE_SOURCE_DIR}/resources/icon/appIcon.ico
-    )
+    configure_file(app.rc.in "${CMAKE_CURRENT_BINARY_DIR}/app.rc" @ONLY)
+    target_sources(KiraOtoToolbox PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/app.rc")
 endif()
 
 if(APPLE)
@@ -133,6 +132,7 @@ qt_add_translations(KiraOtoToolbox
 
 # --- Install & Deploy ---
 option(KIRAOTOTOOLBOX_INSTALL "Enable install and deploy rules" ON)
+option(KIRAOTOTOOLBOX_DEPLOY_QT "Run Qt deploy script to bundle Qt runtime dependencies" ON)
 
 if(KIRAOTOTOOLBOX_INSTALL)
     install(TARGETS KiraOtoToolbox
@@ -140,10 +140,12 @@ if(KIRAOTOTOOLBOX_INSTALL)
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
 
-    qt_generate_deploy_app_script(
-        TARGET KiraOtoToolbox
-        OUTPUT_SCRIPT deploy_script
-        NO_UNSUPPORTED_PLATFORM_ERROR
-    )
-    install(SCRIPT ${deploy_script})
+    if(KIRAOTOTOOLBOX_DEPLOY_QT)
+        qt_generate_deploy_app_script(
+            TARGET KiraOtoToolbox
+            OUTPUT_SCRIPT deploy_script
+            NO_UNSUPPORTED_PLATFORM_ERROR
+        )
+        install(SCRIPT ${deploy_script})
+    endif()
 endif()

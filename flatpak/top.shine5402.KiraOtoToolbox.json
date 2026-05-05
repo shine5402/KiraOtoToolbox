@@ -29,7 +29,8 @@
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DKIRAOTOTOOLBOX_BUILD_TESTING=OFF",
-                "-DKIRAOTOTOOLBOX_INSTALL=ON"
+                "-DKIRAOTOTOOLBOX_INSTALL=ON",
+                "-DKIRAOTOTOOLBOX_DEPLOY_QT=OFF"
             ],
             "sources": [
                 {

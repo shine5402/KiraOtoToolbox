@@ -17,15 +17,15 @@ jobs:
         include:
           - os: macos-latest
             preset: ci-macos
-            platform-preset: macos-debug
+            platform-preset: macos-debug-template
             qt-arch: clang_64
           - os: windows-latest
             preset: ci-windows
-            platform-preset: windows-debug
+            platform-preset: windows-debug-template
             qt-arch: win64_msvc2022_64
           - os: ubuntu-latest
             preset: ci-linux
-            platform-preset: linux-debug
+            platform-preset: linux-debug-template
             qt-arch: linux_gcc_64
     runs-on: ${{ matrix.os }}
 

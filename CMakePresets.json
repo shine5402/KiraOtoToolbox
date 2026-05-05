@@ -31,13 +31,13 @@
             "condition": {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows"}
         },
         {
-            "name"          : "macos-debug",
+            "name"          : "macos-debug-template",
             "displayName"   : "macOS Debug",
             "inherits"      : "_macos-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
-            "name"          : "macos-relwithdebinfo",
+            "name"          : "macos-relwithdebinfo-template",
             "displayName"   : "macOS RelWithDebInfo",
             "inherits"      : "_macos-base",
             "cacheVariables": {
@@ -47,13 +47,13 @@
             }
         },
         {
-            "name"          : "linux-debug",
+            "name"          : "linux-debug-template",
             "displayName"   : "Linux Debug",
             "inherits"      : "_linux-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
-            "name"          : "linux-relwithdebinfo",
+            "name"          : "linux-relwithdebinfo-template",
             "displayName"   : "Linux RelWithDebInfo",
             "inherits"      : "_linux-base",
             "cacheVariables": {
@@ -62,13 +62,13 @@
             }
         },
         {
-            "name"          : "windows-debug",
+            "name"          : "windows-debug-template",
             "displayName"   : "Windows Debug",
             "inherits"      : "_windows-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
-            "name"          : "windows-relwithdebinfo",
+            "name"          : "windows-relwithdebinfo-template",
             "displayName"   : "Windows RelWithDebInfo",
             "inherits"      : "_windows-base",
             "cacheVariables": {
@@ -78,11 +78,11 @@
         }
     ],
     "buildPresets"    : [
-        {"name": "macos-debug",            "configurePreset": "macos-debug"           },
-        {"name": "macos-relwithdebinfo",   "configurePreset": "macos-relwithdebinfo"  },
-        {"name": "linux-debug",            "configurePreset": "linux-debug"           },
-        {"name": "linux-relwithdebinfo",   "configurePreset": "linux-relwithdebinfo"  },
-        {"name": "windows-debug",          "configurePreset": "windows-debug"         },
-        {"name": "windows-relwithdebinfo", "configurePreset": "windows-relwithdebinfo"}
+        {"name": "macos-debug-template",            "configurePreset": "macos-debug-template"           },
+        {"name": "macos-relwithdebinfo-template",   "configurePreset": "macos-relwithdebinfo-template"  },
+        {"name": "linux-debug-template",            "configurePreset": "linux-debug-template"           },
+        {"name": "linux-relwithdebinfo-template",   "configurePreset": "linux-relwithdebinfo-template"  },
+        {"name": "windows-debug-template",          "configurePreset": "windows-debug-template"         },
+        {"name": "windows-relwithdebinfo-template", "configurePreset": "windows-relwithdebinfo-template"}
     ]
 }

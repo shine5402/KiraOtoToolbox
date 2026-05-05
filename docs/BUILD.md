@@ -51,7 +51,7 @@ Create `CMakeUserPresets.json` in the project root (git-ignored) that inherits f
     "configurePresets": [
         {
             "name": "my-debug",
-            "inherits": "macos-debug",
+            "inherits": "macos-debug-template",
             "cacheVariables": {
                 "CMAKE_PREFIX_PATH": "/path/to/Qt/6.10.2/macos",
                 "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++",
@@ -73,7 +73,7 @@ Create `CMakeUserPresets.json` in the project root (git-ignored) that inherits f
     "configurePresets": [
         {
             "name": "my-debug",
-            "inherits": "windows-debug",
+            "inherits": "windows-debug-template",
             "cacheVariables": {
                 "CMAKE_PREFIX_PATH": "C:/Qt/6.10.2/msvc2022_64",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
@@ -108,7 +108,7 @@ All 21 test targets should pass.
 
 ## Install (macOS)
 
-The `macos-relwithdebinfo` preset builds a deployable `.app` bundle:
+The `macos-relwithdebinfo-template` preset builds a deployable `.app` bundle:
 
 ```bash
 cmake --preset default-relwithdebinfo

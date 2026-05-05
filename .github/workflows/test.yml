@@ -75,7 +75,12 @@ jobs:
           platform_preset = "${{ matrix.platform-preset }}"
           cache_vars = {"CMAKE_PREFIX_PATH": qt_root, "KIRAOTOTOOLBOX_BUILD_TESTING": "ON"}
           if "${{ runner.os }}" == "macOS":
-              cache_vars["CMAKE_CXX_COMPILER"] = "/opt/homebrew/opt/llvm/bin/clang++"
+              llvm_bin = "/opt/homebrew/opt/llvm/bin"
+              cache_vars["CMAKE_C_COMPILER"] = f"{llvm_bin}/clang"
+              cache_vars["CMAKE_CXX_COMPILER"] = f"{llvm_bin}/clang++"
+              cache_vars["CMAKE_AR"] = f"{llvm_bin}/llvm-ar"
+              cache_vars["CMAKE_RANLIB"] = f"{llvm_bin}/llvm-ranlib"
+              cache_vars["CMAKE_NM"] = f"{llvm_bin}/llvm-nm"
           data = {
               "version": 8,
               "configurePresets": [{"name": preset, "inherits": platform_preset, "cacheVariables": cache_vars}],

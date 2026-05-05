@@ -33,6 +33,11 @@ bool ToolDialogAdapter::doWork(const OtoEntryList &srcOtoList, OtoEntryList &res
     auto precision = options.getOption("save/precision").toInt();
     try {
         auto worker = getWorkerInstance();
+        if (!worker) {
+            QMessageBox::critical(dialogParent, {},
+                                  tr("Failed to initialize tool worker. Please report this bug."));
+            return false;
+        }
         worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
         if (worker->needConfirm()) {
             auto msgs = worker->getConfirmMsgs();
@@ -83,9 +88,12 @@ QString ToolDialogAdapter::getToolName() const
 
 std::unique_ptr<OtoListModifyWorker> ToolDialogAdapter::getWorkerInstance() const
 {
-    Q_ASSERT_X(workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject), "doWorkAdapter", "Worker is not set.");
+    if (!workerMetaObj.inherits(&OtoListModifyWorker::staticMetaObject)) {
+        qCritical() << "Worker meta object is not properly set. Tool cannot be executed.";
+        return nullptr;
+    }
     return std::unique_ptr<OtoListModifyWorker>(
-        qobject_cast<OtoListModifyWorker *>(workerMetaObj.newInstance(nullptr)));
+        qobject_cast<OtoListModifyWorker *>(workerMetaObj.newInstance()));
 }
 
 void ToolDialogAdapter::setWorkerMetaObj(const QMetaObject &value)

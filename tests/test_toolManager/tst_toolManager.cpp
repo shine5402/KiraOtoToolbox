@@ -16,6 +16,7 @@ private slots:
     void testUnregisterByTool();
     void testToolName();
     void testGetWorkerInstance();
+    void testAdapterGetWorkerInstance();
     void testGetOptionWidgetInstance();
     void testDuplicateRegistration();
 };
@@ -92,6 +93,25 @@ void TestToolManager::testGetWorkerInstance()
     Tool tool(NotDoAnythingDialogAdapter::staticMetaObject);
     auto worker = tool.getWorkerInstance();
     QVERIFY(worker != nullptr);
+}
+
+void TestToolManager::testAdapterGetWorkerInstance()
+{
+    // This path calls ToolDialogAdapter::getWorkerInstance() which internally
+    // calls QMetaObject::newInstance() — the exact code path that regressed
+    // when Qt 6.5+ changed newInstance to a template that deduces argument types.
+    QList<QMetaObject> adapters = {
+        NotDoAnythingDialogAdapter::staticMetaObject,
+        AddAffixDialogAdapter::staticMetaObject,
+        RemoveBlankDialogAdapter::staticMetaObject,
+    };
+    for (const auto &adapterMeta : adapters) {
+        auto adapter = qobject_cast<ToolDialogAdapter *>(adapterMeta.newInstance(Q_ARG(QObject *, nullptr)));
+        QVERIFY2(adapter, "Failed to create adapter instance");
+        auto worker = adapter->getWorkerInstance();
+        QVERIFY2(worker, "getWorkerInstance() returned null — newInstance() argument type may not match constructor");
+        delete adapter;
+    }
 }
 
 void TestToolManager::testGetOptionWidgetInstance()

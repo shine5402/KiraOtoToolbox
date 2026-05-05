@@ -43,10 +43,8 @@ target_include_directories(KiraOtoToolbox PRIVATE
 target_link_libraries(KiraOtoToolbox PRIVATE
     Qt6::Core Qt6::Core5Compat Qt6::Gui Qt6::Widgets Qt6::Concurrent Qt6::Network Qt6::Qml Qt6::Svg
     compact_enc_det QSourceHighlite
-    dtl mapbox_eternal
+    dtl dr_lib
 )
-
-target_link_libraries(KiraOtoToolbox PRIVATE kfr kfr_dsp kfr_io)
 
 # Resources
 target_sources(KiraOtoToolbox PRIVATE

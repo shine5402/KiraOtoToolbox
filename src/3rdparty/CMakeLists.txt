@@ -4,18 +4,6 @@
 
 set(LIB_ROOT ${CMAKE_SOURCE_DIR}/lib)
 
-# KFR (audio DSP library) — required
-if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/kfr/CMakeLists.txt)
-    message(FATAL_ERROR "KFR submodule not found. Run: git submodule update --init src/3rdparty/kfr")
-endif()
-set(ENABLE_DFT ON CACHE BOOL "" FORCE)
-set(KFR_ENABLE_DFT ON CACHE BOOL "" FORCE)
-set(KFR_ENABLE_DSP ON CACHE BOOL "" FORCE)
-set(KFR_INSTALL_HEADERS OFF CACHE BOOL "" FORCE)
-set(KFR_INSTALL_LIBRARIES OFF CACHE BOOL "" FORCE)
-set(ENABLE_TESTS OFF CACHE BOOL "" FORCE)
-add_subdirectory(kfr EXCLUDE_FROM_ALL)
-
 # compact_enc_det (character encoding detection)
 add_library(compact_enc_det STATIC
     ${LIB_ROOT}/compact_enc_det/compact_enc_det/compact_enc_det.cc
@@ -40,6 +28,8 @@ set_target_properties(QSourceHighlite PROPERTIES AUTOMOC ON)
 add_library(dtl INTERFACE)
 target_include_directories(dtl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/dtl)
 
-# mapbox/eternal.hpp (header-only compile-time map)
-add_library(mapbox_eternal INTERFACE)
-target_include_directories(mapbox_eternal INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+# dr_lib (dr_wav — WAV file reading)
+add_library(dr_lib STATIC
+    dr_libs/dr_wav.cpp
+)
+target_include_directories(dr_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

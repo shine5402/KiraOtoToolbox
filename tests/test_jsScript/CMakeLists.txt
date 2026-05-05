@@ -34,6 +34,6 @@ target_link_libraries(test_jsScript PRIVATE
     dtl
     compact_enc_det
     QSourceHighlite
-    kfr kfr_dsp kfr_io
+    dr_lib
     Qt6::Qml
 )

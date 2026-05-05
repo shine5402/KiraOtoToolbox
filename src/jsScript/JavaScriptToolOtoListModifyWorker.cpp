@@ -6,7 +6,7 @@
 #include "replaceFileName/FileNameReplaceMapTableModel.h"
 #include "utils/dialogs/CommonHtmlDialog.h"
 #include "utils/dialogs/TableViewDialog.h"
-#include "utils/lib_helper/KfrHelper.h"
+#include "utils/lib_helper/WavDuration.h"
 #include "utils/misc/Misc.h"
 
 JavaScriptToolOtoListModifyWorker::JavaScriptToolOtoListModifyWorker(QObject *parent) : OtoListModifyWorker{parent}
@@ -179,11 +179,10 @@ int JavaScriptToolWAVFileAPI::getWAVLength(const QString &fileName)
     auto filePath = otoDir.filePath(actualFileName);
     if (!QFileInfo{filePath}.exists())
         throw ToolException(tr("The file \"%1\" don't exist. Please check and try again.").arg(filePath));
-    bool openSucess = false;
-    auto reader = kfr::audio_reader_wav<float>(kfr::open_qt_file_for_reading(filePath, &openSucess));
-    if (!openSucess || reader.format().type == kfr::audio_sample_type::unknown)
+    auto wavLength = WavHelper::getWavDurationMs(filePath);
+    if (!wavLength.has_value())
         throw ToolException(
             tr("Cannot open file \"%1\", or it contains invalid data. Please check and try again.").arg(filePath));
 
-    return reader.format().length / reader.format().samplerate * 1000;
+    return static_cast<int>(wavLength.value());
 }

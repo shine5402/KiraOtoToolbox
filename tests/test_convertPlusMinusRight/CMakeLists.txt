@@ -19,7 +19,7 @@ add_tool_test(test_convertPlusMinusRight
 target_include_directories(test_convertPlusMinusRight PRIVATE
     ${CMAKE_SOURCE_DIR}/src/3rdparty
 )
-target_link_libraries(test_convertPlusMinusRight PRIVATE kfr kfr_dsp kfr_io)
+target_link_libraries(test_convertPlusMinusRight PRIVATE dr_lib)
 target_compile_definitions(test_convertPlusMinusRight PRIVATE
     FIXTURE_DIR="${FIXTURE_DIR}"
 )

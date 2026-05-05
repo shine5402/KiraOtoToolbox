@@ -15,7 +15,6 @@
             "condition"     : {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin"},
             "cacheVariables": {
                 "CMAKE_OSX_ARCHITECTURES"    : "x86_64;arm64",
-                "KFR_ARCH"                   : "sse41",
                 "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"
             }
         },

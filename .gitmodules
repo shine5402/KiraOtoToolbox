@@ -1,7 +1,3 @@
-[submodule "src/3rdparty/kfr"]
-	path = src/3rdparty/kfr
-	url = git@github.com:shine5402/kfr.git
-	branch = kirawavtar
 [submodule "src/3rdparty/dtl"]
 	path = src/3rdparty/dtl
 	url = https://github.com/cubicdaiya/dtl.git

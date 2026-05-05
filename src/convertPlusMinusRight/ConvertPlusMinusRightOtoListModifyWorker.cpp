@@ -8,7 +8,7 @@
 
 #include <ranges>
 
-#include "utils/lib_helper/KfrHelper.h"
+#include "utils/lib_helper/WavDuration.h"
 #include "utils/misc/Misc.h"
 
 ConvertPlusMinusRightOtoListModifyWorker::ConvertPlusMinusRightOtoListModifyWorker(QObject *parent)
@@ -36,15 +36,14 @@ void ConvertPlusMinusRightOtoListModifyWorker::doWork(const OtoEntryList &srcOto
             auto filePath = dir.filePath(fileName);
             if (!QFileInfo{filePath}.exists())
                 throw FileNotFoundException(filePath);
-            bool openSucess = false;
-            auto reader = kfr::audio_reader_wav<float>(kfr::open_qt_file_for_reading(filePath, &openSucess));
-            if (!openSucess || reader.format().type == kfr::audio_sample_type::unknown)
+            auto waveLength = WavHelper::getWavDurationMs(filePath);
+            if (!waveLength.has_value())
                 throw FileCannotReadException(filePath);
 
-            auto waveLength = reader.format().length / reader.format().samplerate * 1000;
+            auto waveLengthVal = waveLength.value();
             auto positiveRight =
-                entry.right() > 0 ? entry.right() : waveLength - (entry.left() + std::abs(entry.right()));
-            auto negativeRight = entry.right() < 0 ? entry.right() : -(waveLength - entry.right() - entry.left());
+                entry.right() > 0 ? entry.right() : waveLengthVal - (entry.left() + std::abs(entry.right()));
+            auto negativeRight = entry.right() < 0 ? entry.right() : -(waveLengthVal - entry.right() - entry.left());
             if (positiveRight < 0)
                 throw InvalidRightValue(entry, positiveRight);
             if (negativeRight > 0)

@@ -25,7 +25,7 @@ QString FileNameEditWithBrowse::processFileName(const QString &fileName) const
     const bool isSurroundByDoubleQuotes = fileName.startsWith("\"") && fileName.endsWith("\"");
     const bool isSurroundBySingleQuotes = fileName.startsWith("'") && fileName.endsWith("'");
     if (isSurroundByDoubleQuotes || isSurroundBySingleQuotes)
-        return fileName.mid(1, fileName.count() - 2);
+        return fileName.mid(1, fileName.size() - 2);
     return fileName;
 }
 

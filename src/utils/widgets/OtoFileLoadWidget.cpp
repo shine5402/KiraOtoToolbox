@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-#include "../dialogs/showotolistdialog.h"
+#include "../dialogs/ShowOtoListDialog.h"
 #include "otoUtils/OtoFileReader.h"
 #include "utils/misc/Misc.h"
 

@@ -8,13 +8,13 @@ CVVCPartSplitOptionWidget::CVVCPartSplitOptionWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->seeBeginPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeBeginPatternAsCVCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->seeBeginPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->seeEndPatternAsCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->seeEndPatternAsCVCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->seeEndPatternAsCVContentWidget, &StringListModifyWidget::dataModified, this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->copyCVtoStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->copyCVtoStartOtoCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 CVVCPartSplitOptionWidget::~CVVCPartSplitOptionWidget()

@@ -11,10 +11,10 @@ RemoveDuplicateOptionWidget::RemoveDuplicateOptionWidget(QWidget *parent)
             &ToolOptionWidget::userSettingsChanged);
     connect(ui->organizeCaseComboBox, qOverload<int>(&QComboBox::currentIndexChanged), this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->organizeCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->organizeStartFrom1CheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->considerNegativeSuffixCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->respectOriginalNumberOrderCheckBox, &QCheckBox::stateChanged, this,
+    connect(ui->organizeCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->organizeStartFrom1CheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->considerNegativeSuffixCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->respectOriginalNumberOrderCheckBox, &QCheckBox::checkStateChanged, this,
             &ToolOptionWidget::userSettingsChanged);
 }
 

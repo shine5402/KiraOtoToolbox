@@ -20,7 +20,7 @@ void MergeOtoOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntr
         (MergeOtoOptionWidget::MergeStrategy)options.getOption("mergeStrategy", MergeOtoOptionWidget::Replace).toInt();
 
     resultOtoList = srcOtoList;
-    for (const auto &otherEntry : qAsConst(otherOtoList)) {
+    for (const auto &otherEntry : std::as_const(otherOtoList)) {
         auto it = std::ranges::find_if(
             resultOtoList, [&otherEntry](const OtoEntry &srcEntry) { return srcEntry.alias() == otherEntry.alias(); });
         if (it != resultOtoList.end()) {

@@ -1,7 +1,7 @@
 #ifndef NOTDOANYTHINGOTOLISTMODIFYWORKER_H
 #define NOTDOANYTHINGOTOLISTMODIFYWORKER_H
 
-#include "../toolBase/otolistmodifyworker.h"
+#include "../toolBase/OtoListModifyWorker.h"
 
 class NotDoAnythingOtoListModifyWorker : public OtoListModifyWorker
 {

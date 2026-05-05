@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-#include "../dialogs/showotolistdialog.h"
+#include "../dialogs/ShowOtoListDialog.h"
 #include "otoUtils/OtoFileReader.h"
 #include "utils/misc/Misc.h"
 
@@ -144,7 +144,7 @@ void OtoFileMultipleLoadWidget::removeOtoFile()
     if (model->rowCount() > 0) {
         QSet<int> selectedRowsSet;
         auto selectedIndexes = ui->otoFileTableView->selectionModel()->selection().indexes();
-        for (auto index : qAsConst(selectedIndexes)) {
+        for (auto index : std::as_const(selectedIndexes)) {
             selectedRowsSet.insert(index.row());
         }
         auto selectedRows = selectedRowsSet.values();

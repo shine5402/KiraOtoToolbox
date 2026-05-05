@@ -50,7 +50,7 @@ bool ChainOtoListModifyWorker::needConfirm() const
 QVector<OtoListModifyWorker::ConfirmMsg> ChainOtoListModifyWorker::getConfirmMsgs() const
 {
     QVector<OtoListModifyWorker::ConfirmMsg> result;
-    for (const auto &worker : qAsConst(needConfirmWorkers)) {
+    for (const auto &worker : std::as_const(needConfirmWorkers)) {
         result.append(worker->getConfirmMsgs());
     }
     return result;
@@ -75,7 +75,7 @@ bool ChainOtoListModifyWorker::isConfirmDialogAccepted(int msgTypeId, int dialog
 
 void ChainOtoListModifyWorker::commit()
 {
-    for (const auto &worker : qAsConst(needConfirmWorkers)) {
+    for (const auto &worker : std::as_const(needConfirmWorkers)) {
         worker->commit();
     }
 }

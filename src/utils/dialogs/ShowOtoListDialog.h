@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 
-#include "../models/otolistmodel.h"
+#include "../models/OtoListModel.h"
 #include "otoUtils/OtoEntry.h"
 #include "utils/dialogs/TableViewDialog.h"
 

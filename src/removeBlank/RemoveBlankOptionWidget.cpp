@@ -16,7 +16,7 @@ RemoveBlankOptionWidget::RemoveBlankOptionWidget(QWidget *parent) : ToolOptionWi
     layout->addWidget(ignoreRightCheckBox);
     layout->addStretch();
 
-    connect(ignoreRightCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ignoreRightCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 OptionContainer RemoveBlankOptionWidget::getOptions() const

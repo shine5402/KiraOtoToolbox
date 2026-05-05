@@ -24,7 +24,7 @@ void CopyOrReplaceByAliasOtoListModifyWorker::doWork(const OtoEntryList &srcOtoL
     while (it.hasNext()) {
         auto curr = it.next();
         auto matched = false;
-        for (const auto &rule : qAsConst(rules)) {
+        for (const auto &rule : std::as_const(rules)) {
             auto origAlias = curr.alias();
             if (rule.match(curr.alias())) {
                 matched |= true;

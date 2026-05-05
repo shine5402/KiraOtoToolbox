@@ -29,12 +29,12 @@ void ReplaceFileNameOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, 
         fileNameSet.insert(entry.fileName());
     auto fileNames = fileNameSet.values();
 
-    for (const auto &fileName : qAsConst(fileNames)) {
+    for (const auto &fileName : std::as_const(fileNames)) {
         auto fileInfo = QFileInfo(fileName);
         auto baseName = fileInfo.baseName();
         auto newBaseName = baseName;
         auto extension = fileInfo.completeSuffix();
-        for (const auto &rule : qAsConst(rules)) {
+        for (const auto &rule : std::as_const(rules)) {
             if (rule.match(newBaseName)) {
                 newBaseName = rule.replace(newBaseName);
             }

@@ -8,7 +8,7 @@ RemoveSpecificEntriesOptionWidget::RemoveSpecificEntriesOptionWidget(QWidget *pa
 
     connect(ui->buttonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->patternLineEdit, &QLineEdit::textEdited, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->caseSensitiveCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->caseSensitiveCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
 }
 
 RemoveSpecificEntriesOptionWidget::~RemoveSpecificEntriesOptionWidget()

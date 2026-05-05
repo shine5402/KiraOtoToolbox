@@ -1,7 +1,7 @@
 #ifndef REMOVEPITCHAFFIXOTOLISTTASK_H
 #define REMOVEPITCHAFFIXOTOLISTTASK_H
 
-#include "../toolBase/otolistmodifyworker.h"
+#include "../toolBase/OtoListModifyWorker.h"
 #include "RemovedStringInfo.h"
 
 class RemovePitchAffixOtoListModifyWorker : public OtoListModifyWorker

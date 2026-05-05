@@ -198,7 +198,7 @@ void PresetManager::savePresets()
 QString Preset::getI18nName(const QLocale &locale) const
 {
     auto uiLang = locale.uiLanguages();
-    for (const auto &l : qAsConst(uiLang)) {
+    for (const auto &l : std::as_const(uiLang)) {
         if (nameI18nMap.contains(l))
             return nameI18nMap.value(l);
     }

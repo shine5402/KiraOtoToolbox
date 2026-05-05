@@ -482,7 +482,7 @@ QString OtoEntryFunctions::removeSuffix(QString string, const QString &suffix, Q
     if (removed)
         *removed = suffixPos != -1;
     if (suffixPos != -1) {
-        return string.remove(suffixPos, suffix.count());
+        return string.remove(suffixPos, suffix.size());
     }
     return string;
 }
@@ -493,7 +493,7 @@ QString OtoEntryFunctions::removePrefix(QString string, const QString &prefix, Q
     if (removed)
         *removed = prefixPos != -1;
     if (prefixPos != -1) {
-        return string.remove(prefixPos, prefix.count());
+        return string.remove(prefixPos, prefix.size());
     }
     return string;
 }
@@ -501,7 +501,7 @@ QString OtoEntryFunctions::removePrefix(QString string, const QString &prefix, Q
 QString OtoEntryFunctions::getDigitSuffix(const QString &string, int *position, bool considerNegative)
 {
     QString result{};
-    for (int current = string.count() - 1; current >= 0; --current) {
+    for (int current = string.size() - 1; current >= 0; --current) {
         if (auto c = string.at(current); c.isDigit()) {
             result.prepend(c);
         } else {
@@ -510,7 +510,7 @@ QString OtoEntryFunctions::getDigitSuffix(const QString &string, int *position, 
                 current -= 1;
             }
             if (position) {
-                *position = (current != string.count() - 1) ? current + 1 : -1;
+                *position = (current != string.size() - 1) ? current + 1 : -1;
             }
             break;
         }

@@ -14,12 +14,12 @@ VowelCrossfadingOptionWidget::VowelCrossfadingOptionWidget(QWidget *parent)
             &ToolOptionWidget::userSettingsChanged);
     connect(ui->LongRecordingPatternStringListModifyWidget, &StringListModifyWidget::dataModified, this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->doCVCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->doCVCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVpreutteranceSpinBox, &QDoubleSpinBox::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVoverlapSpinBox, &QDoubleSpinBox::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->CVBehavoirButtonGroup, &QButtonGroup::idToggled, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->doVVOverlapIncreaseCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->removeNumberSuffixWhenMatchingCheckBox, &QCheckBox::stateChanged, this,
+    connect(ui->doVVOverlapIncreaseCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->removeNumberSuffixWhenMatchingCheckBox, &QCheckBox::checkStateChanged, this,
             &ToolOptionWidget::userSettingsChanged);
 }
 

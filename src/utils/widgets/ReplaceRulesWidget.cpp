@@ -127,7 +127,7 @@ void ReplaceRulesWidget::sortRuleByMatchPatternLength()
 {
     auto sortedRules = model->getRules();
     std::ranges::sort(sortedRules, [](const ReplaceRule &lhs, const ReplaceRule &rhs) -> bool {
-        return lhs.matchPattern().count() > rhs.matchPattern().count();
+        return lhs.matchPattern().size() > rhs.matchPattern().size();
     });
     setRules(sortedRules);
 }

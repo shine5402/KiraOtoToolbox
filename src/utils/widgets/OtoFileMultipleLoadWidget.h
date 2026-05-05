@@ -4,7 +4,7 @@
 #include <QItemSelection>
 #include <QWidget>
 
-#include "../models/otofilelistmodel.h"
+#include "../models/OtoFileListModel.h"
 
 namespace Ui {
 class OtoFileMultipleLoadWidget;

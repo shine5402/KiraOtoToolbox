@@ -1,7 +1,7 @@
 #ifndef ADDAFFIXDIALOGADAPTER_H
 #define ADDAFFIXDIALOGADAPTER_H
 
-#include "../toolBase/tooldialogadapter.h"
+#include "../toolBase/ToolDialogAdapter.h"
 
 class AddAffixDialogAdapter : public ToolDialogAdapter
 {

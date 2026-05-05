@@ -40,7 +40,7 @@ void SetAliasOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, OtoEntr
 
         // cut
         currentAlias.remove(0, options.getOption("cutHeadCount").toInt());
-        currentAlias.remove(currentAlias.count() - options.getOption("cutTailCount").toInt(),
+        currentAlias.remove(currentAlias.size() - options.getOption("cutTailCount").toInt(),
                             options.getOption("cutTailCount").toInt());
 
         // remove specific string

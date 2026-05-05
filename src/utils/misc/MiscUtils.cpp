@@ -5,7 +5,7 @@
 QJsonArray Misc::arrayFromJsonValueVector(QVector<QJsonValue> vector)
 {
     QJsonArray array;
-    for (const auto &i : qAsConst(vector)) {
+    for (const auto &i : std::as_const(vector)) {
         array.append(i);
     }
     return array;

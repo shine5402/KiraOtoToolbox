@@ -41,7 +41,7 @@ bool ToolDialogAdapter::doWork(const OtoEntryList &srcOtoList, OtoEntryList &res
         worker->doWork(srcOtoList, resultOtoList, secondSaveOtoList, options);
         if (worker->needConfirm()) {
             auto msgs = worker->getConfirmMsgs();
-            for (const auto &msg : qAsConst(msgs)) {
+            for (const auto &msg : std::as_const(msgs)) {
                 auto result = msg.userDialog()->exec();
                 if (!worker->isConfirmDialogAccepted(msg.typeId(), result))
                     return false;

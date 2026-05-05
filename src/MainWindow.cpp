@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 void MainWindow::createToolSelectorUI()
 {
     if (!toolButtonsLayoutResources.isEmpty()) {
-        for (auto i : qAsConst(toolButtonsLayoutResources)) {
+        for (auto i : std::as_const(toolButtonsLayoutResources)) {
             auto widget = qobject_cast<QWidget *>(i);
             if (widget) {
                 ui->toolLayout->removeWidget(widget);

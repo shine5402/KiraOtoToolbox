@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "../toolBase/tooloptionwidget.h"
+#include "../toolBase/ToolOptionWidget.h"
 
 namespace Ui {
 class CVVCPartSplitOptionWidget;

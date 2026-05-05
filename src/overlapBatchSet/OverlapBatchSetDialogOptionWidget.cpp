@@ -15,14 +15,14 @@ OverlapBatchSetDialogOptionWidget::OverlapBatchSetDialogOptionWidget(QWidget *pa
 {
     ui->setupUi(this);
 
-    connect(ui->setStartWithCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->setStartWithCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->setStartWithSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->oneThirdCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
-    connect(ui->matchStartOtoCheckBox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->oneThirdCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->matchStartOtoCheckBox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->setStartWithListWidget, &StringListModifyWidget::dataModified, this,
             &ToolOptionWidget::userSettingsChanged);
-    connect(ui->oneSecondWhenTooSmallCheckbox, &QCheckBox::stateChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(ui->oneSecondWhenTooSmallCheckbox, &QCheckBox::checkStateChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->oneSecondWhenTooSmallSpinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), this,
             &ToolOptionWidget::userSettingsChanged);
 }

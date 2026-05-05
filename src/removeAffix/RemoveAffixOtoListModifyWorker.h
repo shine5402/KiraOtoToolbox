@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "../toolBase/otolistmodifyworker.h"
+#include "../toolBase/OtoListModifyWorker.h"
 
 class RemoveSpecificAffixOtoListModifyWorker;
 class RemovePitchAffixOtoListModifyWorker;

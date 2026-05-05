@@ -1,7 +1,7 @@
 #ifndef CV_VCPARTSPLITTOOLDIALOGADAPTER_H
 #define CV_VCPARTSPLITTOOLDIALOGADAPTER_H
 
-#include "../toolBase/tooldialogadapter.h"
+#include "../toolBase/ToolDialogAdapter.h"
 
 class CVVCPartSplitToolDialogAdapter : public ToolDialogAdapter
 {

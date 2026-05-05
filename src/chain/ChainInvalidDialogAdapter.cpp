@@ -2,7 +2,7 @@
 
 #include <QLabel>
 
-#include "../notdoanything/notdoanythingotolistmodifyworker.h"
+#include "../notdoanything/NotDoAnythingOtoListModifyWorker.h"
 
 ChainInvalidDialogAdapter::ChainInvalidDialogAdapter(QObject *parent) : ToolDialogAdapter(parent)
 {

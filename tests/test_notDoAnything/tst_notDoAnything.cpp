@@ -1,6 +1,6 @@
 #include <QtTest>
 
-#include "notDoAnything/NotDoAnythingOtoListModifyWorker.h"
+#include "notdoanything/NotDoAnythingOtoListModifyWorker.h"
 #include "OtoTestUtils.h"
 
 class TestNotDoAnything : public QObject

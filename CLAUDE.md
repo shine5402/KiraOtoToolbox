@@ -26,11 +26,9 @@ CMakePresets.json defines macOS (universal binary x86_64;arm64) and Windows pres
 ### Dependencies
 
 - **dr_wav** — WAV file reading, single-header library in `src/3rdparty/dr_libs/`
-- **compact_enc_det** — Google's character encoding detection, in `lib/compact_enc_det/`
-- **QSourceHighlite** — syntax highlighting, in `lib/QSourceHighlite/`
-- **diff-match-patch** — text diff, in `src/3rdparty/diff-match-patch/`
-
-After cloning, init submodules: `git submodule update --init --recursive`
+- **compact_enc_det** — Google's character encoding detection, in `src/3rdparty/compact_enc_det/`
+- **dtl** — Diff Template Library (header-only), in `src/3rdparty/dtl/`
+- **QSourceHighlite** — syntax highlighting, in `src/3rdparty/QSourceHighlite/`
 
 ## Architecture
 
@@ -72,7 +70,7 @@ Create a subdirectory under `src/` with three files implementing the adapter, op
   - `lib_helper/` — WAV duration helper
   - Root: darkmode, filesystem, stringfunc, updatechecker, base64, setoperations
 - `src/toolBase/` — base classes for the tool system
-- `src/3rdparty/` — third-party libraries (dr_wav, diff-match-patch)
+- `src/3rdparty/` — third-party libraries (dr_wav, dtl, compact_enc_det, QSourceHighlite)
 - `src/<toolName>/` — one directory per tool (18+ tools)
 
 ### Key Types
@@ -86,7 +84,7 @@ Create a subdirectory under `src/` with three files implementing the adapter, op
 
 - Root `CMakeLists.txt` — project setup, Qt 6 find_package, C++23
 - `src/CMakeLists.txt` — `qt_add_executable()`, links all libs, git info, translations, install rules
-- `src/3rdparty/CMakeLists.txt` — dr_wav, dtl, compact_enc_det, QSourceHighlite, diff-match-patch
+- `src/3rdparty/CMakeLists.txt` — dr_wav, dtl, compact_enc_det, QSourceHighlite
 - Per-tool `CMakeLists.txt` — each uses `target_sources(KiraOtoToolbox PRIVATE ...)`
 
 ## Conventions

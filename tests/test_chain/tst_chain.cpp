@@ -2,7 +2,7 @@
 
 #include "chain/ChainElement.h"
 #include "chain/ChainOtoListModifyWorker.h"
-#include "notdoanything/NotDoAnythingDialogAdapter.h"
+#include "notDoAnything/NotDoAnythingDialogAdapter.h"
 #include "toolBase/ToolManager.h"
 #include "OtoTestUtils.h"
 

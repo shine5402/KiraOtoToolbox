@@ -10,7 +10,7 @@
 #include "cvvcPartSplit/CVVCPartSplitToolDialogAdapter.h"
 #include "jsScript/JavaScriptToolDialogAdapter.h"
 #include "mergeOto/MergeOtoDialogAdapter.h"
-#include "notdoanything/NotDoAnythingDialogAdapter.h"
+#include "notDoAnything/NotDoAnythingDialogAdapter.h"
 #include "overlapBatchSet/OverlapBatchSetDialogAdapter.h"
 #include "preCenteredChangeValue/PreCenteredChangeValueAdapter.h"
 #include "removeAffix/RemoveAffixDialogAdapter.h"

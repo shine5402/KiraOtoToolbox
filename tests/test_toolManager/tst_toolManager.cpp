@@ -1,7 +1,7 @@
 #include <QtTest>
 
 #include "addAffix/AddAffixDialogAdapter.h"
-#include "notdoanything/NotDoAnythingDialogAdapter.h"
+#include "notDoAnything/NotDoAnythingDialogAdapter.h"
 #include "removeBlank/RemoveBlankDialogAdapter.h"
 #include "toolBase/ToolManager.h"
 

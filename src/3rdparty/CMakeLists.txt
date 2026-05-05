@@ -8,7 +8,10 @@ add_library(compact_enc_det STATIC
     compact_enc_det/util/languages/languages.cc
 )
 target_include_directories(compact_enc_det PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/compact_enc_det)
-target_compile_options(compact_enc_det PRIVATE $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-c++11-narrowing>)
+target_compile_options(compact_enc_det PRIVATE
+    $<$<CXX_COMPILER_ID:GNU>:-Wno-narrowing>
+    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-c++11-narrowing>
+)
 
 # QSourceHighlite (syntax highlighting)
 add_library(QSourceHighlite STATIC

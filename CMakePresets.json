@@ -13,10 +13,7 @@
             "hidden"        : true,
             "inherits"      : "_base",
             "condition"     : {"type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin"},
-            "cacheVariables": {
-                "CMAKE_OSX_ARCHITECTURES"    : "x86_64;arm64",
-                "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"
-            }
+            "cacheVariables": {"CMAKE_OSX_ARCHITECTURES": "x86_64;arm64", "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"}
         },
         {
             "name"     : "_linux-base",
@@ -32,13 +29,15 @@
         },
         {
             "name"          : "macos-debug-template",
-            "displayName"   : "macOS Debug",
+            "hidden"        : true,
+            "displayName"   : "macOS Debug (template)",
             "inherits"      : "_macos-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
             "name"          : "macos-relwithdebinfo-template",
-            "displayName"   : "macOS RelWithDebInfo",
+            "hidden"        : true,
+            "displayName"   : "macOS RelWithDebInfo (template)",
             "inherits"      : "_macos-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE"       : "RelWithDebInfo",
@@ -48,13 +47,15 @@
         },
         {
             "name"          : "linux-debug-template",
-            "displayName"   : "Linux Debug",
+            "displayName"   : "Linux Debug (template)",
+            "hidden"        : true,
             "inherits"      : "_linux-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
             "name"          : "linux-relwithdebinfo-template",
-            "displayName"   : "Linux RelWithDebInfo",
+            "displayName"   : "Linux RelWithDebInfo (template)",
+            "hidden"        : true,
             "inherits"      : "_linux-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE"    : "RelWithDebInfo",
@@ -63,13 +64,15 @@
         },
         {
             "name"          : "windows-debug-template",
-            "displayName"   : "Windows Debug",
+            "displayName"   : "Windows Debug (template)",
+            "hidden"        : true,
             "inherits"      : "_windows-base",
             "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug"}
         },
         {
             "name"          : "windows-relwithdebinfo-template",
-            "displayName"   : "Windows RelWithDebInfo",
+            "displayName"   : "Windows RelWithDebInfo (template)",
+            "hidden"        : true,
             "inherits"      : "_windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE"    : "RelWithDebInfo",

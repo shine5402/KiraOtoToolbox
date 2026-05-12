@@ -8,7 +8,11 @@ class TrimAroundSpecificValueDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE TrimAroundSpecificValueDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Trim around specific value")
+    Q_INVOKABLE static QString toolName() { return tr("Trim around specific value"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::ValueOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // TRIMAROUNDSPECIFICVALUEDIALOGADAPTER_H

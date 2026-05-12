@@ -10,11 +10,6 @@ ChainInvalidDialogAdapter::ChainInvalidDialogAdapter(QObject *parent) : ToolDial
     setWorkerMetaObj(NotDoAnythingOtoListModifyWorker::staticMetaObject);
 }
 
-QString ChainInvalidDialogAdapter::getToolName() const
-{
-    return tr("Unknown tool");
-}
-
 ChainInvalidOptionWidget::ChainInvalidOptionWidget(QWidget *parent) : ToolOptionWidget(parent)
 {
     auto layout = new QVBoxLayout(this);

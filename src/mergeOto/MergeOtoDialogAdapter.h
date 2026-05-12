@@ -8,7 +8,11 @@ class MergeOtoDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit MergeOtoDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Merge oto")
+    Q_INVOKABLE static QString toolName() { return tr("Merge oto"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::EntryOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // MERGEOTODIALOGADAPTER_H

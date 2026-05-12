@@ -8,7 +8,11 @@ class VowelCrossfadingDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit VowelCrossfadingDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Vowel crossfading")
+    Q_INVOKABLE static QString toolName() { return tr("Vowel crossfading"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::ValueOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // VOWELCROSSFADINGDIALOGADAPTER_H

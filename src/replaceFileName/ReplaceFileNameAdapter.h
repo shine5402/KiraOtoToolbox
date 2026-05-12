@@ -8,7 +8,11 @@ class ReplaceFileNameAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit ReplaceFileNameAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Replace file name (and rename file)");
+    Q_INVOKABLE static QString toolName() { return tr("Replace file name (and rename file)"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::FilenameActions; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // REPLACEFILENAMEADAPTER_H

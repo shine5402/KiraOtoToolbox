@@ -7,7 +7,11 @@ class RemoveAffixDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE RemoveAffixDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Remove prefix/suffix in alias")
+    Q_INVOKABLE static QString toolName() { return tr("Remove prefix/suffix in alias"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::AliasOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // REMOVEAFFIXDIALOGADAPTER_H

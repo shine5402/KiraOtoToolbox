@@ -8,7 +8,11 @@ class PreCenteredChangeValueAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit PreCenteredChangeValueAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Pre-centered change value")
+    Q_INVOKABLE static QString toolName() { return tr("Pre-centered change value"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::ValueOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // PRECENTEREDCHANGEVALUEADAPTER_H

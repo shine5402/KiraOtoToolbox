@@ -1,6 +1,8 @@
 #ifndef TOOLMANAGER_H
 #define TOOLMANAGER_H
 
+#include <functional>
+
 #include <QObject>
 #include <QPointer>
 
@@ -13,18 +15,19 @@ struct Tool
     Tool(QMetaObject toolAdapterMetaObj) : toolAdapterMetaObj(toolAdapterMetaObj) {}
 
     QMetaObject toolAdapterMetaObj;
+    std::function<QString()> staticToolName;
+    std::function<ToolCategory()> staticToolCategory;
 
     bool operator==(const Tool &rhs) const
     {
         return rhs.toolAdapterMetaObj.className() == toolAdapterMetaObj.className();
     }
     bool operator!=(const Tool &rhs) { return !(*this == rhs); }
-    QString toolName() const
+    QString toolName() const { return staticToolName ? staticToolName() : QString{}; }
+    ToolCategory toolCategory() const { return staticToolCategory ? staticToolCategory() : ToolCategory{}; }
+    QString categoryDisplayName() const
     {
-        if (auto adapter = getAdapterInstance(nullptr)) {
-            return adapter->getToolName();
-        }
-        return {};
+        return ToolDialogAdapter::categoryDisplayName(toolCategory());
     }
 
     std::unique_ptr<ToolDialogAdapter> getAdapterInstance() const
@@ -82,21 +85,31 @@ class ToolManager : public QObject
 public:
     static ToolManager *getManager();
 
-    void registerTool(const QString &group, const Tool &tool);
+    void registerTool(ToolCategory category, const Tool &tool);
+
+    template <typename AdapterT>
+    void registerTool()
+    {
+        Tool tool(AdapterT::staticMetaObject);
+        tool.staticToolName = &AdapterT::toolName;
+        tool.staticToolCategory = &AdapterT::toolCategory;
+        registerTool(AdapterT::toolCategory(), std::move(tool));
+    }
+
     void unRegisterTool(int i);
     void unRegisterTool(const Tool &tool);
 
     QVector<Tool> getTools() const;
 
-    QMultiHash<QString, Tool> getToolGroups() const;
+    QHash<ToolCategory, QVector<Tool>> getToolGroups() const;
 
-    QStringList getToolGroupNamesInRegisterOrder() const;
+    QVector<ToolCategory> getToolGroupNamesInRegisterOrder() const;
 
 private:
     static ToolManager *manager;
     QVector<Tool> tools;
-    QMultiHash<QString, Tool> toolGroups;
-    QStringList toolGroupNames;
+    QHash<ToolCategory, QVector<Tool>> toolGroups;
+    QVector<ToolCategory> toolGroupNames;
 };
 
 #endif // TOOLMANAGER_H

@@ -8,7 +8,11 @@ class OverlapBatchSetDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit OverlapBatchSetDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Set overlap in batch")
+    Q_INVOKABLE static QString toolName() { return tr("Set overlap in batch"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::ValueOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // OVERLAPBATCHSETDIALOGADAPTER_H

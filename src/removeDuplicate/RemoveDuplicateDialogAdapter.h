@@ -11,7 +11,11 @@ class RemoveDuplicateDialogAdapter : public ToolDialogAdapter
 public:
     Q_INVOKABLE explicit RemoveDuplicateDialogAdapter(QObject *parent = nullptr);
     void replaceUIWidgets(QLayout *rootLayout) override;
-    DEFINE_TOOL_NAME("Remove and organize duplicated entries")
+    Q_INVOKABLE static QString toolName() { return tr("Remove and organize duplicated entries"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::EntryOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // REMOVEDUPLICATEDIALOGADAPTER_H

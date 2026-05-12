@@ -107,23 +107,20 @@ void MainWindow::createToolSelectorUI()
 
     auto availableTools = ToolManager::getManager()->getTools();
     auto toolGroups = ToolManager::getManager()->getToolGroups();
-    auto groups = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
-    for (int groupID = 0; groupID < groups.count(); ++groupID) {
-        auto group = groups.at(groupID);
-        auto groupBox =
-            new QGroupBox(group.isEmpty() ? tr("Uncategorized")
-                                          : QCoreApplication::translate("TOOL_TYPE", group.toStdString().c_str()),
-                          this);
+    auto categories = ToolManager::getManager()->getToolGroupNamesInRegisterOrder();
+    for (int groupID = 0; groupID < categories.count(); ++groupID) {
+        auto category = categories.at(groupID);
+        auto groupBox = new QGroupBox(ToolDialogAdapter::categoryDisplayName(category), this);
         toolButtonsLayoutResources.append(groupBox);
         auto groupBoxLayout = new QVBoxLayout(groupBox);
-        auto tools = toolGroups.values(group);
+        auto tools = toolGroups.value(category);
         std::reverse(tools.begin(), tools.end());
         for (const auto &tool : tools) {
             auto button = new QPushButton(tool.toolName(), groupBox);
             toolButtonGroup->addButton(button, availableTools.indexOf(tool));
             groupBoxLayout->addWidget(button);
         }
-        ui->toolLayout->insertWidget(groupID, groupBox); // 1 stands for behind first spacer in ui layout
+        ui->toolLayout->insertWidget(groupID, groupBox);
     }
 
     connect(toolButtonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), toolButtonGroup,

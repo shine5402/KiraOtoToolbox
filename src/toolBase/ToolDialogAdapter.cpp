@@ -79,10 +79,20 @@ bool ToolDialogAdapter::doWork(const OtoEntryList &srcOtoList, OtoEntryList &res
     return false;
 }
 
-QString ToolDialogAdapter::getToolName() const
+QString ToolDialogAdapter::categoryDisplayName(ToolCategory category)
 {
-    qFatal("DEFINE_TOOL_NAME() not used in tool dialog adapter.");
-    Q_UNREACHABLE();
+    switch (category) {
+    case ToolCategory::EntryOperations:
+        return tr("Entry operations");
+    case ToolCategory::ValueOperations:
+        return tr("Value operations");
+    case ToolCategory::AliasOperations:
+        return tr("Alias operations");
+    case ToolCategory::FilenameActions:
+        return tr("Filename actions (maybe dangerous)");
+    case ToolCategory::MetaActions:
+        return tr("Meta actions");
+    }
     return {};
 }
 

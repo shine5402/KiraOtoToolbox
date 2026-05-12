@@ -13,7 +13,11 @@ public:
     bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
                 const OptionContainer &options, QWidget *dialogParent) override;
 
-    DEFINE_TOOL_NAME("Extract CV/VC part")
+    Q_INVOKABLE static QString toolName() { return tr("Extract CV/VC part"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::EntryOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // CV_VCPARTSPLITTOOLDIALOGADAPTER_H

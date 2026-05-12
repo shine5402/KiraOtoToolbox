@@ -11,15 +11,26 @@
 #include "utils/widgets/OtoFileLoadWidget.h"
 #include "utils/widgets/OtoFileSaveWidget.h"
 
+enum class ToolCategory {
+    EntryOperations,
+    ValueOperations,
+    AliasOperations,
+    FilenameActions,
+    MetaActions
+};
+
 class ToolDialogAdapter : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE explicit ToolDialogAdapter(QObject *parent = nullptr);
+    explicit ToolDialogAdapter(QObject *parent = nullptr);
     virtual void replaceUIWidgets(QLayout *rootLayout);
     virtual bool doWork(const OtoEntryList &srcOtoList, OtoEntryList &resultOtoList, OtoEntryList &secondSaveOtoList,
                         const OptionContainer &options, QWidget *dialogParent);
-    virtual QString getToolName() const;
+    virtual QString getToolName() const = 0;
+    virtual ToolCategory getToolCategory() const = 0;
+
+    static QString categoryDisplayName(ToolCategory category);
 
     QMetaObject getOptionWidgetMetaObj() const;
     QMetaObject getWorkerMetaObj() const;
@@ -35,13 +46,5 @@ private:
     QMetaObject workerMetaObj;
 signals:
 };
-
-#include <QCoreApplication>
-#define DEFINE_TOOL_NAME(name)                                                                                         \
-    static constexpr auto TOOL_NAME = name;                                                                            \
-    QString getToolName() const override                                                                               \
-    {                                                                                                                  \
-        return QCoreApplication::translate("TOOL_NAME", name);                                                         \
-    }
 
 #endif // TOOLDIALOGADAPTER_H

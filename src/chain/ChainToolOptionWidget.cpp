@@ -93,7 +93,10 @@ OptionContainer ChainToolOptionWidget::jsonToOptions(const QJsonObject &json) co
             OptionContainer options;
             options.setOption("originalClassName", className);
             options.setOption("options", obj.value("options").toObject());
-            steps.append({ChainInvalidDialogAdapter::staticMetaObject, {}});
+            Tool invalidTool(ChainInvalidDialogAdapter::staticMetaObject);
+            invalidTool.staticToolName = &ChainInvalidDialogAdapter::toolName;
+            invalidTool.staticToolCategory = &ChainInvalidDialogAdapter::toolCategory;
+            steps.append({invalidTool, {}});
             continue;
         }
 

@@ -9,12 +9,12 @@ ToolManager *ToolManager::getManager()
     return manager;
 }
 
-void ToolManager::registerTool(const QString &group, const Tool &tool)
+void ToolManager::registerTool(ToolCategory category, const Tool &tool)
 {
     tools.append(tool);
-    toolGroups.insert(group, tool);
-    if (!toolGroupNames.contains(group)) {
-        toolGroupNames.append(group);
+    toolGroups[category].append(tool);
+    if (!toolGroupNames.contains(category)) {
+        toolGroupNames.append(category);
     }
 }
 
@@ -26,11 +26,17 @@ void ToolManager::unRegisterTool(int i)
 
 void ToolManager::unRegisterTool(const Tool &tool)
 {
-    auto group = toolGroups.key(tool);
-    toolGroups.remove(group, tool);
+    for (auto it = toolGroups.begin(); it != toolGroups.end(); ++it) {
+        auto &vec = it.value();
+        if (vec.removeOne(tool)) {
+            if (vec.isEmpty()) {
+                toolGroups.remove(it.key());
+                toolGroupNames.removeOne(it.key());
+            }
+            break;
+        }
+    }
     tools.removeOne(tool);
-    if (!toolGroups.contains(group))
-        toolGroupNames.removeOne(group);
 }
 
 QVector<Tool> ToolManager::getTools() const
@@ -38,12 +44,12 @@ QVector<Tool> ToolManager::getTools() const
     return tools;
 }
 
-QMultiHash<QString, Tool> ToolManager::getToolGroups() const
+QHash<ToolCategory, QVector<Tool>> ToolManager::getToolGroups() const
 {
     return toolGroups;
 }
 
-QStringList ToolManager::getToolGroupNamesInRegisterOrder() const
+QVector<ToolCategory> ToolManager::getToolGroupNamesInRegisterOrder() const
 {
     return toolGroupNames;
 }

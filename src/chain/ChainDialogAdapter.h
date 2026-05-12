@@ -8,7 +8,11 @@ class ChainDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE ChainDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Perform multiple actions")
+    Q_INVOKABLE static QString toolName() { return tr("Perform multiple actions"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::MetaActions; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // CHAINDIALOGADAPTER_H

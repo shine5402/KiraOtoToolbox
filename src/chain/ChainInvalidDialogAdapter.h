@@ -9,7 +9,11 @@ class ChainInvalidDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE ChainInvalidDialogAdapter(QObject *parent = nullptr);
-    QString getToolName() const override;
+    Q_INVOKABLE static QString toolName() { return tr("Unknown tool"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::MetaActions; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 class QLabel;

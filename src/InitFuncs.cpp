@@ -1,9 +1,6 @@
 #include "InitFuncs.h"
 
-#include <QCoreApplication>
-
 #include "addAffix/AddAffixDialogAdapter.h"
-#include "addAffix/AddAffixOtoListModifyWorker.h"
 #include "chain/ChainDialogAdapter.h"
 #include "convertPlusMinusRight/ConvertPlusMinusRightDialogAdapter.h"
 #include "copyOrReplaceByAlias/CopyOrReplaceByAliasDialogAdapter.h"
@@ -15,7 +12,6 @@
 #include "preCenteredChangeValue/PreCenteredChangeValueAdapter.h"
 #include "removeAffix/RemoveAffixDialogAdapter.h"
 #include "removeBlank/RemoveBlankDialogAdapter.h"
-#include "removeBlank/RemoveBlankOtoListModifyWorker.h"
 #include "removeDuplicate/RemoveDuplicateDialogAdapter.h"
 #include "removeSpecificEntries/RemoveSpecificEntriesDialogAdapter.h"
 #include "replaceFileName/ReplaceFileNameAdapter.h"
@@ -24,33 +20,31 @@
 #include "trimAroundSpecificValue/TrimAroundSpecificValueDialogAdapter.h"
 #include "vowelCrossfading/VowelCrossfadingDialogAdapter.h"
 
-#define REGISTER_TOOL(type, adapter_class)                                                                             \
-    ToolManager::getManager()->registerTool(QCoreApplication::translate("TOOL_TYPE", type),                            \
-                                            adapter_class::staticMetaObject)
-
 void registerTools()
 {
-    REGISTER_TOOL("Entry operations", RemoveDuplicateDialogAdapter);
-    REGISTER_TOOL("Entry operations", RemoveBlankDialogAdapter);
-    REGISTER_TOOL("Entry operations", MergeOtoDialogAdapter);
-    REGISTER_TOOL("Entry operations", CVVCPartSplitToolDialogAdapter);
-    REGISTER_TOOL("Entry operations", RemoveSpecificEntriesDialogAdapter);
-    REGISTER_TOOL("Entry operations", CopyOrReplaceByAliasDialogAdapter);
+    auto *mgr = ToolManager::getManager();
 
-    REGISTER_TOOL("Value operations", OverlapBatchSetDialogAdapter);
-    REGISTER_TOOL("Value operations", VowelCrossfadingDialogAdapter);
-    REGISTER_TOOL("Value operations", TrimAroundSpecificValueDialogAdapter);
-    REGISTER_TOOL("Value operations", ConvertPlusMinusRightDialogAdapter);
-    REGISTER_TOOL("Value operations", PreCenteredChangeValueAdapter);
-    REGISTER_TOOL("Value operations", TempoTransformDialogAdapter);
+    mgr->registerTool<RemoveDuplicateDialogAdapter>();
+    mgr->registerTool<RemoveBlankDialogAdapter>();
+    mgr->registerTool<MergeOtoDialogAdapter>();
+    mgr->registerTool<CVVCPartSplitToolDialogAdapter>();
+    mgr->registerTool<RemoveSpecificEntriesDialogAdapter>();
+    mgr->registerTool<CopyOrReplaceByAliasDialogAdapter>();
 
-    REGISTER_TOOL("Alias operations", RemoveAffixDialogAdapter);
-    REGISTER_TOOL("Alias operations", AddAffixDialogAdapter);
-    REGISTER_TOOL("Alias operations", SetAliasDialogAdapter);
+    mgr->registerTool<OverlapBatchSetDialogAdapter>();
+    mgr->registerTool<VowelCrossfadingDialogAdapter>();
+    mgr->registerTool<TrimAroundSpecificValueDialogAdapter>();
+    mgr->registerTool<ConvertPlusMinusRightDialogAdapter>();
+    mgr->registerTool<PreCenteredChangeValueAdapter>();
+    mgr->registerTool<TempoTransformDialogAdapter>();
 
-    REGISTER_TOOL("Filename actions (maybe dangerous)", ReplaceFileNameAdapter);
+    mgr->registerTool<RemoveAffixDialogAdapter>();
+    mgr->registerTool<AddAffixDialogAdapter>();
+    mgr->registerTool<SetAliasDialogAdapter>();
 
-    REGISTER_TOOL("Meta actions", JavaScriptToolDialogAdapter);
-    REGISTER_TOOL("Meta actions", ChainDialogAdapter);
-    REGISTER_TOOL("Meta actions", NotDoAnythingDialogAdapter);
+    mgr->registerTool<ReplaceFileNameAdapter>();
+
+    mgr->registerTool<JavaScriptToolDialogAdapter>();
+    mgr->registerTool<ChainDialogAdapter>();
+    mgr->registerTool<NotDoAnythingDialogAdapter>();
 }

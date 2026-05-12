@@ -8,7 +8,11 @@ class JavaScriptToolDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE explicit JavaScriptToolDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Javascript scripting")
+    Q_INVOKABLE static QString toolName() { return tr("Javascript scripting"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::MetaActions; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // JAVASCRIPTTOOLDIALOGADAPTER_H

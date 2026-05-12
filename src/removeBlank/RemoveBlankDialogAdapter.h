@@ -8,7 +8,11 @@ class RemoveBlankDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE RemoveBlankDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Remove empty entries")
+    Q_INVOKABLE static QString toolName() { return tr("Remove empty entries"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::EntryOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // REMOVEBLANKDIALOGADAPTER_H

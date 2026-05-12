@@ -8,7 +8,11 @@ class SetAliasDialogAdapter : public ToolDialogAdapter
     Q_OBJECT
 public:
     Q_INVOKABLE SetAliasDialogAdapter(QObject *parent = nullptr);
-    DEFINE_TOOL_NAME("Set alias")
+    Q_INVOKABLE static QString toolName() { return tr("Set alias"); }
+    Q_INVOKABLE static ToolCategory toolCategory() { return ToolCategory::AliasOperations; }
+
+    QString getToolName() const override { return toolName(); }
+    ToolCategory getToolCategory() const override { return toolCategory(); }
 };
 
 #endif // SETALIASDIALOGADAPTER_H

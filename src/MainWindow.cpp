@@ -3,8 +3,10 @@
 
 #include <QButtonGroup>
 #include <QDesktopServices>
+#include <QFile>
 #include <QGroupBox>
 #include "utils/dialogs/CommonHtmlDialog.h"
+#include <QTextDocument>
 #include <QPushButton>
 #include <QSettings>
 #include <QUrl>
@@ -140,8 +142,17 @@ MainWindow::~MainWindow()
 void MainWindow::showAboutDialog()
 {
     QString versionStr =
-        tr("<p>Version %1, <i>build on %2 %3</i></p>")
+        tr("Version %1, <i>built on %2 %3</i>")
             .arg(qApp->applicationVersion().isEmpty() ? "(unknown)" : qApp->applicationVersion(), __DATE__, __TIME__);
+
+    QString ackHtml;
+    QFile ackFile(QStringLiteral(":/docs/acknowledgements.md"));
+    if (ackFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString markdown = QString::fromUtf8(ackFile.readAll());
+        QTextDocument doc;
+        doc.setMarkdown(markdown);
+        ackHtml = doc.toHtml();
+    }
 
     auto dialog = new CommonHtmlDialog(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -150,11 +161,11 @@ void MainWindow::showAboutDialog()
                         R"(<p style="text-align: left;"><img src=":/icon/appIcon" width="64"/></p>
 <h2>KiraOtoToolbox</h2>
 <p>Copyright 2021-present shine_5402</p>
-%1
+<p>%1</p>
 <h3>About</h3>
 <p>A toolbox for manipulating "oto.ini", the voicebank labeling format for UTAU.</p>
 <h3>License</h3>
-<p> This program is free software: you can redistribute it and/or modify
+<p>This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.<br>
@@ -163,22 +174,10 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.<br>
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.<br>
-</p>
-
-<h3>Acknowledgements</h3>
-<h4>Third-party libraries</h4>
-<ul>
-<li>Qt %2, The Qt Company Ltd, under LGPL v3.</li>
-<li><a href="https://www.kfrlib.com/">KFR - Fast, modern C++ DSP framework</a>, under GNU GPL v2+</li>
-<li><a href="https://github.com/cubicdaiya/dtl">dtl (Diff Template Library)</a>, Copyright (c) 2015 Tatsuhiko Kubo, under the BSD 3-Clause License</li>
-<li><a href="https://github.com/google/compact_enc_det">compact_enc_det</a>, Copyright 2016 Google Inc., under the Apache License, Version 2.0</li>
-<li><a href="https://github.com/Waqar144/QSourceHighlite">QSourceHighlite</a>, Copyright (c) 2019-2020 Waqar Ahmed, under MIT License</li>
-</ul>
-
-<p>Some icons are provided by <a href="https://icons8.com">icons8</a>. JetBrains Mono font is included under the Apache License, Version 2.0.</p>
-)")
-                        .arg(versionStr, QT_VERSION_STR));
+along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+<hr>
+%2)")
+                        .arg(versionStr, ackHtml));
     dialog->setStandardButtons(QDialogButtonBox::Ok);
     dialog->setOpenExternalLinks(true);
     dialog->exec();

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/docs">
+        <file alias="acknowledgements.md">../docs/acknowledgements.md</file>
+    </qresource>
+</RCC>

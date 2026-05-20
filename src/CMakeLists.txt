@@ -52,6 +52,7 @@ target_sources(KiraOtoToolbox PRIVATE
     ${CMAKE_SOURCE_DIR}/resources/icon/icon.qrc
     ${CMAKE_SOURCE_DIR}/resources/logo/logo.qrc
     ${CMAKE_SOURCE_DIR}/resources/presets/built-in_presets.qrc
+    ${CMAKE_SOURCE_DIR}/resources/acknowledgements.qrc
 )
 
 # Platform properties

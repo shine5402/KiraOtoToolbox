@@ -1,12 +1,10 @@
-# KiraOtoToolbox
+# <img src="resources/icon/appIcon.png" alt="KiraOtoToolbox logo" width="48" style="vertical-align: text-bottom" /> KiraOtoToolbox
 
-![logo](resources/logo/logo.svg)
+A collection of practical tools for editing oto.ini, each built to solve a real problem in UTAU voicebank labeling.
 
-A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank labeling format.
+![KiraOtoToolbox screenshot](docs/images/screenshot.png)
 
 ## Basic Workflow
-
-![workflow](docs/images/workflow.gif)
 
 1. Choose the tool you want to use
 2. Load oto.ini file to process (you can drag file into path input)
@@ -15,148 +13,43 @@ A powerful yet easy-to-use toolbox to manipulate oto.ini, UTAU's voicebank label
 
 ## Tools
 
-![](docs/images/tools.png)
+KiraOtoToolbox includes 19 tools across 5 categories:
 
-KiraOtoToolbox comes with a set of tools to fit certain needs in oto's editing.
+- **Entry operations** (6 tools) — remove duplicates, remove blanks, merge oto files, split CV/VC parts, remove specific entries, copy/replace by alias
+- **Value operations** (6 tools) — batch overlap setting, vowel crossfading, value trimming, right-value conversion, pre-centered value changes, tempo transform
+- **Alias operations** (3 tools) — remove affixes, add affixes, set alias with template variables
+- **Filename actions** (1 tool) — replace filenames and rename WAV files on disk
+- **Meta actions** (3 tools) — chain multiple tools, JavaScript scripting, adjust decimal precision
 
-### Remove and organize duplicated entries
+All tools support presets, batch file processing, and configurable decimal precision on save.
 
-Detect entries with possible duplicated aliases (like a, a, a2, a3, ...), and:
-
-- limit their count
-- reassign order number (a.k.a organize, example: a, a, a3, a5 -> a, a2, a3, a4)
-
-### Remove empty entries
-
-Remove entries with no alias and 0 value, often happens to edit a dedicated part of oto.ini, when setParam will create dummy entries for wav files without any.
-
-### Merge oto
-
-Merge two oto.ini and control behavior when a part of their entries have the same alias. You can ask it to replace, skip or keep all. Useful when updating a part of oto.ini in a separate file.
-
-### Extract CV/VC Part
-
-Extract CV/VC part to separate file or reorder them separately in the same file when being asked to. UTAU tends to order oto entries by their filename, which mix them together. But when editing oto.ini, switching CV/VC Part one-by-one constantly while editing is very ...awful. So with this tool, you can make yourself focusing on one side.
-
-### Remove specific entries
-
-Remove entries whose alias meet your rule.
-
-### Copy/Replace by alias
-
-Replace oto's alias or copy it to a new item with the rules you set. You can use this to convert your alias between romaji <-> hiragana, copy needed entries in Syo-CHN, and so on.
-
-### Set overlap in batch
-
-Overlap can be a pain to edit as it can be very mechanical, so why not just hand it to programs? This tool can set overlap in 1/3 (between left and pre-utterance), set to 0/-5(or value you like) for certain alias like plosives, which can be a very universal solution for this value.
-
-### Vowel crossfading
-
-When dealing with CV voicebank, you will need vowel crossfading. You can generate crossfaded vowel entries with this tool, whether you want to copy to a new entry (* V) or just replace it.
-
-### Trim around specific value
-
-We all met entries whose values are like "249.999", "83.333", ... It can be very annoying for some people. With this tool, you can trim them to the value that makes you satisfied, like 250, 83, ...
-
-### Convert ±Right value
-
-UTAU uses negativity of right values to indicate different types of oto entry's right bound. When positive it's calculated from the end of WAV, while negative means it's calculated from the left. You can convert between them with this tool.
-
-### Pre-centered change value
-
-This tool will keep preutterance's <b>absolute</b> position while changing other values relatively. In other words, it calculate new  <b>left</b> value and change it based on the new pattern you input above. If new left value is less than 0, the entry's left and preutterance will be kept as original.
-
-### Tempo transform for template
-
-Sometimes you will find your oto.ini template's tempo (BPM) not matching the BGM you use. It is a nightmare to just use it and dive into the hell of long-distance dragging. Though not very accurate, this tool can save your sanity a lot.
-
-### Remove prefix/suffix in alias
-
-The name is pretty self-explained.
-
-### Add affix (prefix/suffix)
-
-This one too.
-
-### Set alias
-
-A copy for feature with the same name in setParam.
-
-### Replace filename
-
-Replace oto's filename with the rules you set. It will rename the actual files too. For users whose computer is not in the JPN region, it can also modify these names in system-encoding-represented Shift-JIS.
-
-### Perform multiple actions
-
-With the tool "Perform multiple actions", you can construct an action chain to perform on your input. You can save them via preset, and use them later.
-
-### Javascript scripting
-
-You can also write your own code with the tool "Javascript scripting" when our tools were not fit your needs.
+See **[docs/tools.md](docs/tools.md)** for detailed documentation on each tool, including options, behavior, and usage notes.
 
 ## Other useful features
 
 ### Preset system
 
-![](docs/images/preset-system.gif)
-
-All tools in KiraOtoToolbox can have presets, and a bunch of them comes with some handy built-in ones. You can also export your preset and import others' ones.
+Every tool in KiraOtoToolbox supports presets. Many come with handy built-in presets ready to use, and you can export your own or import presets from others.
 
 ### Process a batch of files
 
-![](docs/images/batch-mode.gif)
+Switch to batch mode to process multiple files with the same options. Combined with the "Perform multiple actions" tool, this makes repetitive tasks fast and effortless.
 
-You can switch to the batch mode in the tool and process multiple files with the same options. Combined with "Perform multiple actions" tool, it can be very fast and powerful.
-
-By the way, you can drag a batch of file into path input in batch mode.
+You can also drag multiple files directly onto the path input in batch mode.
 
 ### Control decimal precision on saving
 
-![](docs/images/decimal-precision.png)
+Choose how many decimal places to use for each field when saving oto.ini files.
 
-You can control decimal precision for fields in saving options.
+### Encoding detection
 
-### Encoding detecting
+Some oto.ini files aren't saved in Shift-JIS as they should be — not every program gets it right. KiraOtoToolbox detects the actual encoding when loading and prompts you to read the file using the correct one.
 
-![](docs/images/encoding-detect.png)
+### Drop-on-program / setParam support
 
-You may have oto.ini that is not saved using Shift-JIS (they should, but some programs don't get it). KiraOtoToolbox will detect them when loading and tell you to read using their actual encoding.
+Also known as "CLI parameter mode": when launched with file paths as arguments, KiraOtoToolbox automatically uses them as input paths. You can simply drag files onto the application to trigger this.
 
-### Drop-on-program/setParam support
-
-![](docs/images/cli-param.png)
-
-...or it should be called as "CLI parameter mode". When opened with paths in CLI parameter, KiraOtoToolbox will use them as input path automatically. You can drag files on KiraOtoToolbox to trigger this.
-
-setParam has support to pass file path to its plugins. The plugin.txt to support setParam is include with release binaries.
-
-### Dark mode
-
-![](docs/images/dark-mode.gif)
-
-You can switch between light/dark ui mode.
-
-### i18n support
-
-![](docs/images/i18n.gif)
-
-KiraOtoToolbox can be translated into languages. Currently, only English and Simplified Chinese are present.
-
-### Check update
-
-![](docs/images/check-update.png)
-
-KiraOtoToolbox will check if their is new version automatically.
-
-## Build
-
-You need to build KFR audio library first, since it's a complex cmake project and can not just plug into qmake building trees.
-
-KiraOtoToolbox don't use the DFT part of KFR, so all supported compliers is ok.
-
-Other dependencies are all ``git subtree`` in this repo, and all configured in ``.pro`` file. So you can just compile it in Qt Creator.
-
-It's recommended to using Qt 5.15 since I use it while developing this. But Qt 6 shouldn't change that much to break code compatibility with this project (no guarantee though).
+setParam can also pass file paths to its plugins. A `plugin.txt` configured for setParam is included with release binaries.
 
 ## License
 

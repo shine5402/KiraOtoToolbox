@@ -11,7 +11,7 @@ include(GNUInstallDirs)
 
 qt_standard_project_setup(
     I18N_SOURCE_LANGUAGE en
-    I18N_TRANSLATED_LANGUAGES zh_CN
+    I18N_TRANSLATED_LANGUAGES zh_CN ja
 )
 
 add_subdirectory(src)

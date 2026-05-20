@@ -3,38 +3,57 @@
 
 #include <QApplication>
 #include <QEvent>
-#include <QScrollBar>
-#include <QTextStream>
-#include <QtDebug>
-#include <qsourcehighliter.h>
+#include <QFontInfo>
+#include <QJsonObject>
+#include <Qsci/qsciapis.h>
+#include <Qsci/qscilexerjavascript.h>
+#include <Qsci/qsciscintilla.h>
 
 JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::JavaScriptToolOptionWidget)
 {
     ui->setupUi(this);
 
-    auto lineNumVScrollBar = ui->lineNumberTextEdit->verticalScrollBar();
-    auto jsVScrollBar = ui->jsTextEdit->verticalScrollBar();
-    connect(lineNumVScrollBar, &QScrollBar::valueChanged, jsVScrollBar, &QScrollBar::setValue);
-    connect(jsVScrollBar, &QScrollBar::valueChanged, lineNumVScrollBar, &QScrollBar::setValue);
+    auto *sci = ui->jsTextEdit;
 
-    connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &JavaScriptToolOptionWidget::refillLineNumbers);
-    connect(ui->jsTextEdit, &QPlainTextEdit::cursorPositionChanged, this, &JavaScriptToolOptionWidget::syncCursors);
+    // JavaScript lexer
+    auto *lexer = new QsciLexerJavaScript(this);
+    sci->setLexer(lexer);
 
-    highlighter =
-        new QSourceHighlite::QSourceHighliter(ui->jsTextEdit->document());
-    highlighter->setCurrentLanguage(QSourceHighlite::QSourceHighliter::CodeJs);
+    // Line numbers
+    sci->setMarginType(0, QsciScintilla::NumberMargin);
+    sci->setMarginWidth(0, "0000");
+
+    // Folding
+    sci->setFolding(QsciScintilla::BoxedTreeFoldStyle);
+
+    // Auto-indent and brace matching
+    sci->setAutoIndent(true);
+    sci->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+
+    // Font
+    auto font = QFont("JetBrains Mono");
+    font.setStyleHint(QFont::Monospace);
+    sci->setFont(font);
+    sci->setMarginsFont(font);
+
+    // Tab stops
+    sci->setTabWidth(4);
+
+    // Auto-completion
+    auto *api = new QsciAPIs(lexer);
+    api->load(":/api/javascript.api");
+    api->load(":/api/kiraoto_api.api");
+    api->prepare();
+    sci->setAutoCompletionSource(QsciScintilla::AcsAll);
+    sci->setAutoCompletionThreshold(1);
+    sci->setAutoCompletionCaseSensitivity(false);
+    sci->setAutoCompletionReplaceWord(true);
+    sci->setAutoCompletionShowSingle(true);
+
     applyTheme();
 
-    auto font = QFont("Jetbrains Mono");
-    font.setStyleHint(QFont::Monospace);
-    ui->lineNumberTextEdit->setFont(font);
-    ui->jsTextEdit->setFont(font);
-    qDebug() << "Actual Monospace font" << QFontInfo(font).family();
-
-    ui->jsTextEdit->setTabStopDistance(ui->jsTextEdit->fontMetrics().horizontalAdvance("    ")); // 4 space
-
-    connect(ui->jsTextEdit, &QPlainTextEdit::textChanged, this, &ToolOptionWidget::userSettingsChanged);
+    connect(sci, &QsciScintilla::textChanged, this, &ToolOptionWidget::userSettingsChanged);
     connect(ui->interpretBySystemEncodingCheckBox, &QCheckBox::toggled, this, &ToolOptionWidget::userSettingsChanged);
 }
 
@@ -50,15 +69,23 @@ void JavaScriptToolOptionWidget::applyTheme()
     const auto &appPalette = QApplication::palette();
     const bool dark = appPalette.color(QPalette::Window).lightness() < 128;
 
-    highlighter->setTheme(dark ? QSourceHighlite::QSourceHighliter::Monokai
-                               : QSourceHighlite::QSourceHighliter::DefaultLight);
+    auto *sci = ui->jsTextEdit;
 
-    ui->jsTextEdit->setPalette(appPalette);
+    // Background and foreground
+    sci->setPaper(appPalette.color(QPalette::Base));
+    sci->setColor(appPalette.color(QPalette::Text));
 
-    auto lineNumPalette = appPalette;
-    const auto base = appPalette.color(QPalette::Base);
-    lineNumPalette.setColor(QPalette::Base, dark ? base.darker(110) : base.lighter(105));
-    ui->lineNumberTextEdit->setPalette(lineNumPalette);
+    // Selection colors
+    sci->setSelectionBackgroundColor(appPalette.color(QPalette::Highlight));
+    sci->setSelectionForegroundColor(appPalette.color(QPalette::HighlightedText));
+
+    // Caret color
+    sci->setCaretForegroundColor(appPalette.color(QPalette::Text));
+
+    // Margin (line number) colors
+    sci->setMarginsBackgroundColor(dark ? appPalette.color(QPalette::Base).darker(110)
+                                        : appPalette.color(QPalette::Base).lighter(105));
+    sci->setMarginsForegroundColor(appPalette.color(QPalette::Mid));
 }
 
 JavaScriptToolOptionWidget::~JavaScriptToolOptionWidget()
@@ -66,37 +93,11 @@ JavaScriptToolOptionWidget::~JavaScriptToolOptionWidget()
     delete ui;
 }
 
-void JavaScriptToolOptionWidget::refillLineNumbers()
-{
-    QString content;
-    QTextStream stream(&content);
-    auto count = ui->jsTextEdit->document()->blockCount();
-    for (auto i = 1; i <= count; ++i) {
-        stream << i;
-        if (i < count)
-            stream << Qt::endl;
-    }
-    auto width = ui->lineNumberTextEdit->fontMetrics().horizontalAdvance(QString("%1").arg(count)) + 8;
-    ui->lineNumberTextEdit->setFixedWidth(width);
-    auto scrollPos = ui->jsTextEdit->verticalScrollBar()->value();
-    ui->lineNumberTextEdit->document()->setPlainText(content);
-    syncCursors();
-    ui->jsTextEdit->verticalScrollBar()->setValue(scrollPos);
-}
-
-void JavaScriptToolOptionWidget::syncCursors()
-{
-    auto cursor = ui->lineNumberTextEdit->textCursor();
-    cursor.setPosition(
-        ui->lineNumberTextEdit->document()->findBlockByNumber(ui->jsTextEdit->textCursor().blockNumber()).position());
-    ui->lineNumberTextEdit->setTextCursor(cursor);
-}
-
 OptionContainer JavaScriptToolOptionWidget::getOptions() const
 {
     OptionContainer options;
 
-    options.setOption("script", ui->jsTextEdit->document()->toPlainText());
+    options.setOption("script", ui->jsTextEdit->text());
     options.setOption("interpretBySystemEncoding", ui->interpretBySystemEncodingCheckBox->isChecked());
 
     return options;
@@ -104,8 +105,7 @@ OptionContainer JavaScriptToolOptionWidget::getOptions() const
 
 void JavaScriptToolOptionWidget::setOptions(const OptionContainer &options)
 {
-    ui->jsTextEdit->document()->setPlainText(options.getOption("script").toString());
-    syncCursors();
+    ui->jsTextEdit->setText(options.getOption("script").toString());
     ui->interpretBySystemEncodingCheckBox->setChecked(options.getOption("interpretBySystemEncoding").toBool());
 }
 

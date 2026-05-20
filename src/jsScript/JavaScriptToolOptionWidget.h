@@ -5,10 +5,6 @@
 
 #include "toolBase/ToolOptionWidget.h"
 
-namespace QSourceHighlite {
-class QSourceHighliter;
-}
-
 namespace Ui {
 class JavaScriptToolOptionWidget;
 }
@@ -24,15 +20,10 @@ public:
 protected:
     void changeEvent(QEvent *event) override;
 
-private slots:
-    void refillLineNumbers();
-    void syncCursors();
-
 private:
     void applyTheme();
 
     Ui::JavaScriptToolOptionWidget *ui;
-    QSourceHighlite::QSourceHighliter *highlighter;
 
     // ToolOptionWidget interface
 public:

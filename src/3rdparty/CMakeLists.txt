@@ -14,7 +14,9 @@ target_compile_options(compact_enc_det PRIVATE
     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-c++11-narrowing>
 )
 
-# QSourceHighlite (syntax highlighting)
+# QScintilla (code editing component)
+add_subdirectory(QScintilla)
+
 add_library(QSourceHighlite STATIC
     QSourceHighlite/qsourcehighliter.cpp
     QSourceHighlite/languagedata.cpp

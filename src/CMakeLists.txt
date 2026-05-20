@@ -37,12 +37,13 @@ add_subdirectory(vowelCrossfading)
 target_include_directories(KiraOtoToolbox PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/QScintilla/src
 )
 
 # Link libraries
 target_link_libraries(KiraOtoToolbox PRIVATE
     Qt6::Core Qt6::Core5Compat Qt6::Gui Qt6::Widgets Qt6::Concurrent Qt6::Network Qt6::Qml Qt6::Svg
-    compact_enc_det QSourceHighlite
+    compact_enc_det QSourceHighlite qscintilla2
     dtl dr_lib
 )
 

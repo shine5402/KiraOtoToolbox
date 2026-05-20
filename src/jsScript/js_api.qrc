@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/api">
+        <file>javascript.api</file>
+        <file>kiraoto_api.api</file>
+    </qresource>
+</RCC>

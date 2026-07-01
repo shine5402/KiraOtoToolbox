@@ -330,12 +330,25 @@ OtoEntry OtoEntry::fromString(const QString &str, bool *ok, OtoEntryError *error
         std::array<bool, parameterCount> doubleConvertOks{};
         enum parameterID { LEFT, CONSONANT, RIGHT, PREUTTERANCE, OVERLAP };
 
-        result.setLeft(parameterString.section(",", 1, 1).toDouble(&doubleConvertOks[parameterID::LEFT]));
-        result.setConsonant(parameterString.section(",", 2, 2).toDouble(&doubleConvertOks[parameterID::CONSONANT]));
-        result.setRight(parameterString.section(",", 3, 3).toDouble(&doubleConvertOks[parameterID::RIGHT]));
+        // setParam writes placeholder entries with all-numeric fields empty (e.g.
+        // "foo.wav=,,,,,"). UTAU reads these as 0, so treat an empty (or
+        // whitespace-only) field as 0 instead of a conversion failure.
+        auto parseDoubleField = [](const QString &s, bool *ok) -> double {
+            auto trimmed = s.trimmed();
+            if (trimmed.isEmpty()) {
+                if (ok)
+                    *ok = true;
+                return 0.0;
+            }
+            return trimmed.toDouble(ok);
+        };
+
+        result.setLeft(parseDoubleField(parameterString.section(",", 1, 1), &doubleConvertOks[parameterID::LEFT]));
+        result.setConsonant(parseDoubleField(parameterString.section(",", 2, 2), &doubleConvertOks[parameterID::CONSONANT]));
+        result.setRight(parseDoubleField(parameterString.section(",", 3, 3), &doubleConvertOks[parameterID::RIGHT]));
         result.setPreUtterance(
-            parameterString.section(",", 4, 4).toDouble(&doubleConvertOks[parameterID::PREUTTERANCE]));
-        result.setOverlap(parameterString.section(",", 5, 5).toDouble(&doubleConvertOks[parameterID::OVERLAP]));
+            parseDoubleField(parameterString.section(",", 4, 4), &doubleConvertOks[parameterID::PREUTTERANCE]));
+        result.setOverlap(parseDoubleField(parameterString.section(",", 5, 5), &doubleConvertOks[parameterID::OVERLAP]));
 
         for (int i = parameterID::LEFT; i <= parameterID::OVERLAP; i++) {
             if (!doubleConvertOks.at(i)) {

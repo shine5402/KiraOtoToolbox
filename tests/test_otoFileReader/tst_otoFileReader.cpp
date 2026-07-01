@@ -59,6 +59,11 @@ private slots:
     void testKeepInvalid();
     void testNonexistentFile();
 
+    // Empty-field handling (setParam placeholder entries)
+    void testAllFieldsEmpty();
+    void testPartialEmptyFields();
+    void testWhitespaceOnlyFields();
+
     // Shift-JIS encoding tests
     void testShiftJISJapaneseAlias();
     void testShiftJISJapaneseFilename();
@@ -167,6 +172,58 @@ void TestOtoFileReader::testNonexistentFile()
     auto entries = reader.read();
     QVERIFY(entries.isEmpty());
     QVERIFY(reader.readErrors().isEmpty());
+}
+
+// setParam writes placeholder entries with every numeric field empty. These
+// must parse transparently as 0 rather than being skipped as errors.
+void TestOtoFileReader::testAllFieldsEmpty()
+{
+    auto path = writeTempFile("_あ?あ.wav=,,,,,\n");
+    auto reader = makeReader(path);
+    auto entries = reader.read();
+    QCOMPARE(entries.size(), 1);
+    QCOMPARE(entries[0].fileName(), QString("_あ?あ.wav"));
+    QVERIFY(entries[0].alias().isEmpty());
+    QCOMPARE(entries[0].left(), 0.0);
+    QCOMPARE(entries[0].consonant(), 0.0);
+    QCOMPARE(entries[0].right(), 0.0);
+    QCOMPARE(entries[0].preUtterance(), 0.0);
+    QCOMPARE(entries[0].overlap(), 0.0);
+    QVERIFY(reader.readErrors().isEmpty());
+    removeTempFile(path);
+}
+
+// Empty numeric fields mixed with populated ones must also be treated as 0.
+void TestOtoFileReader::testPartialEmptyFields()
+{
+    auto path = writeTempFile("test.wav=alias,,300,,150,\n");
+    auto reader = makeReader(path);
+    auto entries = reader.read();
+    QCOMPARE(entries.size(), 1);
+    QCOMPARE(entries[0].alias(), QString("alias"));
+    QCOMPARE(entries[0].left(), 0.0);
+    QCOMPARE(entries[0].consonant(), 300.0);
+    QCOMPARE(entries[0].right(), 0.0);
+    QCOMPARE(entries[0].preUtterance(), 150.0);
+    QCOMPARE(entries[0].overlap(), 0.0);
+    QVERIFY(reader.readErrors().isEmpty());
+    removeTempFile(path);
+}
+
+// Whitespace-only numeric fields must be treated as 0 as well.
+void TestOtoFileReader::testWhitespaceOnlyFields()
+{
+    auto path = writeTempFile("test.wav=alias, , 300 , , 150 , \n");
+    auto reader = makeReader(path);
+    auto entries = reader.read();
+    QCOMPARE(entries.size(), 1);
+    QCOMPARE(entries[0].left(), 0.0);
+    QCOMPARE(entries[0].consonant(), 300.0);
+    QCOMPARE(entries[0].right(), 0.0);
+    QCOMPARE(entries[0].preUtterance(), 150.0);
+    QCOMPARE(entries[0].overlap(), 0.0);
+    QVERIFY(reader.readErrors().isEmpty());
+    removeTempFile(path);
 }
 
 // Shift-JIS: entry with Japanese alias (typical solo-tone vowel entry)

@@ -91,7 +91,7 @@ cmake --build build --preset my-debug
 cd build && ctest --output-on-failure
 ```
 
-All 21 test targets should pass.
+All 22 test targets should pass.
 
 ## Install (macOS)
 

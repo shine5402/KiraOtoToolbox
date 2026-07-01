@@ -34,6 +34,7 @@ target_link_libraries(test_jsScript PRIVATE
     dtl
     compact_enc_det
     QSourceHighlite
+    qscintilla2
     dr_lib
     Qt6::Qml
 )

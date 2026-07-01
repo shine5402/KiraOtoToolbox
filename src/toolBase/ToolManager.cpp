@@ -30,8 +30,9 @@ void ToolManager::unRegisterTool(const Tool &tool)
         auto &vec = it.value();
         if (vec.removeOne(tool)) {
             if (vec.isEmpty()) {
-                toolGroups.remove(it.key());
-                toolGroupNames.removeOne(it.key());
+                auto key = it.key();
+                toolGroups.remove(key);
+                toolGroupNames.removeOne(key);
             }
             break;
         }

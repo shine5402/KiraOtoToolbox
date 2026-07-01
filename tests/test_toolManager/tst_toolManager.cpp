@@ -28,9 +28,9 @@ void TestToolManager::testRegisterAndCount()
     while (mgr->getTools().count() > 0)
         mgr->unRegisterTool(0);
 
-    mgr->registerTool("Entry operations", Tool(RemoveBlankDialogAdapter::staticMetaObject));
-    mgr->registerTool("Alias operations", Tool(AddAffixDialogAdapter::staticMetaObject));
-    mgr->registerTool("Meta actions", Tool(NotDoAnythingDialogAdapter::staticMetaObject));
+    mgr->registerTool(ToolCategory::EntryOperations, Tool(RemoveBlankDialogAdapter::staticMetaObject));
+    mgr->registerTool(ToolCategory::AliasOperations, Tool(AddAffixDialogAdapter::staticMetaObject));
+    mgr->registerTool(ToolCategory::MetaActions, Tool(NotDoAnythingDialogAdapter::staticMetaObject));
 
     QCOMPARE(mgr->getTools().count(), 3);
 }
@@ -41,9 +41,9 @@ void TestToolManager::testGetToolGroups()
     auto groups = mgr->getToolGroups();
 
     QCOMPARE(groups.size(), 3);
-    QCOMPARE(groups.values("Entry operations").size(), 1);
-    QCOMPARE(groups.values("Alias operations").size(), 1);
-    QCOMPARE(groups.values("Meta actions").size(), 1);
+    QCOMPARE(groups.value(ToolCategory::EntryOperations).size(), 1);
+    QCOMPARE(groups.value(ToolCategory::AliasOperations).size(), 1);
+    QCOMPARE(groups.value(ToolCategory::MetaActions).size(), 1);
 }
 
 void TestToolManager::testGetToolGroupNamesInRegisterOrder()
@@ -52,9 +52,9 @@ void TestToolManager::testGetToolGroupNamesInRegisterOrder()
     auto names = mgr->getToolGroupNamesInRegisterOrder();
 
     QCOMPARE(names.size(), 3);
-    QCOMPARE(names.at(0), QString("Entry operations"));
-    QCOMPARE(names.at(1), QString("Alias operations"));
-    QCOMPARE(names.at(2), QString("Meta actions"));
+    QCOMPARE(names.at(0), ToolCategory::EntryOperations);
+    QCOMPARE(names.at(1), ToolCategory::AliasOperations);
+    QCOMPARE(names.at(2), ToolCategory::MetaActions);
 }
 
 void TestToolManager::testUnregisterByIndex()
@@ -84,7 +84,7 @@ void TestToolManager::testToolName()
     while (mgr->getTools().count() > 0)
         mgr->unRegisterTool(0);
 
-    mgr->registerTool("Test", Tool(NotDoAnythingDialogAdapter::staticMetaObject));
+    mgr->registerTool<NotDoAnythingDialogAdapter>();
     QCOMPARE(mgr->getTools().first().toolName(), QString("Adjust decimal precision"));
 }
 
@@ -129,12 +129,12 @@ void TestToolManager::testDuplicateRegistration()
         mgr->unRegisterTool(0);
 
     Tool tool(NotDoAnythingDialogAdapter::staticMetaObject);
-    mgr->registerTool("Test", tool);
-    mgr->registerTool("Test", tool);
+    mgr->registerTool(ToolCategory::MetaActions, tool);
+    mgr->registerTool(ToolCategory::MetaActions, tool);
 
     // Same tool registered twice
     QCOMPARE(mgr->getTools().count(), 2);
-    QCOMPARE(mgr->getToolGroups().values("Test").size(), 2);
+    QCOMPARE(mgr->getToolGroups().value(ToolCategory::MetaActions).size(), 2);
 }
 
 QTEST_MAIN(TestToolManager)

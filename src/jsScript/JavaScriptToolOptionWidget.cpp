@@ -6,6 +6,7 @@
 #include <QFontInfo>
 #include <QJsonObject>
 #include <Qsci/qsciapis.h>
+#include <Qsci/qscilexercpp.h>
 #include <Qsci/qscilexerjavascript.h>
 #include <Qsci/qsciscintilla.h>
 
@@ -31,10 +32,14 @@ JavaScriptToolOptionWidget::JavaScriptToolOptionWidget(QWidget *parent)
     sci->setAutoIndent(true);
     sci->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 
-    // Font
+    // Font — must be set on the *lexer*, not just the scintilla. Once a lexer is
+    // attached, its per-style fonts override sci->setFont(). The lexer defaults
+    // (esp. comments) fall back to an italic system font on macOS, which looks
+    // out of place. setFont(f, -1) iterates every style and overrides them all.
     auto font = QFont("JetBrains Mono");
     font.setStyleHint(QFont::Monospace);
-    sci->setFont(font);
+    font.setFixedPitch(true);
+    lexer->setFont(font);
     sci->setMarginsFont(font);
 
     // Tab stops
@@ -70,22 +75,59 @@ void JavaScriptToolOptionWidget::applyTheme()
     const bool dark = appPalette.color(QPalette::Window).lightness() < 128;
 
     auto *sci = ui->jsTextEdit;
+    auto *lexer = qobject_cast<QsciLexerJavaScript *>(sci->lexer());
 
-    // Background and foreground
-    sci->setPaper(appPalette.color(QPalette::Base));
-    sci->setColor(appPalette.color(QPalette::Text));
+    const QColor bg = appPalette.color(QPalette::Base);
+    const QColor fg = appPalette.color(QPalette::Text);
+
+    // Per-style syntax colors (VS Code-ish palette, readable in both modes).
+    const QColor commentColor = dark ? QColor(QStringLiteral("#6A9955")) : QColor(QStringLiteral("#008000"));
+    const QColor keywordColor = dark ? QColor(QStringLiteral("#569CD6")) : QColor(QStringLiteral("#0000FF"));
+    const QColor numberColor  = dark ? QColor(QStringLiteral("#B5CEA8")) : QColor(QStringLiteral("#098658"));
+    const QColor stringColor  = dark ? QColor(QStringLiteral("#CE9178")) : QColor(QStringLiteral("#A31515"));
+
+    // With a lexer attached, sci->setColor/setPaper only hit STYLE_DEFAULT; the
+    // lexer's per-style colors override it. The lexer defaults assume a white
+    // background, so on dark mode keywords/strings render in unreadable light
+    // colors. Push bg + base fg through every lexer style, then override the
+    // token styles that benefit from color.
+    if (lexer) {
+        lexer->setPaper(bg);
+        lexer->setColor(fg);
+        lexer->setColor(commentColor, QsciLexerCPP::Comment);
+        lexer->setColor(commentColor, QsciLexerCPP::CommentLine);
+        lexer->setColor(commentColor, QsciLexerCPP::CommentDoc);
+        lexer->setColor(keywordColor, QsciLexerCPP::Keyword);
+        lexer->setColor(numberColor, QsciLexerCPP::Number);
+        lexer->setColor(stringColor, QsciLexerCPP::DoubleQuotedString);
+        lexer->setColor(stringColor, QsciLexerCPP::SingleQuotedString);
+    }
+
+    // Scintilla-level defaults (cover non-lexer areas and the base style).
+    sci->setPaper(bg);
+    sci->setColor(fg);
 
     // Selection colors
     sci->setSelectionBackgroundColor(appPalette.color(QPalette::Highlight));
     sci->setSelectionForegroundColor(appPalette.color(QPalette::HighlightedText));
 
     // Caret color
-    sci->setCaretForegroundColor(appPalette.color(QPalette::Text));
+    sci->setCaretForegroundColor(fg);
 
-    // Margin (line number) colors
-    sci->setMarginsBackgroundColor(dark ? appPalette.color(QPalette::Base).darker(110)
-                                        : appPalette.color(QPalette::Base).lighter(105));
-    sci->setMarginsForegroundColor(appPalette.color(QPalette::Mid));
+    // Margin (line number) colors. Mix fg/bg so the line number is a mid-grey
+    // that stays readable on either theme — QPalette::Mid is near-black on the
+    // macOS dark palette and renders the numbers invisible.
+    const QColor lineNumberColor = QColor(
+        (fg.red() + bg.red()) / 2,
+        (fg.green() + bg.green()) / 2,
+        (fg.blue() + bg.blue()) / 2);
+    sci->setMarginsBackgroundColor(dark ? bg.darker(110) : bg.lighter(105));
+    sci->setMarginsForegroundColor(lineNumberColor);
+
+    // Fold margin: its background defaults to a light grey that shows up as a
+    // wide separator strip between line numbers and code. Blend it with the code
+    // background; keep the fold-marker foreground visible via Mid.
+    sci->setFoldMarginColors(appPalette.color(QPalette::Mid), bg);
 }
 
 JavaScriptToolOptionWidget::~JavaScriptToolOptionWidget()

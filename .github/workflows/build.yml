@@ -24,7 +24,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: "6.11.1"
+          version: "6.10.3"
           arch: clang_64
           modules: "qt5compat"
           cache: true
@@ -78,7 +78,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: "6.11.1"
+          version: "6.10.3"
           arch: win64_msvc2022_64
           modules: "qt5compat"
           cache: true
@@ -126,7 +126,7 @@ jobs:
   build-flatpak:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10
       options: --privileged
 
     steps:

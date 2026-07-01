@@ -54,10 +54,6 @@ jobs:
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install LLVM Clang (macOS)
-        if: runner.os == 'macOS'
-        run: brew install llvm
-
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
@@ -74,14 +70,6 @@ jobs:
           preset = "${{ matrix.preset }}"
           platform_preset = "${{ matrix.platform-preset }}"
           cache_vars = {"CMAKE_PREFIX_PATH": qt_root, "KIRAOTOTOOLBOX_BUILD_TESTING": "ON"}
-          if "${{ runner.os }}" == "macOS":
-              llvm_bin = "/opt/homebrew/opt/llvm/bin"
-              cache_vars["CMAKE_C_COMPILER"] = f"{llvm_bin}/clang"
-              cache_vars["CMAKE_CXX_COMPILER"] = f"{llvm_bin}/clang++"
-              # Use Apple's ar/ranlib to avoid llvm-ar bug with fat Mach-O archives
-              # (https://github.com/llvm/llvm-project/issues/98997)
-              cache_vars["CMAKE_AR"] = "/usr/bin/ar"
-              cache_vars["CMAKE_RANLIB"] = "/usr/bin/ranlib"
           data = {
               "version": 8,
               "configurePresets": [{"name": preset, "inherits": platform_preset, "cacheVariables": cache_vars}],

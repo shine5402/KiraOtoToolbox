@@ -20,7 +20,6 @@ jobs:
         run: |
           brew list ninja || brew install ninja
           brew list create-dmg || brew install create-dmg
-          brew install llvm
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -37,7 +36,7 @@ jobs:
           qt_root = os.environ["QT_ROOT_DIR"].replace("\\", "/")
           data = {
               "version": 8,
-              "configurePresets": [{"name": "ci-macos", "inherits": "macos-relwithdebinfo-template", "cacheVariables": {"CMAKE_PREFIX_PATH": qt_root, "CMAKE_C_COMPILER": "/opt/homebrew/opt/llvm/bin/clang", "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++", "CMAKE_AR": "/usr/bin/ar", "CMAKE_RANLIB": "/usr/bin/ranlib"}}],
+              "configurePresets": [{"name": "ci-macos", "inherits": "macos-relwithdebinfo-template", "cacheVariables": {"CMAKE_PREFIX_PATH": qt_root}}],
               "buildPresets": [{"name": "ci-macos", "configurePreset": "ci-macos"}],
           }
           with open("CMakeUserPresets.json", "w") as f:

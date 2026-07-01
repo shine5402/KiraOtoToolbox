@@ -111,7 +111,7 @@ jobs:
       - name: Download unofficial Inno Setup translations
         run: |
           $langDir = "${env:ProgramFiles(x86)}\Inno Setup 6\Languages"
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl" -OutFile "$langDir\ChineseSimplified.isl"
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/ChineseSimplified.isl" -OutFile "$langDir\ChineseSimplified.isl"
 
       - name: Build installer
         run: iscc scripts\installer-windows.iss

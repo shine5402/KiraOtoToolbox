@@ -19,25 +19,13 @@ The KFR audio library is managed as a git submodule at `src/3rdparty/kfr`.
 
 ## Compiler
 
-### macOS
+The project requires C++23. Tested compilers:
 
-**LLVM Clang 22+ is required.** The project uses C++23 features including `std::views::zip` and `std::views::adjacent<N>` (P2321R2). Apple Clang (as of Xcode 26.4.1 / Apple Clang 21.0.0) does not yet include these features.
+- **macOS:** Apple Clang 21 (Xcode 26.5)
+- **Windows:** MSVC with `/std:c++latest`
+- **Linux:** Clang 18+ or GCC 14+
 
-Install LLVM Clang via Homebrew:
-
-```bash
-brew install llvm
-```
-
-The two compilers are ABI-compatible for pure C++ (same libc++, Itanium ABI, Mach-O target), so you can mix LLVM Clang-built code with Qt 6 frameworks built against Apple Clang.
-
-### Windows
-
-MSVC with C++23 support (`/std:c++latest`). The CMake preset enables C++23 automatically.
-
-### Linux
-
-Clang 22+ or GCC with full C++23 ranges support (including P2321R2).
+The CMake preset sets `CMAKE_CXX_STANDARD=23` automatically.
 
 ## Configure
 
@@ -54,7 +42,6 @@ Create `CMakeUserPresets.json` in the project root (git-ignored) that inherits f
             "inherits": "macos-debug-template",
             "cacheVariables": {
                 "CMAKE_PREFIX_PATH": "/path/to/Qt/6.10.2/macos",
-                "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
             }
         }

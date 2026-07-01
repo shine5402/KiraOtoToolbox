@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
-#include <ranges>
 
 TempoTransformOptionWidget::TempoTransformOptionWidget(QWidget *parent)
     : ToolOptionWidget(parent), ui(new Ui::TempoTransformOptionWidget)
@@ -96,8 +95,9 @@ void TempoTransformOptionWidget::askOtoDataCallback(int askId, const QVector<Oto
         std::vector<std::pair<int, std::size_t>> allCounts;
         for (const auto &entries : groups) {
             std::map<int, std::size_t> countMap;
-            for (const auto &pair : entries | std::views::adjacent<2>) {
-                const auto &[a, b] = pair;
+            for (std::size_t i = 1; i < entries.size(); ++i) {
+                const auto &a = entries[i - 1];
+                const auto &b = entries[i];
                 auto distance = absolutePre(b) - absolutePre(a);
                 ++countMap[static_cast<int>(std::floor(distance))];
             }

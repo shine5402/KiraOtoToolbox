@@ -1,6 +1,5 @@
 #include "TempoTransformOtoListModifyWorker.h"
 
-#include <numeric>
 #include <ranges>
 
 TempoTransformOtoListModifyWorker::TempoTransformOtoListModifyWorker(QObject *parent) : OtoListModifyWorker{parent}
@@ -32,13 +31,10 @@ void TempoTransformOtoListModifyWorker::doWork(const OtoEntryList &srcOtoList, O
 
     std::vector<OtoEntry> stdResult;
     for (const auto &entrys : groups) {
-        auto distances =
-            entrys | std::views::adjacent<2> |
-            std::views::transform([&](const auto &pair) -> double {
-                const auto &[a, b] = pair;
-                return absolutePre(b) - absolutePre(a);
-            }) |
-            std::ranges::to<std::vector<double>>();
+        std::vector<double> distances;
+        distances.reserve(entrys.size() > 0 ? entrys.size() - 1 : 0);
+        for (std::size_t i = 1; i < entrys.size(); ++i)
+            distances.push_back(absolutePre(entrys[i]) - absolutePre(entrys[i - 1]));
 
         auto ratio = fromTempo / toTempo;
         auto newDistances =
